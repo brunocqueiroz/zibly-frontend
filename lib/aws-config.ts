@@ -1,3 +1,7 @@
+// AWS Configuration - COMMENTED OUT FOR NOW
+// Uncomment when ready to add file upload functionality
+
+/*
 import { S3Client } from '@aws-sdk/client-s3'
 import { fromIni } from '@aws-sdk/credential-providers'
 import { loadSharedConfigFiles } from '@aws-sdk/shared-ini-file-loader'
@@ -125,4 +129,27 @@ export async function initializeAWS(): Promise<void> {
     console.error('AWS initialization failed:', error)
     console.log('To fix this, run: aws configure')
   }
+}
+*/
+
+// Placeholder functions for when AWS is disabled
+export async function getS3Client() {
+  throw new Error('AWS functionality is currently disabled')
+}
+
+export async function getBucketName() {
+  throw new Error('AWS functionality is currently disabled')
+}
+
+export async function getRegion() {
+  throw new Error('AWS functionality is currently disabled')
+}
+
+export async function testAWSConnection(): Promise<boolean> {
+  console.log('AWS functionality is currently disabled')
+  return false
+}
+
+export async function initializeAWS(): Promise<void> {
+  console.log('AWS functionality is currently disabled')
 } 

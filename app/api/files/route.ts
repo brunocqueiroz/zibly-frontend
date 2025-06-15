@@ -1,3 +1,7 @@
+// AWS Files API - COMMENTED OUT FOR NOW
+// Uncomment when ready to add file management functionality
+
+/*
 import { ListObjectsV2Command, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { NextRequest, NextResponse } from 'next/server';
 import { getS3Client, getBucketName, getRegion } from '@/lib/aws-config';
@@ -64,4 +68,26 @@ export async function DELETE(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+*/
+
+import { NextRequest, NextResponse } from 'next/server';
+
+// GET - List files
+export async function GET() {
+  return NextResponse.json({
+    files: [],
+    message: 'File management functionality is currently disabled. Coming soon!'
+  });
+}
+
+// DELETE - Delete a file
+export async function DELETE(request: NextRequest) {
+  return NextResponse.json(
+    { 
+      error: 'File management functionality is currently disabled. Coming soon!',
+      message: 'AWS S3 integration will be added in a future update.'
+    },
+    { status: 503 } // Service Unavailable
+  );
 } 

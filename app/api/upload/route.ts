@@ -1,3 +1,7 @@
+// AWS Upload API - COMMENTED OUT FOR NOW
+// Uncomment when ready to add file upload functionality
+
+/*
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { NextRequest, NextResponse } from 'next/server';
@@ -39,4 +43,17 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+*/
+
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(request: NextRequest) {
+  return NextResponse.json(
+    { 
+      error: 'File upload functionality is currently disabled. Coming soon!',
+      message: 'AWS S3 integration will be added in a future update.'
+    },
+    { status: 503 } // Service Unavailable
+  );
 } 
