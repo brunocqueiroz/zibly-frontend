@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .inter-section-heading {
+    font-family: "Inter", sans-serif !important;
+    font-size: 56px !important;
+    font-weight: 400 !important;
+    line-height: 64px !important;
+    letter-spacing: -0.01em !important;
+    color: #000000 !important;
+  }
+
+  @media (max-width: 768px) {
+    .inter-section-heading {
+      font-size: 36px !important;
+      line-height: 44px !important;
+    }
+  }
+}
+
+/* Inter font classes for different text elements */
+.inter-heading-normal {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #000000;
+}
+
+.inter-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #374151;
+}
+
+.inter-text-medium {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: #374151;
+}
+
+@layer base {
+  :root {
+    --background: 270 20% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 270 15% 99%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 270 15% 99%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    --primary: 270 70% 60%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 270 10% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --accent: 270 70% 95%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 270 15% 91%;
+    --input: 270 15% 96%;
+    --ring: 270 70% 60%;
+    
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Cohere-inspired gradient backgrounds */
+.gradient-bg-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-bg-2 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.gradient-bg-3 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.gradient-bg-4 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.gradient-bg-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+.gradient-bg-section {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 50%, rgba(240, 147, 251, 0.05) 100%);
+}
+
+/* Cohere-style text gradients */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cohere-style cards with subtle gradients */
+.gradient-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Cohere-style buttons with gradients */
+.gradient-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Animated gradient backgrounds */
+.animated-gradient {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Inter font typography classes */
+.inter-heading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: #000000;
+}
+
+.inter-subheading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: #000000;
+}
+
+.inter-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.inter-body-large {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #374151;
+}
+
+/* Hero section with white background */
+.hero-section {
+  background: #ffffff;
+}
+
+/* Blob shapes for aesthetic purposes */
+.blob-1 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-radius: 50% 40% 60% 30%;
+  filter: blur(40px);
+  animation: float 6s ease-in-out infinite;
+}
+
+.blob-2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(79, 172, 254, 0.1) 100%);
+  border-radius: 40% 60% 30% 50%;
+  filter: blur(30px);
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+/* Section heading typography - MUST BE AT END FOR HIGHEST SPECIFICITY */
+h1.inter-section-heading,
+h2.inter-section-heading,
+h3.inter-section-heading,
+.inter-section-heading {
+  font-family: "Inter", sans-serif !important;
+  font-size: 56px !important;
+  font-weight: 400 !important;
+  line-height: 64px !important;
+  letter-spacing: -0.01em !important;
+  color: #000000 !important;
+}
+
+@media (max-width: 768px) {
+  h1.inter-section-heading,
+  h2.inter-section-heading,
+  h3.inter-section-heading,
+  .inter-section-heading {
+    font-size: 36px !important;
+    line-height: 44px !important;
+  }
+}
+
+/* Hide scrollbar for testimonials carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Additional scrollbar hiding for testimonials */
+#testimonials-container {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#testimonials-container::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  display: none;
+}
