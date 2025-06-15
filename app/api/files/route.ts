@@ -1,29 +1,26 @@
-import { S3Client, ListObjectsV2Command, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { ListObjectsV2Command, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { NextRequest, NextResponse } from 'next/server';
-
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION || 'us-east-1',
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-});
+import { getS3Client, getBucketName, getRegion } from '@/lib/aws-config';
 
 // GET - List files
 export async function GET() {
   try {
+    const s3Client = await getS3Client();
+    const bucketName = await getBucketName();
+    
     const command = new ListObjectsV2Command({
-      Bucket: process.env.S3_BUCKET_NAME || 'zibly-frontend-prod',
+      Bucket: bucketName,
       Prefix: 'uploads/',
     });
 
     const response = await s3Client.send(command);
     
+    const region = await getRegion();
     const files = response.Contents?.map(obj => ({
       key: obj.Key,
       lastModified: obj.LastModified,
       size: obj.Size,
-      url: `https://${process.env.S3_BUCKET_NAME || 'zibly-frontend-prod'}.s3.${process.env.AWS_REGION || 'us-east-1'}.amazonaws.com/${obj.Key}`
+      url: `https://${bucketName}.s3.${region}.amazonaws.com/${obj.Key}`
     })) || [];
 
     return NextResponse.json({ files });
@@ -49,8 +46,11 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
+    const s3Client = await getS3Client();
+    const bucketName = await getBucketName();
+
     const command = new DeleteObjectCommand({
-      Bucket: process.env.S3_BUCKET_NAME || 'zibly-frontend-prod',
+      Bucket: bucketName,
       Key: key,
     });
 
