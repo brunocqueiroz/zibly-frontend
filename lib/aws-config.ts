@@ -16,40 +16,63 @@ export async function getAWSConfig(): Promise<AWSConfig> {
   }
 
   try {
-    // Load AWS configuration from ~/.aws/config and ~/.aws/credentials
-    const sharedConfig = await loadSharedConfigFiles()
-    
-    // Get the default profile or specified profile
-    const profile = process.env.AWS_PROFILE || 'default'
-    
-    // Get region from config file or fall back to us-east-1
-    const region = sharedConfig.configFile?.[profile]?.region || 
-                   sharedConfig.credentialsFile?.[profile]?.region || 
-                   'us-east-1'
+    // Check if we're in production/deployment environment (has env vars)
+    const isProduction = process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY
 
-    // Get bucket name from config or use default
-    const bucketName = sharedConfig.configFile?.[profile]?.s3_bucket || 
-                       process.env.AWS_S3_BUCKET_NAME ||
-                       'zibly-uploads'
+    let region: string
+    let bucketName: string
+    let s3Client: S3Client
 
-    // Create S3 client with credentials from AWS CLI
-    const s3Client = new S3Client({
-      region,
-      credentials: fromIni({ profile })
-    })
+    if (isProduction) {
+      // Production: Use environment variables (Vercel, etc.)
+      region = process.env.AWS_REGION || 'us-east-1'
+      bucketName = process.env.AWS_S3_BUCKET_NAME || 'zibly-frontend-prod'
+      
+      s3Client = new S3Client({
+        region,
+        credentials: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+        },
+      })
+
+      console.log(`AWS configured for production with region: ${region}, bucket: ${bucketName}`)
+    } else {
+      // Development: Use AWS CLI configuration
+      const sharedConfig = await loadSharedConfigFiles()
+      const profile = process.env.AWS_PROFILE || 'default'
+      
+      region = sharedConfig.configFile?.[profile]?.region || 
+               sharedConfig.credentialsFile?.[profile]?.region || 
+               'us-east-1'
+
+      bucketName = sharedConfig.configFile?.[profile]?.s3_bucket || 
+                   process.env.AWS_S3_BUCKET_NAME ||
+                   'zibly-frontend-prod'
+
+      s3Client = new S3Client({
+        region,
+        credentials: fromIni({ profile })
+      })
+
+      console.log(`AWS configured for development with profile: ${profile}, region: ${region}, bucket: ${bucketName}`)
+    }
 
     awsConfig = {
       region,
       bucketName,
       s3Client
     }
-
-    console.log(`AWS configured with profile: ${profile}, region: ${region}, bucket: ${bucketName}`)
     
     return awsConfig
   } catch (error) {
     console.error('Failed to load AWS configuration:', error)
-    throw new Error(`AWS configuration failed. Please run 'aws configure' to set up your credentials. ${error}`)
+    
+    if (process.env.AWS_ACCESS_KEY_ID) {
+      throw new Error(`AWS configuration failed in production. Check your environment variables: ${error}`)
+    } else {
+      throw new Error(`AWS configuration failed. Please run 'aws configure' to set up your credentials: ${error}`)
+    }
   }
 }
 

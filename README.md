@@ -168,18 +168,18 @@ Add the following to your profile section:
 ```ini
 [default]
 region = us-east-1
-s3_bucket = your-zibly-bucket-name
+s3_bucket = zibly-frontend-prod
 
 # Or for a specific profile
 [profile production]
 region = us-east-1
-s3_bucket = zibly-production-bucket
+s3_bucket = zibly-frontend-prod
 ```
 
 Alternatively, you can set the bucket name as an environment variable:
 
 ```bash
-export AWS_S3_BUCKET_NAME=your-bucket-name
+export AWS_S3_BUCKET_NAME=zibly-frontend-prod
 ```
 
 The application will automatically use your AWS CLI configuration for S3 operations.
