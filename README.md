@@ -197,15 +197,124 @@ npx shadcn-ui@latest add dialog
 
 ## Deployment
 
-### Vercel (Recommended)
+### Quick Deployment Checklist
 
-The project is optimized for Vercel deployment:
+Before deploying, ensure you have:
+
+- ✅ **GitHub Repository**: Code pushed to `brunocqueiroz/zibly-frontend`
+- ✅ **AWS CLI Configured**: `aws configure` completed locally  
+- ✅ **S3 Bucket Ready**: `zibly-frontend-prod` in `us-east-1`
+- ✅ **Domain Ready**: `zibly.ai` (if using custom domain)
+- ⚠️ **AWS Credentials**: Need to add to Vercel environment variables
+- ⚠️ **CORS Policy**: Need to update for production domain
+
+### Vercel Deployment (Recommended)
+
+The project is optimized for Vercel deployment with the following setup:
+
+#### Step 1: Push to GitHub
 
 ```bash
-# Deploy to Vercel
-vercel
+# Ensure all changes are committed and pushed
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+```
 
-# Or connect your GitHub repository to Vercel for automatic deployments
+#### Step 2: Deploy to Vercel
+
+1. **Go to [vercel.com/new](https://vercel.com/new)**
+2. **Import your GitHub repository:**
+   - Click "Import Git Repository" 
+   - Select your `zibly-frontend` repository
+   - Click "Import"
+
+3. **Configure Project Settings:**
+   - **Project Name**: `zibly-frontend`
+   - **Framework Preset**: Next.js (auto-detected)
+   - **Root Directory**: `./` (default)
+   - **Build Command**: `pnpm build`
+   - **Output Directory**: `.next` (auto-detected)
+   - **Install Command**: `pnpm install`
+
+#### Step 3: Environment Variables
+
+**IMPORTANT:** Add these environment variables in Vercel before deploying:
+
+**Vercel Dashboard → Your Project → Settings → Environment Variables:**
+
+```env
+# AWS Configuration (Required)
+AWS_ACCESS_KEY_ID=your_aws_access_key_id
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key  
+AWS_REGION=us-east-1
+AWS_S3_BUCKET_NAME=zibly-frontend-prod
+
+# Optional: Google Analytics
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+**To get your AWS credentials:**
+
+```bash
+# Get your AWS Access Key ID
+aws configure get aws_access_key_id
+
+# Get your AWS Secret Access Key
+aws configure get aws_secret_access_key
+
+# Get your configured region
+aws configure get region
+```
+
+#### Step 4: Custom Domain Setup
+
+1. **In Vercel Dashboard:**
+   - Go to your project → **Settings** → **Domains**
+   - Add your custom domain: `zibly.ai`
+   - Vercel will provide DNS configuration
+
+2. **Update your domain DNS:**
+   - Add the CNAME record Vercel provides
+   - Or point your nameservers to Vercel
+
+#### Step 5: S3 CORS Configuration
+
+Update your S3 bucket CORS to allow your domain:
+
+```bash
+# Apply CORS policy to your bucket
+aws s3api put-bucket-cors --bucket zibly-frontend-prod --cors-configuration file://cors-policy.json
+```
+
+The `cors-policy.json` file should contain:
+
+```json
+{
+  "CORSRules": [
+    {
+      "AllowedOrigins": [
+        "http://localhost:3000",
+        "https://zibly.ai",
+        "https://your-vercel-domain.vercel.app"
+      ],
+      "AllowedMethods": [
+        "GET",
+        "PUT", 
+        "POST",
+        "DELETE",
+        "HEAD"
+      ],
+      "AllowedHeaders": [
+        "*"
+      ],
+      "ExposeHeaders": [
+        "ETag"
+      ],
+      "MaxAgeSeconds": 3000
+    }
+  ]
+}
 ```
 
 ### Other Platforms
@@ -216,6 +325,8 @@ The project can be deployed to any platform supporting Next.js:
 - **Railway** 
 - **DigitalOcean App Platform**
 - **AWS Amplify**
+
+For these platforms, ensure you set the same environment variables as listed above.
 
 ## Authentication
 

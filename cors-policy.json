@@ -3,7 +3,10 @@
     {
       "AllowedOrigins": [
         "http://localhost:3000",
-        "https://zibly.ai"
+        "https://zibly.ai",
+        "https://zibly-frontend.vercel.app",
+        "https://zibly-frontend-git-main-brunocqueiroz.vercel.app",
+        "https://zibly-frontend-brunocqueiroz.vercel.app"
       ],
       "AllowedMethods": [
         "GET",
