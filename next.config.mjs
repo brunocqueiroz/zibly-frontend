@@ -9,10 +9,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Ensure API routes use Node.js runtime
-  experimental: {
-    runtime: 'nodejs',
-  },
 }
 
 export default nextConfig
