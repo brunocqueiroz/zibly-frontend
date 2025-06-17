@@ -11,20 +11,45 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/api/auth/[...nextauth]/route": [
+    "/features/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/[...nextauth]/route.js"
+      "static/chunks/app/features/loading.js"
     ],
-    "/login/loading": [
+    "/features/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/login/loading.js"
+      "static/chunks/app/features/page.js"
     ],
-    "/login/page": [
+    "/api/auth/me/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/login/page.js"
+      "static/chunks/app/api/auth/me/route.js"
+    ],
+    "/solutions/consultants/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/solutions/consultants/page.js"
+    ],
+    "/solutions/private-equity/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/solutions/private-equity/page.js"
+    ],
+    "/about/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/about/page.js"
+    ],
+    "/faq/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/faq/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

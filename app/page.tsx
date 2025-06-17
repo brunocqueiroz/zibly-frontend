@@ -2,250 +2,57 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles, Star, FileText, BarChart3, PenTool, Mail, Bot } from 'lucide-react'
+import { ArrowRight, Sparkles, Star, FileText, BarChart3, PenTool, Mail, Bot, Clock, DollarSign, TrendingDown, TrendingUp, Rocket, Gem, AlertCircle } from 'lucide-react'
 import type { Metadata } from 'next' // Import Metadata type
-import { useState, useEffect } from 'react'
-
-// Add specific metadata for the homepage
-// This will be merged with the default metadata from layout.tsx
-// export const metadata: Metadata = {
-//   title: "zibly.ai - Your AI Email Analyst for Deep Work", // More specific title
-//   description: "Delegate complex tasks to zibly.ai via email and receive professional deliverables. Boost productivity with your AI analyst. Try your first task free.",
-//   openGraph: {
-//     title: "zibly.ai - Your AI Email Analyst for Deep Work",
-//     description: "Transform your productivity. Send tasks to zibly.ai and get high-quality analytical work done.",
-//     // You can specify a unique image for this page if needed
-//     // images: [{ url: 'https://zibly.ai/homepage-og.png' }],
-//   },
-//   twitter: {
-//     title: "zibly.ai - Your AI Email Analyst for Deep Work",
-//     description: "Transform your productivity. Send tasks to zibly.ai and get high-quality analytical work done.",
-//   },
-// }
-// NOTE: Since this is a "use client" component, metadata export won't work directly here.
-// For client components, you'd typically manage title/meta tags using a client-side effect hook
-// or ensure the parent server component handles it.
-// For simplicity in this iteration, we'll rely on the layout's metadata and focus on server components for metadata.
-// If this page were a Server Component, the above metadata object would work.
 
 export default function Home() {
   // Testimonials data
   const testimonials = [
     {
-      name: "Michael Chen",
-      title: "PE Director at Carlyle",
+      name: "Alex J.",
+      title: "Private Equity Director",
       text: "I forward Zibly our portfolio company reports and get back investment committee memos. Last week it identified a margin compression issue I missed. It's not just fast—it's thorough.",
-      rating: 5
+      rating: 5,
     },
     {
-      name: "Amanda Foster", 
-      title: "McKinsey Manager",
+      name: "Jordan L.", 
+      title: "Consulting Manager",
       text: "My team was burning out on production work. Now we use Zibly for data cleanup and first drafts, which lets my analysts focus on insights and client relationships. We're doing our best work ever.",
-      rating: 4.5
+      rating: 5,
     },
     {
-      name: "David Park",
-      title: "Series B Founder", 
-      text: "Zibly is like having a brilliant analyst on my team, without the management overhead. I can finally focus on strategy instead of spreadsheets. Best $299/month investment I make.",
-      rating: 5
+      name: "Taylor M.",
+      title: "Tech Startup Founder", 
+      text: "Zibly is like having a brilliant analyst on my team, without the management overhead. I can finally focus on strategy instead of spreadsheets. Best investment I make every month.",
+      rating: 5,
     },
     {
-      name: "Sarah Williams",
-      title: "VP Strategy at Goldman Sachs",
+      name: "Morgan R.",
+      title: "VP of Strategy at Financial Firm",
       text: "I send Zibly market research requests that would take my team weeks. Get comprehensive reports back in hours. The quality rivals what we'd produce internally, but 10x faster.",
-      rating: 5
+      rating: 5,
     },
-    {
-      name: "James Rodriguez",
-      title: "Head of Product at Stripe",
-      text: "Zibly handles our competitive analysis and user research synthesis. What used to be a 2-week process now happens overnight. My PMs can focus on building instead of research grunt work.",
-      rating: 4.5
-    },
-    {
-      name: "Lisa Thompson",
-      title: "Managing Director at Bain",
-      text: "Client deliverables that used to require 3 junior consultants now get done by Zibly. The analysis is thorough, the formatting is perfect, and it's ready for client presentation.",
-      rating: 5
-    },
-    {
-      name: "Robert Kim",
-      title: "Chief Investment Officer",
-      text: "I email Zibly our quarterly earnings calls and get back detailed investment thesis updates. It catches nuances in management commentary that even experienced analysts miss.",
-      rating: 4.5
-    },
-    {
-      name: "Maria Gonzalez",
-      title: "Senior Partner at A16Z",
-      text: "Due diligence that used to take our team 2 weeks now gets done in 2 days with Zibly. The depth of analysis is incredible - it's like having a team of senior analysts on demand.",
-      rating: 5
-    },
-    {
-      name: "Alex Turner",
-      title: "Chief Strategy Officer at Meta",
-      text: "Zibly processes our competitive intelligence reports and delivers strategic insights that inform our product roadmap. It's like having a dedicated strategy consultant available 24/7.",
-      rating: 5
-    },
-    {
-      name: "Jennifer Walsh",
-      title: "Investment Director at Sequoia",
-      text: "We use Zibly for startup due diligence. It analyzes financial models, market sizing, and competitive landscapes faster than our entire research team. Critical for our investment decisions.",
-      rating: 4.5
-    },
-    {
-      name: "Marcus Johnson",
-      title: "Senior Partner at BCG",
-      text: "Our clients expect BCG-quality analysis in record time. Zibly helps us deliver comprehensive market studies and strategic recommendations that exceed expectations while meeting impossible deadlines.",
-      rating: 5
-    },
-    {
-      name: "Rachel Green",
-      title: "VP of Business Development at Salesforce",
-      text: "Partnership evaluations that used to take weeks now happen in days. Zibly analyzes potential partners' financials, market position, and strategic fit with incredible accuracy.",
-      rating: 4.5
-    },
-    {
-      name: "Thomas Anderson",
-      title: "Head of M&A at JPMorgan",
-      text: "Deal analysis that used to require a team of analysts now gets done by Zibly overnight. The financial modeling and market analysis quality is investment banking grade.",
-      rating: 5
-    },
-    {
-      name: "Sophie Martinez",
-      title: "Chief Marketing Officer at Airbnb",
-      text: "Market research and competitive analysis for new market entries used to take months. Zibly delivers comprehensive reports in hours, helping us move faster than competitors.",
-      rating: 5
-    },
-    {
-      name: "Daniel Cooper",
-      title: "Managing Director at Blackstone",
-      text: "Real estate investment analysis has never been this efficient. Zibly processes market data, comparable sales, and investment projections with the precision of our best analysts.",
-      rating: 4.5
-    },
-    {
-      name: "Emma Thompson",
-      title: "Head of Strategy at Netflix",
-      text: "Content strategy decisions require deep market analysis. Zibly processes viewing data, competitor content strategies, and audience insights to inform our billion-dollar content investments.",
-      rating: 5
-    },
-    {
-      name: "Kevin Liu",
-      title: "Principal at Kleiner Perkins",
-      text: "Startup evaluation requires analyzing hundreds of data points. Zibly synthesizes market size, team backgrounds, competitive landscape, and financial projections into actionable investment insights.",
-      rating: 4.5
-    },
-    {
-      name: "Victoria Adams",
-      title: "Chief Operating Officer at Uber",
-      text: "Operational efficiency analysis across global markets used to require massive teams. Zibly processes performance data and identifies optimization opportunities in record time.",
-      rating: 5
-    },
-    {
-      name: "Ryan Mitchell",
-      title: "Senior Director at Deloitte",
-      text: "Client engagements demand rapid turnaround on complex analysis. Zibly helps us deliver Fortune 500-quality strategic recommendations while maintaining our reputation for excellence.",
-      rating: 5
-    },
-    {
-      name: "Isabella Rodriguez",
-      title: "VP of Corporate Development at Google",
-      text: "Acquisition target analysis requires deep technical and market evaluation. Zibly processes technical documentation, market positioning, and financial metrics to inform billion-dollar decisions.",
-      rating: 4.5
-    },
-    {
-      name: "Nathan Brooks",
-      title: "Chief Investment Officer at Fidelity",
-      text: "Portfolio analysis across thousands of holdings requires sophisticated data processing. Zibly identifies risk patterns and opportunities that our traditional analysis methods miss.",
-      rating: 5
-    },
-    {
-      name: "Olivia Chen",
-      title: "Head of Innovation at Tesla",
-      text: "Technology roadmap planning requires analyzing emerging trends and competitive movements. Zibly processes patent filings, research papers, and market signals to inform our R&D strategy.",
-      rating: 4.5
-    },
-    {
-      name: "Christopher Davis",
-      title: "Managing Partner at Accenture",
-      text: "Digital transformation projects require comprehensive industry analysis. Zibly evaluates technology trends, implementation costs, and ROI projections to guide our client recommendations.",
-      rating: 5
-    },
-    {
-      name: "Grace Wang",
-      title: "VP of Strategy at Microsoft",
-      text: "Cloud market analysis requires processing vast amounts of competitive intelligence. Zibly synthesizes pricing strategies, feature comparisons, and market share data into actionable insights.",
-      rating: 5
-    },
-    {
-      name: "Benjamin Taylor",
-      title: "Senior Partner at EY",
-      text: "Regulatory compliance analysis across multiple jurisdictions used to take months. Zibly processes regulatory changes and impact assessments, keeping our clients ahead of compliance requirements.",
-      rating: 4.5
-    },
-    {
-      name: "Samantha Lee",
-      title: "Chief Data Officer at Amazon",
-      text: "E-commerce trend analysis requires processing millions of data points. Zibly identifies consumer behavior patterns and market opportunities that drive our product and pricing strategies.",
-      rating: 5
-    },
-    {
-      name: "Andrew Wilson",
-      title: "Investment Director at Tiger Global",
-      text: "Growth equity investments require rapid market analysis and competitive positioning studies. Zibly delivers institutional-quality research that informs our multi-million dollar investment decisions.",
-      rating: 4.5
-    },
-    {
-      name: "Michelle Zhang",
-      title: "Head of Corporate Strategy at Apple",
-      text: "Strategic planning for new product categories requires deep market intelligence. Zibly analyzes consumer trends, competitive landscapes, and technology adoption patterns to guide our roadmap.",
-      rating: 5
-    }
-  ]
-
-  // Create infinite scroll array by tripling the testimonials
-  const infiniteTestimonials = [...testimonials, ...testimonials, ...testimonials]
+  ];
+  
 
   const handleEmailClick = () => {
-    const subject = "Research competitors for my startup"
-    const body = `Hi Zibly,
+    const subject = "Fwd: Board deck needed by Friday"
+    const body = `Zibly,
 
-Can you research 3 main competitors for my project management SaaS? Need pricing and key features.
+Can you create a 10-slide board update from our Q4 data? 
+Need:
+- Revenue analysis with YoY comparisons
+- Customer acquisition cost trends  
+- Market expansion opportunities
+- 2025 strategic priorities
 
-Thanks!`
+I've attached our metrics dashboard and last quarter's deck.
+
+Thanks,
+Sarah`
 
     const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     window.location.href = mailtoLink
-  }
-
-  const handlePrevious = () => {
-    const container = document.getElementById('testimonials-container')
-    if (container) {
-      const cardWidth = 400
-      container.scrollBy({ left: -cardWidth, behavior: 'smooth' })
-      
-      // Handle infinite scroll boundary
-      if (container.scrollLeft <= cardWidth) {
-        setTimeout(() => {
-          const jumpPosition = (testimonials.length * 2 - 1) * cardWidth
-          container.scrollTo({ left: jumpPosition, behavior: 'auto' })
-        }, 300)
-      }
-    }
-  }
-
-  const handleNext = () => {
-    const container = document.getElementById('testimonials-container')
-    if (container) {
-      const cardWidth = 400
-      container.scrollBy({ left: cardWidth, behavior: 'smooth' })
-      
-      // Handle infinite scroll boundary
-      if (container.scrollLeft >= (testimonials.length * 2) * cardWidth) {
-        setTimeout(() => {
-          const jumpPosition = testimonials.length * cardWidth
-          container.scrollTo({ left: jumpPosition, behavior: 'auto' })
-        }, 300)
-      }
-    }
   }
 
   const renderStars = (rating: number) => {
@@ -269,151 +76,86 @@ Thanks!`
     return stars
   }
 
-  // Initialize scroll position
-  useEffect(() => {
-    const container = document.getElementById('testimonials-container')
-    if (container) {
-      const cardWidth = 400
-      const initialPosition = testimonials.length * cardWidth // Start at middle set
-      container.scrollTo({ left: initialPosition, behavior: 'auto' })
-    }
-  }, [])
-
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-20 lg:py-24 bg-gradient-to-b from-primary-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-primary-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-8 text-center">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
+            <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-4">
-              <h1 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                Your email-powered AI assistant
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                  Your AI Analyst Works Where You Do
                 </h1>
-              <p className="max-w-[600px] text-lg md:text-xl inter-text mx-auto">
-                Simply send an email with your tasks, and zibly.ai will handle it for you. The simplest way to get things done with AI.
+                <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                  Finally, an AI that works like your best analyst. Forward complex tasks, get back professional
+                  deliverables. No apps to learn. No chatbot conversations. Just exceptional work, delivered.
+                </p>
+                <p className="max-w-[600px] text-primary font-semibold md:text-lg">
+                  Try your first task free. See the difference in 10 minutes.
                 </p>
               </div>
-            <div className="flex justify-center">
-                <Button asChild size="lg" className="bg-primary hover:bg-primary-600">
-                  <Link href="/signup">
-                  Get Started
-                  </Link>
+              <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
+                  Send Your First Task Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-            </div>
-          </div>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/pricing">View Pricing</Link>
+                </Button>
               </div>
-      </section>
-
-      {/* Email Demo Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-purple-50">
-        <div className="container px-4 md:px-6">
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-8">
-              <h2 className="inter-section-heading mb-4" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>See How It Works</h2>
-              <p className="max-w-[900px] text-lg inter-text mx-auto">A real email exchange with zibly.ai</p>
             </div>
-            
-            {/* Email Cards Side by Side */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* User's Email */}
-              <div className="rounded-lg border-2 border-gray-200 bg-gray-50 p-4">
-                {/* Mac Window Controls */}
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="h-2 w-2 rounded-full bg-red-500" />
-                  <div className="h-2 w-2 rounded-full bg-yellow-500" />
-                  <div className="h-2 w-2 rounded-full bg-green-500" />
-                  <div className="flex-1 text-center">
-                    <span className="text-xs inter-text text-gray-600">New Message</span>
+            <div className="flex items-center justify-center">
+              <div
+                className="relative w-full max-w-[500px] aspect-video rounded-xl border bg-white p-4 shadow-lg dark:bg-gray-800 cursor-pointer hover:shadow-xl transition-shadow"
+                onClick={handleEmailClick}
+              >
+                <div className="flex items-center gap-2 border-b pb-2">
+                  <div className="h-3 w-3 rounded-full bg-red-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-green-500"></div>
+                  <div className="text-sm font-medium ml-2">New Email to Zibly</div>
+                  <div className="ml-auto text-xs text-gray-500">Click to send</div>
+                </div>
+                <div className="mt-3 space-y-2 text-sm">
+                  <div className="flex gap-2">
+                    <div className="font-medium">To:</div>
+                    <div>work@zibly.ai</div>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="font-medium">Subject:</div>
+                    <div>Fwd: Board deck needed by Friday</div>
+                  </div>
+                  <div className="mt-4 text-sm leading-relaxed">
+                    Zibly,
+                    <br />
+                    <br />
+                    Can you create a 10-slide board update from our Q4 data?
+                    <br />
+                    Need:
+                    <br />- Revenue analysis with YoY comparisons
+                    <br />- Customer acquisition cost trends
+                    <br />- Market expansion opportunities
+                    <br />- 2025 strategic priorities
+                    <br />
+                    <br />
+                    I've attached our metrics dashboard and last quarter's deck.
+                    <br />
+                    <br />
+                    Thanks,
+                    <br />
+                    Sarah
+                  </div>
+                  <div className="flex items-center gap-2 mt-3 p-2 bg-gray-50 rounded border-dashed border-2">
+                    <FileText className="h-4 w-4 text-gray-400" />
+                    <span className="text-xs text-gray-500">Q4_metrics_dashboard.xlsx (45KB)</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 bg-gray-50 rounded border-dashed border-2">
+                    <FileText className="h-4 w-4 text-gray-400" />
+                    <span className="text-xs text-gray-500">Q3_board_deck.pptx (2.1MB)</span>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-2 mb-3">
-                  <Mail className="h-4 w-4 text-blue-600" />
-                </div>
-                
-                <div className="space-y-3 text-left">
-                  <div className="text-xs">
-                    <span className="inter-text-medium text-gray-700">To:</span>
-                    <span className="inter-text text-blue-600 font-medium ml-2">work@zibly.ai</span>
-                  </div>
-                  
-                  <div className="border-b border-gray-300 pb-2">
-                    <span className="text-xs inter-text text-gray-600">Subject: </span>
-                    <span className="text-sm inter-text-medium text-gray-900 font-bold">Research competitors for my startup</span>
-                  </div>
-                  
-                  <div className="text-sm inter-text text-gray-700 leading-relaxed pt-2">
-                    <strong>Hi Zibly,</strong>
-                    <br />
-                    <br />
-                    Can you research <strong>3 main competitors</strong> for my project management SaaS? I need:
-                    <br />
-                    • Pricing information
-                    <br />
-                    • Key features comparison
-                    <br />
-                    • Market positioning
-                    <br />
-                    <br />
-                    Thanks!
-                    <br />
-                    <span className="text-gray-600 italic">- Sarah</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* AI Response */}
-              <div className="rounded-lg border-2 border-purple-200 bg-purple-50 p-4">
-                {/* Mac Window Controls */}
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="h-2 w-2 rounded-full bg-red-500" />
-                  <div className="h-2 w-2 rounded-full bg-yellow-500" />
-                  <div className="h-2 w-2 rounded-full bg-green-500" />
-                  <div className="flex-1 text-center">
-                    <span className="text-xs inter-text text-gray-600">Inbox - work@zibly.ai</span>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2 mb-3">
-                  <Bot className="h-4 w-4 text-purple-600" />
-                  <div className="text-xs inter-text-medium text-purple-800">Zibly AI Response</div>
-                  <div className="ml-auto">
-                    <span className="text-xs inter-text text-gray-500 bg-green-100 px-2 py-1 rounded-full">✓ Delivered</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-3 text-left">
-                  <div className="text-xs">
-                    <span className="inter-text-medium text-gray-700">From:</span>
-                    <span className="inter-text text-purple-600 font-medium ml-2">work@zibly.ai</span>
-                  </div>
-                  
-                  <div className="border-b border-purple-300 pb-2">
-                    <span className="text-xs inter-text text-purple-600">Subject: </span>
-                    <span className="text-sm inter-text-medium text-purple-900 font-bold">Re: Research competitors for my startup</span>
-                  </div>
-                  
-                  <div className="text-sm inter-text text-gray-800 leading-relaxed pt-2">
-                    <strong>Hi Sarah!</strong>
-                    <br />
-                    <br />
-                    I've completed your competitor research. Here are the <strong>top 3 competitors</strong>:
-                    <br />
-                    <br />
-                    <strong>1. Asana:</strong> $10-25/user/month, visual tracking
-                    <br />
-                    <strong>2. Monday.com:</strong> $8-20/user/month, custom workflows
-                    <br />
-                    <strong>3. Trello:</strong> Free-$17.50/user/month, Kanban boards
-                    <br />
-                    <br />
-                    📊 competitor-analysis-detailed.pdf
-                    <br />
-                    <br />
-                    <strong>Best regards,</strong>
-                    <br />
-                    Zibly AI Assistant
-                  </div>
+                <div className="absolute -bottom-4 -right-4 rounded-lg bg-primary p-2 text-white shadow-lg">
+                  <Sparkles className="h-5 w-5" />
                 </div>
               </div>
             </div>
@@ -421,50 +163,145 @@ Thanks!`
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* This Isn't ChatGPT Section */}
       <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-4">
-              <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                AI-Powered Task Completion via Email
+              <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-700">
+                The Difference
+              </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                This Isn't ChatGPT. This is Deep Work.
               </h2>
-              <p className="max-w-[900px] text-lg inter-text">
-                We're building the simplest way to get things done with AI
-              </p>
+              <div className="max-w-[900px] space-y-4">
+                <div className="grid md:grid-cols-2 gap-6 text-left">
+                  <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+                    <div className="font-semibold text-gray-600 dark:text-gray-400 mb-2">ChatGPT:</div>
+                    <p className="text-gray-500 dark:text-gray-400 italic">"Here's how to analyze your data..."</p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/20">
+                    <div className="font-semibold text-primary mb-2">Zibly:</div>
+                    <p className="text-gray-700 dark:text-gray-300 font-medium">
+                      "Here's your completed analysis with charts, insights, and recommendations."
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <div className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <FileText className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+                <BarChart3 className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">No New Apps</h3>
-                <p className="inter-text">
-                  Works directly from your email inbox. No need to learn new tools or interfaces.
+                <h3 className="text-xl font-bold">From Data Dump to Board Deck</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Send us your messiest spreadsheet. Get back pivot tables, visualizations, and a narrative that tells
+                  the story behind the numbers.
                 </p>
               </div>
             </div>
             <div className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <Sparkles className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+                <FileText className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">Intelligent AI</h3>
-                <p className="inter-text">
-                  Our AI understands and completes complex tasks with high accuracy and attention to detail.
+                <h3 className="text-xl font-bold">Hours of Reading in Minutes</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  50 contracts to review? 200-page industry report to digest? Zibly extracts exactly what matters and
+                  delivers it in the format you need.
                 </p>
               </div>
             </div>
             <div className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <Star className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+                <PenTool className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">Save Time</h3>
-                <p className="inter-text">
-                  Focus on what matters most while zibly.ai handles your tasks efficiently.
+                <h3 className="text-xl font-bold">Writing That Sounds Like You</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Not generic AI content. Professional memos, strategic analyses, and client deliverables written in
+                  your industry's language.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Value Multiplier Section */}
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-purple-50 via-white to-pink-50">
+        <div className="container max-w-4xl px-4 md:px-6">
+          <div className="text-center mb-8">
+            <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-700 mb-4">
+              Value Proposition
+            </div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Multiply Your Value 10x</h2>
+          </div>
+          <div className="rounded-lg bg-white border shadow-lg p-8">
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-2">The Reality Check</div>
+                <p className="text-gray-500">You're doing work that's beneath your pay grade. Here's the math:</p>
+              </div>
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="border-l-4 border-red-500 pl-4">
+                  <div className="text-lg font-semibold text-red-600 mb-2">Without Zibly</div>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4 text-red-500" />
+                      <span>20 hours/week on analysis & reports</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="h-4 w-4 text-red-500" />
+                      <span>Your value: $200-500/hour</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <TrendingDown className="h-4 w-4 text-red-500" />
+                      <span>Weekly waste: <strong>$4,000-10,000</strong></span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <AlertCircle className="h-4 w-4 text-red-500" />
+                      <span>Annual opportunity cost: <strong>$200K-500K</strong></span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="border-l-4 border-green-500 pl-4">
+                  <div className="text-lg font-semibold text-green-600 mb-2">With Zibly</div>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Rocket className="h-4 w-4 text-green-500" />
+                      <span>20 hours freed for strategic work</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Gem className="h-4 w-4 text-green-500" />
+                      <span>Focus on $500-2000/hour decisions</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-green-500" />
+                      <span>Weekly value unlock: <strong>$10K-40K</strong></span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-green-500" />
+                      <span>Annual impact: <strong>$500K-2M+</strong></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 text-center">
+                <p className="font-semibold text-lg mb-2">
+                  <strong>The Bottom Line</strong>
+                </p>
+                <p className="text-gray-600">
+                  Every hour you spend on analytical grunt work is an hour you're not closing deals, making strategic decisions, or building relationships. <strong>Zibly gives you back 20+ hours per week</strong> to do the work only you can do.
+                </p>
+                <p className="mt-4 text-purple-700 font-semibold">
+                  <strong>ROI in Week 1: 10-50x your investment</strong>
                 </p>
               </div>
             </div>
@@ -477,42 +314,45 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-4">
-              <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                Simple Email, Powerful Results
+              <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-700">
+                Features
+              </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Built for the Work That Matters
               </h2>
             </div>
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <div className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <BarChart3 className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+                <BarChart3 className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">Research & Analysis</h3>
-                <p className="inter-text">
-                  Get comprehensive research, competitor analysis, and market insights delivered straight to your inbox.
+                <h3 className="text-xl font-bold">Financial Modeling & Analysis</h3>
+                <p className="text-gray-500">
+                  DCF models, sensitivity analysis, comparable company analysis, LBO models—Zibly handles complex financial work with precision.
                 </p>
               </div>
             </div>
             <div className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <FileText className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+                <FileText className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">Content Creation</h3>
-                <p className="inter-text">
-                  From blog posts to social media content, get high-quality writing that matches your brand voice.
+                <h3 className="text-xl font-bold">Strategic Research & Reports</h3>
+                <p className="text-gray-500">
+                  Market sizing, competitive landscapes, due diligence reports, investment memos—get comprehensive analysis that drives decisions.
                 </p>
               </div>
             </div>
             <div className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <PenTool className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+                <PenTool className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">Data Processing</h3>
-                <p className="inter-text">
-                  Transform raw data into actionable insights with clear visualizations and summaries.
+                <h3 className="text-xl font-bold">Data Synthesis & Insights</h3>
+                <p className="text-gray-500">
+                  Process hundreds of documents, transcripts, and data sources. Extract patterns and insights humans would need weeks to find.
                 </p>
               </div>
             </div>
@@ -521,38 +361,44 @@ Thanks!`
       </section>
 
       {/* How It Works Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-bl from-purple-50 via-white to-pink-50">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>As Simple as Sending an Email</h2>
+              <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-700">
+                How It Works
+              </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Delegate Like You Would to a Human</h2>
             </div>
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <div className="flex flex-col justify-center space-y-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white">1</div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">Send Your Task</h3>
-                <p className="inter-text">
-                  Email your task to work@zibly.ai. Be as specific or general as you need - our AI will ask for clarification if needed.
+                <h3 className="text-xl font-bold">Forward Any Task</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Just like emailing a colleague. Attach files, give context, be as vague or specific as you want. Zibly
+                  asks smart clarifying questions.
                 </p>
               </div>
             </div>
             <div className="flex flex-col justify-center space-y-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white">2</div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">We Work On It</h3>
-                <p className="inter-text">
-                  Our AI processes your request, researches, analyzes, and creates the perfect solution for your needs.
+                <h3 className="text-xl font-bold">Real Work Takes Time</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  This isn't instant AI chat. Zibly researches, analyzes, double-checks, and creates professional
+                  deliverables. Average task: 5-10 minutes.
                 </p>
               </div>
             </div>
             <div className="flex flex-col justify-center space-y-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white">3</div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">Get Results</h3>
-                <p className="inter-text">
-                  Receive your completed task in your inbox, ready to use. No apps to learn, no interfaces to master.
+                <h3 className="text-xl font-bold">Get Finished Work</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Complete Excel files. Polished presentations. Professional documents. Everything ready to forward to
+                  your boss or client.
                 </p>
               </div>
             </div>
@@ -565,112 +411,60 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Trusted by Top Professionals</h2>
+              <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-700">
+                Testimonials
+              </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Trusted by Leaders Who Demand Excellence</h2>
             </div>
           </div>
           
-          {/* Testimonials Carousel */}
-          <div className="mx-auto max-w-6xl py-12">
-            <div className="relative flex items-center">
-              {/* Left Navigation Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handlePrevious}
-                className="absolute left-0 z-10 bg-white hover:bg-gray-50 shadow-lg border-2"
-                style={{ transform: 'translateX(-50%)' }}
-              >
-                ←
-              </Button>
-
-              {/* Testimonials Container */}
-              <div 
-                id="testimonials-container"
-                className="flex gap-6 overflow-x-hidden hover:overflow-x-auto scrollbar-hide pb-8 pt-4 mx-8"
-                style={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              >
-                {infiniteTestimonials.map((testimonial, index) => (
-                  <div 
-                    key={index} 
-                    className="flex-shrink-0 w-80 flex flex-col justify-center space-y-4 rounded-lg border p-6 shadow-sm bg-white transition-all duration-300 hover:scale-105"
-                    style={{ scrollSnapAlign: 'start' }}
-                  >
-              <div className="flex items-center space-x-2">
-                <div className="h-10 w-10 rounded-full bg-gray-200" />
-                <div>
-                        <p className="text-sm inter-text-medium">{testimonial.name}</p>
-                        <p className="text-xs inter-text">{testimonial.title}</p>
+          {/* Testimonials Grid */}
+          <div className="mx-auto max-w-5xl py-12">
+            <div className="grid gap-6 md:grid-cols-2">
+              {testimonials.map((testimonial, index) => (
+                <div 
+                  key={index} 
+                  className="flex flex-col justify-center space-y-4 rounded-lg border p-6 shadow-sm bg-white"
+                >
+                  <div className="flex items-center space-x-2">
+                    <div>
+                      <p className="text-sm font-medium">{testimonial.name}</p>
+                      <p className="text-xs text-gray-500">{testimonial.title}</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    {testimonial.text}
+                  </p>
+                  <div className="flex">
+                    {renderStars(testimonial.rating)}
+                  </div>
                 </div>
-              </div>
-                    <p className="inter-text">
-                      {testimonial.text}
-              </p>
-              <div className="flex">
-                      {renderStars(testimonial.rating)}
-                </div>
-              </div>
-                ))}
-              </div>
-
-              {/* Right Navigation Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleNext}
-                className="absolute right-0 z-10 bg-white hover:bg-gray-50 shadow-lg border-2"
-                style={{ transform: 'translateX(50%)' }}
-              >
-                →
-              </Button>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Amplify Your Impact Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-bl from-purple-50 via-white to-pink-50">
-        <div className="container max-w-4xl px-4 md:px-6">
-          <h2 className="inter-section-heading mb-8 text-center" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Amplify Your Impact</h2>
-          <div className="rounded-lg bg-white border shadow-lg p-8">
-            <div className="grid gap-6 md:grid-cols-3 text-center">
-              <div>
-                <div className="text-2xl inter-text-medium text-primary">$150-500</div>
-                <div className="text-sm inter-text">Your hourly value</div>
-              </div>
-              <div>
-                <div className="text-2xl inter-text-medium text-primary">15-20 hours</div>
-                <div className="text-sm inter-text">Weekly analytical tasks</div>
-              </div>
-              <div>
-                <div className="text-2xl inter-text-medium text-primary">$2,250-10,000</div>
-                <div className="text-sm inter-text">Potential value unlocked per week</div>
-              </div>
-            </div>
-            <p className="mt-6 text-center inter-text">
-              When you delegate analytical work to zibly.ai, you can focus on the strategic decisions only you can make.
-            </p>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-purple-50 via-blue-50 to-white">
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-primary text-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                Ready to get started?
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                What Would You Accomplish With 20 Hours Back Each Week?
               </h2>
+              <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
+                Zibly handles the analytical heavy lifting so you can focus on strategy, creativity, and growth. See the
+                difference with your first task—completely free.
+              </p>
             </div>
-            <div className="flex justify-center">
+            <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Button
-                asChild
                 size="lg"
-                className="bg-primary hover:bg-primary-600"
+                variant="secondary"
+                onClick={handleEmailClick}
               >
-                <Link href="/signup">
-                  Get Started
-                </Link>
+                Send Your First Task Free → work@zibly.ai <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -679,6 +473,3 @@ Thanks!`
     </div>
   )
 }
-
-
-

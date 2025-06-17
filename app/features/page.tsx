@@ -282,10 +282,9 @@ export default function FeaturesPage() {
             <div className="flex flex-col items-center text-center space-y-4">
               <Database className="h-12 w-12 text-primary" />
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">It Learns Your Business</h3>
+                <h3 className="text-xl inter-heading-normal">It Works Where You Do</h3>
                 <p className="inter-text">
-                  Zibly remembers your company context, industry terminology, and preferred formats. Outputs that
-                  actually sound like they came from your company.
+                  Zibly is accessible from your email. You can simply forward work, and it will do everything that your associates or analysts would do. 
                 </p>
               </div>
             </div>

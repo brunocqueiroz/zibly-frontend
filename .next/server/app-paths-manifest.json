@@ -1,5 +1,10 @@
 {
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/page": "app/page.js",
-  "/login/page": "app/login/page.js"
+  "/api/auth/me/route": "app/api/auth/me/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/solutions/consultants/page": "app/solutions/consultants/page.js",
+  "/features/page": "app/features/page.js",
+  "/solutions/private-equity/page": "app/solutions/private-equity/page.js",
+  "/about/page": "app/about/page.js",
+  "/faq/page": "app/faq/page.js",
+  "/page": "app/page.js"
 }
