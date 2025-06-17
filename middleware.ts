@@ -1,36 +1,46 @@
+import { auth } from "@/auth"
 import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
 
-export async function middleware(request: NextRequest) {
-  console.log("Middleware called for:", request.nextUrl.pathname)
+export default auth((req) => {
+  const { nextUrl } = req
+  const isLoggedIn = !!req.auth
 
-  const sessionCookie = request.cookies.get("zibly-session")
-  const isAuthenticated = !!sessionCookie
+  // Routes that require authentication
+  const protectedRoutes = ['/dashboard']
+  const isProtectedRoute = protectedRoutes.some(route => 
+    nextUrl.pathname.startsWith(route)
+  )
 
-  console.log("Session cookie exists:", isAuthenticated)
-  console.log("Session cookie value:", sessionCookie?.value)
+  // Routes that should redirect if already authenticated
+  const authRoutes = ['/login', '/signup']
+  const isAuthRoute = authRoutes.some(route => 
+    nextUrl.pathname.startsWith(route)
+  )
 
-  // Protect dashboard routes
-  if (request.nextUrl.pathname.startsWith("/dashboard") && !isAuthenticated) {
-    console.log("Redirecting to login - no session")
-    const url = new URL("/login", request.url)
-    url.searchParams.set("callbackUrl", request.nextUrl.pathname)
-    return NextResponse.redirect(url)
+  // Redirect to login if trying to access protected route without auth
+  if (isProtectedRoute && !isLoggedIn) {
+    const loginUrl = new URL('/login', nextUrl.origin)
+    loginUrl.searchParams.set('callbackUrl', nextUrl.pathname)
+    return NextResponse.redirect(loginUrl)
   }
 
-  // Redirect authenticated users away from auth pages
-  if (
-    (request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/signup")) &&
-    isAuthenticated
-  ) {
-    console.log("Redirecting to dashboard - already authenticated")
-    return NextResponse.redirect(new URL("/dashboard", request.url))
+  // Redirect to dashboard if already authenticated and trying to access auth routes
+  if (isAuthRoute && isLoggedIn) {
+    return NextResponse.redirect(new URL('/dashboard', nextUrl.origin))
   }
 
-  console.log("Middleware allowing request to proceed")
   return NextResponse.next()
-}
+})
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/signup"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 }

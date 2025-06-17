@@ -5,7 +5,8 @@ import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { BarChart3, CreditCard, Home, Mail, Settings, User, LogOut } from "lucide-react"
-import { useAuth } from "@/components/auth-provider"
+import { useSession } from "@/components/auth-provider"
+import { signOut } from "next-auth/react"
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
@@ -18,11 +19,15 @@ const navigation = [
 export default function DashboardNav() {
   const pathname = usePathname()
   const router = useRouter()
-  const { user, logout } = useAuth()
+  const { data: session } = useSession()
+  const user = session?.user
+  
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/' })
+  }
 
   const handleSignOut = async () => {
-    await logout()
-    router.push("/")
+    await handleLogout()
   }
 
   return (

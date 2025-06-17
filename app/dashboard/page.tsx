@@ -8,10 +8,12 @@ import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowRight } from "lucide-react"
 import DashboardNav from "@/components/dashboard-nav"
-import { useAuth } from "@/components/auth-provider"
+import { useSession } from "@/components/auth-provider"
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth()
+  const { data: session, status } = useSession()
+  const user = session?.user
+  const loading = status === "loading"
   const [userData, setUserData] = useState({
     usage: { current: 32, total: 50 },
     recentActivity: [

@@ -13,10 +13,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { changePlan, cancelSubscription, reactivateSubscription } from "@/app/actions/subscription"
 import DashboardNav from "@/components/dashboard-nav"
 import { useToast } from "@/components/ui/use-toast"
-import { useAuth } from "@/components/auth-provider"
+import { useSession } from "@/components/auth-provider"
 
 export default function SubscriptionPage() {
-  const { user } = useAuth()
+  const { data: session } = useSession()
+  const user = session?.user
   const [selectedPlan, setSelectedPlan] = useState("professional")
   const [billingCycle, setBillingCycle] = useState("monthly")
   const [isLoading, setIsLoading] = useState(false)

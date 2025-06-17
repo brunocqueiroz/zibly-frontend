@@ -7,12 +7,15 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import Logo from "@/components/logo"
-import { useAuth } from "@/components/auth-provider"
+import { useSession } from "@/components/auth-provider"
 
 export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const { user, loading } = useAuth()
+  const { data: session, status } = useSession()
+  
+  const user = session?.user
+  const loading = status === "loading"
 
   // Don't show navbar on auth pages or dashboard
   if (pathname?.startsWith("/login") || pathname?.startsWith("/signup") || pathname?.startsWith("/dashboard")) {

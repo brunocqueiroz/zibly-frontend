@@ -1,7 +1,6 @@
 "use server"
 
-import { getSessionFromCookies } from "@/lib/session"
-import { getUser, updateUser } from "@/lib/auth"
+import { auth } from "@/auth"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
@@ -26,8 +25,8 @@ const profileSchema = z.object({
 })
 
 export async function updateProfile(formData: FormData) {
-  const user = await getSessionFromCookies()
-  if (!user?.email) {
+  const session = await auth()
+  if (!session?.user?.email) {
     return { error: "Not authenticated" }
   }
 
@@ -47,20 +46,28 @@ export async function updateProfile(formData: FormData) {
   const { name, email, company } = validatedFields.data
 
   try {
-    const userDetails = getUser(user.email)
-    if (!userDetails) {
-      return { error: "User not found" }
-    }
-
-    updateUser(user.email, {
-      name,
-      email,
-      company,
+    // Call your Python backend to update user profile
+    const response = await fetch(`${process.env.BACKEND_URL || 'http://localhost:8000'}/api/user/profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.accessToken}`
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        company
+      })
     })
+
+    if (!response.ok) {
+      return { error: "Failed to update profile" }
+    }
 
     revalidatePath("/dashboard/settings")
     return { success: true }
   } catch (error) {
+    console.error('Profile update error:', error)
     return { error: "Failed to update profile" }
   }
 }
@@ -72,8 +79,8 @@ const passwordSchema = z.object({
 })
 
 export async function updatePassword(formData: FormData) {
-  const user = await getSessionFromCookies()
-  if (!user?.email) {
+  const session = await auth()
+  if (!session?.user?.email) {
     return { error: "Not authenticated" }
   }
 
@@ -97,34 +104,35 @@ export async function updatePassword(formData: FormData) {
   }
 
   try {
-    const userDetails = getUser(user.email)
-    if (!userDetails?.password) {
-      return { error: "No password set for this account" }
-    }
-
-    // Verify current password
-    const passwordMatch = await verifyPassword(currentPassword, userDetails.password)
-    if (!passwordMatch) {
-      return { error: "Current password is incorrect" }
-    }
-
-    // Hash new password
-    const hashedPassword = await simpleHash(newPassword)
-
-    updateUser(user.email, {
-      password: hashedPassword,
+    // Call your Python backend to update password
+    const response = await fetch(`${process.env.BACKEND_URL || 'http://localhost:8000'}/api/user/password`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.accessToken}`
+      },
+      body: JSON.stringify({
+        currentPassword,
+        newPassword
+      })
     })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      return { error: errorData.message || "Failed to update password" }
+    }
 
     revalidatePath("/dashboard/settings")
     return { success: true }
   } catch (error) {
+    console.error('Password update error:', error)
     return { error: "Failed to update password" }
   }
 }
 
 export async function updateNotificationPreferences(formData: FormData) {
-  const user = await getSessionFromCookies()
-  if (!user?.email) {
+  const session = await auth()
+  if (!session?.user?.email) {
     return { error: "Not authenticated" }
   }
 
@@ -133,22 +141,28 @@ export async function updateNotificationPreferences(formData: FormData) {
   const marketingEmails = formData.get("marketingEmails") === "on"
 
   try {
-    const userDetails = getUser(user.email)
-    if (!userDetails) {
-      return { error: "User not found" }
-    }
-
-    updateUser(user.email, {
-      notifications: {
+    // Call your Python backend to update notification preferences
+    const response = await fetch(`${process.env.BACKEND_URL || 'http://localhost:8000'}/api/user/notifications`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.accessToken}`
+      },
+      body: JSON.stringify({
         emailNotifications,
         usageAlerts,
-        marketingEmails,
-      },
+        marketingEmails
+      })
     })
+
+    if (!response.ok) {
+      return { error: "Failed to update notification preferences" }
+    }
 
     revalidatePath("/dashboard/settings")
     return { success: true }
   } catch (error) {
+    console.error('Notification preferences update error:', error)
     return { error: "Failed to update notification preferences" }
   }
 }

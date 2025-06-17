@@ -1,12 +1,11 @@
 "use server"
 
-import { getSessionFromCookies } from "@/lib/session"
-import { getUser, updateUser } from "@/lib/auth"
+import { auth } from "@/auth"
 import { revalidatePath } from "next/cache"
 
 export async function changePlan(formData: FormData) {
-  const user = await getSessionFromCookies()
-  if (!user?.email) {
+  const session = await auth()
+  if (!session?.user?.email) {
     return { error: "Not authenticated" }
   }
 
@@ -18,75 +17,81 @@ export async function changePlan(formData: FormData) {
   }
 
   try {
-    const userDetails = getUser(user.email)
-    if (!userDetails) {
-      return { error: "User not found" }
-    }
-
-    // Update subscription in memory
-    updateUser(user.email, {
-      subscription: {
-        ...userDetails.subscription,
-        plan,
-        currentPeriodEnd: new Date(Date.now() + (billingCycle === "annual" ? 365 : 30) * 24 * 60 * 60 * 1000),
+    // Call your Python backend to update subscription
+    const response = await fetch(`${process.env.BACKEND_URL || 'http://localhost:8000'}/api/subscription/change`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.accessToken}`
       },
+      body: JSON.stringify({
+        plan,
+        billingCycle
+      })
     })
+
+    if (!response.ok) {
+      return { error: "Failed to update subscription" }
+    }
 
     revalidatePath("/dashboard/subscription")
     return { success: true }
   } catch (error) {
+    console.error('Subscription change error:', error)
     return { error: "Failed to update subscription" }
   }
 }
 
 export async function cancelSubscription() {
-  const user = await getSessionFromCookies()
-  if (!user?.email) {
+  const session = await auth()
+  if (!session?.user?.email) {
     return { error: "Not authenticated" }
   }
 
   try {
-    const userDetails = getUser(user.email)
-    if (!userDetails) {
-      return { error: "User not found" }
-    }
-
-    updateUser(user.email, {
-      subscription: {
-        ...userDetails.subscription,
-        cancelAtPeriodEnd: true,
-      },
+    const response = await fetch(`${process.env.BACKEND_URL || 'http://localhost:8000'}/api/subscription/cancel`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.accessToken}`
+      }
     })
+
+    if (!response.ok) {
+      return { error: "Failed to cancel subscription" }
+    }
 
     revalidatePath("/dashboard/subscription")
     return { success: true }
   } catch (error) {
+    console.error('Subscription cancel error:', error)
     return { error: "Failed to cancel subscription" }
   }
 }
 
 export async function reactivateSubscription() {
-  const user = await getSessionFromCookies()
-  if (!user?.email) {
+  const session = await auth()
+  if (!session?.user?.email) {
     return { error: "Not authenticated" }
   }
 
   try {
-    const userDetails = getUser(user.email)
-    if (!userDetails) {
-      return { error: "User not found" }
-    }
-
-    updateUser(user.email, {
-      subscription: {
-        ...userDetails.subscription,
-        cancelAtPeriodEnd: false,
-      },
+    const response = await fetch(`${process.env.BACKEND_URL || 'http://localhost:8000'}/api/subscription/reactivate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.accessToken}`
+      }
     })
+
+    if (!response.ok) {
+      return { error: "Failed to reactivate subscription" }
+    }
 
     revalidatePath("/dashboard/subscription")
     return { success: true }
   } catch (error) {
+    console.error('Subscription reactivate error:', error)
     return { error: "Failed to reactivate subscription" }
   }
 }
