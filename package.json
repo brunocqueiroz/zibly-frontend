@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.828.0",
-    "@aws-sdk/credential-providers": "^3.828.0",
     "@aws-sdk/s3-request-presigner": "^3.828.0",
+    "@aws-sdk/credential-providers": "^3.828.0",
     "@aws-sdk/shared-ini-file-loader": "^3.374.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "1.2.2",
@@ -50,7 +50,6 @@
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
-    "next-auth": "5.0.0-beta.28",
     "next-themes": "^0.4.4",
     "react": "^19",
     "react-day-picker": "8.10.1",
