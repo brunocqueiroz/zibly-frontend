@@ -13,11 +13,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import DashboardNav from "@/components/dashboard-nav"
 import { updateProfile, updatePassword, updateNotificationPreferences } from "@/app/actions/user"
 import { useToast } from "@/components/ui/use-toast"
-import { useSession } from "@/components/auth-provider"
+import { useAuth } from "@/components/auth-provider"
 
 export default function SettingsPage() {
-  const { data: session } = useSession()
-  const user = session?.user
+  const { user } = useAuth()
   const [isProfileLoading, setIsProfileLoading] = useState(false)
   const [isPasswordLoading, setIsPasswordLoading] = useState(false)
   const [isNotificationsLoading, setIsNotificationsLoading] = useState(false)

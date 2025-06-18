@@ -1,136 +1,146 @@
-import Link from "next/link"
-import Logo from "@/components/logo"
+import Link from "next/link";
+import Logo from "@/components/logo";
+
+const solutionsItems = [
+  { title: "Consultants", href: "/solutions/consultants" },
+  { title: "Investment Bankers", href: "/solutions/investment-banking" },
+  { title: "Private Equity", href: "/solutions/private-equity" },
+  { title: "Accountants", href: "/solutions/accountants" },
+  { title: "Attorneys", href: "/solutions/attorneys" },
+  { title: "Marketing Teams", href: "/solutions/marketing" },
+  { title: "Product Managers", href: "/solutions/product-managers" },
+  { title: "Strategy Executives", href: "/solutions/strategy" },
+];
 
 export default function Footer() {
   return (
     <footer className="border-t bg-background">
-      <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-          <div className="md:col-span-2">
-            <Logo />
-            <p className="mt-4 text-sm text-muted-foreground">
-              Your secure AI assistant that handles complex analysis and research while keeping your data completely private. We never store your information or use it to train AI models.
-            </p>
-          </div>
+      <div className="container px-4 md:px-6">
+        {/* Main Footer Content */}
+        <div className="py-12 md:py-16">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-6">
+            {/* Company Info - Takes up 2 columns on large screens */}
+            <div className="lg:col-span-2">
+              <div className="mb-4">
+                <Logo />
+              </div>
+              <p className="text-sm inter-text text-muted-foreground mb-6 max-w-sm">
+                Your AI analyst that handles the analytical heavy lifting so you can focus on strategy, creativity, and growth.
+              </p>
+              <div className="space-y-2">
+                <p className="text-sm inter-text-medium">
+                  Email: <a href="mailto:work@zibly.ai" className="text-primary hover:underline">work@zibly.ai</a>
+                </p>
+                <p className="text-sm inter-text text-muted-foreground">
+                  First task free • 5-10 min turnaround
+                </p>
+              </div>
+            </div>
 
-          <div className="md:col-span-3 grid grid-cols-3 gap-4">
+            {/* Product Links */}
             <div>
-              <h3 className="text-sm font-semibold">Product</h3>
-              <ul className="mt-4 space-y-2 text-sm">
+              <h3 className="text-sm font-semibold inter-heading-normal mb-4">Product</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="/features" className="text-muted-foreground hover:text-foreground">
+                  <Link href="/features" className="inter-text text-muted-foreground hover:text-foreground transition-colors">
                     Features
                   </Link>
                 </li>
                 <li>
-                  <Link href="/pricing" className="text-muted-foreground hover:text-foreground">
+                  <Link href="/pricing" className="inter-text text-muted-foreground hover:text-foreground transition-colors">
                     Pricing
                   </Link>
                 </li>
                 <li>
-                  <Link href="/templates" className="text-muted-foreground hover:text-foreground">
-                    Templates
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/solutions" className="text-muted-foreground hover:text-foreground">
-                    Solutions
+                  <Link href="/security" className="inter-text text-muted-foreground hover:text-foreground transition-colors">
+                    Security
                   </Link>
                 </li>
               </ul>
             </div>
 
+            {/* Company Links */}
             <div>
-              <h3 className="text-sm font-semibold">Solutions</h3>
-              <ul className="mt-4 space-y-2 text-sm">
+              <h3 className="text-sm font-semibold inter-heading-normal mb-4">Company</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="/industries/financial-services" className="text-muted-foreground hover:text-foreground">
-                    Financial Analysis
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/industries/consulting" className="text-muted-foreground hover:text-foreground">
-                    Research Reports
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/features" className="text-muted-foreground hover:text-foreground">
-                    Content Creation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/features" className="text-muted-foreground hover:text-foreground">
-                    Data Processing
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/features" className="text-muted-foreground hover:text-foreground">
-                    Presentations
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-semibold">Company</h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li>
-                  <Link href="/about" className="text-muted-foreground hover:text-foreground">
+                  <Link href="/about" className="inter-text text-muted-foreground hover:text-foreground transition-colors">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/security" className="text-muted-foreground hover:text-foreground">
-                    Security
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/help" className="text-muted-foreground hover:text-foreground">
-                    Help Center
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="text-muted-foreground hover:text-foreground">
+                  <Link href="/blog" className="inter-text text-muted-foreground hover:text-foreground transition-colors">
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="text-muted-foreground hover:text-foreground">
-                    Careers
+                  <Link href="/faq" className="inter-text text-muted-foreground hover:text-foreground transition-colors">
+                    FAQ
                   </Link>
                 </li>
+              </ul>
+            </div>
+
+            {/* Solutions - Takes up 2 columns */}
+            <div className="lg:col-span-2">
+              <h3 className="text-sm font-semibold inter-heading-normal mb-4">Solutions</h3>
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                {solutionsItems.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="inter-text text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 border-t pt-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div className="md:order-1">
-              <p className="text-sm text-muted-foreground">© 2024 zibly.ai. All rights reserved.</p>
+        {/* Trust Badges */}
+        <div className="border-t border-b py-6">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-sm inter-text text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>SOC 2 Compliant</span>
             </div>
-            
-            <div className="mt-4 md:mt-0 md:order-2">
-              <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
-                <span>• Zero Data Retention Policy</span>
-                <span>• Your Data Never Trains AI Models</span>
-                <span>• No Credit Card for First Task</span>
-              </div>
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span>Zero Data Retention</span>
             </div>
-            
-            <div className="mt-4 md:mt-0 md:order-3">
-              <div className="flex space-x-6">
-                <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground">
-                  Privacy Policy
-                </Link>
-                <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground">
-                  Terms of Service
-                </Link>
-              </div>
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span>Never Trains AI Models</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm inter-text text-muted-foreground">
+              © 2025 zibly.ai. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link href="/terms" className="text-sm inter-text text-muted-foreground hover:text-foreground transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="/privacy" className="text-sm inter-text text-muted-foreground hover:text-foreground transition-colors">
+                Privacy Policy
+              </Link>
             </div>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
