@@ -100,7 +100,7 @@ export default function FAQPage() {
       {/* Quick Stats */}
       <section className="w-full py-8 bg-white border-y">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-8 md:grid-cols-4 text-center">
+          <div className="grid justify-center gap-8 md:grid-cols-3 text-center">
             <div>
               <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
               <p className="text-sm font-medium inter-text-medium">SOC 2 Certified</p>
@@ -115,11 +115,6 @@ export default function FAQPage() {
               <Zap className="h-8 w-8 text-primary mx-auto mb-2" />
               <p className="text-sm font-medium inter-text-medium">No app required</p>
               <p className="text-xs text-gray-600 inter-text">Just use email</p>
-            </div>
-            <div>
-              <Users className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">10,000+ users</p>
-              <p className="text-xs text-gray-600 inter-text">Trusted by professionals</p>
             </div>
           </div>
         </div>
