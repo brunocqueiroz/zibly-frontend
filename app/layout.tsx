@@ -17,33 +17,74 @@ const inter = Inter({ subsets: ["latin"] })
  */
 export const metaByPath: Record<
   string,
-  { title: string; description: string }
+  { title: string; description: string; canonical: string }
 > = {
   // ── Core nav pages ─────────────────────────────────────────────────
   "/features": {
     title: "Features – AI Workflow Automation for Professionals",
     description:
       "Explore how zibly.ai turns e-mails into finished analyses, reports, and forms so consultants, bankers, lawyers, and operators can focus on strategy.",
+    canonical: "https://zibly.ai/features",
   },
   "/pricing": {
     title: "Pricing & Plans – Simple, Flexible AI Task Automation",
     description:
       "Choose a plan that matches your workload. Transparent usage-based pricing with generous free tasks so you can trial zibly.ai risk-free.",
+    canonical: "https://zibly.ai/pricing",
   },
   "/about": {
     title: "About zibly.ai – Our Mission to Simplify Knowledge Work",
     description:
       "Learn how the zibly.ai team is building an e-mail-powered AI assistant that eliminates busywork and helps teams deliver better results faster.",
+    canonical: "https://zibly.ai/about",
   },
   "/faq": {
     title: "FAQ – Security, Pricing & Getting Started With zibly.ai",
     description:
       "Find answers to common questions about data privacy, task turnaround, integrations, billing, and more.",
+    canonical: "https://zibly.ai/faq",
   },
   "/blog": {
     title: "Blog – AI Productivity Tips, Case Studies & Product News",
     description:
       "Read expert insights and real-world stories on using AI to supercharge research, analysis, and document creation.",
+    canonical: "https://zibly.ai/blog",
+  },
+  "/signup": {
+    title: "Sign Up – Get Started With zibly.ai",
+    description:
+      "Create your account and start automating your analytical work with zibly.ai's email-powered AI assistant.",
+    canonical: "https://zibly.ai/signup",
+  },
+  "/contact": {
+    title: "Contact Us – Get in Touch With zibly.ai",
+    description:
+      "Have questions? Get in touch with our team for support, partnerships, or enterprise inquiries.",
+    canonical: "https://zibly.ai/contact",
+  },
+  "/help": {
+    title: "Help Center – Support & Resources",
+    description:
+      "Find help articles, tutorials, and support resources to get the most out of zibly.ai.",
+    canonical: "https://zibly.ai/help",
+  },
+  "/security": {
+    title: "Security – Enterprise-Grade Data Protection",
+    description:
+      "Learn about zibly.ai's SOC 2 compliance, encryption standards, and comprehensive security measures.",
+    canonical: "https://zibly.ai/security",
+  },
+  "/privacy": {
+    title: "Privacy Policy – How We Protect Your Data",
+    description:
+      "Read our privacy policy to understand how zibly.ai collects, uses, and protects your information.",
+    canonical: "https://zibly.ai/privacy",
+  },
+  "/terms": {
+    title: "Terms of Service – zibly.ai User Agreement",
+    description:
+      "Review the terms and conditions for using zibly.ai's email-powered AI assistant service.",
+    canonical: "https://zibly.ai/terms",
   },
 
   // ── Solutions (industry pages) ─────────────────────────────────────
@@ -51,41 +92,49 @@ export const metaByPath: Record<
     title: "AI for Consultants – Faster Decks & Deeper Insights",
     description:
       "Automate data crunching, competitor research, and slide drafting so you can spend more time on client strategy.",
+    canonical: "https://zibly.ai/solutions/consultants",
   },
   "/solutions/investment-banking": {
     title: "AI for Investment Bankers – Pitch Decks & Valuations in Minutes",
     description:
       "Generate comps, DCFs, and polished pitch materials by simply e-mailing your raw data to zibly.ai.",
+    canonical: "https://zibly.ai/solutions/investment-banking",
   },
   "/solutions/private-equity": {
     title: "AI for Private Equity – Portfolio Analysis & Due Diligence",
     description:
       "Accelerate deal screening and periodic reviews by offloading modelling, market sizing, and memo drafting to zibly.ai.",
+    canonical: "https://zibly.ai/solutions/private-equity",
   },
   "/solutions/accountants": {
     title: "AI for Accountants – Effortless Financial Analysis & Reporting",
     description:
       "Upload trial balances or CSVs via e-mail and receive clean financial statements, variance analysis, and commentary automatically.",
+    canonical: "https://zibly.ai/solutions/accountants",
   },
   "/solutions/attorneys": {
     title: "AI for Attorneys – Research, Drafting & Form Filling by E-mail",
     description:
       "Outsource first-pass legal research, citation checking, and complex form completion with enterprise-grade security.",
+    canonical: "https://zibly.ai/solutions/attorneys",
   },
   "/solutions/marketing": {
     title: "AI for Marketing Teams – Instant Market & Campaign Analysis",
     description:
       "Turn raw campaign exports into performance dashboards and competitor insights without leaving your inbox.",
+    canonical: "https://zibly.ai/solutions/marketing",
   },
   "/solutions/product-managers": {
     title: "AI for Product Managers – Competitive & User Research at Speed",
     description:
       "Send product feedback, support logs, or feature requests to zibly.ai and receive synthesised insights for roadmap planning.",
+    canonical: "https://zibly.ai/solutions/product-managers",
   },
   "/solutions/strategy": {
     title: "AI for Strategy Executives – Market Intelligence on Demand",
     description:
       "Rapidly assess new markets, size opportunities, and benchmark competitors with a single e-mail to zibly.ai.",
+    canonical: "https://zibly.ai/solutions/strategy",
   },
 }
 
@@ -101,6 +150,9 @@ export const metadata = {
   },
   description:
     "Simply send an e-mail with your task and zibly.ai handles the analytical heavy lifting, returning polished outputs in your inbox.",
+  alternates: {
+    canonical: "https://zibly.ai",
+  },
   openGraph: {
     title: "zibly.ai – Your e-mail-powered AI assistant",
     description:
