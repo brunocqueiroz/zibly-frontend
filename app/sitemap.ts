@@ -1,9 +1,48 @@
 import { MetadataRoute } from 'next'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Function to fetch blog posts for sitemap
+async function getBlogPosts() {
+  try {
+    const response = await fetch('https://1ce20ayeb1.execute-api.us-east-1.amazonaws.com/zibly/blog/posts', {
+      next: { revalidate: 3600 }
+    })
+    if (!response.ok) return []
+    const data = await response.json()
+    return data.posts || []
+  } catch (error) {
+    console.error('Error fetching blog posts for sitemap:', error)
+    return []
+  }
+}
+
+// Function to extract popular tags from blog posts
+function getPopularTags(posts: any[]) {
+  const tagCounts: { [key: string]: number } = {}
+  
+  posts.forEach(post => {
+    if (post.tags) {
+      post.tags.forEach((tag: string) => {
+        tagCounts[tag] = (tagCounts[tag] || 0) + 1
+      })
+    }
+  })
+  
+  // Return tags that appear in at least 2 posts, sorted by frequency
+  return Object.entries(tagCounts)
+    .filter(([_, count]) => count >= 2)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10) // Limit to top 10 tags
+    .map(([tag]) => tag)
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://zibly.ai'
   
-  return [
+  // Get blog posts
+  const blogPosts = await getBlogPosts()
+  
+  // Static pages
+  const staticPages = [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -118,5 +157,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
   ]
+  
+  // Add blog posts to sitemap
+  const blogPostPages = blogPosts.map((post: any) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.publish_date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+  
+  // Add popular tag pages to sitemap
+  const popularTags = getPopularTags(blogPosts)
+  const tagPages = popularTags.map(tag => ({
+    url: `${baseUrl}/blog?tag=${encodeURIComponent(tag)}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
+  
+  return [...staticPages, ...blogPostPages, ...tagPages]
 } 
