@@ -84,7 +84,7 @@ export default function FAQPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button asChild size="lg" className="bg-primary hover:bg-primary-600">
-                  <Link href="mailto:work@zibly.ai?subject=Question about zibly.ai">
+                  <Link href="mailto:support@zibly.ai?subject=Question about zibly.ai">
                     Ask a Question <Mail className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
