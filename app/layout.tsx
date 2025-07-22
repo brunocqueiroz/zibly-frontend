@@ -144,6 +144,7 @@ export const metaByPath: Record<
  * ---------------------------------------------------------------------
  */
 export const metadata = {
+  metadataBase: new URL('https://zibly.ai'),
   title: {
     default: "zibly.ai – Your e-mail-powered AI assistant",
     template: "%s | zibly.ai",
