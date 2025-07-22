@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "AI for Investment Banking | Pitch Books & Models in Minutes - zibly.ai",
-  description: "Build CIMs, teasers & valuation models 10x faster. Email raw data, get back formatted pitch decks. Used by bulge bracket analysts.",
+  title: "AI for Investment Banking | Pitch Books & Models - zibly.ai",
+  description: "Build CIMs, teasers & valuation models with institutional quality. Email raw data, get back formatted pitch decks for investment banking teams.",
 }
 
 export default function InvestmentBankingLayout({

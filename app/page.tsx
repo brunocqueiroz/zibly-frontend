@@ -5,33 +5,6 @@ import { ArrowRight, Sparkles, Star, FileText, BarChart3, PenTool, Mail, Bot, Cl
 import type { Metadata } from 'next'
 
 export default function Home() {
-  // Testimonials data
-  const testimonials = [
-    {
-      name: "Alex J.",
-      title: "Private Equity Director",
-      text: "I forward Zibly our portfolio company reports and get back investment committee memos. Last week it identified a margin compression issue I missed. It's not just fast—it's thorough.",
-      rating: 5,
-    },
-    {
-      name: "Jordan L.", 
-      title: "Consulting Manager",
-      text: "My team was burning out on production work. Now we use Zibly for data cleanup and first drafts, which lets my analysts focus on insights and client relationships. We're doing our best work ever.",
-      rating: 5,
-    },
-    {
-      name: "Taylor M.",
-      title: "Tech Startup Founder", 
-      text: "Zibly is like having a brilliant analyst on my team, without the management overhead. I can finally focus on strategy instead of spreadsheets. Best investment I make every month.",
-      rating: 5,
-    },
-    {
-      name: "Morgan R.",
-      title: "VP of Strategy at Financial Firm",
-      text: "I send Zibly market research requests that would take my team weeks. Get comprehensive reports back in hours. The quality rivals what we'd produce internally, but 10x faster.",
-      rating: 5,
-    },
-  ];
 
   const handleEmailClick = () => {
     const subject = "Fwd: Board deck needed by Friday"
@@ -53,26 +26,6 @@ Sarah`
     window.location.href = mailtoLink
   }
 
-  const renderStars = (rating: number) => {
-    const fullStars = Math.floor(rating)
-    const hasHalfStar = rating % 1 !== 0
-    const stars = []
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<Star key={i} className="h-4 w-4 fill-current text-yellow-500" />)
-    }
-
-    if (hasHalfStar) {
-      stars.push(
-        <div key="half" className="relative">
-          <Star className="h-4 w-4 text-gray-300" />
-          <Star className="h-4 w-4 fill-current text-yellow-500 absolute top-0 left-0" style={{ clipPath: 'inset(0 50% 0 0)' }} />
-        </div>
-      )
-    }
-
-    return stars
-  }
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
@@ -363,9 +316,9 @@ Sarah`
             <div className="flex flex-col justify-center space-y-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white">2</div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal">We Do The Work (5-10 min)</h3>
+                <h3 className="text-xl inter-heading-normal">We Do The Work</h3>
                 <p className="inter-text">
-                  Zibly researches, analyzes, creates charts, writes copy, builds models. Real work takes real time. This isn't instant chat—it's thorough analysis.
+                  Zibly researches, analyzes, creates charts, writes copy, builds models. Simple tasks complete quickly, complex analyses receive deep attention. This isn't instant chat—it's thorough, professional work.
                 </p>
               </div>
             </div>
@@ -382,41 +335,6 @@ Sarah`
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Trusted by Leaders Who Demand Excellence</h2>
-            </div>
-          </div>
-          
-          {/* Testimonials Grid */}
-          <div className="mx-auto max-w-5xl py-12">
-            <div className="grid gap-6 md:grid-cols-2">
-              {testimonials.map((testimonial, index) => (
-                <div 
-                  key={index} 
-                  className="flex flex-col justify-center space-y-4 rounded-lg border p-6 shadow-sm bg-white"
-                >
-                  <div className="flex items-center space-x-2">
-                    <div>
-                      <p className="text-sm inter-text-medium">{testimonial.name}</p>
-                      <p className="text-xs inter-text">{testimonial.title}</p>
-                    </div>
-                  </div>
-                  <p className="inter-text">
-                    {testimonial.text}
-                  </p>
-                  <div className="flex">
-                    {renderStars(testimonial.rating)}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-purple-50 via-blue-50 to-white">

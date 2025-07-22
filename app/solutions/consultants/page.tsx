@@ -34,8 +34,8 @@ Thanks!`
                 Stop Burning Midnight Oil on Slide Decks
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-                Your clients pay for insights, not production work. Zibly delivers McKinsey-quality analysis and presentations 
-                in minutes, not days. Finally, an AI that understands consulting standards.
+                Your clients pay for insights, not production work. Zibly delivers professional-quality analysis and presentations 
+                with the depth they deserve. Finally, an AI that understands consulting standards.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -133,7 +133,7 @@ Thanks!`
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>McKinsey-style formatting</span>
+                  <span>Professional formatting</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <CheckCircle className="h-4 w-4 text-green-500" />
@@ -194,8 +194,8 @@ Thanks!`
               <div className="bg-white rounded-lg p-6 shadow-lg border-2 border-primary">
                 <h3 className="text-xl font-semibold mb-4">With Zibly</h3>
                 <ul className="space-y-3 text-gray-600">
-                  <li>• Same deliverable: $299/month unlimited</li>
-                  <li>• 5-minute turnaround</li>
+                  <li>• Same deliverable: From $20/month</li>
+                  <li>• Adaptive turnaround that matches complexity</li>
                   <li>• Handle 10x more clients</li>
                   <li>• Team focuses on strategy, not slides</li>
                 </ul>

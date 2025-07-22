@@ -32,7 +32,7 @@ export default function Footer() {
                   Email: <a href="mailto:work@zibly.ai" className="text-primary hover:underline">work@zibly.ai</a>
                 </p>
                 <p className="text-sm inter-text text-muted-foreground">
-                  First task free • 5-10 min turnaround
+                  First task free • Adaptive turnaround
                 </p>
               </div>
             </div>

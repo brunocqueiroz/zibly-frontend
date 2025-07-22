@@ -48,29 +48,6 @@ Thanks!`
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="w-full py-16 bg-white border-y">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-8 md:grid-cols-4 text-center">
-            <div>
-              <p className="text-4xl font-bold text-primary">10 min</p>
-              <p className="text-gray-600 mt-2">Contract review</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">1M+</p>
-              <p className="text-gray-600 mt-2">Documents analyzed</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">80%</p>
-              <p className="text-gray-600 mt-2">Time saved on research</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">2.5x</p>
-              <p className="text-gray-600 mt-2">More billable hours</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Use Cases Section */}
       <section className="w-full py-16 md:py-24 bg-gray-50">
@@ -88,7 +65,7 @@ Thanks!`
               <FileText className="h-8 w-8 text-primary mb-4" />
               <h3 className="text-lg font-semibold mb-2">Contract Analysis</h3>
               <p className="text-gray-600 mb-4">
-                Review contracts in minutes, not hours. Identify risks, compare terms, track changes
+                Review contracts thoroughly and efficiently. Identify risks, compare terms, track changes
               </p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
@@ -132,7 +109,7 @@ Thanks!`
               <BookOpen className="h-8 w-8 text-primary mb-4" />
               <h3 className="text-lg font-semibold mb-2">Discovery & Due Diligence</h3>
               <p className="text-gray-600 mb-4">
-                Process thousands of documents to find what matters for your case
+                Process large volumes of documents to find what matters for your case
               </p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
@@ -178,7 +155,7 @@ Thanks!`
               <FileText className="h-8 w-8 text-primary mb-4" />
               <h3 className="text-lg font-semibold mb-2">Transactional Work</h3>
               <p className="text-gray-600 mb-4">
-                Accelerate deals with faster document drafting and review
+                Accelerate deals with thorough document drafting and review
               </p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
@@ -257,7 +234,7 @@ Thanks!`
                 <ul className="space-y-4">
                   <li className="flex justify-between items-center">
                     <span>Zibly analysis</span>
-                    <span className="font-semibold">$299</span>
+                    <span className="font-semibold">From $20/mo</span>
                   </li>
                   <li className="flex justify-between items-center">
                     <span>Senior review (5 hrs)</span>
@@ -269,14 +246,14 @@ Thanks!`
                   </li>
                   <li className="border-t pt-4 flex justify-between items-center font-bold text-primary">
                     <span>Total cost</span>
-                    <span>$2,799</span>
+                    <span>$2,520</span>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="mt-8 p-4 bg-primary/10 rounded-lg text-center">
               <p className="text-2xl font-bold text-primary">
-                79% margin improvement. 40 hours saved. Same quality delivered.
+                81% margin improvement. 40 hours saved. Same quality delivered.
               </p>
             </div>
           </div>

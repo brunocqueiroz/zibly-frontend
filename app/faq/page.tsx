@@ -5,10 +5,11 @@ import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Clock, AlertTriangle, Lightbulb, Shield, DollarSign, Zap, Users, HelpCircle, Mail } from 'lucide-react'
 import Link from "next/link"
 import type { Metadata } from 'next'
+import { PRICING_CONFIG, PRICING_MESSAGES, formatPrice } from '@/lib/pricing-config'
 
 export const metadata: Metadata = {
   title: "FAQ | Security, Pricing & How It Works - zibly.ai",
-  description: "SOC 2 certified. 5-10 minute turnaround. No app required. Get answers about data security, task limits, file types, and enterprise features.",
+  description: "SOC 2 compliant. Adaptive AI analysis - from quick insights to deep research. No app required. Get answers about data security, task limits, file types, and enterprise features.",
 }
 
 const faqData = {
@@ -20,7 +21,7 @@ const faqData = {
       "name": "How does zibly.ai work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Simply email your tasks to work@zibly.ai with any attachments. Our AI analyzes your request, processes the data, and sends back professional deliverables (Excel models, presentations, reports) within 5-10 minutes. No app downloads or logins required."
+        "text": "Simply email your tasks to work@zibly.ai with any attachments. Our AI analyzes your request, processes the data, and sends back professional deliverables (Excel models, presentations, reports). Simple tasks complete in minutes, while complex analyses receive the deep attention they deserve. No app downloads or logins required."
       }
     },
     {
@@ -44,7 +45,7 @@ const faqData = {
       "name": "How much does zibly.ai cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Your first task is free. Plans start at $20/month. All plans include no setup fees."
+        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.noSetupFees}.`
       }
     },
     {
@@ -52,7 +53,7 @@ const faqData = {
       "name": "How long do tasks take to complete?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nearly all tasks will take 5 minutes or less to complete, but some extremely complicated tasks can take longer"
+        "text": "Zibly adapts to your needs - simple tasks complete in minutes, while complex analyses can take up to an hour. This isn't ChatGPT-style instant responses - it's thorough, professional work that matches the effort a human analyst would invest."
       }
     }
   ]
@@ -103,12 +104,12 @@ export default function FAQPage() {
           <div className="grid justify-center gap-8 md:grid-cols-3 text-center">
             <div>
               <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">SOC 2 Certified</p>
+              <p className="text-sm font-medium inter-text-medium">SOC 2 Compliant</p>
               <p className="text-xs text-gray-600 inter-text">Bank-grade security</p>
             </div>
             <div>
               <Clock className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">5-10 min tasks</p>
+              <p className="text-sm font-medium inter-text-medium">Adaptive analysis</p>
               <p className="text-xs text-gray-600 inter-text">Average turnaround</p>
             </div>
             <div>
@@ -144,7 +145,7 @@ export default function FAQPage() {
                         <li>Email your task to <strong>work@zibly.ai</strong> with any attachments</li>
                         <li>Our AI analyzes your request and may ask clarifying questions</li>
                         <li>We process your task using advanced AI models</li>
-                        <li>You receive professional deliverables in your inbox within minutes</li>
+                        <li>You receive professional deliverables in your inbox - timing adapted to task complexity</li>
                       </ol>
                       <p>No apps to download, no accounts to manage, no interfaces to learn. Just email.</p>
                     </div>
@@ -188,7 +189,7 @@ export default function FAQPage() {
                     <p className="inter-text">
                       Yes! Your first task is completely free, no credit card required. 
                       This lets you experience the quality of Zibly's work before committing to a plan. 
-                      After your free task, plans start at just $20/month.
+                      After your free task, plans start at just {formatPrice(PRICING_CONFIG.starter.monthly)}/month.
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -392,14 +393,14 @@ export default function FAQPage() {
                     <div className="space-y-4 inter-text">
                       <div className="grid gap-4">
                         <div className="border rounded-lg p-4">
-                          <h4 className="font-semibold">Starter - $20/month</h4>
+                          <h4 className="font-semibold">Starter - {formatPrice(PRICING_CONFIG.starter.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
                             <li>• 50 tasks per month</li>
                             <li>• Email support</li>
                           </ul>
                         </div>
                         <div className="border rounded-lg p-4 border-primary">
-                          <h4 className="font-semibold">Professional - $200/month</h4>
+                          <h4 className="font-semibold">Professional - {formatPrice(PRICING_CONFIG.professional.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
                             <li>• Unlimited tasks per month</li>
                             <li>• Priority support</li>
@@ -509,19 +510,19 @@ export default function FAQPage() {
                         <div className="flex items-center gap-3">
                           <Clock className="h-4 w-4 text-green-500" />
                           <div>
-                            <strong>Simple tasks (0-1 min):</strong> Basic analysis, short summaries, simple calculations
+                            <strong>Simple tasks:</strong> Basic analysis, short summaries, simple calculations - typically complete in minutes
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <Clock className="h-4 w-4 text-yellow-500" />
                           <div>
-                            <strong>Standard tasks (1-3 min):</strong> Full reports, complex models, detailed research
+                            <strong>Standard tasks:</strong> Full reports, complex models, detailed research - receive focused attention
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <Clock className="h-4 w-4 text-orange-500" />
                           <div>
-                            <strong>Complex tasks (3-10 min):</strong> Multi-source analysis, extensive modeling, large documents
+                            <strong>Complex tasks:</strong> Multi-source analysis, extensive modeling, large documents - up to an hour for comprehensive depth
                           </div>
                         </div>
                       </div>
@@ -543,7 +544,7 @@ export default function FAQPage() {
                         <li>Examples of preferred format/style (if applicable)</li>
                       </ul>
                       <p className="mt-4">
-                        Most revisions are completed within 5 minutes. Our goal is 100% satisfaction on every task.
+                        Revisions are handled quickly with the same adaptive approach. Our goal is 100% satisfaction on every task.
                       </p>
                     </div>
                   </AccordionContent>

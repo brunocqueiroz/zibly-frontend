@@ -243,7 +243,7 @@ Thanks!`
                 Stop Reporting. Start Growing.
               </h2>
               <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
-                Join marketing teams at 500+ companies who use Zibly to turn data into 
+                Join marketing teams who use Zibly to turn data into 
                 growth. Your first campaign analysis is free.
               </p>
             </div>

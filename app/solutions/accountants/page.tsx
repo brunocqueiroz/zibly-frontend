@@ -263,7 +263,7 @@ Thanks!`
                 Become the Advisor Your Clients Actually Need
               </h2>
               <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
-                Join thousands of accountants who've transformed their practice with Zibly. 
+                Join accountants who've transformed their practice with Zibly. 
                 Your first analysis is free—see the difference AI makes.
               </p>
             </div>

@@ -14,6 +14,7 @@ import { changePlan, cancelSubscription, reactivateSubscription } from "@/app/ac
 import DashboardNav from "@/components/dashboard-nav"
 import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/components/auth-provider"
+import { PRICING_CONFIG, formatPrice } from "@/lib/pricing-config"
 
 export default function SubscriptionPage() {
   const { user } = useAuth()
@@ -215,7 +216,7 @@ export default function SubscriptionPage() {
                         <div className="mb-4 text-center">
                           <div className="text-xl font-bold">Starter</div>
                           <div className="text-3xl font-bold">
-                            {billingCycle === "monthly" ? "$99" : "$950"}
+                            {billingCycle === "monthly" ? formatPrice(PRICING_CONFIG.starter.monthly) : formatPrice(PRICING_CONFIG.starter.annual)}
                             <span className="text-sm font-normal text-muted-foreground">
                               /{billingCycle === "monthly" ? "month" : "year"}
                             </span>
@@ -228,7 +229,7 @@ export default function SubscriptionPage() {
                           </li>
                           <li className="flex items-center">
                             <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>24-hour turnaround</span>
+                            <span>Standard processing</span>
                           </li>
                           <li className="flex items-center">
                             <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
@@ -252,7 +253,7 @@ export default function SubscriptionPage() {
                           )}
                           <div className="text-xl font-bold">Professional</div>
                           <div className="text-3xl font-bold">
-                            {billingCycle === "monthly" ? "$299" : "$2,870"}
+                            {billingCycle === "monthly" ? formatPrice(PRICING_CONFIG.professional.monthly) : formatPrice(PRICING_CONFIG.professional.annual)}
                             <span className="text-sm font-normal text-muted-foreground">
                               /{billingCycle === "monthly" ? "month" : "year"}
                             </span>
@@ -265,7 +266,7 @@ export default function SubscriptionPage() {
                           </li>
                           <li className="flex items-center">
                             <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>12-hour turnaround</span>
+                            <span>Priority processing</span>
                           </li>
                           <li className="flex items-center">
                             <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
@@ -293,7 +294,7 @@ export default function SubscriptionPage() {
                           )}
                           <div className="text-xl font-bold">Enterprise</div>
                           <div className="text-3xl font-bold">
-                            {billingCycle === "monthly" ? "$999" : "$9,590"}
+                            {billingCycle === "monthly" ? "Contact Sales" : "Contact Sales"}
                             <span className="text-sm font-normal text-muted-foreground">
                               /{billingCycle === "monthly" ? "month" : "year"}
                             </span>
@@ -306,7 +307,7 @@ export default function SubscriptionPage() {
                           </li>
                           <li className="flex items-center">
                             <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>2-hour urgent processing</span>
+                            <span>Urgent processing</span>
                           </li>
                           <li className="flex items-center">
                             <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
@@ -354,7 +355,7 @@ export default function SubscriptionPage() {
                           <div className="font-medium">Professional Plan - Monthly</div>
                           <div className="text-sm text-muted-foreground">Dec 1, 2024</div>
                         </div>
-                        <div className="font-medium">$299.00</div>
+                        <div className="font-medium">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
                         <Button variant="outline" size="sm">
                           View
                         </Button>
@@ -364,7 +365,7 @@ export default function SubscriptionPage() {
                           <div className="font-medium">Professional Plan - Monthly</div>
                           <div className="text-sm text-muted-foreground">Nov 1, 2024</div>
                         </div>
-                        <div className="font-medium">$299.00</div>
+                        <div className="font-medium">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
                         <Button variant="outline" size="sm">
                           View
                         </Button>
@@ -374,7 +375,7 @@ export default function SubscriptionPage() {
                           <div className="font-medium">Professional Plan - Monthly</div>
                           <div className="text-sm text-muted-foreground">Oct 1, 2024</div>
                         </div>
-                        <div className="font-medium">$299.00</div>
+                        <div className="font-medium">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
                         <Button variant="outline" size="sm">
                           View
                         </Button>

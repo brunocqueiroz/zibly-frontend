@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "AI for Management Consultants | MBB-Quality Analysis - zibly.ai",
-  description: "From data dumps to client-ready decks in 10 minutes. Used by McKinsey, BCG & Bain teams. Automate research, modeling & slide creation.",
+  description: "From data dumps to client-ready decks with professional depth. Automate research, modeling & slide creation for consulting teams.",
 }
 
 export default function ConsultantsLayout({
