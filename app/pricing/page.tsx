@@ -30,7 +30,7 @@ export default function PricingPage() {
         </div>
         <div className="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-3 items-stretch">
           {plansData.map((plan) => (
-            <Card key={plan.planId} className={`flex flex-col ${plan.popular ? "border-primary shadow-lg shadow-primary-100 dark:shadow-none" : ""}`}>
+            <Card key={plan.id} className={`flex flex-col ${plan.popular ? "border-primary shadow-lg shadow-primary-100 dark:shadow-none" : ""}`}>
               <CardHeader>
                 {plan.popular && (
                   <div className="inline-block rounded-lg bg-primary-100 px-3 py-1 text-sm text-primary mb-2 w-fit">
