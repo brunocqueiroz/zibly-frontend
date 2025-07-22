@@ -32,7 +32,7 @@ Thanks!`
                 Turn 6-Hour Tasks Into 6-Minute Emails
               </h1>
               <p className="max-w-[700px] text-lg md:text-xl inter-text mx-auto text-gray-600">
-              Transform how you work. Email your analytical tasks and get back finished deliverables. From data chaos to executive clarity in minutes, not hours.              </p>
+              Transform how you work. Email your analytical tasks and get back finished deliverables. From data chaos to executive clarity with the depth your work deserves.              </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
@@ -59,8 +59,8 @@ Thanks!`
               <p className="text-sm text-gray-600 inter-text">File types support</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-primary inter-text-medium">5 min</p>
-              <p className="text-sm text-gray-600 inter-text">Average turnaround</p>
+              <p className="text-3xl font-bold text-primary inter-text-medium">Adaptive</p>
+              <p className="text-sm text-gray-600 inter-text">Task-driven timing</p>
             </div>
             <div>
               <p className="text-3xl font-bold text-primary inter-text-medium">Zero</p>
@@ -109,7 +109,7 @@ Thanks!`
                 <CardHeader className="bg-primary-50">
                   <div className="flex items-center gap-2 text-sm text-primary mb-2">
                     <Zap className="h-4 w-4" />
-                    <span className="inter-text-medium">Zibly delivers (3 minutes later):</span>
+                    <span className="inter-text-medium">Zibly delivers:</span>
                   </div>
                   <CardTitle className="text-lg inter-heading-normal">Complete Sales Analysis Package</CardTitle>
                 </CardHeader>
@@ -172,7 +172,7 @@ Thanks!`
                 <CardHeader className="bg-primary-50">
                   <div className="flex items-center gap-2 text-sm text-primary mb-2">
                     <Zap className="h-4 w-4" />
-                    <span className="inter-text-medium">Zibly delivers (4 minutes later):</span>
+                    <span className="inter-text-medium">Zibly delivers:</span>
                   </div>
                   <CardTitle className="text-lg inter-heading-normal">Comprehensive Research Report</CardTitle>
                 </CardHeader>
@@ -442,7 +442,7 @@ Thanks!`
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm inter-text text-gray-600">
-                    SOC 2 certified, zero data retention, never trains on your data. 
+                    SOC 2 compliant, zero data retention, never trains on your data. 
                     Your confidential information stays confidential.
                   </p>
                 </CardContent>
@@ -494,8 +494,8 @@ Thanks!`
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm inter-text text-gray-600">
-                    5-10 minutes for most tasks. Complex analysis in under an hour. 
-                    Consistent, predictable delivery.
+                    Simple tasks complete quickly. Complex analyses receive the deep attention they deserve. 
+                    Adaptive timing that matches task complexity.
                   </p>
                 </CardContent>
               </Card>
@@ -540,7 +540,7 @@ Thanks!`
                       Email Your First Task Now <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                     <p className="mt-4 text-sm inter-text text-gray-500">
-                      work@zibly.ai • No signup required • 5-10 minute delivery
+                      work@zibly.ai • No signup required • Adaptive delivery
                     </p>
                   </div>
                 </div>

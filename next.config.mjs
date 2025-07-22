@@ -9,6 +9,21 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.zibly.ai',
+          },
+        ],
+        destination: 'https://zibly.ai/:path*',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

@@ -144,6 +144,7 @@ export const metaByPath: Record<
  * ---------------------------------------------------------------------
  */
 export const metadata = {
+  metadataBase: new URL('https://zibly.ai'),
   title: {
     default: "zibly.ai – Your e-mail-powered AI assistant",
     template: "%s | zibly.ai",
@@ -187,6 +188,18 @@ export const metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  icons: {
+    icon: [
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'icon', url: '/logo.png' },
+    ],
   },
   generator: "v0.dev",
 }

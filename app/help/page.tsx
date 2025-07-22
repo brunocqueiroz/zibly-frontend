@@ -5,10 +5,11 @@ import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Clock, AlertTriangle, Lightbulb, Shield, DollarSign, Zap, Users, HelpCircle, Mail } from 'lucide-react'
 import Link from "next/link"
 import type { Metadata } from 'next'
+import { PRICING_CONFIG, PRICING_MESSAGES, formatPrice } from '@/lib/pricing-config'
 
 export const metadata: Metadata = {
   title: "FAQ | Security, Pricing & How It Works - zibly.ai",
-  description: "SOC 2 certified. 5-10 minute turnaround. No app required. Get answers about data security, task limits, file types, and enterprise features.",
+  description: "SOC 2 compliant. Adaptive AI analysis - from quick insights to deep research. No app required. Get answers about data security, task limits, file types, and enterprise features.",
 }
 
 const faqData = {
@@ -20,7 +21,7 @@ const faqData = {
       "name": "How does zibly.ai work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Simply email your tasks to work@zibly.ai with any attachments. Our AI analyzes your request, processes the data, and sends back professional deliverables (Excel models, presentations, reports) within 5-10 minutes. No app downloads or logins required."
+        "text": "Simply email your tasks to work@zibly.ai with any attachments. Our AI analyzes your request, processes the data, and sends back professional deliverables (Excel models, presentations, reports). Simple tasks complete in minutes, while complex analyses receive the deep attention they deserve. No app downloads or logins required."
       }
     },
     {
@@ -28,7 +29,7 @@ const faqData = {
       "name": "Is my data secure with zibly.ai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Zibly is SOC 2 Type II certified, uses bank-grade encryption, and never trains on your data. We delete all task data after 30 days unless you request otherwise. Your information is never shared with third parties."
+        "text": "Yes. Zibly is SOC 2 Type II compliant, uses bank-grade encryption, and never trains on your data. We delete all task data after 30 days unless you request otherwise. Your information is never shared with third parties."
       }
     },
     {
@@ -44,7 +45,7 @@ const faqData = {
       "name": "How much does zibly.ai cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Your first task is free. Plans start at $99/month for individuals, $299/month for teams, and custom pricing for enterprises. All plans include unlimited revisions and no setup fees."
+        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.unlimitedRevisions} and ${PRICING_MESSAGES.noSetupFees}.`
       }
     },
     {
@@ -52,7 +53,7 @@ const faqData = {
       "name": "How long do tasks take to complete?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Simple tasks take 5-10 minutes, standard analysis takes 30-60 minutes, and complex projects take 60-90 minutes. Professional and Enterprise plans include priority processing for urgent requests."
+        "text": "Zibly adapts to your needs - simple tasks complete in minutes, while complex analyses can take up to an hour. This isn't ChatGPT-style instant responses - it's thorough, professional work that matches the effort a human analyst would invest."
       }
     }
   ]
@@ -103,12 +104,12 @@ export default function FAQPage() {
           <div className="grid gap-8 md:grid-cols-4 text-center">
             <div>
               <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">SOC 2 Certified</p>
+              <p className="text-sm font-medium inter-text-medium">SOC 2 Compliant</p>
               <p className="text-xs text-gray-600 inter-text">Bank-grade security</p>
             </div>
             <div>
               <Clock className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">5-10 min tasks</p>
+              <p className="text-sm font-medium inter-text-medium">Adaptive analysis</p>
               <p className="text-xs text-gray-600 inter-text">Average turnaround</p>
             </div>
             <div>
@@ -118,8 +119,8 @@ export default function FAQPage() {
             </div>
             <div>
               <Users className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">10,000+ users</p>
-              <p className="text-xs text-gray-600 inter-text">Trusted by professionals</p>
+              <p className="text-sm font-medium inter-text-medium">Growing fast</p>
+              <p className="text-xs text-gray-600 inter-text">Join our community</p>
             </div>
           </div>
         </div>
@@ -149,7 +150,7 @@ export default function FAQPage() {
                         <li>Email your task to <strong>work@zibly.ai</strong> with any attachments</li>
                         <li>Our AI analyzes your request and may ask clarifying questions</li>
                         <li>We process your task using advanced AI models</li>
-                        <li>You receive professional deliverables in your inbox within minutes</li>
+                        <li>You receive professional deliverables in your inbox - timing adapted to task complexity</li>
                       </ol>
                       <p>No apps to download, no accounts to manage, no interfaces to learn. Just email.</p>
                     </div>
@@ -193,7 +194,7 @@ export default function FAQPage() {
                     <p className="inter-text">
                       Yes! Your first task is completely free, no credit card required. 
                       This lets you experience the quality of Zibly's work before committing to a plan. 
-                      After your free task, plans start at just $99/month.
+                      After your free task, plans start at just {formatPrice(PRICING_CONFIG.starter.monthly)}/month.
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -218,7 +219,7 @@ export default function FAQPage() {
                     <div className="space-y-4 inter-text">
                       <p>Absolutely. Zibly implements enterprise-grade security:</p>
                       <ul className="space-y-2 list-disc pl-6">
-                        <li><strong>SOC 2 Type II certified</strong> - Independently audited security</li>
+                        <li><strong>SOC 2 Type II compliant</strong> - Independently audited security</li>
                         <li><strong>256-bit encryption</strong> - Bank-grade data protection</li>
                         <li><strong>No training on your data</strong> - Your information stays yours</li>
                         <li><strong>Auto-deletion</strong> - Data removed after 30 days</li>
@@ -245,13 +246,13 @@ export default function FAQPage() {
                     <div className="space-y-4 inter-text">
                       <p>Yes. Zibly is designed for professional use with confidential information:</p>
                       <ul className="space-y-2 list-disc pl-6">
-                        <li>SOC 2 certification meets most client security requirements</li>
+                        <li>SOC 2 compliance meets most client security requirements</li>
                         <li>Signed BAAs available for Enterprise customers</li>
                         <li>Data processing agreements (DPAs) available</li>
                         <li>Custom security reviews for large organizations</li>
                       </ul>
                       <p className="mt-4">
-                        Many Fortune 500 companies, top consulting firms, and law firms trust Zibly with client work.
+                        Professional teams across industries trust Zibly with their analytical work.
                       </p>
                     </div>
                   </AccordionContent>
@@ -406,18 +407,18 @@ export default function FAQPage() {
                     <div className="space-y-4 inter-text">
                       <div className="grid gap-4">
                         <div className="border rounded-lg p-4">
-                          <h4 className="font-semibold">Starter - $99/month</h4>
+                          <h4 className="font-semibold">Starter - {formatPrice(PRICING_CONFIG.starter.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
                             <li>• 50 tasks per month</li>
-                            <li>• 48-hour turnaround</li>
+                            <li>• Standard processing</li>
                             <li>• Email support</li>
                           </ul>
                         </div>
                         <div className="border rounded-lg p-4 border-primary">
-                          <h4 className="font-semibold">Professional - $299/month</h4>
+                          <h4 className="font-semibold">Professional - {formatPrice(PRICING_CONFIG.professional.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
                             <li>• 200 tasks per month</li>
-                            <li>• 12-hour turnaround</li>
+                            <li>• Priority processing</li>
                             <li>• Priority support</li>
                             <li>• Custom templates</li>
                           </ul>
@@ -426,7 +427,7 @@ export default function FAQPage() {
                           <h4 className="font-semibold">Enterprise - Custom pricing</h4>
                           <ul className="mt-2 space-y-1 text-sm">
                             <li>• Unlimited tasks</li>
-                            <li>• 2-hour turnaround</li>
+                            <li>• Urgent processing</li>
                             <li>• Dedicated account manager</li>
                             <li>• Custom integrations</li>
                           </ul>
@@ -528,19 +529,19 @@ export default function FAQPage() {
                         <div className="flex items-center gap-3">
                           <Clock className="h-4 w-4 text-green-500" />
                           <div>
-                            <strong>Simple tasks (5-10 min):</strong> Basic analysis, short summaries, simple calculations
+                            <strong>Simple tasks:</strong> Basic analysis, short summaries, simple calculations - typically complete in minutes
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <Clock className="h-4 w-4 text-yellow-500" />
                           <div>
-                            <strong>Standard tasks (30-60 min):</strong> Full reports, complex models, detailed research
+                            <strong>Standard tasks:</strong> Full reports, complex models, detailed research - receive focused attention
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <Clock className="h-4 w-4 text-orange-500" />
                           <div>
-                            <strong>Complex tasks (60-90 min):</strong> Multi-source analysis, extensive modeling, large documents
+                            <strong>Complex tasks:</strong> Multi-source analysis, extensive modeling, large documents - up to an hour for comprehensive depth
                           </div>
                         </div>
                       </div>
@@ -562,7 +563,7 @@ export default function FAQPage() {
                         <li>Examples of preferred format/style (if applicable)</li>
                       </ul>
                       <p className="mt-4">
-                        Most revisions are completed within 30 minutes. Our goal is 100% satisfaction on every task.
+                        Revisions are handled quickly with the same adaptive approach. Our goal is 100% satisfaction on every task.
                       </p>
                     </div>
                   </AccordionContent>

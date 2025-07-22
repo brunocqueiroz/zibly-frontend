@@ -4,63 +4,15 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle } from 'lucide-react'
 import type { Metadata } from 'next'
+import { PRICING_PLANS, formatPrice, PRICING_MESSAGES } from '@/lib/pricing-config'
 
 export const metadata: Metadata = {
   title: "Pricing Plans - Affordable AI Analyst Support",
   description: "Choose the perfect zibly.ai plan for your needs. From starter to enterprise, get the analytical support to boost your productivity. First task is free.",
 }
 
-const plansData = [
-  {
-    name: "Associates",
-    priceMonthly: "20",
-    priceAnnual: "200",
-    description: "Ideal for solo practitioners and independent professionals",
-    features: [
-      "50 tasks per month",
-      "Turnaround within 5 minutes",
-      "Full SOC2 Data Compliance",
-      "Zero Data Retention",
-      "Never Trains Models with your Data",
-    ],
-    planId: "associates",
-  },
-  {
-    name: "Professional",
-    priceMonthly: "200",
-    priceAnnual: "2000",
-    description: "Perfect for teams and senior professionals",
-    features: [
-      "10,000 Tasks a month (effectively unlimited)",
-      "Always uses most advanced models",
-      "Priority Processing",
-      "Perfect for: Small Teams, Directors, VPs",
-      "Full SOC2 Data Compliance",
-      "Zero Data Retention",
-      "Never Trains Models with your Data",
-    ],
-    planId: "professional",
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    priceMonthly: "Contact Sales",
-    priceAnnual: "Contact Sales",
-    description: "Advanced features and dedicated support for large organizations",
-    features: [
-      "Unlimited Tasks",
-      "Dedicated Support",
-      "On Premises Option",
-      "Always uses most advanced models",
-      "White Glove Onboarding",
-      "Full SOC2 Data Compliance",
-      "Zero Data Retention",
-      "Never Trains Models with your Data",
-    ],
-    planId: "enterprise",
-    isContactSales: true,
-  },
-]
+// Using centralized pricing configuration
+const plansData = PRICING_PLANS
 
 export default function PricingPage() {
   return (
@@ -78,7 +30,7 @@ export default function PricingPage() {
         </div>
         <div className="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-3 items-stretch">
           {plansData.map((plan) => (
-            <Card key={plan.planId} className={`flex flex-col ${plan.popular ? "border-primary shadow-lg shadow-primary-100 dark:shadow-none" : ""}`}>
+            <Card key={plan.id} className={`flex flex-col ${plan.popular ? "border-primary shadow-lg shadow-primary-100 dark:shadow-none" : ""}`}>
               <CardHeader>
                 {plan.popular && (
                   <div className="inline-block rounded-lg bg-primary-100 px-3 py-1 text-sm text-primary mb-2 w-fit">
@@ -87,11 +39,11 @@ export default function PricingPage() {
                 )}
                 <CardTitle>{plan.name}</CardTitle>
                 <div className="text-3xl">
-                  {plan.isContactSales ? (
+                  {plan.priceMonthly === null ? (
                     <span>Contact Sales</span>
                   ) : (
                     <>
-                      ${plan.priceMonthly}<span className="text-sm">/month</span>
+                      {formatPrice(plan.priceMonthly)}<span className="text-sm">/month</span>
                     </>
                   )}
                 </div>
@@ -109,10 +61,10 @@ export default function PricingPage() {
               </CardContent>
               <CardFooter>
                 <Button asChild className="w-full bg-primary hover:bg-primary-600">
-                  {plan.isContactSales ? (
+                  {plan.priceMonthly === null ? (
                     <Link href="/contact">Contact Sales</Link>
                   ) : (
-                    <Link href={`/signup?plan=${plan.planId}`}>Get Started</Link>
+                    <Link href={`/signup?plan=${plan.id}`}>Get Started</Link>
                   )}
                 </Button>
               </CardFooter>

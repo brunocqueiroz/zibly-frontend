@@ -46,29 +46,6 @@ Thanks!`
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="w-full py-16 bg-white border-y">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-8 md:grid-cols-4 text-center">
-            <div>
-              <p className="text-4xl font-bold text-primary">72%</p>
-              <p className="text-gray-600 mt-2">Faster strategic planning</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">3.2x</p>
-              <p className="text-gray-600 mt-2">More scenarios analyzed</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">$2.1B</p>
-              <p className="text-gray-600 mt-2">Value created for clients</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">89%</p>
-              <p className="text-gray-600 mt-2">Executive confidence increase</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Challenges Section */}
       <section className="w-full py-16 md:py-24 bg-gray-50">
@@ -120,7 +97,7 @@ Thanks!`
                 </li>
                 <li className="flex gap-3">
                   <span className="text-green-500">✓</span>
-                  <span>Scenario planning in hours, not months</span>
+                  <span>Scenario planning with depth and speed</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-green-500">✓</span>
@@ -285,63 +262,6 @@ Thanks!`
         </div>
       </section>
 
-      {/* Case Study Section */}
-      <section className="w-full py-16 md:py-24 bg-gray-50">
-        <div className="container px-4 md:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Strategic Wins in Action
-              </h2>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
-              <div className="mb-8">
-                <div className="inline-block rounded-full bg-teal-100 px-4 py-2 text-sm text-teal-700 mb-4">
-                  Case Study: Global Tech Company
-                </div>
-                <h3 className="text-2xl font-bold mb-4">From Disrupted to Disruptor in 6 Months</h3>
-              </div>
-              
-              <div className="grid gap-6 md:grid-cols-2 mb-8">
-                <div>
-                  <h4 className="font-semibold mb-3">The Challenge</h4>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• New competitor eating 2% market share monthly</li>
-                    <li>• Board demanding immediate strategic response</li>
-                    <li>• Traditional consulting quote: $3M, 6 months</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3">The Zibly Solution</h4>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• Complete competitive analysis in 48 hours</li>
-                    <li>• 5 strategic scenarios modeled in 1 week</li>
-                    <li>• Board presentation ready in 10 days</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="bg-teal-50 rounded-lg p-6">
-                <h4 className="font-semibold mb-3">The Results</h4>
-                <div className="grid gap-4 md:grid-cols-3 text-center">
-                  <div>
-                    <p className="text-3xl font-bold text-primary">$450M</p>
-                    <p className="text-gray-600">New revenue stream identified</p>
-                  </div>
-                  <div>
-                    <p className="text-3xl font-bold text-primary">4 months</p>
-                    <p className="text-gray-600">To market leadership</p>
-                  </div>
-                  <div>
-                    <p className="text-3xl font-bold text-primary">62%</p>
-                    <p className="text-gray-600">Stock price increase</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
   
 
@@ -354,7 +274,7 @@ Thanks!`
                 Make Your Next Move Your Best Move
               </h2>
               <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
-                The future belongs to leaders who move fast with perfect information. 
+                The future belongs to leaders who move decisively with perfect information. 
                 Get your first strategic analysis free and see what you've been missing.
               </p>
             </div>

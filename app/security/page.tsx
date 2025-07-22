@@ -95,7 +95,7 @@ export default function SecurityPage() {
             <h2 className="text-2xl md:text-3xl font-semibold text-center mb-10 inter-heading-normal">Frequently Asked Security Questions</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold">Is Zibly SOC2 Complinant?</h3>
+                <h3 className="text-lg font-semibold">Is Zibly SOC2 Compliant?</h3>
                 <p className="inter-text text-muted-foreground">
                   Our infrastructure and processes follow SOC2 requirements. We’re on the path to accreditation and happy to provide a detailed overview of our security controls on request.
                 </p>

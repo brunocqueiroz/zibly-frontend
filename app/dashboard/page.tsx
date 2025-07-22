@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowRight } from "lucide-react"
 import DashboardNav from "@/components/dashboard-nav"
 import { useAuth } from "@/components/auth-provider"
+import { PRICING_CONFIG, formatPrice } from "@/lib/pricing-config"
 
 export default function DashboardPage() {
   const { user, loading } = useAuth()
@@ -57,7 +58,9 @@ export default function DashboardPage() {
   }
 
   const planName = user.subscription?.plan || "starter"
-  const planPrice = planName === "professional" ? "$299" : planName === "enterprise" ? "$999" : "$99"
+  const planPrice = planName === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) : 
+                   planName === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) : 
+                   formatPrice(PRICING_CONFIG.starter.monthly)
 
   return (
     <div className="flex min-h-screen flex-col">

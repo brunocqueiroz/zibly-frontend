@@ -34,7 +34,7 @@ Thanks!`
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
                 Your LPs expect 20%+ returns, not 20-hour days formatting IC memos. Zibly analyzes targets, 
-                builds models, and monitors portfolios at the speed of opportunity.
+                builds models, and monitors portfolios with institutional rigor.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -46,29 +46,6 @@ Thanks!`
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="w-full py-16 bg-white border-y">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-8 md:grid-cols-4 text-center">
-            <div>
-              <p className="text-4xl font-bold text-primary">2 hours</p>
-              <p className="text-gray-600 mt-2">Full due diligence report</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">500+</p>
-              <p className="text-gray-600 mt-2">Data rooms analyzed</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">$50B+</p>
-              <p className="text-gray-600 mt-2">Deal value processed</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-primary">3x</p>
-              <p className="text-gray-600 mt-2">More deals reviewed</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Use Cases Section */}
       <section className="w-full py-16 md:py-24 bg-gray-50">
@@ -86,7 +63,7 @@ Thanks!`
               <Search className="h-8 w-8 text-primary mb-4" />
               <h3 className="text-lg font-semibold mb-2">Deal Sourcing</h3>
               <p className="text-gray-600 mb-4">
-                Screen thousands of targets against your investment thesis in minutes
+                Screen multiple targets against your investment thesis systematically
               </p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
@@ -234,7 +211,7 @@ Thanks!`
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex justify-between">
                     <span>Zibly cost:</span>
-                    <span className="font-semibold">$999/month</span>
+                    <span className="font-semibold">From $20/month</span>
                   </li>
                   <li className="flex justify-between">
                     <span>Deals reviewed/year:</span>
@@ -242,7 +219,7 @@ Thanks!`
                   </li>
                   <li className="flex justify-between">
                     <span>Time per deal:</span>
-                    <span className="font-semibold">2-3 hours</span>
+                    <span className="font-semibold">Adaptive timing</span>
                   </li>
                   <li className="flex justify-between">
                     <span>Cost per deal:</span>

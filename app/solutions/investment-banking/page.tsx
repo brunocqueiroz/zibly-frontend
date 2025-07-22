@@ -35,7 +35,7 @@ Thanks!`
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
                 While you're perfecting pixel alignment at 3am, deals are moving without you. Zibly creates 
-                institutional-quality pitch books, CIMs, and financial models in minutes—not weeks.
+                institutional-quality pitch books, CIMs, and financial models with the thoroughness they require.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
