@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles, Star, FileText, BarChart3, PenTool, Mail, Bot, Clock, DollarSign, TrendingDown, TrendingUp, Rocket, Gem, AlertCircle } from 'lucide-react'
 import type { Metadata } from 'next'
+import CopyEmailButton from "@/components/copy-email-button"
 
 export default function Home() {
 
@@ -29,6 +30,22 @@ Sarah`
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Zibly",
+          url: "https://zibly.ai/",
+          logo: "https://zibly.ai/logo.png",
+          sameAs: [],
+          contactPoint: [{
+            "@type": "ContactPoint",
+            email: "work@zibly.ai",
+            contactType: "customer support"
+          }]
+        }) }}
+      />
       {/* Hero Section - Mobile Friendly */}
       <section className="w-full py-12 md:py-20 lg:py-24 bg-gradient-to-b from-primary-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="container px-4 md:px-6">
@@ -42,17 +59,23 @@ Sarah`
                 slide decks, and strategic reports. Not advice—actual deliverables.
               </p>
             </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
+            <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center items-center">
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
-                Send Your First Task <ArrowRight className="ml-2 h-4 w-4" />
+                Email Your First Task Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link href="/pricing">View Pricing</Link>
               </Button>
             </div>
+            <div className="flex justify-center mt-1">
+              <CopyEmailButton size="sm" variant="outline" />
+            </div>
+            {/* Removed: attachment/workflow/deliverables tagline per request */}
           </div>
         </div>
       </section>
+
+      {/* Removed: Common tasks links per request */}
 
       {/* Email Demo Section */}
       <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -60,7 +83,7 @@ Sarah`
           <div className="mx-auto max-w-6xl">
             <div className="text-center mb-8">
               <h2 className="inter-section-heading mb-4" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>See How It Works</h2>
-              <p className="max-w-[900px] text-lg inter-text mx-auto">This isn't ChatGPT. This is deep work, delivered.</p>
+              <p className="max-w-[900px] text-lg inter-text mx-auto">This isn't ChatGPT. This is deep work, delivered — typically within 2 minutes to 1 hour depending on task complexity.</p>
             </div>
             
             {/* Email Cards Side by Side */}
@@ -318,7 +341,7 @@ Sarah`
               <div className="space-y-2">
                 <h3 className="text-xl inter-heading-normal">We Do The Work</h3>
                 <p className="inter-text">
-                  Zibly researches, analyzes, creates charts, writes copy, builds models. Simple tasks complete quickly, complex analyses receive deep attention. This isn't instant chat—it's thorough, professional work.
+                  Zibly researches, analyzes, creates charts, writes copy, builds models. Turnaround typically ranges from <strong>2 minutes to 1 hour</strong> depending on task complexity. This isn't instant chat—it's thorough, professional work.
                 </p>
               </div>
             </div>
@@ -345,8 +368,7 @@ Sarah`
                 What Would You Accomplish With 20 Hours Back Each Week?
               </h2>
               <p className="mx-auto max-w-[700px] text-lg inter-text">
-                Zibly handles the analytical heavy lifting so you can focus on strategy, creativity, and growth. See the
-                difference with your first task—completely free.
+                Zibly handles the analytical heavy lifting so you can focus on strategy, creativity, and growth. Typical turnaround is 2 minutes to 1 hour depending on complexity.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">

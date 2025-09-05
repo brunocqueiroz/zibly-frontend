@@ -146,23 +146,23 @@ export const metaByPath: Record<
 export const metadata = {
   metadataBase: new URL('https://zibly.ai'),
   title: {
-    default: "zibly.ai – Your e-mail-powered AI assistant",
+    default: "Zibly – Email AI for Finished Deliverables",
     template: "%s | zibly.ai",
   },
   description:
-    "Simply send an e-mail with your task and zibly.ai handles the analytical heavy lifting, returning polished outputs in your inbox.",
+    "Forward tasks to work@zibly.ai and get back finished Excel models, slide decks, and research memos. Not advice—actual deliverables.",
   alternates: {
     canonical: "https://zibly.ai",
   },
   openGraph: {
-    title: "zibly.ai – Your e-mail-powered AI assistant",
+    title: "Zibly – Email AI for Finished Deliverables",
     description:
-      "Simply send an e-mail with your task and zibly.ai handles it for you.",
+      "Send tasks by email and receive polished files back. First task free.",
     url: "https://zibly.ai",
     siteName: "zibly.ai",
     images: [
       {
-        url: "https://zibly.ai/og-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "zibly.ai – E-mail-powered AI assistant",
@@ -173,10 +173,10 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "zibly.ai – Your e-mail-powered AI assistant",
+    title: "Zibly – Email AI for Finished Deliverables",
     description:
-      "Simply send an e-mail with your task and zibly.ai handles it for you.",
-    images: ["https://zibly.ai/twitter-image.png"],
+      "Send tasks by email and receive polished files back. First task free.",
+    images: ["/logo.png"],
   },
   robots: {
     index: true,

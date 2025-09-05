@@ -140,3 +140,97 @@ export async function updateUser(email: string, updates: any) {
     users.set(email, { ...user, ...updates })
   }
 }
+
+// --- Simple in-memory org store for multi-user accounts ---
+const globalForOrgs = globalThis as unknown as {
+  orgs: Map<string, any> | undefined
+}
+
+const orgs =
+  globalForOrgs.orgs ??
+  (() => {
+    console.log("Initializing org store for the first time.")
+    globalForOrgs.orgs = new Map()
+    return globalForOrgs.orgs
+  })()
+
+let orgsInitialized = false
+async function initializeOrgs() {
+  await initializeUsers()
+  if (orgsInitialized || orgs.size > 0) {
+    orgsInitialized = true
+    return
+  }
+  // Seed demo orgs
+  orgs.set("Demo Company", {
+    name: "Demo Company",
+    seats: 1,
+    members: [
+      { name: "Demo User", email: "demo@zibly.ai", role: "admin", status: "active" },
+      { name: "Analyst One", email: "analyst1@demo.com", role: "member", status: "active" },
+    ],
+  })
+  orgs.set("Acme Inc", {
+    name: "Acme Inc",
+    seats: 2,
+    members: [
+      { name: "John Doe", email: "john@example.com", role: "admin", status: "active" },
+      { name: "Jane Smith", email: "jane@acme.com", role: "member", status: "invited" },
+    ],
+  })
+  orgsInitialized = true
+}
+
+export async function getOrg(company: string) {
+  await initializeOrgs()
+  return orgs.get(company) ?? { name: company, seats: 1, members: [] }
+}
+
+export async function updateOrg(company: string, updates: any) {
+  await initializeOrgs()
+  const current = orgs.get(company) ?? { name: company, seats: 1, members: [] }
+  const next = { ...current, ...updates }
+  orgs.set(company, next)
+  return next
+}
+
+export async function addOrgMember(company: string, member: { name?: string; email: string; role: string }) {
+  await initializeOrgs()
+  const current = await getOrg(company)
+  const exists = current.members.find((m: any) => m.email === member.email)
+  if (exists) {
+    throw new Error("Member already exists")
+  }
+  const newMember = { name: member.name || member.email.split("@")[0], email: member.email, role: member.role || "member", status: "invited" }
+  const next = { ...current, members: [...current.members, newMember] }
+  orgs.set(company, next)
+  return next
+}
+
+export async function removeOrgMember(company: string, email: string) {
+  await initializeOrgs()
+  const current = await getOrg(company)
+  const next = { ...current, members: current.members.filter((m: any) => m.email !== email) }
+  orgs.set(company, next)
+  return next
+}
+
+export async function updateOrgMember(company: string, email: string, updates: any) {
+  await initializeOrgs()
+  const current = await getOrg(company)
+  const members = current.members.map((m: any) => (m.email === email ? { ...m, ...updates } : m))
+  const next = { ...current, members }
+  orgs.set(company, next)
+  return next
+}
+
+import { MAX_SEATS } from "@/lib/pricing-config"
+
+export async function setOrgSeats(company: string, seats: number) {
+  await initializeOrgs()
+  const current = await getOrg(company)
+  const capped = Math.min(MAX_SEATS, Math.max(1, Math.floor(seats)))
+  const next = { ...current, seats: capped }
+  orgs.set(company, next)
+  return next
+}

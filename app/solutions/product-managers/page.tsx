@@ -21,6 +21,17 @@ Thanks!`
 
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
+            { "@type": "ListItem", position: 2, name: "Product Managers", item: "https://zibly.ai/solutions/product-managers" }
+          ]
+        }) }}
+      />
       {/* Hero Section */}
       <section className="relative w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-orange-50 to-white">
         <div className="container px-4 md:px-6">

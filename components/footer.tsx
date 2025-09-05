@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/logo";
+import CopyEmailButton from "@/components/copy-email-button";
 
 const solutionsItems = [
   { title: "Consultants", href: "/solutions/consultants" },
@@ -31,8 +32,12 @@ export default function Footer() {
                 <p className="text-sm inter-text-medium">
                   Email: <a href="mailto:work@zibly.ai" className="text-primary hover:underline">work@zibly.ai</a>
                 </p>
+                <div className="flex items-center gap-2">
+                  <CopyEmailButton size="sm" variant="outline" />
+                  <span className="text-xs text-muted-foreground">No model training • Configurable retention • Email-based workflow</span>
+                </div>
                 <p className="text-sm inter-text text-muted-foreground">
-                  First task free • Adaptive turnaround
+                  First task free • Typical turnaround: 2 minutes to 1 hour
                 </p>
               </div>
             </div>

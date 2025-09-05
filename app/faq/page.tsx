@@ -10,6 +10,7 @@ import { PRICING_CONFIG, PRICING_MESSAGES, formatPrice } from '@/lib/pricing-con
 export const metadata: Metadata = {
   title: "FAQ | Security, Pricing & How It Works - zibly.ai",
   description: "SOC 2 compliant. Adaptive AI analysis - from quick insights to deep research. No app required. Get answers about data security, task limits, file types, and enterprise features.",
+  alternates: { canonical: "https://zibly.ai/faq" },
 }
 
 const faqData = {
@@ -45,7 +46,7 @@ const faqData = {
       "name": "How much does zibly.ai cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.noSetupFees}.`
+        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.noSetupFees}. Starter: 50 tasks/month, Standard processing. Professional: 10,000 tasks/month, Priority processing. Enterprise: Unlimited tasks, Urgent processing and dedicated support.`
       }
     },
     {

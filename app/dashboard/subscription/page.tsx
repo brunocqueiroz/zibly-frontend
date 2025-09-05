@@ -5,21 +5,21 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CheckCircle, CreditCard, AlertCircle } from "lucide-react"
+import { CreditCard, AlertCircle } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { changePlan, cancelSubscription, reactivateSubscription } from "@/app/actions/subscription"
+import { cancelSubscription, reactivateSubscription } from "@/app/actions/subscription"
 import DashboardNav from "@/components/dashboard-nav"
 import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/components/auth-provider"
-import { PRICING_CONFIG, formatPrice } from "@/lib/pricing-config"
+import { PRICING_CONFIG, formatPrice, MAX_SEATS } from "@/lib/pricing-config"
+import PricingGrid from "@/components/pricing-grid"
+import { PRICING_PLANS } from "@/lib/pricing-config"
+import { changePlan } from "@/app/actions/subscription"
+import { setSeatsAction } from "@/app/actions/team"
 
 export default function SubscriptionPage() {
   const { user } = useAuth()
-  const [selectedPlan, setSelectedPlan] = useState("professional")
-  const [billingCycle, setBillingCycle] = useState("monthly")
   const [isLoading, setIsLoading] = useState(false)
   const [subscription, setSubscription] = useState({
     plan: "professional",
@@ -30,50 +30,10 @@ export default function SubscriptionPage() {
   const { toast } = useToast()
 
   useEffect(() => {
-    // Initialize with user subscription data if available
     if (user?.subscription) {
       setSubscription(user.subscription)
-      setSelectedPlan(user.subscription.plan)
     }
   }, [user])
-
-  const handleChangePlan = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
-
-    const formData = new FormData()
-    formData.append("plan", selectedPlan)
-    formData.append("billingCycle", billingCycle)
-
-    try {
-      const result = await changePlan(formData)
-
-      if (result.error) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: result.error,
-        })
-      } else {
-        toast({
-          title: "Success",
-          description: "Your subscription has been updated.",
-        })
-        setSubscription({
-          ...subscription,
-          plan: selectedPlan,
-        })
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to update subscription",
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   const handleCancelSubscription = async () => {
     setIsLoading(true)
@@ -178,168 +138,28 @@ export default function SubscriptionPage() {
               </TabsList>
 
               <TabsContent value="plans" className="space-y-4 pt-4">
-                <form onSubmit={handleChangePlan}>
-                  <div className="flex justify-end">
-                    <div className="inline-flex items-center rounded-lg border p-1">
-                      <Button
-                        type="button"
-                        variant={billingCycle === "monthly" ? "default" : "ghost"}
-                        size="sm"
-                        onClick={() => setBillingCycle("monthly")}
-                        className={billingCycle === "monthly" ? "bg-primary" : ""}
-                      >
-                        Monthly
-                      </Button>
-                      <Button
-                        type="button"
-                        variant={billingCycle === "annual" ? "default" : "ghost"}
-                        size="sm"
-                        onClick={() => setBillingCycle("annual")}
-                        className={billingCycle === "annual" ? "bg-primary" : ""}
-                      >
-                        Annual (Save 20%)
-                      </Button>
-                    </div>
-                  </div>
-
-                  <RadioGroup
-                    value={selectedPlan}
-                    onValueChange={setSelectedPlan}
-                    className="grid gap-4 md:grid-cols-3 mt-4"
-                  >
-                    <div>
-                      <RadioGroupItem value="starter" id="starter" className="peer sr-only" />
-                      <Label
-                        htmlFor="starter"
-                        className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                      >
-                        <div className="mb-4 text-center">
-                          <div className="text-xl font-bold">Starter</div>
-                          <div className="text-3xl font-bold">
-                            {billingCycle === "monthly" ? formatPrice(PRICING_CONFIG.starter.monthly) : formatPrice(PRICING_CONFIG.starter.annual)}
-                            <span className="text-sm font-normal text-muted-foreground">
-                              /{billingCycle === "monthly" ? "month" : "year"}
-                            </span>
-                          </div>
-                        </div>
-                        <ul className="space-y-2 text-sm">
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>15 tasks per month</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Standard processing</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Email support</span>
-                          </li>
-                        </ul>
-                      </Label>
-                    </div>
-
-                    <div>
-                      <RadioGroupItem value="professional" id="professional" className="peer sr-only" />
-                      <Label
-                        htmlFor="professional"
-                        className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                      >
-                        <div className="mb-4 text-center">
-                          {subscription.plan === "professional" && (
-                            <div className="inline-block rounded-lg bg-primary-100 px-3 py-1 text-xs text-primary dark:bg-primary-800/30 dark:text-primary-400">
-                              Current Plan
-                            </div>
-                          )}
-                          <div className="text-xl font-bold">Professional</div>
-                          <div className="text-3xl font-bold">
-                            {billingCycle === "monthly" ? formatPrice(PRICING_CONFIG.professional.monthly) : formatPrice(PRICING_CONFIG.professional.annual)}
-                            <span className="text-sm font-normal text-muted-foreground">
-                              /{billingCycle === "monthly" ? "month" : "year"}
-                            </span>
-                          </div>
-                        </div>
-                        <ul className="space-y-2 text-sm">
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>50 tasks per month</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Priority processing</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Priority processing</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Priority support</span>
-                          </li>
-                        </ul>
-                      </Label>
-                    </div>
-
-                    <div>
-                      <RadioGroupItem value="enterprise" id="enterprise" className="peer sr-only" />
-                      <Label
-                        htmlFor="enterprise"
-                        className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                      >
-                        <div className="mb-4 text-center">
-                          {subscription.plan === "enterprise" && (
-                            <div className="inline-block rounded-lg bg-primary-100 px-3 py-1 text-xs text-primary dark:bg-primary-800/30 dark:text-primary-400">
-                              Current Plan
-                            </div>
-                          )}
-                          <div className="text-xl font-bold">Enterprise</div>
-                          <div className="text-3xl font-bold">
-                            {billingCycle === "monthly" ? "Contact Sales" : "Contact Sales"}
-                            <span className="text-sm font-normal text-muted-foreground">
-                              /{billingCycle === "monthly" ? "month" : "year"}
-                            </span>
-                          </div>
-                        </div>
-                        <ul className="space-y-2 text-sm">
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Unlimited tasks</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Urgent processing</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Dedicated workspace</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Custom training</span>
-                          </li>
-                          <li className="flex items-center">
-                            <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                            <span>Dedicated manager</span>
-                          </li>
-                        </ul>
-                      </Label>
-                    </div>
-                  </RadioGroup>
-
-                  <div className="flex justify-end mt-6 space-x-2">
-                    {!subscription.cancelAtPeriodEnd && subscription.plan !== selectedPlan && (
-                      <Button type="submit" className="bg-primary hover:bg-primary-600" disabled={isLoading}>
-                        {isLoading ? "Updating..." : "Change Plan"}
-                      </Button>
-                    )}
-
-                    {!subscription.cancelAtPeriodEnd && (
-                      <Button type="button" variant="outline" onClick={handleCancelSubscription} disabled={isLoading}>
-                        Cancel Subscription
-                      </Button>
-                    )}
-                  </div>
-                </form>
+                <PricingGrid
+                  plans={PRICING_PLANS as any}
+                  currentPlanId={subscription.plan}
+                  onSwitchPlan={async (planId, seats, coupon) => {
+                    setIsLoading(true)
+                    try {
+                      const fd = new FormData()
+                      fd.append("plan", planId)
+                      fd.append("billingCycle", "monthly")
+                      const result = await changePlan(fd)
+                      if ((result as any)?.error) {
+                        throw new Error((result as any).error)
+                      }
+                      const seatsFd = new FormData()
+                      seatsFd.append("seats", String(Math.min(MAX_SEATS, Math.max(1, seats))))
+                      await setSeatsAction(seatsFd)
+                      setSubscription((prev) => ({ ...prev, plan: planId }))
+                    } finally {
+                      setIsLoading(false)
+                    }
+                  }}
+                />
               </TabsContent>
 
               <TabsContent value="billing" className="space-y-4 pt-4">

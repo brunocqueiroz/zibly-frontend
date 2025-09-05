@@ -42,6 +42,26 @@ export const PRICING_CONFIG = {
   freeTasksCount: 1,
 };
 
+// Seat-based pricing configuration
+export const MAX_SEATS = 10
+export const SEAT_DISCOUNT_STEP = 0.03 // 3% less per additional seat (compounded)
+
+// Total monthly price for N seats with compounding per-seat discount.
+export function seatAdjustedTotal(basePerSeat: number, seats: number, step: number = SEAT_DISCOUNT_STEP): number {
+  const n = Math.min(MAX_SEATS, Math.max(1, Math.floor(seats)))
+  let total = 0
+  let perUnit = basePerSeat
+  for (let i = 0; i < n; i++) {
+    total += perUnit
+    perUnit = perUnit * (1 - step)
+  }
+  return total
+}
+
+export function formatCurrency(amount: number): string {
+  return `${PRICING_CONFIG.currencySymbol}${amount.toFixed(2)}`
+}
+
 // Full plan details for pricing pages
 export const PRICING_PLANS: PricingPlan[] = [
   {

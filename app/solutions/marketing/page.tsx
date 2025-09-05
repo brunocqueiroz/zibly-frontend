@@ -20,6 +20,17 @@ Thanks!`
 
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
+            { "@type": "ListItem", position: 2, name: "Marketing", item: "https://zibly.ai/solutions/marketing" }
+          ]
+        }) }}
+      />
       {/* Hero Section */}
       <section className="relative w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-pink-50 to-white">
         <div className="container px-4 md:px-6">
@@ -261,9 +272,10 @@ Thanks!`
                 className="bg-transparent text-white border-white hover:bg-white hover:text-primary"
                 asChild
               >
-                <Link href="/demo">Watch 5-Min Demo</Link>
+                <Link href="/features#workflow">See How It Works</Link>
               </Button>
             </div>
+            <div className="text-sm text-white/80 mt-2">No model training • Configurable retention • Email-based workflow</div>
           </div>
         </div>
       </section>

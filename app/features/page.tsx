@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, FileText, BarChart3, PenTool, Search, Calculator, Database, Clock, Shield, Target, Mail, CheckCircle, Sparkles, TrendingUp, Brain, FileSpreadsheet, Lightbulb, Users, Zap } from 'lucide-react'
 import type { Metadata } from 'next'
+import CopyEmailButton from "@/components/copy-email-button"
 
 
 export default function FeaturesPage() {
@@ -32,16 +33,19 @@ Thanks!`
                 Turn 6-Hour Tasks Into 6-Minute Emails
               </h1>
               <p className="max-w-[700px] text-lg md:text-xl inter-text mx-auto text-gray-600">
-              Transform how you work. Email your analytical tasks and get back finished deliverables. From data chaos to executive clarity with the depth your work deserves.              </p>
+                Transform how you work. Email your analytical tasks and get back finished deliverables. From data chaos to executive clarity with the depth your work deserves — typically within 2 minutes to 1 hour depending on complexity.
+              </p>
             </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
+            <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center items-center">
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
-                Try Your First Task Free <Mail className="ml-2 h-4 w-4" />
+                Email Your First Task Free <Mail className="ml-2 h-4 w-4" />
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link href="#workflow">See How It Works</Link>
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
+            {/* Removed: attachment/workflow taglines per request */}
           </div>
         </div>
       </section>
@@ -78,7 +82,7 @@ Thanks!`
               Your Work, Transformed
             </h2>
             <p className="max-w-[900px] text-lg inter-text mx-auto">
-              Real examples of how professionals use Zibly every day
+              Real examples of how professionals use Zibly every day — from <Link href="/solutions/consultants" className="text-primary hover:underline">consulting decks</Link> and <Link href="/solutions/investment-banking" className="text-primary hover:underline">banking pitch books</Link> to <Link href="/solutions/marketing" className="text-primary hover:underline">marketing campaign analysis</Link>.
             </p>
           </div>
 
@@ -494,8 +498,7 @@ Thanks!`
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm inter-text text-gray-600">
-                    Simple tasks complete quickly. Complex analyses receive the deep attention they deserve. 
-                    Adaptive timing that matches task complexity.
+                    Turnaround typically ranges from <strong>2 minutes to 1 hour</strong> depending on task complexity. Simple tasks finish fast; deep analyses get the time they need.
                   </p>
                 </CardContent>
               </Card>

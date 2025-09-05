@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service – Zibly',
+  description: 'Read the Zibly terms governing use of our email-powered AI assistant and services.',
+  alternates: { canonical: 'https://zibly.ai/terms' },
+}
+
 export default function TermsPage() {
   return (
     <div className="container max-w-4xl px-4 py-12 md:px-6 md:py-24">

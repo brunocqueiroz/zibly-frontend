@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { ArrowRight,Menu, ChevronDown } from "lucide-react"
 import Logo from "@/components/logo"
 import { useAuth } from "@/components/auth-provider"
+import CopyEmailButton from "@/components/copy-email-button"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -124,9 +125,12 @@ export default function Navbar() {
               <Link href="/login">Sign In</Link>
             </Button>
           )}
-          <Button asChild className="bg-primary hover:bg-primary-600">
-            <Link href="mailto:work@zibly.ai">Try Free Task <ArrowRight className="ml-2 h-4 w-4" /></Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild className="bg-primary hover:bg-primary-600">
+              <Link href="mailto:work@zibly.ai">Email Your First Task Free <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+            <CopyEmailButton size="sm" variant="outline" />
+          </div>
         </div>
 
         {/* Mobile menu button - positioned on the right */}
@@ -187,11 +191,14 @@ export default function Navbar() {
                       </Link>
                     </Button>
                   )}
-                  <Button asChild className="bg-primary hover:bg-primary-600">
-                    <Link href="mailto:work@zibly.ai" onClick={() => setIsOpen(false)}>
-                      Try Free Task
-                    </Link>
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button asChild className="bg-primary hover:bg-primary-600">
+                      <Link href="mailto:work@zibly.ai" onClick={() => setIsOpen(false)}>
+                        Email Your First Task Free
+                      </Link>
+                    </Button>
+                    <CopyEmailButton size="sm" variant="outline" />
+                  </div>
                 </div>
               </div>
             </SheetContent>
