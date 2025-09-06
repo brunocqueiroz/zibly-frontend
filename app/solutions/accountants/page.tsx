@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Calculator, FileText, BarChart3, Shield, CheckCircle, AlertCircle } from "lucide-react"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
 
 
@@ -52,6 +53,7 @@ Thanks!`
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
                 Automate Your First Analysis Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
           </div>
         </div>
@@ -173,6 +175,38 @@ Thanks!`
                   <span>Documentation</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deliverables + Popular Requests */}
+      <section className="w-full py-16 md:py-24 bg-white">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Monthly reporting packs (PPTX/PDF)</li>
+                <li>• Excel workbooks: P&L, cash flow, projections</li>
+                <li>• Executive variance commentary (DOCX)</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Budget vs actuals with insights</li>
+                <li>• Ratio analysis + KPI dashboard</li>
+                <li>• Forecast scenarios and what‑ifs</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">How it works</h3>
+              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+                <li>Forward exports or trial balance</li>
+                <li>State the output and timeframe</li>
+                <li>Receive the finished files</li>
+              </ol>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Lightbulb, Users, BarChart3, Target, CheckCircle, Rocket } from "lucide-react"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
 
 
@@ -52,6 +53,7 @@ Thanks!`
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
                 Analyze Your Product Data Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
           </div>
         </div>
@@ -219,6 +221,38 @@ Thanks!`
                   <span>Success metrics</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deliverables + Popular Requests */}
+      <section className="w-full py-16 md:py-24 bg-white">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• PRDs and specs (DOCX)</li>
+                <li>• Competitive teardown decks (PPTX)</li>
+                <li>• Research synthesis and personas</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Interview synthesis with quotes</li>
+                <li>• Feature prioritization matrices</li>
+                <li>• Roadmap presentations</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">How it works</h3>
+              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+                <li>Forward research, data, or context</li>
+                <li>Specify artifacts you want</li>
+                <li>Receive finished deliverables</li>
+              </ol>
             </div>
           </div>
         </div>

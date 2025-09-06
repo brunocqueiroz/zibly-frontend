@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Globe, TrendingUp, BarChart3, Target, CheckCircle, Building2 } from "lucide-react"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
 
 
@@ -52,6 +53,7 @@ Thanks!`
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
                 Get Your First Strategic Analysis Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
           </div>
         </div>
@@ -268,6 +270,38 @@ Thanks!`
                   <span>KPI tracking</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deliverables + Popular Requests */}
+      <section className="w-full py-16 md:py-24 bg-gray-50">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg border p-6 bg-white">
+              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Board-ready strategy decks (PPTX)</li>
+                <li>• Market and competitor briefs (PDF)</li>
+                <li>• Scenario models (Excel)</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6 bg-white">
+              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Market sizing + TAM/SAM/SOM</li>
+                <li>• Competitor playbooks</li>
+                <li>• Strategic options assessments</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6 bg-white">
+              <h3 className="text-lg font-semibold mb-2">How it works</h3>
+              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+                <li>Forward materials and goals</li>
+                <li>Specify output & audience</li>
+                <li>Receive finished deliverables</li>
+              </ol>
             </div>
           </div>
         </div>

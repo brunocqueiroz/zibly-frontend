@@ -28,7 +28,7 @@ export default function Navbar() {
     return null
   }
 
-  const solutionsItems = [
+  const solutionsPros = [
     { title: "Consultants", href: "/solutions/consultants", description: "Strategic analysis and client deliverables" },
     { title: "Investment Bankers", href: "/solutions/investment-banking", description: "Deal analysis and pitch decks" },
     { title: "Private Equity", href: "/solutions/private-equity", description: "Portfolio analysis and due diligence" },
@@ -37,6 +37,11 @@ export default function Navbar() {
     { title: "Marketing Teams", href: "/solutions/marketing", description: "Market research and campaign analysis" },
     { title: "Product Managers", href: "/solutions/product-managers", description: "Competitive analysis and user research" },
     { title: "Strategy Executives", href: "/solutions/strategy", description: "Strategic planning and market intelligence" },
+  ]
+  const solutionsStudents = [
+    { title: "MBA Students", href: "/solutions/mba-students", description: "Case prep, modeling, recruiting decks" },
+    { title: "Law Students", href: "/solutions/law-students", description: "Outlines, briefs, exam checklists" },
+    { title: "Undergraduates", href: "/solutions/undergraduates", description: "Summaries, analysis, presentations" },
   ]
 
   return (
@@ -68,23 +73,44 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                    {solutionsItems.map((item) => (
-                      <li key={item.title}>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href={item.href}
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">{item.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {item.description}
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="w-[560px] p-4 grid grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-xs uppercase text-muted-foreground mb-2">Professionals</div>
+                      <ul className="space-y-1">
+                        {solutionsPros.map((item) => (
+                          <li key={item.title}>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href={item.href}
+                                className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                              >
+                                <div className="font-medium">{item.title}</div>
+                                <p className="text-xs text-muted-foreground">{item.description}</p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase text-muted-foreground mb-2">Students</div>
+                      <ul className="space-y-1">
+                        {solutionsStudents.map((item) => (
+                          <li key={item.title}>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href={item.href}
+                                className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                              >
+                                <div className="font-medium">{item.title}</div>
+                                <p className="text-xs text-muted-foreground">{item.description}</p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
@@ -153,17 +179,23 @@ export default function Navbar() {
                 
                 <div className="space-y-2">
                   <div className="text-lg font-medium">Solutions</div>
-                  <div className="pl-4 space-y-2">
-                    {solutionsItems.map((item) => (
-                      <Link 
-                        key={item.title}
-                        href={item.href} 
-                        className="block text-sm text-muted-foreground hover:text-foreground" 
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.title}
-                      </Link>
-                    ))}
+                  <div className="pl-4">
+                    <div className="text-xs uppercase text-muted-foreground mb-1">Professionals</div>
+                    <div className="pl-2 space-y-1 mb-2">
+                      {solutionsPros.map((item) => (
+                        <Link key={item.title} href={item.href} className="block text-sm text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>
+                          {item.title}
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="text-xs uppercase text-muted-foreground mb-1">Students</div>
+                    <div className="pl-2 space-y-1">
+                      {solutionsStudents.map((item) => (
+                        <Link key={item.title} href={item.href} className="block text-sm text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>
+                          {item.title}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
 

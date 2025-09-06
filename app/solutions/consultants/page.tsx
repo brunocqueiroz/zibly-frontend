@@ -4,6 +4,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Clock, BarChart3, FileText, Users, CheckCircle, TrendingUp } from "lucide-react"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
 
 
@@ -53,8 +54,9 @@ Thanks!`
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
                 Try Your First Analysis Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
-            <div className="text-sm text-gray-500">No model training • Configurable retention • Email-based workflow</div>
+            {/* Tagline removed to emphasize outcomes */}
           </div>
         </div>
       </section>
@@ -183,6 +185,38 @@ Thanks!`
         </div>
       </section>
 
+
+      {/* Deliverables + Popular Requests */}
+      <section className="w-full py-16 md:py-24 bg-white">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Strategy decks with storyline and charts (PPTX)</li>
+                <li>• Excel models with scenarios and sensitivities</li>
+                <li>• Executive summaries and memos (PDF/DOCX)</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Market sizing + competitor landscape</li>
+                <li>• Pricing & packaging analysis</li>
+                <li>• KPI deep‑dives and commentary</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">How it works</h3>
+              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+                <li>Forward files or link to data</li>
+                <li>State the outcome you want</li>
+                <li>Receive the finished deliverable</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ROI Section */}
       <section className="w-full py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">

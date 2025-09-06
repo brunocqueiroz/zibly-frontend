@@ -4,6 +4,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Clock, BarChart3, FileText, TrendingUp, CheckCircle, DollarSign } from "lucide-react"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
 
 
@@ -53,6 +54,7 @@ Thanks!`
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
                 Create Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
           </div>
         </div>
@@ -179,6 +181,38 @@ Thanks!`
         </div>
       </section>
 
+      {/* Deliverables + Popular Requests */}
+      <section className="w-full py-16 md:py-24 bg-white">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Pitch books and teasers (PPTX)</li>
+                <li>• CIM outlines and summary sections</li>
+                <li>• Valuation packs (DCF, comps, precedents)</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Sector overviews and buyers lists</li>
+                <li>• Operating model clean‑ups</li>
+                <li>• Returns and sensitivity tables</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">How it works</h3>
+              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+                <li>Forward materials (data room links, decks, Excel)</li>
+                <li>Specify the output (e.g., 12‑slide buyer deck)</li>
+                <li>Receive the deliverable, ready to finalize</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Speed Section */}
       <section className="w-full py-16 md:py-24 bg-white">
         <div className="container px-4 md:px-6">
@@ -190,44 +224,27 @@ Thanks!`
           <div className="max-w-4xl mx-auto">
             <div className="grid gap-8 md:grid-cols-3 text-center">
               <div>
-                <p className="text-5xl font-bold text-primary mb-2">5 min</p>
-                <p className="text-gray-600">First draft pitch book</p>
-                <p className="text-sm text-gray-500 mt-2">vs. 2-3 days traditional</p>
+                <p className="text-xl font-semibold mb-1">Move faster</p>
+                <p className="text-gray-600">Draft decks and analyses quickly so you can focus on the narrative.</p>
               </div>
               <div>
-                <p className="text-5xl font-bold text-primary mb-2">30 min</p>
-                <p className="text-gray-600">Full valuation analysis</p>
-                <p className="text-sm text-gray-500 mt-2">vs. 1 week traditional</p>
+                <p className="text-xl font-semibold mb-1">Stay thorough</p>
+                <p className="text-gray-600">Valuation methods and comps included, with clear assumptions.</p>
               </div>
               <div>
-                <p className="text-5xl font-bold text-primary mb-2">10x</p>
-                <p className="text-gray-600">More client touches</p>
-                <p className="text-sm text-gray-500 mt-2">while competitors build decks</p>
+                <p className="text-xl font-semibold mb-1">Win time back</p>
+                <p className="text-gray-600">Spend more hours with clients and fewer in PowerPoint and Excel.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonial Section */}
+      {/* Social proof (generic) */}
       <section className="w-full py-16 md:py-24 bg-gray-50">
-        <div className="container px-4 md:px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-blue-50 rounded-lg p-8 md:p-12">
-              <p className="text-xl md:text-2xl font-medium text-gray-900 mb-6">
-                "Zibly is a game-changer for deal execution. Last week, we won a $2B mandate because we delivered 
-                a full pitch book while our competition was still working on their first draft. The quality matches 
-                our best work, but takes 95% less time. Every minute saved is a minute we can spend winning deals."
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-gray-300" />
-                <div>
-                  <p className="font-semibold">Thomas Anderson</p>
-                  <p className="text-gray-600">Head of M&A, JPMorgan</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="container px-4 md:px-6 text-center">
+          <h3 className="text-xl font-semibold mb-2">What teams say</h3>
+          <p className="mx-auto max-w-2xl text-gray-700">“Zibly frees our team to focus on relationships and strategy while keeping deliverables moving.”</p>
         </div>
       </section>
 

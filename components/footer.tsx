@@ -11,6 +11,9 @@ const solutionsItems = [
   { title: "Marketing Teams", href: "/solutions/marketing" },
   { title: "Product Managers", href: "/solutions/product-managers" },
   { title: "Strategy Executives", href: "/solutions/strategy" },
+  { title: "MBA Students", href: "/solutions/mba-students" },
+  { title: "Law Students", href: "/solutions/law-students" },
+  { title: "Undergraduates", href: "/solutions/undergraduates" },
 ];
 
 export default function Footer() {

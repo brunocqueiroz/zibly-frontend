@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Clock, AlertTriangle, Lightbulb, Shield, DollarSign, Zap, Users, HelpCircle, Mail } from 'lucide-react'
 import Link from "next/link"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from 'next'
 import { PRICING_CONFIG, PRICING_MESSAGES, formatPrice } from '@/lib/pricing-config'
 
@@ -90,6 +91,7 @@ export default function FAQPage() {
                     Ask a Question <Mail className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
+                <CopyEmailButton size="sm" variant="outline" email="support@zibly.ai" />
                 <Button asChild variant="outline" size="lg">
                   <Link href="/pricing">View Pricing</Link>
                 </Button>

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import CopyEmailButton from "@/components/copy-email-button"
 import { Shield, Lock, FileText, Database, CheckCircle2, AlertCircle, Mail, RefreshCw } from "lucide-react"
 
 export const metadata = {
@@ -122,7 +123,7 @@ export default function SecurityPage() {
               <div>
                 <h3 className="text-lg font-semibold">How do I delete my data?</h3>
                 <p className="inter-text text-muted-foreground">
-                  You can request deletion at any time by emailing <Link href="mailto:security@zibly.ai" className="text-primary underline">security@zibly.ai</Link>. Deleted files are permanently removed from all systems within 7 days.
+                  You can request deletion at any time by emailing <Link href="mailto:security@zibly.ai" className="text-primary underline">security@zibly.ai</Link> <span className="inline-block ml-2 align-middle"><CopyEmailButton size="sm" variant="outline" email="security@zibly.ai" /></span>. Deleted files are permanently removed from all systems within 7 days.
                 </p>
               </div>
               <div>
@@ -134,7 +135,7 @@ export default function SecurityPage() {
               <div>
                 <h3 className="text-lg font-semibold">How can I report a security concern?</h3>
                 <p className="inter-text text-muted-foreground">
-                  Email <Link href="mailto:security@zibly.ai" className="text-primary underline">security@zibly.ai</Link>. We respond to all security concerns within 24 hours.
+                  Email <Link href="mailto:security@zibly.ai" className="text-primary underline">security@zibly.ai</Link> <span className="inline-block ml-2 align-middle"><CopyEmailButton size="sm" variant="outline" email="security@zibly.ai" /></span>. We respond to all security concerns within 24 hours.
                 </p>
               </div>
             </div>

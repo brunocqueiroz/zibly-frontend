@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, TrendingUp, Users, BarChart3, Megaphone, CheckCircle, Zap } from "lucide-react"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
 
 export default function MarketingPage() {
@@ -51,6 +52,7 @@ Thanks!`
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
                 Analyze Your First Campaign Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
           </div>
         </div>
@@ -275,7 +277,7 @@ Thanks!`
                 <Link href="/features#workflow">See How It Works</Link>
               </Button>
             </div>
-            <div className="text-sm text-white/80 mt-2">No model training • Configurable retention • Email-based workflow</div>
+            {/* Tagline removed to emphasize outcomes */}
           </div>
         </div>
       </section>
