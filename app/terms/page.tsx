@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import CopyEmailButton from "@/components/copy-email-button"
 
 export const metadata: Metadata = {
   title: 'Terms of Service – Zibly',
