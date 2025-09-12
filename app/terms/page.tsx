@@ -1,3 +1,12 @@
+import type { Metadata } from 'next'
+import CopyEmailButton from "@/components/copy-email-button"
+
+export const metadata: Metadata = {
+  title: 'Terms of Service – Zibly',
+  description: 'Read the Zibly terms governing use of our email-powered AI assistant and services.',
+  alternates: { canonical: 'https://zibly.ai/terms' },
+}
+
 export default function TermsPage() {
   return (
     <div className="container max-w-4xl px-4 py-12 md:px-6 md:py-24">
@@ -66,7 +75,7 @@ export default function TermsPage() {
                 <strong>Confidentiality:</strong> We do not use your User Content to train public AI models, and do not sell your data to third parties. Zibly’s personnel are required to keep your information confidential and only access it to provide support or resolve technical issues.
               </li>
               <li>
-                <strong>Data Deletion:</strong> You may request deletion of your account or content at any time by contacting <a href="mailto:support@zibly.ai" className="text-primary underline">support@zibly.ai</a>. We will delete your information from our active systems within 7 business days unless otherwise required by law.
+                <strong>Data Deletion:</strong> You may request deletion of your account or content at any time by contacting <a href="mailto:support@zibly.ai" className="text-primary underline">support@zibly.ai</a> <span className="inline-block ml-2 align-middle"><CopyEmailButton size="sm" variant="outline" email="support@zibly.ai" /></span>. We will delete your information from our active systems within 7 business days unless otherwise required by law.
               </li>
             </ul>
           </section>
@@ -195,7 +204,7 @@ export default function TermsPage() {
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">16. Contact Information</h2>
             <p className="text-gray-600">
-              If you have any questions about these Terms of Service or your rights and obligations under them, please contact us at <a href="mailto:support@zibly.ai" className="text-primary underline">support@zibly.ai</a>.
+              If you have any questions about these Terms of Service or your rights and obligations under them, please contact us at <a href="mailto:support@zibly.ai" className="text-primary underline">support@zibly.ai</a> <span className="inline-block ml-2 align-middle"><CopyEmailButton size="sm" variant="outline" email="support@zibly.ai" /></span>.
             </p>
           </section>
         </div>

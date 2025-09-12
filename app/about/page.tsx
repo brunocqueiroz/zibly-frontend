@@ -2,6 +2,13 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Clock, FileText, Target } from "lucide-react"
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "About Zibly – Email-Powered AI Deliverables",
+  description: "We build an email-first AI that returns polished deliverables — models, decks, and memos — so professionals can focus on high-value work.",
+  alternates: { canonical: "https://zibly.ai/about" },
+}
 
 export default function AboutPage() {
   return (

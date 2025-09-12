@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy – Zibly',
+  description: 'Learn how Zibly collects, uses, and protects your information. Request deletion at any time.',
+  alternates: { canonical: 'https://zibly.ai/privacy' },
+}
+
 export default function PrivacyPage() {
   return (
     <div className="container max-w-4xl px-4 py-12 md:px-6 md:py-24">
@@ -30,7 +38,7 @@ export default function PrivacyPage() {
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
               <li>Process your requests and deliver work products</li>
               <li>Manage your account and billing</li>
-              <li>Improve our AI models and services</li>
+              <li>Improve service quality and reliability</li>
               <li>Send important updates and notifications</li>
               <li>Provide customer support</li>
             </ul>

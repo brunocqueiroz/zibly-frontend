@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Clock, AlertTriangle, Lightbulb, Shield, DollarSign, Zap, Users, HelpCircle, Mail } from 'lucide-react'
 import Link from "next/link"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from 'next'
 import { PRICING_CONFIG, PRICING_MESSAGES, formatPrice } from '@/lib/pricing-config'
 
 export const metadata: Metadata = {
   title: "FAQ | Security, Pricing & How It Works - zibly.ai",
   description: "SOC 2 compliant. Adaptive AI analysis - from quick insights to deep research. No app required. Get answers about data security, task limits, file types, and enterprise features.",
+  alternates: { canonical: "https://zibly.ai/faq" },
 }
 
 const faqData = {
@@ -45,7 +47,7 @@ const faqData = {
       "name": "How much does zibly.ai cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.noSetupFees}.`
+        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.noSetupFees}. Starter: 50 tasks/month, Standard processing. Professional: 10,000 tasks/month, Priority processing. Enterprise: Unlimited tasks, Urgent processing and dedicated support.`
       }
     },
     {
@@ -89,6 +91,7 @@ export default function FAQPage() {
                     Ask a Question <Mail className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
+                <CopyEmailButton size="sm" variant="outline" email="support@zibly.ai" />
                 <Button asChild variant="outline" size="lg">
                   <Link href="/pricing">View Pricing</Link>
                 </Button>

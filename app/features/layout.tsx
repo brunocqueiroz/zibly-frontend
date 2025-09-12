@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Features | AI Email Assistant for Professional Services - zibly.ai",
-  description: "Turn emails into Excel models, slide decks & reports with professional depth. See how professionals save 20+ hours weekly with AI-powered task automation.",
+  title: "Features – Email AI for Models, Decks & Memos | Zibly",
+  description: "Send tasks by email and get back finished Excel models, slide decks, and research memos. Typical turnaround is 2 minutes to 1 hour depending on complexity.",
+  alternates: { canonical: "https://zibly.ai/features" },
 }
 
 export default function FeaturesLayout({

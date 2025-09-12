@@ -4,13 +4,12 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { BarChart3, CreditCard, Home, Mail, Settings, User, LogOut } from "lucide-react"
+import { CreditCard, Home, Mail, Settings, User, LogOut, Users } from "lucide-react"
 import { useAuth } from "@/components/auth-provider"
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Email History", href: "/dashboard/history", icon: Mail },
-  { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+  { name: "Team", href: "/dashboard/team", icon: Users },
   { name: "Subscription", href: "/dashboard/subscription", icon: CreditCard },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ]

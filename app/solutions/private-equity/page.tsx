@@ -4,6 +4,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Target, BarChart3, FileText, TrendingUp, CheckCircle, Search } from "lucide-react"
+import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
 
 export default function PrivateEquityPage() {
@@ -21,6 +22,17 @@ Thanks!`
 
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
+            { "@type": "ListItem", position: 2, name: "Private Equity", item: "https://zibly.ai/solutions/private-equity" }
+          ]
+        }) }}
+      />
       {/* Hero Section */}
       <section className="relative w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-indigo-50 to-white">
         <div className="container px-4 md:px-6">
@@ -41,6 +53,7 @@ Thanks!`
               <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
                 Analyze Your First Deal Free <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+              <CopyEmailButton size="sm" variant="outline" />
             </div>
           </div>
         </div>
@@ -174,6 +187,38 @@ Thanks!`
         </div>
       </section>
 
+      {/* Deliverables + Popular Requests */}
+      <section className="w-full py-16 md:py-24 bg-white">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• IC memos and board updates</li>
+                <li>• LBO models and returns summaries</li>
+                <li>• Market maps and diligence checklists</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• Data room triage and synthesis</li>
+                <li>• KPI dashboards for portfolio reviews</li>
+                <li>• Add‑on screens and buyer lists</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border p-6">
+              <h3 className="text-lg font-semibold mb-2">How it works</h3>
+              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+                <li>Forward materials (data room links, Excel)</li>
+                <li>Specify output (memo/deck/model)</li>
+                <li>Receive the finished deliverable</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* ROI Calculator Section */}
       <section className="w-full py-16 md:py-24 bg-gray-50">
@@ -219,7 +264,7 @@ Thanks!`
                   </li>
                   <li className="flex justify-between">
                     <span>Time per deal:</span>
-                    <span className="font-semibold">Adaptive timing</span>
+                    <span className="font-semibold">Typically 2 minutes to 1 hour</span>
                   </li>
                   <li className="flex justify-between">
                     <span>Cost per deal:</span>
