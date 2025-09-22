@@ -136,7 +136,7 @@ export default function Footer() {
         <div className="py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm inter-text text-muted-foreground">
-              © 2025 zibly.ai. All rights reserved.
+              © 2025 Zibly. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               <Link href="/terms" className="text-sm inter-text text-muted-foreground hover:text-foreground transition-colors">

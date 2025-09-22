@@ -21,17 +21,15 @@ export default function Logo({ className, size = "md" }: LogoProps) {
 
   return (
     <Link href="/" className={`flex items-center ${className}`}>
-      <div className="relative -mr-2">
-        <Image
-          src="/logo.png"
-          alt="zibly.ai Logo"
-          width={sizes[size].width}
-          height={sizes[size].height}
-          className="object-contain object-left"
-          priority
-        />
-      </div>
-      <span className={`${textSizes[size]} font-bold`}>zibly.ai</span>
+      <Image
+        src="/logo.png"
+        alt="Zibly Logo"
+        width={sizes[size].width}
+        height={sizes[size].height}
+        className="object-contain object-left"
+        priority
+      />
+      <span className={`${textSizes[size]} font-bold -ml-1`}>Zibly</span>
     </Link>
   )
 }

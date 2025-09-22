@@ -4,7 +4,6 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -14,8 +13,6 @@ import { registerUser } from "@/app/actions/auth"
 import Logo from "@/components/logo"
 
 export default function SignupPage() {
-  const searchParams = useSearchParams()
-  const plan = searchParams.get("plan") || "basic"
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({})
@@ -27,7 +24,6 @@ export default function SignupPage() {
     setFormErrors({})
 
     const formData = new FormData(e.currentTarget)
-    formData.append("plan", plan)
 
     try {
       const result = await registerUser(formData)
@@ -70,10 +66,17 @@ export default function SignupPage() {
               <CardDescription className="inter-text">Sign up with your email and password</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="inter-text-medium">Name</Label>
-                <Input id="name" name="name" placeholder="John Doe" required />
-                {formErrors.name && <p className="text-xs text-red-500">{formErrors.name[0]}</p>}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="first_name" className="inter-text-medium">First Name</Label>
+                  <Input id="first_name" name="first_name" placeholder="John" required />
+                  {formErrors.first_name && <p className="text-xs text-red-500">{formErrors.first_name[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="last_name" className="inter-text-medium">Last Name</Label>
+                  <Input id="last_name" name="last_name" placeholder="Doe" required />
+                  {formErrors.last_name && <p className="text-xs text-red-500">{formErrors.last_name[0]}</p>}
+                </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email" className="inter-text-medium">Email</Label>
@@ -82,12 +85,8 @@ export default function SignupPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password" className="inter-text-medium">Password</Label>
-                <Input id="password" name="password" type="password" required />
+                <Input id="password" name="password" type="password" placeholder="Minimum 8 characters" required />
                 {formErrors.password && <p className="text-xs text-red-500">{formErrors.password[0]}</p>}
-              </div>
-              <div className="space-y-2">
-                <Label className="inter-text-medium">Selected Plan</Label>
-                <div className="rounded-md border p-2 text-sm capitalize inter-text">{plan}</div>
               </div>
             </CardContent>
             <CardFooter>

@@ -147,7 +147,7 @@ export const metadata = {
   metadataBase: new URL('https://zibly.ai'),
   title: {
     default: "Zibly – Email AI for Finished Deliverables",
-    template: "%s | zibly.ai",
+    template: "%s | Zibly",
   },
   description:
     "Forward tasks to work@zibly.ai and get back finished Excel models, slide decks, and research memos. Not advice—actual deliverables.",
