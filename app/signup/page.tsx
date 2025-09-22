@@ -3,8 +3,8 @@
 import type React from "react"
 
 import { useState } from "react"
-import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -15,7 +15,7 @@ import Logo from "@/components/logo"
 
 export default function SignupPage() {
   const searchParams = useSearchParams()
-  const plan = searchParams.get("plan") || "basic"
+  const plan = searchParams.get("plan") || "starter"
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({})
@@ -27,7 +27,6 @@ export default function SignupPage() {
     setFormErrors({})
 
     const formData = new FormData(e.currentTarget)
-    formData.append("plan", plan)
 
     try {
       const result = await registerUser(formData)

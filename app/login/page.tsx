@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useAuth } from "@/components/auth-provider"
+import { createDemoUser } from "@/app/actions/auth"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -30,11 +31,9 @@ export default function LoginPage() {
     const email = formData.get("email") as string
     const password = formData.get("password") as string
 
-    console.log("Attempting login with:", email)
-
     try {
       const success = await login(email, password)
-      console.log("Login call returned:", success)
+      
       // The redirect is now handled by the useEffect below,
       // which waits for the user state in AuthProvider to update.
       if (!success) {
@@ -52,7 +51,6 @@ export default function LoginPage() {
   useEffect(() => {
     // Only redirect if auth is not loading and user is successfully set
     if (!authLoading && user) {
-      console.log("Auth state updated. User:", user.email, "Redirecting to:", callbackUrl)
       router.push(callbackUrl)
     } else if (!authLoading && !user && isSubmitting) {
       // If login attempt finished (isSubmitting was true), auth is not loading, but no user
