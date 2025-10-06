@@ -126,12 +126,12 @@ export default async function BlogPostPage({
 
       {/* Post Header */}
       <header className="mb-8">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
+        <h1 className="text-4xl font-bold tracking-tight mb-4 text-primary">
           {post.title}
         </h1>
-        
+
         <div className="flex items-center gap-4 mb-6">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 text-sm text-card-foreground">
             <Calendar className="h-4 w-4" />
             {formatDate(post.publish_date)}
           </div>
@@ -152,12 +152,12 @@ export default async function BlogPostPage({
       </header>
 
       {/* Post Content */}
-      <article className="prose prose-lg max-w-none dark:prose-invert">
+      <article className="prose prose-lg max-w-none prose-headings:text-primary prose-p:text-white prose-li:text-white prose-strong:text-white prose-a:text-primary">
         {post.content_markdown ? (
           <ReactMarkdown>{post.content_markdown}</ReactMarkdown>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground mb-4">
+            <p className="mb-4 text-white">
               Content not available.
             </p>
           </div>
@@ -166,11 +166,11 @@ export default async function BlogPostPage({
 
       {/* CTA Section */}
       <div className="mt-16 border-t pt-16">
-        <div className="bg-muted/50 rounded-lg p-8 text-center">
-          <h3 className="text-lg font-semibold mb-2">
+        <div className="bg-card rounded-lg p-8 text-center border">
+          <h3 className="text-lg font-semibold mb-2 text-primary">
             Ready to transform your workflow?
           </h3>
-          <p className="text-muted-foreground mb-4">
+          <p className="text-card-foreground mb-4">
             Experience the power of email-driven AI automation with zibly.ai
           </p>
           <div className="flex gap-4 justify-center">

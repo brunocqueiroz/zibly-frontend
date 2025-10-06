@@ -142,11 +142,11 @@ export default async function BlogPage({
     <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
+        <h1 className="text-4xl font-bold tracking-tight mb-4 text-primary">
           {tag ? `${tag} Posts` : 'Blog'}
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          {tag 
+        <p className="text-xl text-white max-w-2xl mx-auto">
+          {tag
             ? `Explore ${tag} related articles on AI, productivity, and the future of work.`
             : 'Insights on AI, productivity, and the future of work. Learn how to leverage technology to get more done.'
           }
@@ -155,8 +155,8 @@ export default async function BlogPage({
         {/* Tag Filter UI */}
         {tag && (
           <div className="flex justify-center mt-6">
-            <div className="flex items-center gap-2 bg-muted/50 rounded-lg px-4 py-2">
-              <span className="text-sm text-muted-foreground">Filtering by:</span>
+            <div className="flex items-center gap-2 bg-card rounded-lg px-4 py-2">
+              <span className="text-sm text-white">Filtering by:</span>
               <Badge variant="secondary">{tag}</Badge>
               <Button
                 asChild
@@ -176,11 +176,11 @@ export default async function BlogPage({
       {/* Posts List */}
       {posts.length === 0 ? (
         <div className="text-center py-12">
-          <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">
+          <BookOpen className="h-12 w-12 text-primary mx-auto mb-4" />
+          <h3 className="text-lg font-semibold mb-2 text-primary">
             {tag ? `No posts found for "${tag}"` : 'No posts yet'}
           </h3>
-          <p className="text-muted-foreground">
+          <p className="text-white">
             {tag ? (
               <>
                 Try browsing{' '}
@@ -201,11 +201,11 @@ export default async function BlogPage({
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <Link 
+                    <Link
                       href={`/blog/${post.slug}`}
                       className="block group"
                     >
-                      <h2 className="text-xl font-semibold leading-tight group-hover:text-primary transition-colors">
+                      <h2 className="text-xl font-semibold leading-tight text-primary group-hover:text-primary/80 transition-colors">
                         {post.title}
                       </h2>
                     </Link>
@@ -215,7 +215,7 @@ export default async function BlogPage({
               
               <CardContent className="pt-0">
                 <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm text-card-foreground">
                     <Calendar className="h-4 w-4" />
                     {formatDate(post.publish_date)}
                   </div>
@@ -255,11 +255,11 @@ export default async function BlogPage({
       
       {/* Footer CTA */}
       <div className="mt-16 text-center">
-        <div className="bg-muted/50 rounded-lg p-8">
-          <h3 className="text-lg font-semibold mb-2">
+        <div className="bg-card rounded-lg p-8 border">
+          <h3 className="text-lg font-semibold mb-2 text-primary">
             Want more insights like these?
           </h3>
-          <p className="text-muted-foreground mb-4">
+          <p className="text-card-foreground mb-4">
             Get AI-powered analysis delivered to your inbox. Try zibly.ai today.
           </p>
           <Link 

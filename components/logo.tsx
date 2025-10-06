@@ -8,9 +8,9 @@ interface LogoProps {
 
 export default function Logo({ className, size = "md" }: LogoProps) {
   const sizes = {
-    sm: { width: 40, height: 40 },
-    md: { width: 56, height: 56 },
-    lg: { width: 72, height: 72 },
+    sm: { width: 160, height: 40 },
+    md: { width: 240, height: 60 },
+    lg: { width: 320, height: 80 },
   }
 
   const textSizes = {
@@ -21,7 +21,7 @@ export default function Logo({ className, size = "md" }: LogoProps) {
 
   return (
     <Link href="/" className={`flex items-center ${className}`}>
-      <div className="relative -mr-2">
+      <div className="relative">
         <Image
           src="/logo.png"
           alt="zibly.ai Logo"
@@ -31,7 +31,6 @@ export default function Logo({ className, size = "md" }: LogoProps) {
           priority
         />
       </div>
-      <span className={`${textSizes[size]} font-bold`}>zibly.ai</span>
     </Link>
   )
 }

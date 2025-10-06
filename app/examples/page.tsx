@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import PdfViewer from "@/components/examples/PdfViewer";
 
 function Pill({ children }: { children: React.ReactNode }) {
-  return <span className="inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium bg-primary/5 border-primary/20 text-primary">{children}</span>;
+  return <span className="inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium bg-primary/5 border-primary/20 text-white">{children}</span>;
 }
 
 function ExampleCard({ ex }: { ex: ExampleItem }) {
@@ -32,7 +32,7 @@ function ExampleCard({ ex }: { ex: ExampleItem }) {
       <CardContent className="grid md:grid-cols-3 gap-6">
         {/* Left: Email */}
         <div className="md:col-span-1">
-          <div className="rounded-xl border p-4 bg-gradient-to-br from-primary/5 to-purple-500/5">
+          <div className="rounded-xl border p-4 bg-background">
             <div className="text-sm font-medium mb-2">Client email (excerpt)</div>
             <pre className="whitespace-pre-wrap text-sm leading-relaxed">{ex.email}</pre>
             <Separator className="my-3" />
@@ -40,7 +40,7 @@ function ExampleCard({ ex }: { ex: ExampleItem }) {
               <div className="text-sm font-medium mb-2">Attachments</div>
               <div className="flex flex-wrap gap-2">
                 {ex.deliverables.map((del, i) => (
-                  <Badge key={i} variant="outline" className="border-primary/30 text-primary">{del}</Badge>
+                  <Badge key={i} variant="outline" className="border-primary/30 text-white">{del}</Badge>
                 ))}
               </div>
             </div>
@@ -50,8 +50,8 @@ function ExampleCard({ ex }: { ex: ExampleItem }) {
         {/* Middle: What Zibly did */}
         <div className="md:col-span-1">
           <div className="rounded-xl border p-4 bg-card/40 h-full">
-            <div className="text-sm font-medium mb-2">What Zibly did</div>
-            <ul className="space-y-2 text-sm">
+            <div className="text-sm font-medium mb-2 text-card-foreground">What Zibly did</div>
+            <ul className="space-y-2 text-sm text-card-foreground">
               {ex.did.map((d, i) => (<li key={i} className="flex items-start gap-2">• <span>{d}</span></li>))}
             </ul>
             <Separator className="my-3" />
@@ -64,7 +64,7 @@ function ExampleCard({ ex }: { ex: ExampleItem }) {
         {/* Right: Preview */}
         <div className="md:col-span-1">
           <div className="rounded-xl border p-4 bg-card/40 h-full flex flex-col">
-            <div className="text-sm font-medium mb-2">Sample outputs</div>
+            <div className="text-sm font-medium mb-2 text-card-foreground">Sample outputs</div>
             <div className="text-xs text-muted-foreground">Open on-site preview</div>
             <div className="mt-auto pt-4">
               <Dialog open={open} onOpenChange={setOpen}>
@@ -93,10 +93,10 @@ function ExampleCard({ ex }: { ex: ExampleItem }) {
 export default function ExamplesPage() {
   // Optional: replace EXAMPLES with fetched + merged data using /api/manifest.
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="mx-auto max-w-6xl px-6 py-12 bg-background">
       <header className="mb-8">
         <h1 className="text-4xl font-semibold tracking-tight">
-          See Zibly in action — <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">email → deliverables</span>
+          See Zibly in action — <span className="text-white">email → deliverables</span>
         </h1>
         <p className="mt-3 text-muted-foreground max-w-2xl">
           These are real outputs from Zibly, shown exactly as delivered — no edits or embellishments.

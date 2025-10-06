@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -21,7 +21,18 @@ import {
 export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const { user, loading } = useAuth()
+
+  // Handle scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Don't show navbar on auth pages or dashboard
   if (pathname?.startsWith("/login") || pathname?.startsWith("/signup") || pathname?.startsWith("/dashboard")) {
@@ -45,7 +56,7 @@ export default function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className={`sticky top-0 z-50 w-full border-b border-border/20 backdrop-blur-sm shadow-sm transition-all duration-300 ${isScrolled ? 'bg-background/80' : 'bg-background'}`}>
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex items-center">
           <Logo />
@@ -56,36 +67,36 @@ export default function Navbar() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <Link href="/features" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
                     Features
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              
+
               <NavigationMenuItem>
                 <Link href="/pricing" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
                     Pricing
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="text-white hover:text-primary">Solutions</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="w-[560px] p-4 grid grid-cols-2 gap-4">
+                  <div className="w-[560px] p-4 grid grid-cols-2 gap-4 bg-background border border-border">
                     <div>
-                      <div className="text-xs uppercase text-muted-foreground mb-2">Professionals</div>
+                      <div className="text-xs uppercase text-white/70 mb-2">Professionals</div>
                       <ul className="space-y-1">
                         {solutionsPros.map((item) => (
                           <li key={item.title}>
                             <NavigationMenuLink asChild>
                               <Link
                                 href={item.href}
-                                className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className="font-medium">{item.title}</div>
-                                <p className="text-xs text-muted-foreground">{item.description}</p>
+                                <div className="font-medium text-white group-hover:text-primary">{item.title}</div>
+                                <p className="text-xs text-white/70 group-hover:text-primary">{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -93,17 +104,17 @@ export default function Navbar() {
                       </ul>
                     </div>
                     <div>
-                      <div className="text-xs uppercase text-muted-foreground mb-2">Students</div>
+                      <div className="text-xs uppercase text-white/70 mb-2">Students</div>
                       <ul className="space-y-1">
                         {solutionsStudents.map((item) => (
                           <li key={item.title}>
                             <NavigationMenuLink asChild>
                               <Link
                                 href={item.href}
-                                className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className="font-medium">{item.title}</div>
-                                <p className="text-xs text-muted-foreground">{item.description}</p>
+                                <div className="font-medium text-white group-hover:text-primary">{item.title}</div>
+                                <p className="text-xs text-white/70 group-hover:text-primary">{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -116,7 +127,7 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
                     About
                   </NavigationMenuLink>
                 </Link>
@@ -124,7 +135,7 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/faq" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
                     FAQ
                   </NavigationMenuLink>
                 </Link>
@@ -132,7 +143,7 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/blog" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
                     Blog
                   </NavigationMenuLink>
                 </Link>
@@ -143,19 +154,19 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center space-x-4">
           {!loading && user ? (
-            <Button asChild variant="ghost">
+            <Button asChild variant="ghost" className="text-white hover:text-primary">
               <Link href="/dashboard">Dashboard</Link>
             </Button>
           ) : (
-            <Button asChild variant="ghost">
+            <Button asChild variant="ghost" className="text-white hover:text-primary">
               <Link href="/login">Sign In</Link>
             </Button>
           )}
           <div className="flex items-center gap-2">
-            <Button asChild className="bg-primary hover:bg-primary-600">
+            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Link href="mailto:work@zibly.ai">Email Your First Task Free <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <CopyEmailButton size="sm" variant="outline" />
+            <CopyEmailButton size="sm" variant="outline" className="text-white border-white/30 hover:bg-white/10" />
           </div>
         </div>
 
@@ -163,35 +174,35 @@ export default function Navbar() {
         <div className="flex md:hidden flex-1 justify-end">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="text-white">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
-              <SheetTitle className="text-lg font-semibold mb-4">Navigation Menu</SheetTitle>
+            <SheetContent side="right" className="bg-background text-white">
+              <SheetTitle className="text-lg font-semibold mb-4 text-white">Navigation Menu</SheetTitle>
               <div className="flex flex-col space-y-4">
-                <Link href="/features" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
+                <Link href="/features" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
                   Features
                 </Link>
-                <Link href="/pricing" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
+                <Link href="/pricing" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
                   Pricing
                 </Link>
-                
+
                 <div className="space-y-2">
-                  <div className="text-lg font-medium">Solutions</div>
+                  <div className="text-lg font-medium text-white">Solutions</div>
                   <div className="pl-4">
-                    <div className="text-xs uppercase text-muted-foreground mb-1">Professionals</div>
+                    <div className="text-xs uppercase text-white/70 mb-1">Professionals</div>
                     <div className="pl-2 space-y-1 mb-2">
                       {solutionsPros.map((item) => (
-                        <Link key={item.title} href={item.href} className="block text-sm text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>
+                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-primary" onClick={() => setIsOpen(false)}>
                           {item.title}
                         </Link>
                       ))}
                     </div>
-                    <div className="text-xs uppercase text-muted-foreground mb-1">Students</div>
+                    <div className="text-xs uppercase text-white/70 mb-1">Students</div>
                     <div className="pl-2 space-y-1">
                       {solutionsStudents.map((item) => (
-                        <Link key={item.title} href={item.href} className="block text-sm text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>
+                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-primary" onClick={() => setIsOpen(false)}>
                           {item.title}
                         </Link>
                       ))}
@@ -199,37 +210,37 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <Link href="/about" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
+                <Link href="/about" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
                   About
                 </Link>
-                <Link href="/faq" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
+                <Link href="/faq" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
                   FAQ
                 </Link>
-                <Link href="/blog" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
+                <Link href="/blog" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
                   Blog
                 </Link>
-                
+
                 <div className="flex flex-col space-y-2 pt-4">
                   {!loading && user ? (
-                    <Button asChild variant="outline">
+                    <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
                       <Link href="/dashboard" onClick={() => setIsOpen(false)}>
                         Dashboard
                       </Link>
                     </Button>
                   ) : (
-                    <Button asChild variant="outline">
+                    <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
                       <Link href="/login" onClick={() => setIsOpen(false)}>
                         Sign In
                       </Link>
                     </Button>
                   )}
                   <div className="flex items-center gap-2">
-                    <Button asChild className="bg-primary hover:bg-primary-600">
+                    <Button asChild className="bg-primary hover:bg-primary/90">
                       <Link href="mailto:work@zibly.ai" onClick={() => setIsOpen(false)}>
                         Email Your First Task Free
                       </Link>
                     </Button>
-                    <CopyEmailButton size="sm" variant="outline" />
+                    <CopyEmailButton size="sm" variant="outline" className="text-white border-white/30" />
                   </div>
                 </div>
               </div>

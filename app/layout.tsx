@@ -1,5 +1,5 @@
 import type React from "react"
-import { Inter } from "next/font/google"
+import { Plus_Jakarta_Sans } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/auth-provider"
@@ -8,7 +8,11 @@ import Footer from "@/components/footer"
 import "./globals.css"
 import Script from "next/script"
 
-const inter = Inter({ subsets: ["latin"] })
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plus-jakarta"
+})
 
 /**
  * ---------------------------------------------------------------------
@@ -211,7 +215,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={plusJakartaSans.className}>
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"

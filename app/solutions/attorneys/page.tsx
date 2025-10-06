@@ -5,6 +5,10 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Scale, FileText, Search, Clock, CheckCircle, BookOpen } from "lucide-react"
 import CopyEmailButton from "@/components/copy-email-button"
 import type { Metadata } from "next"
+import FadeIn from "@/components/animations/FadeIn"
+import SlideUp from "@/components/animations/SlideUp"
+import AnimatedCard from "@/components/animations/AnimatedCard"
+import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
 
 
 
@@ -36,222 +40,260 @@ Thanks!`
         }) }}
       />
       {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-slate-50 to-white">
+      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-background">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-8 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-slate-100 px-3 py-1 text-sm text-slate-700 mb-4">
-                For Attorneys & Law Firms
+            <FadeIn>
+              <div className="space-y-4 max-w-3xl">
+                <div className="inline-block rounded-lg bg-accent px-3 py-1 text-sm text-foreground mb-4">
+                  For Attorneys & Law Firms
+                </div>
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+                  Bill Hours, Not All-Nighters
+                </h1>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                  Your clients pay for expertise, not document review. Zibly handles the research, analysis,
+                  and drafting so you can focus on strategy and advocacy.
+                </p>
               </div>
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-                Bill Hours, Not All-Nighters
-              </h1>
-              <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-                Your clients pay for expertise, not document review. Zibly handles the research, analysis, 
-                and drafting so you can focus on strategy and advocacy.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
-                Analyze Your First Case Free <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <CopyEmailButton size="sm" variant="outline" />
-            </div>
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
+                  Analyze Your First Case Free <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <CopyEmailButton size="sm" variant="outline" />
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>
 
 
       {/* Use Cases Section */}
-      <section className="w-full py-16 md:py-24 bg-gray-50">
+      <section className="w-full py-16 md:py-24 bg-secondary">
         <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Every Practice Area, Accelerated
-            </h2>
-            <p className="mt-4 text-gray-600 md:text-lg max-w-2xl mx-auto">
-              From litigation to transactions, Zibly handles the heavy lifting
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Contract Analysis</h3>
-              <p className="text-gray-600 mb-4">
-                Review contracts thoroughly and efficiently. Identify risks, compare terms, track changes
+          <SlideUp>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Every Practice Area, Accelerated
+              </h2>
+              <p className="mt-4 text-muted-foreground md:text-lg max-w-2xl mx-auto">
+                From litigation to transactions, Zibly handles the heavy lifting
               </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Risk identification</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Clause comparison</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Redline generation</span>
-                </div>
-              </div>
             </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <Search className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Legal Research</h3>
-              <p className="text-gray-600 mb-4">
-                Find relevant cases, statutes, and precedents with comprehensive analysis
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Case law analysis</span>
+          </SlideUp>
+          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <StaggerItem>
+              <AnimatedCard>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <FileText className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Contract Analysis</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Review contracts thoroughly and efficiently. Identify risks, compare terms, track changes
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Risk identification</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Clause comparison</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Redline generation</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Statutory research</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Jurisdiction-specific</span>
-                </div>
-              </div>
-            </div>
+              </AnimatedCard>
+            </StaggerItem>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <BookOpen className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Discovery & Due Diligence</h3>
-              <p className="text-gray-600 mb-4">
-                Process large volumes of documents to find what matters for your case
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Document review</span>
+            <StaggerItem>
+              <AnimatedCard>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <Search className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Legal Research</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Find relevant cases, statutes, and precedents with comprehensive analysis
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Case law analysis</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Statutory research</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Jurisdiction-specific</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Privilege detection</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Key fact extraction</span>
-                </div>
-              </div>
-            </div>
-          </div>
+              </AnimatedCard>
+            </StaggerItem>
 
-          <div className="grid gap-6 md:grid-cols-3 mt-6">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <Scale className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Litigation Support</h3>
-              <p className="text-gray-600 mb-4">
-                Build stronger cases with comprehensive analysis and document preparation
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Brief drafting</span>
+            <StaggerItem>
+              <AnimatedCard>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <BookOpen className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Discovery & Due Diligence</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Process large volumes of documents to find what matters for your case
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Document review</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Privilege detection</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Key fact extraction</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Motion analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Deposition prep</span>
-                </div>
-              </div>
-            </div>
+              </AnimatedCard>
+            </StaggerItem>
+          </StaggerContainer>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Transactional Work</h3>
-              <p className="text-gray-600 mb-4">
-                Accelerate deals with thorough document drafting and review
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Purchase agreements</span>
+          <StaggerContainer className="grid gap-6 md:grid-cols-3 mt-6">
+            <StaggerItem>
+              <AnimatedCard>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <Scale className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Litigation Support</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Build stronger cases with comprehensive analysis and document preparation
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Brief drafting</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Motion analysis</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Deposition prep</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Disclosure schedules</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Closing checklists</span>
-                </div>
-              </div>
-            </div>
+              </AnimatedCard>
+            </StaggerItem>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <Clock className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Compliance & Regulatory</h3>
-              <p className="text-gray-600 mb-4">
-                Stay ahead of regulatory changes and ensure compliance
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Regulatory analysis</span>
+            <StaggerItem>
+              <AnimatedCard>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <FileText className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Transactional Work</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Accelerate deals with thorough document drafting and review
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Purchase agreements</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Disclosure schedules</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Closing checklists</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Policy drafting</span>
+              </AnimatedCard>
+            </StaggerItem>
+
+            <StaggerItem>
+              <AnimatedCard>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <Clock className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Compliance & Regulatory</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Stay ahead of regulatory changes and ensure compliance
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Regulatory analysis</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Policy drafting</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Risk assessment</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Risk assessment</span>
-                </div>
-              </div>
-            </div>
-          </div>
+              </AnimatedCard>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li>• Research memos and case summaries</li>
-                <li>• Clause comparisons and checklists</li>
-                <li>• Draft outlines and exhibit summaries</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li>• Contract review highlights</li>
-                <li>• Diligence trackers</li>
-                <li>• Litigation brief scaffolds</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2">How it works</h3>
-              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
-                <li>Forward documents and instructions</li>
-                <li>Specify format and citations style</li>
-                <li>Review and finalize internally</li>
-              </ol>
-            </div>
+            <FadeIn delay={0.1}>
+              <div className="rounded-lg border p-6">
+                <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+                <ul className="space-y-2 text-sm text-foreground">
+                  <li>• Research memos and case summaries</li>
+                  <li>• Clause comparisons and checklists</li>
+                  <li>• Draft outlines and exhibit summaries</li>
+                </ul>
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <div className="rounded-lg border p-6">
+                <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+                <ul className="space-y-2 text-sm text-foreground">
+                  <li>• Contract review highlights</li>
+                  <li>• Diligence trackers</li>
+                  <li>• Litigation brief scaffolds</li>
+                </ul>
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.3}>
+              <div className="rounded-lg border p-6">
+                <h3 className="text-lg font-semibold mb-2">How it works</h3>
+                <ol className="space-y-2 text-sm text-foreground list-decimal pl-5">
+                  <li>Forward documents and instructions</li>
+                  <li>Specify format and citations style</li>
+                  <li>Review and finalize internally</li>
+                </ol>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>
 
       {/* ROI Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              The Math Every Partner Loves
-            </h2>
-          </div>
-          <div className="max-w-4xl mx-auto bg-slate-50 rounded-lg p-8">
+          <SlideUp>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                The Math Every Partner Loves
+              </h2>
+            </div>
+          </SlideUp>
+          <div className="max-w-4xl mx-auto bg-card rounded-lg p-8">
             <div className="grid gap-8 md:grid-cols-2">
               <div>
                 <h3 className="text-xl font-semibold mb-6">Traditional Associate Work</h3>
@@ -275,7 +317,7 @@ Thanks!`
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-6 text-primary">With Zibly + Senior Review</h3>
+                <h3 className="text-xl font-semibold mb-6 text-white">With Zibly + Senior Review</h3>
                 <ul className="space-y-4">
                   <li className="flex justify-between items-center">
                     <span>Zibly analysis</span>
@@ -289,7 +331,7 @@ Thanks!`
                     <span>Client value delivered</span>
                     <span className="font-semibold">Same</span>
                   </li>
-                  <li className="border-t pt-4 flex justify-between items-center font-bold text-primary">
+                  <li className="border-t pt-4 flex justify-between items-center font-bold text-white">
                     <span>Total cost</span>
                     <span>$2,520</span>
                   </li>
@@ -297,7 +339,7 @@ Thanks!`
               </div>
             </div>
             <div className="mt-8 p-4 bg-primary/10 rounded-lg text-center">
-              <p className="text-2xl font-bold text-primary">
+              <p className="text-2xl font-bold text-white">
                 81% margin improvement. 40 hours saved. Same quality delivered.
               </p>
             </div>
@@ -331,7 +373,7 @@ Thanks!`
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-transparent text-white border-white hover:bg-white hover:text-primary"
+                className="bg-transparent text-white border-white hover:bg-background hover:text-primary"
                 asChild
               >
                 <Link href="/security">Bank-Level Security</Link>

@@ -93,23 +93,23 @@ export default function LoginPage() {
         </div>
 
         {registered && (
-          <Alert className="bg-green-50 border-green-200">
-            <AlertDescription className="text-green-800">
+          <Alert className="bg-secondary border-primary">
+            <AlertDescription className="text-primary">
               Account created successfully! Please sign in.
             </AlertDescription>
           </Alert>
         )}
 
-        <Alert className="bg-blue-50 border-blue-200">
-          <Info className="h-4 w-4 text-blue-600" />
-          <AlertDescription className="text-blue-800">
+        <Alert className="bg-secondary border-border">
+          <Info className="h-4 w-4 text-primary" />
+          <AlertDescription className="text-foreground">
             <div className="space-y-1">
               <div className="font-medium">Demo Account Available</div>
               <div className="text-sm">Email: demo@zibly.ai | Password: password123</div>
               <Button
                 variant="link"
                 size="sm"
-                className="h-auto p-0 text-blue-600 hover:text-blue-800"
+                className="h-auto p-0 text-primary hover:text-foreground"
                 onClick={handleDemoLogin}
               >
                 Click to fill demo credentials
@@ -155,7 +155,7 @@ export default function LoginPage() {
             <CardFooter>
               <Button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary-600"
+                className="w-full bg-primary hover:bg-primary/90"
                 disabled={isSubmitting || authLoading}
               >
                 {isSubmitting || authLoading ? "Signing in..." : "Sign in"}

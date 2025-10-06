@@ -5,7 +5,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Clock, BarChart3, FileText, TrendingUp, CheckCircle, DollarSign } from "lucide-react"
 import CopyEmailButton from "@/components/copy-email-button"
-import type { Metadata } from "next"
+import FadeIn from "@/components/animations/FadeIn"
+import SlideUp from "@/components/animations/SlideUp"
+import AnimatedCard from "@/components/animations/AnimatedCard"
+import MagneticButton from "@/components/animations/MagneticButton"
+import GradientText from "@/components/animations/GradientText"
+import WaveDivider from "@/components/WaveDivider"
+import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
 
 
 export default function InvestmentBankingPage() {
@@ -35,175 +41,211 @@ Thanks!`
         }) }}
       />
       {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white">
+      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-background">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-8 text-center">
             <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-700 mb-4">
+              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">
                 For Investment Bankers
               </div>
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-                Close Deals, Not PowerPoint
-              </h1>
-              <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-                While you're perfecting pixel alignment at 3am, deals are moving without you. Zibly creates 
-                institutional-quality pitch books, CIMs, and financial models with the thoroughness they require.
-              </p>
+              <SlideUp>
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-white">
+                  Close <GradientText>Deals</GradientText>, Not PowerPoint
+                </h1>
+              </SlideUp>
+              <FadeIn delay={0.2}>
+                <p className="mx-auto max-w-[700px] text-white md:text-xl">
+                  While you're perfecting pixel alignment at 3am, deals are moving without you. Zibly creates
+                  institutional-quality pitch books, CIMs, and financial models with the thoroughness they require.
+                </p>
+              </FadeIn>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary-600" onClick={handleEmailClick}>
-                Create Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <CopyEmailButton size="sm" variant="outline" />
-            </div>
+            <FadeIn delay={0.2}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <MagneticButton>
+                  <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
+                    Create Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </MagneticButton>
+                <CopyEmailButton size="sm" variant="outline" />
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>
+
+      <WaveDivider fill="hsl(0 0% 100%)" />
 
       {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-card">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              We've Lived Your 100-Hour Weeks
-            </h2>
+            <SlideUp>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-card-foreground">
+                We've Lived Your <GradientText>100-Hour Weeks</GradientText>
+              </h2>
+            </SlideUp>
           </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-red-100">
-                <Clock className="h-6 w-6 text-red-600" />
+          <StaggerContainer className="grid gap-8 md:grid-cols-3">
+            <StaggerItem>
+              <div className="flex flex-col items-center text-center space-y-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
+                  <Clock className="h-6 w-6 text-accent-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-card-foreground">All-Nighters for Formatting</h3>
+                <p className="text-card-foreground">
+                  You didn't go to Wharton to align logos and update page numbers until 4am
+                </p>
               </div>
-              <h3 className="text-xl font-semibold">All-Nighters for Formatting</h3>
-              <p className="text-gray-600">
-                You didn't go to Wharton to align logos and update page numbers until 4am
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-red-100">
-                <FileText className="h-6 w-6 text-red-600" />
+            </StaggerItem>
+            <StaggerItem>
+              <div className="flex flex-col items-center text-center space-y-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
+                  <FileText className="h-6 w-6 text-accent-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-card-foreground">Version Control Hell</h3>
+                <p className="text-card-foreground">
+                  "Pitch_v47_FINAL_FINAL_USE_THIS_ONE.pptx" - sound familiar?
+                </p>
               </div>
-              <h3 className="text-xl font-semibold">Version Control Hell</h3>
-              <p className="text-gray-600">
-                "Pitch_v47_FINAL_FINAL_USE_THIS_ONE.pptx" - sound familiar?
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-red-100">
-                <TrendingUp className="h-6 w-6 text-red-600" />
+            </StaggerItem>
+            <StaggerItem>
+              <div className="flex flex-col items-center text-center space-y-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
+                  <TrendingUp className="h-6 w-6 text-accent-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-card-foreground">Missed Opportunities</h3>
+                <p className="text-card-foreground">
+                  While you're updating comps, your competition is winning mandates
+                </p>
               </div>
-              <h3 className="text-xl font-semibold">Missed Opportunities</h3>
-              <p className="text-gray-600">
-                While you're updating comps, your competition is winning mandates
-              </p>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
+      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+
       {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-gray-50">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Your AI Associate That Never Sleeps
-            </h2>
-            <p className="mt-4 text-gray-600 md:text-lg max-w-2xl mx-auto">
+            <SlideUp>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
+                Your <GradientText>AI Associate</GradientText> That Never Sleeps
+              </h2>
+            </SlideUp>
+            <p className="mt-4 text-white md:text-lg max-w-2xl mx-auto">
               From first pitch to final close, Zibly handles the heavy lifting
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Pitch Books & CIMs</h3>
-              <p className="text-gray-600 mb-4">
-                Upload company data, get back polished presentations with all the essentials
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Company overview</span>
+          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <StaggerItem>
+              <AnimatedCard delay={0.1}>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <FileText className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2 text-card-foreground">Pitch Books & CIMs</h3>
+                  <p className="text-card-foreground mb-4">
+                    Upload company data, get back polished presentations with all the essentials
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Company overview</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Investment highlights</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Transaction rationale</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Investment highlights</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Transaction rationale</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <BarChart3 className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Valuation Analysis</h3>
-              <p className="text-gray-600 mb-4">
-                Comprehensive valuations with all standard methodologies, ready for committee
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>DCF analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Comparable companies</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Precedent transactions</span>
-                </div>
-              </div>
-            </div>
+              </AnimatedCard>
+            </StaggerItem>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <DollarSign className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Financial Models</h3>
-              <p className="text-gray-600 mb-4">
-                LBO models, merger models, and operating models with full functionality
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Returns analysis</span>
+            <StaggerItem>
+              <AnimatedCard delay={0.2}>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <BarChart3 className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2 text-card-foreground">Valuation Analysis</h3>
+                  <p className="text-card-foreground mb-4">
+                    Comprehensive valuations with all standard methodologies, ready for committee
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>DCF analysis</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Comparable companies</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Precedent transactions</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Sensitivity tables</span>
+              </AnimatedCard>
+            </StaggerItem>
+
+            <StaggerItem>
+              <AnimatedCard delay={0.3}>
+                <div className="bg-card rounded-lg p-6 shadow-sm">
+                  <DollarSign className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-lg font-semibold mb-2 text-card-foreground">Financial Models</h3>
+                  <p className="text-card-foreground mb-4">
+                    LBO models, merger models, and operating models with full functionality
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Returns analysis</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Sensitivity tables</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-card-foreground">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                      <span>Debt schedules</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Debt schedules</span>
-                </div>
-              </div>
-            </div>
-          </div>
+              </AnimatedCard>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
+      <WaveDivider fill="hsl(0 0% 100%)" />
+
       {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-card">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+            <div className="rounded-lg border p-6 bg-background">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-foreground">
                 <li>• Pitch books and teasers (PPTX)</li>
                 <li>• CIM outlines and summary sections</li>
                 <li>• Valuation packs (DCF, comps, precedents)</li>
               </ul>
             </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+            <div className="rounded-lg border p-6 bg-background">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-foreground">
                 <li>• Sector overviews and buyers lists</li>
                 <li>• Operating model clean‑ups</li>
                 <li>• Returns and sensitivity tables</li>
               </ul>
             </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2">How it works</h3>
-              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+            <div className="rounded-lg border p-6 bg-background">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">How it works</h3>
+              <ol className="space-y-2 text-sm text-foreground list-decimal pl-5">
                 <li>Forward materials (data room links, decks, Excel)</li>
                 <li>Specify the output (e.g., 12‑slide buyer deck)</li>
                 <li>Receive the deliverable, ready to finalize</li>
@@ -213,71 +255,89 @@ Thanks!`
         </div>
       </section>
 
+      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+
       {/* Speed Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Speed Wins Deals
-            </h2>
+            <SlideUp>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
+                <GradientText>Speed</GradientText> Wins Deals
+              </h2>
+            </SlideUp>
           </div>
           <div className="max-w-4xl mx-auto">
             <div className="grid gap-8 md:grid-cols-3 text-center">
               <div>
-                <p className="text-xl font-semibold mb-1">Move faster</p>
-                <p className="text-gray-600">Draft decks and analyses quickly so you can focus on the narrative.</p>
+                <p className="text-xl font-semibold mb-1 text-white">Move faster</p>
+                <p className="text-white">Draft decks and analyses quickly so you can focus on the narrative.</p>
               </div>
               <div>
-                <p className="text-xl font-semibold mb-1">Stay thorough</p>
-                <p className="text-gray-600">Valuation methods and comps included, with clear assumptions.</p>
+                <p className="text-xl font-semibold mb-1 text-white">Stay thorough</p>
+                <p className="text-white">Valuation methods and comps included, with clear assumptions.</p>
               </div>
               <div>
-                <p className="text-xl font-semibold mb-1">Win time back</p>
-                <p className="text-gray-600">Spend more hours with clients and fewer in PowerPoint and Excel.</p>
+                <p className="text-xl font-semibold mb-1 text-white">Win time back</p>
+                <p className="text-white">Spend more hours with clients and fewer in PowerPoint and Excel.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <WaveDivider fill="hsl(0 0% 100%)" />
+
       {/* Social proof (generic) */}
-      <section className="w-full py-16 md:py-24 bg-gray-50">
+      <section className="w-full py-16 md:py-24 bg-card">
         <div className="container px-4 md:px-6 text-center">
-          <h3 className="text-xl font-semibold mb-2">What teams say</h3>
-          <p className="mx-auto max-w-2xl text-gray-700">“Zibly frees our team to focus on relationships and strategy while keeping deliverables moving.”</p>
+          <h3 className="text-xl font-semibold text-card-foreground">What teams say</h3>
+          <p className="mx-auto max-w-2xl mt-4 text-card-foreground">"Zibly frees our team to focus on relationships and strategy while keeping deliverables moving."</p>
         </div>
       </section>
+
+      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
 
       {/* CTA Section */}
       <section className="w-full py-16 md:py-24 bg-primary text-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Win More Mandates. Sleep More Hours.
-              </h2>
-              <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
-                Join the top banks already using Zibly to dominate their sectors. Your first pitch book 
-                is free—experience the speed yourself.
-              </p>
+              <SlideUp>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                  Win More <GradientText>Mandates</GradientText>. Sleep More Hours.
+                </h2>
+              </SlideUp>
+              <FadeIn delay={0.2}>
+                <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
+                  Join the top banks already using Zibly to dominate their sectors. Your first pitch book
+                  is free—experience the speed yourself.
+                </p>
+              </FadeIn>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                variant="secondary"
-                onClick={handleEmailClick}
-              >
-                Build Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-transparent text-white border-white hover:bg-white hover:text-primary"
-                asChild
-              >
-                <Link href="/pricing">View Pricing</Link>
-              </Button>
-            </div>
+            <FadeIn delay={0.2}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <MagneticButton>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    onClick={handleEmailClick}
+                  >
+                    Build Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </MagneticButton>
+                <MagneticButton>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-transparent text-white border-white hover:bg-background hover:text-primary"
+                    asChild
+                  >
+                    <Link href="/pricing">View Pricing</Link>
+                  </Button>
+                </MagneticButton>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>

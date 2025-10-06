@@ -73,17 +73,17 @@ export default function PricingGrid({
     <div>
       <div className="flex flex-wrap items-center justify-center gap-2">
         <div className="inline-flex items-center rounded-lg border p-1">
-          <span className="px-2 text-xs text-muted-foreground hidden sm:inline">Seats</span>
+          <span className="px-2 text-xs text-white hidden sm:inline">Seats</span>
           <Button type="button" variant="ghost" size="sm" onClick={() => setSeats(Math.max(1, seats - 1))} disabled={seats <= 1}>
             <Minus className="h-3 w-3" />
           </Button>
-          <div className="px-2 text-sm tabular-nums min-w-[2ch] text-center">{seats}</div>
+          <div className="px-2 text-sm tabular-nums min-w-[2ch] text-center text-white">{seats}</div>
           <Button type="button" variant="ghost" size="sm" onClick={() => setSeats(Math.min(MAX_SEATS, seats + 1))} disabled={seats >= MAX_SEATS}>
             <Plus className="h-3 w-3" />
           </Button>
         </div>
         <div className="inline-flex items-center rounded-lg border p-1">
-          <span className="px-2 text-xs text-muted-foreground hidden sm:inline">Referral/Coupon</span>
+          <span className="px-2 text-xs text-white hidden sm:inline">Referral/Coupon</span>
           <Input
             id="coupon"
             placeholder="FRIEND20"
@@ -102,7 +102,7 @@ export default function PricingGrid({
           <Card key={plan.id} className={`flex flex-col ${plan.popular ? "border-primary shadow-lg shadow-primary-100 dark:shadow-none" : ""}`}>
             <CardHeader>
               {plan.popular && (
-                <div className="inline-block rounded-lg bg-primary-100 px-3 py-1 text-sm text-primary mb-2 w-fit">
+                <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-2 w-fit">
                   Most Popular
                 </div>
               )}
@@ -118,17 +118,17 @@ export default function PricingGrid({
               </div>
               <CardDescription>{plan.description}</CardDescription>
               <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1">
+                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">
                   {plan.tasksPerMonth}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1">
+                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">
                   {plan.processingSpeed}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1">
+                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">
                   {plan.support}
                 </span>
                 {seats > 1 && plan.priceMonthly !== null && (
-                  <span className="inline-flex items-center rounded-full bg-muted px-2 py-1">{seats} seats</span>
+                  <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">{seats} seats</span>
                 )}
                 {discount > 0 && plan.priceMonthly !== null && (
                   <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-1">-{Math.round(discount * 100)}%</span>

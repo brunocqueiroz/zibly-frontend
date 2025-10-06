@@ -57,7 +57,7 @@ export default function PdfViewer({ url }: { url: string }) {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-2">
-        <div className="text-xs text-muted-foreground">Page {page} / {numPages}</div>
+        <div className="text-xs">Page {page} / {numPages}</div>
         <div className="flex gap-2">
           <Button size="sm" variant="outline" onClick={() => setPage(p => Math.max(p - 1, 1))} disabled={page===1}>Prev</Button>
           <Button size="sm" variant="outline" onClick={() => setPage(p => Math.min(p + 1, numPages))} disabled={page===numPages}>Next</Button>
@@ -66,7 +66,7 @@ export default function PdfViewer({ url }: { url: string }) {
       <div className="rounded-xl border overflow-auto max-h-[70vh] bg-muted/20 grid place-items-center">
         <canvas ref={canvasRef} className="max-w-full" />
       </div>
-      {loading && <div className="text-xs text-muted-foreground mt-2">Loading preview…</div>}
+      {loading && <div className="text-xs mt-2">Loading preview…</div>}
     </div>
   );
 }

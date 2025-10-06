@@ -9,6 +9,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin } from "lucide-react"
+import SlideUp from "@/components/animations/SlideUp"
+import FadeIn from "@/components/animations/FadeIn"
+import GradientText from "@/components/animations/GradientText"
+import AnimatedCard from "@/components/animations/AnimatedCard"
+import MagneticButton from "@/components/animations/MagneticButton"
 
 export default function ContactPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -25,18 +30,21 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="container max-w-6xl px-4 py-16 md:px-6 md:py-24">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-        <div className="space-y-2">
-          <h1 className="text-3xl tracking-tighter sm:text-5xl inter-heading-normal">Contact Us</h1>
-          <p className="max-w-[900px] text-lg inter-text">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-          </p>
+    <div className="container max-w-6xl px-4 py-16 md:px-6 md:py-24 bg-background">
+      <SlideUp>
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+          <div className="space-y-2">
+            <h1 className="text-3xl tracking-tighter sm:text-5xl inter-heading-normal"><GradientText>Contact</GradientText> Us</h1>
+            <p className="max-w-[900px] text-lg inter-text">
+              Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            </p>
+          </div>
         </div>
-      </div>
+      </SlideUp>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        <AnimatedCard delay={0.1}>
+          <Card>
           <CardHeader>
             <CardTitle className="inter-heading-normal">Send us a message</CardTitle>
             <CardDescription className="inter-text">Fill out the form below and we'll get back to you within 24 hours.</CardDescription>
@@ -65,15 +73,19 @@ export default function ContactPage() {
                 <Label htmlFor="message" className="inter-text-medium">Message</Label>
                 <Textarea id="message" placeholder="Tell us how we can help..." required />
               </div>
-              <Button type="submit" className="w-full bg-primary hover:bg-primary-600" disabled={isLoading}>
-                {isLoading ? "Sending..." : "Send Message"}
-              </Button>
+              <MagneticButton>
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                  {isLoading ? "Sending..." : "Send Message"}
+                </Button>
+              </MagneticButton>
             </form>
           </CardContent>
         </Card>
+        </AnimatedCard>
 
         <div className="space-y-6">
-          <Card>
+          <AnimatedCard delay={0.2}>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal">Get in touch</CardTitle>
               <CardDescription className="inter-text">Reach out to us through any of these channels.</CardDescription>
@@ -102,8 +114,10 @@ export default function ContactPage() {
               </div>
             </CardContent>
           </Card>
+          </AnimatedCard>
 
-          <Card>
+          <AnimatedCard delay={0.3}>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal">Support</CardTitle>
               <CardDescription className="inter-text">Need help with your account or have technical questions?</CardDescription>
@@ -115,6 +129,7 @@ export default function ContactPage() {
               <p className="inter-text-medium">support@zibly.ai</p>
             </CardContent>
           </Card>
+          </AnimatedCard>
         </div>
       </div>
     </div>

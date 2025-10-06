@@ -1,11 +1,11 @@
-import Link from "next/link"
-import type { Metadata } from "next"
+"use client"
 
-export const metadata: Metadata = {
-  title: "Solutions for Professionals and Students - zibly.ai",
-  description: "Explore Zibly solutions by role. Professionals: consulting, finance, legal, strategy, product, marketing, accounting. Students: MBA, Law, and Undergraduates.",
-  alternates: { canonical: "https://zibly.ai/solutions" },
-}
+import Link from "next/link"
+import SlideUp from "@/components/animations/SlideUp"
+import GradientText from "@/components/animations/GradientText"
+import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+import AnimatedCard from "@/components/animations/AnimatedCard"
+import WaveDivider from "@/components/WaveDivider"
 
 const pros = [
   { title: "Consultants", href: "/solutions/consultants" },
@@ -27,40 +27,62 @@ const students = [
 export default function SolutionsIndexPage() {
   return (
     <div className="w-full">
-      <section className="w-full py-12 md:py-20 bg-gradient-to-b from-primary-50 to-white">
+      <section className="w-full py-12 md:py-20 bg-background">
         <div className="container px-4 md:px-6 text-center">
-          <h1 className="inter-section-heading" style={{ fontSize: '48px', fontWeight: 400 }}>Solutions</h1>
-          <p className="mx-auto max-w-[800px] text-gray-600 md:text-lg mt-2">
-            Tailored workflows and deliverables for professionals and students. Send tasks to work@zibly.ai and receive polished outputs.
-          </p>
+          <SlideUp>
+            <h1 className="inter-section-heading" style={{ fontSize: '48px', fontWeight: 400 }}><GradientText>Solutions</GradientText></h1>
+            <p className="mx-auto max-w-[800px] text-muted-foreground md:text-lg mt-2">
+              Tailored workflows and deliverables for professionals and students. Send tasks to work@zibly.ai and receive polished outputs.
+            </p>
+          </SlideUp>
         </div>
       </section>
 
-      <section className="w-full py-12">
+      <WaveDivider fill="hsl(0 0% 100%)" />
+
+      <section className="w-full py-12 bg-card">
         <div className="container px-4 md:px-6">
-          <h2 className="text-2xl font-semibold mb-4">Professionals</h2>
-          <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <SlideUp>
+            <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Professionals</h2>
+          </SlideUp>
+          <StaggerContainer className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
             {pros.map((item) => (
-              <Link key={item.href} href={item.href} className="rounded-lg border p-4 hover:shadow-sm transition">
-                <div className="text-lg font-medium">{item.title}</div>
-                <div className="text-sm text-muted-foreground">View solution →</div>
-              </Link>
+              <StaggerItem key={item.href}>
+                <Link href={item.href} className="block">
+                  <AnimatedCard>
+                    <div className="rounded-lg border p-4 hover:shadow-sm transition">
+                      <div className="text-lg font-medium">{item.title}</div>
+                      <div className="text-sm text-muted-foreground">View solution →</div>
+                    </div>
+                  </AnimatedCard>
+                </Link>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
-      <section className="w-full py-8 pb-16">
+      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+
+      <section className="w-full py-8 pb-16 bg-background">
         <div className="container px-4 md:px-6">
-          <h2 className="text-2xl font-semibold mb-4">Students</h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <SlideUp>
+            <h2 className="text-2xl font-semibold mb-4">Students</h2>
+          </SlideUp>
+          <StaggerContainer className="grid gap-4 md:grid-cols-3">
             {students.map((item) => (
-              <Link key={item.href} href={item.href} className="rounded-lg border p-4 hover:shadow-sm transition">
-                <div className="text-lg font-medium">{item.title}</div>
-                <div className="text-sm text-muted-foreground">View solution →</div>
-              </Link>
+              <StaggerItem key={item.href}>
+                <Link href={item.href} className="block">
+                  <AnimatedCard>
+                    <div className="rounded-lg border p-4 hover:shadow-sm transition">
+                      <div className="text-lg font-medium">{item.title}</div>
+                      <div className="text-sm text-muted-foreground">View solution →</div>
+                    </div>
+                  </AnimatedCard>
+                </Link>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
     </div>

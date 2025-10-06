@@ -152,7 +152,7 @@ export default function TeamPage() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <Button onClick={handleInvite} className="bg-primary hover:bg-primary-600">Invite</Button>
+                      <Button onClick={handleInvite} className="bg-primary hover:bg-primary/90">Invite</Button>
                     </CardContent>
                   </Card>
                 </div>

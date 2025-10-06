@@ -44,7 +44,7 @@ export default function DashboardNav() {
                 "flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 pathname === item.href
                   ? "bg-accent text-accent-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  : "hover:bg-muted hover:text-foreground",
               )}
             >
               <Icon className="h-4 w-4" />
@@ -61,7 +61,7 @@ export default function DashboardNav() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate">{user?.name || "User"}</p>
-            <p className="text-xs text-muted-foreground truncate">{user?.email || "user@example.com"}</p>
+            <p className="text-xs truncate">{user?.email || "user@example.com"}</p>
           </div>
         </div>
         <Button variant="ghost" size="sm" className="w-full justify-start mt-2" onClick={handleSignOut}>

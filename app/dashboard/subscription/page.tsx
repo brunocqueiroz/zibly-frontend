@@ -113,15 +113,15 @@ export default function SubscriptionPage() {
             </div>
 
             {subscription.cancelAtPeriodEnd && (
-              <Alert className="bg-amber-50 border-amber-200">
-                <AlertCircle className="h-4 w-4 text-amber-600" />
-                <AlertTitle className="text-amber-800">Subscription Canceling</AlertTitle>
-                <AlertDescription className="text-amber-700">
+              <Alert className="bg-background border-border">
+                <AlertCircle className="h-4 w-4 text-amber-400" />
+                <AlertTitle className="text-amber-300">Subscription Canceling</AlertTitle>
+                <AlertDescription className="text-amber-200">
                   Your subscription will be canceled on {new Date(subscription.currentPeriodEnd).toLocaleDateString()}.
                   You can reactivate your subscription anytime before this date.
                 </AlertDescription>
                 <Button
-                  className="mt-2 bg-amber-600 hover:bg-amber-700"
+                  className="mt-2 bg-amber-500 hover:bg-amber-600 text-white"
                   onClick={handleReactivateSubscription}
                   disabled={isLoading}
                 >

@@ -141,7 +141,7 @@ export default function SettingsPage() {
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button type="submit" disabled={isProfileLoading} className="bg-primary hover:bg-primary-600">
+                      <Button type="submit" disabled={isProfileLoading} className="bg-primary hover:bg-primary/90">
                         {isProfileLoading ? "Saving..." : "Save Changes"}
                       </Button>
                     </CardFooter>
@@ -193,7 +193,7 @@ export default function SettingsPage() {
                     <CardFooter>
                       <Button
                         type="submit"
-                        className="bg-primary hover:bg-primary-600"
+                        className="bg-primary hover:bg-primary/90"
                         disabled={isNotificationsLoading}
                       >
                         {isNotificationsLoading ? "Saving..." : "Save Preferences"}
@@ -230,7 +230,7 @@ export default function SettingsPage() {
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button type="submit" className="bg-primary hover:bg-primary-600" disabled={isPasswordLoading}>
+                      <Button type="submit" className="bg-primary hover:bg-primary/90" disabled={isPasswordLoading}>
                         {isPasswordLoading ? "Updating..." : "Update Password"}
                       </Button>
                     </CardFooter>

@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
@@ -5,14 +7,13 @@ import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Clock, AlertTriangle, Lightbulb, Shield, DollarSign, Zap, Users, HelpCircle, Mail } from 'lucide-react'
 import Link from "next/link"
 import CopyEmailButton from "@/components/copy-email-button"
-import type { Metadata } from 'next'
 import { PRICING_CONFIG, PRICING_MESSAGES, formatPrice } from '@/lib/pricing-config'
-
-export const metadata: Metadata = {
-  title: "FAQ | Security, Pricing & How It Works - zibly.ai",
-  description: "SOC 2 compliant. Adaptive AI analysis - from quick insights to deep research. No app required. Get answers about data security, task limits, file types, and enterprise features.",
-  alternates: { canonical: "https://zibly.ai/faq" },
-}
+import SlideUp from "@/components/animations/SlideUp"
+import FadeIn from "@/components/animations/FadeIn"
+import GradientText from "@/components/animations/GradientText"
+import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+import MagneticButton from "@/components/animations/MagneticButton"
+import WaveDivider from "@/components/WaveDivider"
 
 const faqData = {
   "@context": "https://schema.org",
@@ -70,66 +71,81 @@ export default function FAQPage() {
       />
       
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-20 lg:py-24 bg-gradient-to-b from-primary-50 to-white">
+      <section className="w-full py-12 md:py-20 lg:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <Badge variant="secondary" className="mb-4">
-                <HelpCircle className="h-3 w-3 mr-1" />
-                Frequently Asked Questions
-              </Badge>
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl inter-section-heading">
-                Everything You Need to Know
-              </h1>
-              <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl inter-text">
-                Get answers about security, pricing, capabilities, and how to make the most of your AI analyst. 
-                Can't find what you're looking for? Email us directly.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <Button asChild size="lg" className="bg-primary hover:bg-primary-600">
-                  <Link href="mailto:support@zibly.ai?subject=Question about zibly.ai">
-                    Ask a Question <Mail className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <CopyEmailButton size="sm" variant="outline" email="support@zibly.ai" />
-                <Button asChild variant="outline" size="lg">
-                  <Link href="/pricing">View Pricing</Link>
-                </Button>
+            <SlideUp>
+              <div className="space-y-4 max-w-3xl">
+                <Badge variant="secondary" className="mb-4">
+                  <HelpCircle className="h-3 w-3 mr-1" />
+                  Frequently Asked Questions
+                </Badge>
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl inter-section-heading">
+                  Everything You <GradientText>Need to Know</GradientText>
+                </h1>
+                <p className="mx-auto max-w-[700px] md:text-xl inter-text">
+                  Get answers about security, pricing, capabilities, and how to make the most of your AI analyst.
+                  Can't find what you're looking for? Email us directly.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                  <MagneticButton>
+                    <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                      <Link href="mailto:support@zibly.ai?subject=Question about zibly.ai">
+                        Ask a Question <Mail className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </MagneticButton>
+                  <CopyEmailButton size="sm" variant="outline" email="support@zibly.ai" />
+                  <Button asChild variant="outline" size="lg">
+                    <Link href="/pricing">View Pricing</Link>
+                  </Button>
+                </div>
               </div>
-            </div>
+            </SlideUp>
           </div>
         </div>
       </section>
+
+      <WaveDivider fill="hsl(0 0% 100%)" />
 
       {/* Quick Stats */}
-      <section className="w-full py-8 bg-white border-y">
+      <section className="w-full py-8 bg-card border-y">
         <div className="container px-4 md:px-6">
-          <div className="grid justify-center gap-8 md:grid-cols-3 text-center">
-            <div>
-              <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">SOC 2 Compliant</p>
-              <p className="text-xs text-gray-600 inter-text">Bank-grade security</p>
-            </div>
-            <div>
-              <Clock className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">Adaptive analysis</p>
-              <p className="text-xs text-gray-600 inter-text">Average turnaround</p>
-            </div>
-            <div>
-              <Zap className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium inter-text-medium">No app required</p>
-              <p className="text-xs text-gray-600 inter-text">Just use email</p>
-            </div>
-          </div>
+          <StaggerContainer className="grid justify-center gap-8 md:grid-cols-3 text-center">
+            <StaggerItem>
+              <div>
+                <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
+                <p className="text-sm font-medium inter-text-medium text-card-foreground">SOC 2 Compliant</p>
+                <p className="text-xs text-card-foreground inter-text">Bank-grade security</p>
+              </div>
+            </StaggerItem>
+            <StaggerItem>
+              <div>
+                <Clock className="h-8 w-8 text-primary mx-auto mb-2" />
+                <p className="text-sm font-medium inter-text-medium text-card-foreground">Adaptive analysis</p>
+                <p className="text-xs text-card-foreground inter-text">Average turnaround</p>
+              </div>
+            </StaggerItem>
+            <StaggerItem>
+              <div>
+                <Zap className="h-8 w-8 text-primary mx-auto mb-2" />
+                <p className="text-sm font-medium inter-text-medium text-card-foreground">No app required</p>
+                <p className="text-xs text-card-foreground inter-text">Just use email</p>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
+      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+
       {/* FAQ Content */}
-      <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24">
-        <div className="space-y-8">
-          
+      <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24 bg-background">
+        <StaggerContainer className="space-y-8">
+
           {/* Getting Started */}
-          <Card>
+          <StaggerItem>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal flex items-center gap-2">
                 <Zap className="h-5 w-5 text-primary" />
@@ -176,9 +192,9 @@ export default function FAQPage() {
                         <li><strong>Document creation:</strong> "Turn these meeting notes into a client memo"</li>
                         <li><strong>Financial modeling:</strong> "Build a 3-year revenue forecast from this data"</li>
                       </ul>
-                      <div className="bg-blue-50 p-4 rounded-lg dark:bg-blue-900/20 mt-4">
-                        <p className="text-sm">
-                          <strong>Pro tip:</strong> Include context about how you'll use the output. 
+                      <div className="bg-card p-4 rounded-lg mt-4">
+                        <p className="text-sm text-card-foreground">
+                          <strong>Pro tip:</strong> Include context about how you'll use the output.
                           This helps Zibly tailor the deliverable to your specific needs.
                         </p>
                       </div>
@@ -199,9 +215,11 @@ export default function FAQPage() {
               </Accordion>
             </CardContent>
           </Card>
+          </StaggerItem>
 
           {/* Security & Compliance */}
-          <Card>
+          <StaggerItem>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal flex items-center gap-2">
                 <Shield className="h-5 w-5 text-primary" />
@@ -266,9 +284,11 @@ export default function FAQPage() {
               </Accordion>
             </CardContent>
           </Card>
+          </StaggerItem>
 
           {/* Capabilities & Limitations */}
-          <Card>
+          <StaggerItem>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal flex items-center gap-2">
                 <Lightbulb className="h-5 w-5 text-primary" />
@@ -360,7 +380,7 @@ export default function FAQPage() {
                           </ul>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm">
                         Maximum attachment size: 25MB per file, 100MB total per email
                       </p>
                     </div>
@@ -378,9 +398,11 @@ export default function FAQPage() {
               </Accordion>
             </CardContent>
           </Card>
+          </StaggerItem>
 
           {/* Pricing & Billing */}
-          <Card>
+          <StaggerItem>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal flex items-center gap-2">
                 <DollarSign className="h-5 w-5 text-primary" />
@@ -465,9 +487,11 @@ export default function FAQPage() {
               </Accordion>
             </CardContent>
           </Card>
+          </StaggerItem>
 
           {/* How It Works */}
-          <Card>
+          <StaggerItem>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal flex items-center gap-2">
                 <Mail className="h-5 w-5 text-primary" />
@@ -482,8 +506,8 @@ export default function FAQPage() {
                   <AccordionContent>
                     <div className="space-y-4 inter-text">
                       <p>Follow this simple structure for best results:</p>
-                      <div className="bg-gray-50 p-4 rounded-lg dark:bg-gray-800">
-                        <div className="font-mono text-sm space-y-2">
+                      <div className="bg-card p-4 rounded-lg">
+                        <div className="font-mono text-sm space-y-2 text-card-foreground">
                           <div><strong>Subject:</strong> Clear description of the task</div>
                           <div className="mt-4">
                             <strong>Body:</strong>
@@ -511,7 +535,7 @@ export default function FAQPage() {
                     <div className="space-y-4 inter-text">
                       <div className="grid gap-3">
                         <div className="flex items-center gap-3">
-                          <Clock className="h-4 w-4 text-green-500" />
+                          <Clock className="h-4 w-4 text-primary" />
                           <div>
                             <strong>Simple tasks:</strong> Basic analysis, short summaries, simple calculations - typically complete in minutes
                           </div>
@@ -564,9 +588,11 @@ export default function FAQPage() {
               </Accordion>
             </CardContent>
           </Card>
+          </StaggerItem>
 
           {/* Support & Help */}
-          <Card>
+          <StaggerItem>
+            <Card>
             <CardHeader>
               <CardTitle className="inter-heading-normal flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
@@ -613,22 +639,26 @@ export default function FAQPage() {
               </Accordion>
             </CardContent>
           </Card>
+          </StaggerItem>
 
           {/* Still Have Questions? */}
-          <Card className="border-primary bg-primary-50">
+          <StaggerItem>
+            <Card className="border-primary bg-card">
             <CardHeader>
-              <CardTitle className="inter-heading-normal text-center">Still Have Questions?</CardTitle>
+              <CardTitle className="inter-heading-normal text-center text-card-foreground">Still Have Questions?</CardTitle>
               <CardDescription className="inter-text text-center">
                 We're here to help. Reach out anytime.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-primary hover:bg-primary-600">
-                  <Link href="mailto:support@zibly.ai?subject=Question about zibly.ai">
-                    Email Support <Mail className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                <MagneticButton>
+                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                    <Link href="mailto:support@zibly.ai?subject=Question about zibly.ai">
+                      Email Support <Mail className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </MagneticButton>
                 <Button asChild variant="outline" size="lg">
                   <Link href="mailto:work@zibly.ai?subject=Test task">
                     Try Your First Task Free
@@ -637,7 +667,8 @@ export default function FAQPage() {
               </div>
             </CardContent>
           </Card>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
       </div>
     </>
   )

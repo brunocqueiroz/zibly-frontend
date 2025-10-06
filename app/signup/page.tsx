@@ -91,7 +91,7 @@ export default function SignupPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" className="w-full bg-primary hover:bg-primary-600" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
                 {isLoading ? "Creating account..." : "Create account"}
               </Button>
             </CardFooter>

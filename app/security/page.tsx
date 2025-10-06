@@ -20,7 +20,7 @@ export default function SecurityPage() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-secondary via-background to-secondary">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center text-center space-y-6">
             <Shield className="h-14 w-14 text-primary mx-auto mb-4" />
@@ -35,7 +35,7 @@ export default function SecurityPage() {
       </section>
 
       {/* Security Pillars */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Data Encryption */}
@@ -91,7 +91,7 @@ export default function SecurityPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="w-full py-16 md:py-24 bg-gradient-to-tr from-blue-50 via-white to-purple-50">
+      <section className="w-full py-16 md:py-24 bg-gradient-to-tr from-secondary via-background to-secondary">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-semibold text-center mb-10 inter-heading-normal">Frequently Asked Security Questions</h2>

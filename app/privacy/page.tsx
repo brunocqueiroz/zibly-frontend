@@ -12,17 +12,17 @@ export default function PrivacyPage() {
       <div className="space-y-8">
         <div className="space-y-4">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl">Privacy Policy</h1>
-          <p className="text-gray-500">Last updated: December 2024</p>
+          <p className="text-muted-foreground">Last updated: December 2024</p>
         </div>
 
         <div className="space-y-6">
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">Information We Collect</h2>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               We collect information you provide directly to us, such as when you create an account, send emails to our
               service, or contact us for support.
             </p>
-            <ul className="list-disc pl-6 space-y-2 text-gray-600">
+            <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
               <li>Account information (name, email address, billing information)</li>
               <li>Email content and attachments you send to our service</li>
               <li>Usage data and analytics</li>
@@ -32,10 +32,10 @@ export default function PrivacyPage() {
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">How We Use Your Information</h2>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               We use the information we collect to provide, maintain, and improve our services.
             </p>
-            <ul className="list-disc pl-6 space-y-2 text-gray-600">
+            <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
               <li>Process your requests and deliver work products</li>
               <li>Manage your account and billing</li>
               <li>Improve service quality and reliability</li>
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">Data Security</h2>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               We implement appropriate security measures to protect your personal information against unauthorized
               access, alteration, disclosure, or destruction.
             </p>
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">Data Retention</h2>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               We retain your information for as long as necessary to provide our services and comply with legal
               obligations. You can request deletion of your data at any time.
             </p>
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">Contact Us</h2>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               If you have any questions about this Privacy Policy, please contact us at support@zibly.ai.
             </p>
           </section>
