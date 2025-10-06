@@ -30,21 +30,9 @@ export default function PricingPage() {
     offers,
   }
   return (
-    <div className="w-full bg-background">
+    <div className="w-full bg-white">
       <div className="container max-w-6xl px-4 py-16 md:px-6 md:py-24">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <SlideUp>
-            <div className="space-y-2">
-              <h1 className="inter-section-heading text-white" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                Give Yourself the <GradientText>Support You Deserve</GradientText>
-              </h1>
-              <p className="max-w-[900px] text-lg inter-text text-white">
-                Every professional should have a brilliant analyst on their team. Now you can.
-              </p>
-            </div>
-          </SlideUp>
-        </div>
         <FadeIn delay={0.2}>
           <PricingGrid plans={plansData as any} />
         </FadeIn>

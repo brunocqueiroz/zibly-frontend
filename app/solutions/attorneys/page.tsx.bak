@@ -40,18 +40,18 @@ Thanks!`
         }) }}
       />
       {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
+      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-background">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-8 text-center">
             <FadeIn>
               <div className="space-y-4 max-w-3xl">
-                <div className="inline-block rounded-lg bg-white border-2 border-black px-3 py-1 text-sm text-black mb-4">
+                <div className="inline-block rounded-lg bg-accent px-3 py-1 text-sm text-foreground mb-4">
                   For Attorneys & Law Firms
                 </div>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
                   Bill Hours, Not All-Nighters
                 </h1>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   Your clients pay for expertise, not document review. Zibly handles the research, analysis,
                   and drafting so you can focus on strategy and advocacy.
                 </p>
@@ -75,10 +75,10 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Every Practice Area, Accelerated
               </h2>
-              <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">
+              <p className="mt-4 text-muted-foreground md:text-lg max-w-2xl mx-auto">
                 From litigation to transactions, Zibly handles the heavy lifting
               </p>
             </div>
@@ -86,10 +86,10 @@ Thanks!`
           <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <StaggerItem>
               <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
                   <FileText className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Contract Analysis</h3>
-                  <p className="text-black mb-4">
+                  <h3 className="text-lg font-semibold mb-2">Contract Analysis</h3>
+                  <p className="text-muted-foreground mb-4">
                     Review contracts thoroughly and efficiently. Identify risks, compare terms, track changes
                   </p>
                   <div className="space-y-2">
@@ -112,10 +112,10 @@ Thanks!`
 
             <StaggerItem>
               <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
                   <Search className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Legal Research</h3>
-                  <p className="text-black mb-4">
+                  <h3 className="text-lg font-semibold mb-2">Legal Research</h3>
+                  <p className="text-muted-foreground mb-4">
                     Find relevant cases, statutes, and precedents with comprehensive analysis
                   </p>
                   <div className="space-y-2">
@@ -138,10 +138,10 @@ Thanks!`
 
             <StaggerItem>
               <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
                   <BookOpen className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Discovery & Due Diligence</h3>
-                  <p className="text-black mb-4">
+                  <h3 className="text-lg font-semibold mb-2">Discovery & Due Diligence</h3>
+                  <p className="text-muted-foreground mb-4">
                     Process large volumes of documents to find what matters for your case
                   </p>
                   <div className="space-y-2">
@@ -166,10 +166,10 @@ Thanks!`
           <StaggerContainer className="grid gap-6 md:grid-cols-3 mt-6">
             <StaggerItem>
               <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
                   <Scale className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Litigation Support</h3>
-                  <p className="text-black mb-4">
+                  <h3 className="text-lg font-semibold mb-2">Litigation Support</h3>
+                  <p className="text-muted-foreground mb-4">
                     Build stronger cases with comprehensive analysis and document preparation
                   </p>
                   <div className="space-y-2">
@@ -192,10 +192,10 @@ Thanks!`
 
             <StaggerItem>
               <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
                   <FileText className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Transactional Work</h3>
-                  <p className="text-black mb-4">
+                  <h3 className="text-lg font-semibold mb-2">Transactional Work</h3>
+                  <p className="text-muted-foreground mb-4">
                     Accelerate deals with thorough document drafting and review
                   </p>
                   <div className="space-y-2">
@@ -218,10 +218,10 @@ Thanks!`
 
             <StaggerItem>
               <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
                   <Clock className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Compliance & Regulatory</h3>
-                  <p className="text-black mb-4">
+                  <h3 className="text-lg font-semibold mb-2">Compliance & Regulatory</h3>
+                  <p className="text-muted-foreground mb-4">
                     Stay ahead of regulatory changes and ensure compliance
                   </p>
                   <div className="space-y-2">
@@ -246,13 +246,13 @@ Thanks!`
       </section>
 
       {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 md:grid-cols-3">
             <FadeIn delay={0.1}>
               <div className="rounded-lg border p-6">
-                <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-                <ul className="space-y-2 text-sm text-black">
+                <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+                <ul className="space-y-2 text-sm text-foreground">
                   <li>• Research memos and case summaries</li>
                   <li>• Clause comparisons and checklists</li>
                   <li>• Draft outlines and exhibit summaries</li>
@@ -261,8 +261,8 @@ Thanks!`
             </FadeIn>
             <FadeIn delay={0.2}>
               <div className="rounded-lg border p-6">
-                <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-                <ul className="space-y-2 text-sm text-black">
+                <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+                <ul className="space-y-2 text-sm text-foreground">
                   <li>• Contract review highlights</li>
                   <li>• Diligence trackers</li>
                   <li>• Litigation brief scaffolds</li>
@@ -271,8 +271,8 @@ Thanks!`
             </FadeIn>
             <FadeIn delay={0.3}>
               <div className="rounded-lg border p-6">
-                <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-                <ol className="space-y-2 text-sm text-black list-decimal pl-5">
+                <h3 className="text-lg font-semibold mb-2">How it works</h3>
+                <ol className="space-y-2 text-sm text-foreground list-decimal pl-5">
                   <li>Forward documents and instructions</li>
                   <li>Specify format and citations style</li>
                   <li>Review and finalize internally</li>
@@ -284,20 +284,20 @@ Thanks!`
       </section>
 
       {/* ROI Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 The Math Every Partner Loves
               </h2>
             </div>
           </SlideUp>
-          <div className="max-w-4xl mx-auto bg-white rounded-lg p-8">
+          <div className="max-w-4xl mx-auto bg-card rounded-lg p-8">
             <div className="grid gap-8 md:grid-cols-2">
               <div>
-                <h3 className="text-xl font-semibold mb-6 text-black">Traditional Associate Work</h3>
-                <ul className="space-y-4 text-black">
+                <h3 className="text-xl font-semibold mb-6">Traditional Associate Work</h3>
+                <ul className="space-y-4">
                   <li className="flex justify-between items-center">
                     <span>Document review (20 hrs)</span>
                     <span className="font-semibold">$6,000</span>
@@ -317,8 +317,8 @@ Thanks!`
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-6 text-black">With Zibly + Senior Review</h3>
-                <ul className="space-y-4 text-black">
+                <h3 className="text-xl font-semibold mb-6 text-white">With Zibly + Senior Review</h3>
+                <ul className="space-y-4">
                   <li className="flex justify-between items-center">
                     <span>Zibly analysis</span>
                     <span className="font-semibold">From $20/mo</span>
@@ -331,7 +331,7 @@ Thanks!`
                     <span>Client value delivered</span>
                     <span className="font-semibold">Same</span>
                   </li>
-                  <li className="border-t pt-4 flex justify-between items-center font-bold">
+                  <li className="border-t pt-4 flex justify-between items-center font-bold text-white">
                     <span>Total cost</span>
                     <span>$2,520</span>
                   </li>
@@ -339,7 +339,7 @@ Thanks!`
               </div>
             </div>
             <div className="mt-8 p-4 bg-primary/10 rounded-lg text-center">
-              <p className="text-2xl font-bold text-black">
+              <p className="text-2xl font-bold text-white">
                 81% margin improvement. 40 hours saved. Same quality delivered.
               </p>
             </div>
@@ -350,15 +350,15 @@ Thanks!`
 
 
       {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-primary text-black">
+      <section className="w-full py-16 md:py-24 bg-primary text-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Win More Cases. Bill More Hours. Work Less Nights.
               </h2>
               <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
-                Join leading law firms using Zibly to transform their practice. Your first
+                Join leading law firms using Zibly to transform their practice. Your first 
                 case analysis is free—see why they'll never go back.
               </p>
             </div>
@@ -373,7 +373,7 @@ Thanks!`
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-transparent text-black border-white hover:bg-white hover:text-primary"
+                className="bg-transparent text-white border-white hover:bg-background hover:text-primary"
                 asChild
               >
                 <Link href="/security">Bank-Level Security</Link>

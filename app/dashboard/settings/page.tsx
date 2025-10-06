@@ -97,14 +97,14 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white">
       <div className="flex flex-1">
         <DashboardNav />
-        <main className="flex-1 p-6 lg:p-8">
+        <main className="flex-1 p-6 lg:p-8 bg-white">
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">Settings</h1>
-              <p className="text-muted-foreground">Manage your account settings</p>
+              <h1 className="text-3xl font-bold text-black">Settings</h1>
+              <p className="text-black">Manage your account settings</p>
             </div>
 
             <Tabs defaultValue="profile">
@@ -115,11 +115,11 @@ export default function SettingsPage() {
               </TabsList>
 
               <TabsContent value="profile" className="space-y-4 pt-4">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <form onSubmit={handleProfileSubmit}>
                     <CardHeader>
-                      <CardTitle>Profile</CardTitle>
-                      <CardDescription>Update your personal information</CardDescription>
+                      <CardTitle className="text-black">Profile</CardTitle>
+                      <CardDescription className="text-primary">Update your personal information</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {profileError && (
@@ -150,11 +150,11 @@ export default function SettingsPage() {
               </TabsContent>
 
               <TabsContent value="notifications" className="space-y-4 pt-4">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <form onSubmit={handleNotificationsSubmit}>
                     <CardHeader>
-                      <CardTitle>Notifications</CardTitle>
-                      <CardDescription>Configure how you receive notifications</CardDescription>
+                      <CardTitle className="text-black">Notifications</CardTitle>
+                      <CardDescription className="text-primary">Configure how you receive notifications</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {notificationsError && (
@@ -164,8 +164,8 @@ export default function SettingsPage() {
                       )}
                       <div className="flex items-center justify-between">
                         <div>
-                          <div className="font-medium">Email Notifications</div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="font-medium text-black">Email Notifications</div>
+                          <div className="text-sm text-black">
                             Receive email notifications about your account
                           </div>
                         </div>
@@ -173,8 +173,8 @@ export default function SettingsPage() {
                       </div>
                       <div className="flex items-center justify-between">
                         <div>
-                          <div className="font-medium">Usage Alerts</div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="font-medium text-black">Usage Alerts</div>
+                          <div className="text-sm text-black">
                             Get notified when you're approaching your usage limit
                           </div>
                         </div>
@@ -182,8 +182,8 @@ export default function SettingsPage() {
                       </div>
                       <div className="flex items-center justify-between">
                         <div>
-                          <div className="font-medium">Marketing Emails</div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="font-medium text-black">Marketing Emails</div>
+                          <div className="text-sm text-black">
                             Receive updates about new features and promotions
                           </div>
                         </div>
@@ -204,11 +204,11 @@ export default function SettingsPage() {
               </TabsContent>
 
               <TabsContent value="security" className="space-y-4 pt-4">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <form onSubmit={handlePasswordSubmit}>
                     <CardHeader>
-                      <CardTitle>Change Password</CardTitle>
-                      <CardDescription>Update your password</CardDescription>
+                      <CardTitle className="text-black">Change Password</CardTitle>
+                      <CardDescription className="text-primary">Update your password</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {passwordError && (
@@ -237,16 +237,16 @@ export default function SettingsPage() {
                   </form>
                 </Card>
 
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Two-Factor Authentication</CardTitle>
-                    <CardDescription>Add an extra layer of security to your account</CardDescription>
+                    <CardTitle className="text-black">Two-Factor Authentication</CardTitle>
+                    <CardDescription className="text-primary">Add an extra layer of security to your account</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-medium">Two-Factor Authentication</div>
-                        <div className="text-sm text-muted-foreground">Secure your account with 2FA</div>
+                        <div className="font-medium text-black">Two-Factor Authentication</div>
+                        <div className="text-sm text-black">Secure your account with 2FA</div>
                       </div>
                       <Switch />
                     </div>

@@ -27,7 +27,7 @@ const students = [
 export default function SolutionsIndexPage() {
   return (
     <div className="w-full">
-      <section className="w-full py-12 md:py-20 bg-background">
+      <section className="w-full py-12 md:py-20 bg-white">
         <div className="container px-4 md:px-6 text-center">
           <SlideUp>
             <h1 className="inter-section-heading" style={{ fontSize: '48px', fontWeight: 400 }}><GradientText>Solutions</GradientText></h1>
@@ -40,10 +40,10 @@ export default function SolutionsIndexPage() {
 
       <WaveDivider fill="hsl(0 0% 100%)" />
 
-      <section className="w-full py-12 bg-card">
+      <section className="w-full py-12 bg-white">
         <div className="container px-4 md:px-6">
           <SlideUp>
-            <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Professionals</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-black">Professionals</h2>
           </SlideUp>
           <StaggerContainer className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
             {pros.map((item) => (
@@ -64,10 +64,10 @@ export default function SolutionsIndexPage() {
 
       <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
 
-      <section className="w-full py-8 pb-16 bg-background">
+      <section className="w-full py-8 pb-16 bg-white">
         <div className="container px-4 md:px-6">
           <SlideUp>
-            <h2 className="text-2xl font-semibold mb-4">Students</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-black">Students</h2>
           </SlideUp>
           <StaggerContainer className="grid gap-4 md:grid-cols-3">
             {students.map((item) => (

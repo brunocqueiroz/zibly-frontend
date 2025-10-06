@@ -180,16 +180,11 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen flex-col">
-        <div className="flex flex-1">
-          <DashboardNav />
-          <main className="flex-1 p-6 lg:p-8">
-            <div className="space-y-6">
-              <div>
-                <h1 className="text-3xl font-bold">Loading...</h1>
-              </div>
-            </div>
-          </main>
+      <div className="p-6 lg:p-8">
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold text-black">Loading...</h1>
+          </div>
         </div>
       </div>
     )
@@ -197,51 +192,43 @@ export default function DashboardPage() {
 
   if (!user) {
     return (
-      <div className="flex min-h-screen flex-col">
-        <div className="flex flex-1">
-          <DashboardNav />
-          <main className="flex-1 p-6 lg:p-8">
-            <div className="space-y-6">
-              <div>
-                <h1 className="text-3xl font-bold">Please sign in</h1>
-                <p className="text-muted-foreground">You need to be signed in to access the dashboard.</p>
-              </div>
-            </div>
-          </main>
+      <div className="p-6 lg:p-8">
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold text-black">Please sign in</h1>
+            <p className="text-black">You need to be signed in to access the dashboard.</p>
+          </div>
         </div>
       </div>
     )
   }
 
   const planName = user.subscription?.plan || "starter"
-  const planPrice = planName === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) : 
-                   planName === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) : 
+  const planPrice = planName === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) :
+                   planName === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) :
                    formatPrice(PRICING_CONFIG.starter.monthly)
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <div className="flex flex-1">
-        <DashboardNav />
-        <main className="flex-1 p-6 lg:p-8">
+    <div className="p-6 lg:p-8">
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">Dashboard</h1>
-              <p className="text-muted-foreground">Welcome back, {user.name}!</p>
+              <h1 className="text-3xl font-bold text-black">Dashboard</h1>
+              <p className="text-black">Welcome back, {user.name}!</p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Card>
+              <Card className="bg-white border-2 border-black">
                 <CardHeader className="pb-2">
-                  <CardTitle>Usage</CardTitle>
-                  <CardDescription>Your monthly email usage</CardDescription>
+                  <CardTitle className="text-black">Usage</CardTitle>
+                  <CardDescription className="text-primary">Your monthly email usage</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-sm text-black">
                       <span>
                         {userData.usage.current}/{userData.usage.total} emails
                       </span>
-                      <span className="text-muted-foreground">
+                      <span className="text-black">
                         {Math.round((userData.usage.current / userData.usage.total) * 100)}%
                       </span>
                     </div>
@@ -250,14 +237,14 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-white border-2 border-black">
                 <CardHeader className="pb-2">
-                  <CardTitle>Current Plan</CardTitle>
-                  <CardDescription className="capitalize">{planName} Plan</CardDescription>
+                  <CardTitle className="text-black">Current Plan</CardTitle>
+                  <CardDescription className="text-primary capitalize">{planName} Plan</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <div className="text-2xl font-bold">{planPrice}/month</div>
-                  <Button asChild variant="outline" size="sm">
+                  <div className="text-2xl font-bold text-black">{planPrice}/month</div>
+                  <Button asChild variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                     <Link href="/dashboard/subscription">Manage Subscription</Link>
                   </Button>
                 </CardContent>
@@ -269,49 +256,49 @@ export default function DashboardPage() {
             {/* Analytics (Email History removed to avoid data retention implication) */}
             <section className="space-y-4 pt-2">
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader className="pb-2">
-                    <CardDescription>Emails this month</CardDescription>
-                    <CardTitle className="text-2xl">{analytics.totals.emails}</CardTitle>
+                    <CardDescription className="text-primary">Emails this month</CardDescription>
+                    <CardTitle className="text-2xl text-black">{analytics.totals.emails}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">{userData.usage.current}/{userData.usage.total} plan usage</p>
+                    <p className="text-sm text-black">{userData.usage.current}/{userData.usage.total} plan usage</p>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader className="pb-2">
-                    <CardDescription>Avg turnaround</CardDescription>
-                    <CardTitle className="text-2xl">{analytics.totals.avgTurnMin} min</CardTitle>
+                    <CardDescription className="text-primary">Avg turnaround</CardDescription>
+                    <CardTitle className="text-2xl text-black">{analytics.totals.avgTurnMin} min</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">Typical range 2–60 minutes</p>
+                    <p className="text-sm text-black">Typical range 2–60 minutes</p>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader className="pb-2">
-                    <CardDescription>Completion rate</CardDescription>
-                    <CardTitle className="text-2xl">{analytics.totals.completionRate}%</CardTitle>
+                    <CardDescription className="text-primary">Completion rate</CardDescription>
+                    <CardTitle className="text-2xl text-black">{analytics.totals.completionRate}%</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">Completed / total emails</p>
+                    <p className="text-sm text-black">Completed / total emails</p>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader className="pb-2">
-                    <CardDescription>Uses left this period</CardDescription>
-                    <CardTitle className="text-2xl">{Math.max(0, userData.usage.total - userData.usage.current)}</CardTitle>
+                    <CardDescription className="text-primary">Uses left this period</CardDescription>
+                    <CardTitle className="text-2xl text-black">{Math.max(0, userData.usage.total - userData.usage.current)}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">Resets monthly</p>
+                    <p className="text-sm text-black">Resets monthly</p>
                   </CardContent>
                 </Card>
               </div>
 
               <div className="grid gap-6 lg:grid-cols-2">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Usage Over Last 14 Days</CardTitle>
-                    <CardDescription>Emails sent per day</CardDescription>
+                    <CardTitle className="text-black">Usage Over Last 14 Days</CardTitle>
+                    <CardDescription className="text-primary">Emails sent per day</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ChartContainer
@@ -329,10 +316,10 @@ export default function DashboardPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Workload by Category</CardTitle>
-                    <CardDescription>Distribution of tasks</CardDescription>
+                    <CardTitle className="text-black">Workload by Category</CardTitle>
+                    <CardDescription className="text-primary">Distribution of tasks</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ChartContainer
@@ -357,46 +344,46 @@ export default function DashboardPage() {
               </div>
 
               <div className="grid gap-6 lg:grid-cols-2">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Estimated Time Saved</CardTitle>
-                    <CardDescription>Based on typical manual effort vs. turnaround</CardDescription>
+                    <CardTitle className="text-black">Estimated Time Saved</CardTitle>
+                    <CardDescription className="text-primary">Based on typical manual effort vs. turnaround</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4 md:grid-cols-3">
                       <div>
-                        <div className="text-sm text-muted-foreground">Total hours saved</div>
-                        <div className="text-2xl font-semibold">{analytics.totals.hoursSaved} hrs</div>
+                        <div className="text-sm text-black">Total hours saved</div>
+                        <div className="text-2xl font-semibold text-black">{analytics.totals.hoursSaved} hrs</div>
                       </div>
                       <div>
-                        <div className="text-sm text-muted-foreground">Avg hours saved / email</div>
-                        <div className="text-2xl font-semibold">{(analytics.totals.hoursSaved / Math.max(1, analytics.totals.emails)).toFixed(1)} hrs</div>
+                        <div className="text-sm text-black">Avg hours saved / email</div>
+                        <div className="text-2xl font-semibold text-black">{(analytics.totals.hoursSaved / Math.max(1, analytics.totals.emails)).toFixed(1)} hrs</div>
                       </div>
                       <div>
-                        <div className="text-sm text-muted-foreground">Deliverables produced</div>
-                        <div className="text-2xl font-semibold">{analytics.totals.deliverables}</div>
+                        <div className="text-sm text-black">Deliverables produced</div>
+                        <div className="text-2xl font-semibold text-black">{analytics.totals.deliverables}</div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Billing Summary</CardTitle>
-                    <CardDescription>Your current plan and next invoice</CardDescription>
+                    <CardTitle className="text-black">Billing Summary</CardTitle>
+                    <CardDescription className="text-primary">Your current plan and next invoice</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Plan</span>
-                      <span className="text-sm capitalize">{planName}</span>
+                      <span className="text-sm text-black">Plan</span>
+                      <span className="text-sm text-black capitalize">{planName}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Price</span>
-                      <span className="text-sm">{planPrice}/month</span>
+                      <span className="text-sm text-black">Price</span>
+                      <span className="text-sm text-black">{planPrice}/month</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Next invoice</span>
-                      <span className="text-sm">
+                      <span className="text-sm text-black">Next invoice</span>
+                      <span className="text-sm text-black">
                         {(() => {
                           const raw = user?.subscription?.currentPeriodEnd
                           const date = raw ? new Date(raw) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
@@ -405,7 +392,7 @@ export default function DashboardPage() {
                       </span>
                     </div>
                     <div className="pt-2 flex justify-end">
-                      <Button asChild variant="outline" size="sm">
+                      <Button asChild variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                         <Link href="/dashboard/subscription">Manage Subscription</Link>
                       </Button>
                     </div>
@@ -414,8 +401,6 @@ export default function DashboardPage() {
               </div>
             </section>
           </div>
-        </main>
-      </div>
     </div>
   )
 }

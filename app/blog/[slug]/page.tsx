@@ -2,7 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Calendar } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, Share2, Linkedin, Twitter } from "lucide-react"
 import ReactMarkdown from 'react-markdown'
 import { Metadata } from 'next'
 
@@ -22,19 +22,45 @@ async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       `https://1ce20ayeb1.execute-api.us-east-1.amazonaws.com/zibly/blog/posts/${slug}`,
       { next: { revalidate: 3600 } }
     )
-    
+
     if (!response.ok) {
       if (response.status === 404) {
         return null
       }
       throw new Error('Failed to fetch post')
     }
-    
+
     return await response.json()
   } catch (error) {
     console.error('Error fetching post:', error)
     return null
   }
+}
+
+async function getAllPosts(): Promise<BlogPost[]> {
+  try {
+    const response = await fetch(
+      'https://1ce20ayeb1.execute-api.us-east-1.amazonaws.com/zibly/blog/posts',
+      { next: { revalidate: 3600 } }
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch posts')
+    }
+
+    const data = await response.json()
+    // API returns an object with posts array, not a direct array
+    return Array.isArray(data) ? data : (data.posts || [])
+  } catch (error) {
+    console.error('Error fetching posts:', error)
+    return []
+  }
+}
+
+function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200
+  const words = content.trim().split(/\s+/).length
+  return Math.ceil(words / wordsPerMinute)
 }
 
 function formatDate(dateString: string): string {
@@ -100,86 +126,199 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPostPage({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export default async function BlogPostPage({
+  params
+}: {
+  params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
   const post = await getPostBySlug(slug)
-  
+
   if (!post) {
     notFound()
   }
 
+  // Get all posts for sidebar and navigation
+  const allPosts = await getAllPosts()
+  const sortedPosts = allPosts.sort((a, b) =>
+    new Date(b.publish_date).getTime() - new Date(a.publish_date).getTime()
+  )
+
+  // Get recent posts (excluding current)
+  const recentPosts = sortedPosts.filter(p => p.slug !== slug).slice(0, 5)
+
+  // Find next and previous posts
+  const currentIndex = sortedPosts.findIndex(p => p.slug === slug)
+  const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
+  const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null
+
+  // Calculate reading time
+  const readingTime = post.content_markdown ? calculateReadingTime(post.content_markdown) : 0
+
+  // Share URLs
+  const postUrl = `https://zibly.ai/blog/${slug}`
+  const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`
+  const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(post.title)}`
+
   return (
-    <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24">
-      {/* Back button */}
-      <div className="mb-8">
-        <Button variant="ghost" asChild className="pl-0">
-          <Link href="/blog">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Blog
-          </Link>
-        </Button>
-      </div>
-
-      {/* Post Header */}
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold tracking-tight mb-4 text-primary">
-          {post.title}
-        </h1>
-
-        <div className="flex items-center gap-4 mb-6">
-          <div className="flex items-center gap-2 text-sm text-card-foreground">
-            <Calendar className="h-4 w-4" />
-            {formatDate(post.publish_date)}
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {post.tags.map((tag) => (
-            <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
-              <Badge 
-                variant="secondary" 
-                className="cursor-pointer hover:bg-primary/80 transition-colors"
-              >
-                {tag}
-              </Badge>
+    <div className="bg-white min-h-screen">
+      <div className="container px-4 py-16 md:px-6 md:py-24">
+        {/* Back button */}
+        <div className="mb-8">
+          <Button variant="ghost" asChild className="pl-0">
+            <Link href="/blog">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Blog
             </Link>
-          ))}
+          </Button>
         </div>
-      </header>
 
-      {/* Post Content */}
-      <article className="prose prose-lg max-w-none prose-headings:text-primary prose-p:text-white prose-li:text-white prose-strong:text-white prose-a:text-primary">
-        {post.content_markdown ? (
-          <ReactMarkdown>{post.content_markdown}</ReactMarkdown>
-        ) : (
-          <div className="text-center py-12">
-            <p className="mb-4 text-white">
-              Content not available.
-            </p>
-          </div>
-        )}
-      </article>
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* Left Sidebar - Recent Posts */}
+          <aside className="lg:w-64 flex-shrink-0 order-2 lg:order-1">
+            <div className="lg:sticky lg:top-24">
+              <h3 className="text-sm font-semibold inter-heading-normal mb-4 text-black">Recent Posts</h3>
+              <div className="space-y-4">
+                {recentPosts.map((recentPost) => (
+                  <Link
+                    key={recentPost.slug}
+                    href={`/blog/${recentPost.slug}`}
+                    className="block group"
+                  >
+                    <div className="border-2 border-black rounded-lg p-3 hover:bg-gray-50 transition-colors">
+                      <h4 className="text-sm font-medium inter-text-medium text-black group-hover:text-primary line-clamp-2 mb-2">
+                        {recentPost.title}
+                      </h4>
+                      <p className="text-xs text-gray-600 flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        {formatDate(recentPost.publish_date)}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </aside>
 
-      {/* CTA Section */}
-      <div className="mt-16 border-t pt-16">
-        <div className="bg-card rounded-lg p-8 text-center border">
-          <h3 className="text-lg font-semibold mb-2 text-primary">
-            Ready to transform your workflow?
-          </h3>
-          <p className="text-card-foreground mb-4">
-            Experience the power of email-driven AI automation with zibly.ai
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button asChild>
-              <Link href="/pricing">Get Started</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/features">Learn More</Link>
-            </Button>
+          {/* Main Content */}
+          <div className="flex-1 max-w-3xl order-1 lg:order-2">
+            {/* Post Header */}
+            <header className="mb-8">
+              <h1 className="text-4xl font-bold tracking-tight mb-4 text-black">
+                {post.title}
+              </h1>
+
+              <div className="flex items-center gap-4 mb-6 flex-wrap">
+                <div className="flex items-center gap-2 text-sm text-black">
+                  <Calendar className="h-4 w-4" />
+                  {formatDate(post.publish_date)}
+                </div>
+                <div className="flex items-center gap-2 text-sm text-black">
+                  <Clock className="h-4 w-4" />
+                  {readingTime} min read
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {post.tags.map((tag) => (
+                  <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                    <Badge
+                      variant="secondary"
+                      className="cursor-pointer hover:bg-primary/80 transition-colors"
+                    >
+                      {tag}
+                    </Badge>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Share Buttons */}
+              <div className="flex items-center gap-3 pb-6 border-b border-black">
+                <span className="text-sm font-medium text-black flex items-center gap-2">
+                  <Share2 className="h-4 w-4" />
+                  Share:
+                </span>
+                <a
+                  href={linkedinShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 border-2 border-black rounded-md bg-white text-black hover:bg-black hover:text-white transition-colors"
+                  aria-label="Share on LinkedIn"
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
+                <a
+                  href={twitterShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 border-2 border-black rounded-md bg-white text-black hover:bg-black hover:text-white transition-colors"
+                  aria-label="Share on Twitter"
+                >
+                  <Twitter className="h-4 w-4" />
+                </a>
+              </div>
+            </header>
+
+            {/* Post Content */}
+            <article className="prose prose-lg max-w-none prose-headings:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-a:text-primary">
+              {post.content_markdown ? (
+                <ReactMarkdown>{post.content_markdown}</ReactMarkdown>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="mb-4 text-black">
+                    Content not available.
+                  </p>
+                </div>
+              )}
+            </article>
+
+            {/* Next/Previous Navigation */}
+            {(nextPost || prevPost) && (
+              <nav className="mt-12 pt-8 border-t border-black">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {prevPost && (
+                    <Link href={`/blog/${prevPost.slug}`} className="group">
+                      <div className="border-2 border-black rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                        <p className="text-xs text-gray-600 mb-2">← Previous</p>
+                        <p className="text-sm font-medium text-black group-hover:text-primary">
+                          {prevPost.title}
+                        </p>
+                      </div>
+                    </Link>
+                  )}
+                  {nextPost && (
+                    <Link href={`/blog/${nextPost.slug}`} className="group md:ml-auto">
+                      <div className="border-2 border-black rounded-lg p-4 hover:bg-gray-50 transition-colors text-right">
+                        <p className="text-xs text-gray-600 mb-2">Next →</p>
+                        <p className="text-sm font-medium text-black group-hover:text-primary">
+                          {nextPost.title}
+                        </p>
+                      </div>
+                    </Link>
+                  )}
+                </div>
+              </nav>
+            )}
+
+            {/* CTA Section */}
+            <div className="mt-16 border-t border-black pt-16">
+              <div className="bg-white rounded-lg p-8 text-center border-2 border-black">
+                <h3 className="text-lg font-semibold mb-2 text-black">
+                  Ready to transform your workflow?
+                </h3>
+                <p className="text-black mb-4">
+                  Experience the power of email-driven AI automation with zibly.ai
+                </p>
+                <div className="flex gap-4 justify-center">
+                  <Button asChild>
+                    <Link href="/pricing">Get Started</Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href="/features">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

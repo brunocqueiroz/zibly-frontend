@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "@/components/logo";
 import CopyEmailButton from "@/components/copy-email-button";
 
@@ -17,8 +20,15 @@ const solutionsItems = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname()
+
+  // Don't show footer on dashboard pages
+  if (pathname?.startsWith("/dashboard")) {
+    return null
+  }
+
   return (
-    <footer className="border-t bg-background">
+    <footer className="border-t border-black bg-white">
       <div className="container px-4 md:px-6">
         {/* Main Footer Content */}
         <div className="py-12 md:py-16">
@@ -28,18 +38,18 @@ export default function Footer() {
               <div className="mb-4">
                 <Logo />
               </div>
-              <p className="text-sm inter-text text-foreground mb-6 max-w-sm">
+              <p className="text-sm inter-text text-black mb-6 max-w-sm">
                 Your AI analyst that handles the analytical heavy lifting so you can focus on strategy, creativity, and growth.
               </p>
               <div className="space-y-2">
-                <p className="text-sm inter-text-medium text-foreground">
-                  Email: <a href="mailto:work@zibly.ai" className="text-white hover:underline">work@zibly.ai</a>
+                <p className="text-sm inter-text-medium text-black">
+                  Email: <a href="mailto:work@zibly.ai" className="text-primary hover:underline">work@zibly.ai</a>
                 </p>
                 <div className="flex items-center gap-2">
                   <CopyEmailButton size="sm" variant="outline" />
-                  <span className="text-xs text-foreground">No model training • Configurable retention • Email-based workflow</span>
+                  <span className="text-xs text-black">No model training • Configurable retention • Email-based workflow</span>
                 </div>
-                <p className="text-sm inter-text text-foreground">
+                <p className="text-sm inter-text text-black">
                   First task free • Typical turnaround: 2 minutes to 1 hour
                 </p>
               </div>
@@ -47,20 +57,20 @@ export default function Footer() {
 
             {/* Product Links */}
             <div>
-              <h3 className="text-sm font-semibold inter-heading-normal mb-4 text-foreground">Product</h3>
+              <h3 className="text-sm font-semibold inter-heading-normal mb-4 text-black">Product</h3>
               <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="/features" className="inter-text text-foreground hover:text-primary transition-colors">
+                  <Link href="/features" className="inter-text text-black hover:text-primary transition-colors">
                     Features
                   </Link>
                 </li>
                 <li>
-                  <Link href="/pricing" className="inter-text text-foreground hover:text-primary transition-colors">
+                  <Link href="/pricing" className="inter-text text-black hover:text-primary transition-colors">
                     Pricing
                   </Link>
                 </li>
                 <li>
-                  <Link href="/security" className="inter-text text-foreground hover:text-primary transition-colors">
+                  <Link href="/security" className="inter-text text-black hover:text-primary transition-colors">
                     Security
                   </Link>
                 </li>
@@ -69,20 +79,20 @@ export default function Footer() {
 
             {/* Company Links */}
             <div>
-              <h3 className="text-sm font-semibold inter-heading-normal mb-4 text-foreground">Company</h3>
+              <h3 className="text-sm font-semibold inter-heading-normal mb-4 text-black">Company</h3>
               <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="/about" className="inter-text text-foreground hover:text-primary transition-colors">
+                  <Link href="/about" className="inter-text text-black hover:text-primary transition-colors">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="inter-text text-foreground hover:text-primary transition-colors">
+                  <Link href="/blog" className="inter-text text-black hover:text-primary transition-colors">
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link href="/faq" className="inter-text text-foreground hover:text-primary transition-colors">
+                  <Link href="/faq" className="inter-text text-black hover:text-primary transition-colors">
                     FAQ
                   </Link>
                 </li>
@@ -91,13 +101,13 @@ export default function Footer() {
 
             {/* Solutions - Takes up 2 columns */}
             <div className="lg:col-span-2">
-              <h3 className="text-sm font-semibold inter-heading-normal mb-4">Solutions</h3>
+              <h3 className="text-sm font-semibold inter-heading-normal mb-4 text-black">Solutions</h3>
               <ul className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
                 {solutionsItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="inter-text text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+                      className="inter-text text-black hover:text-primary transition-colors whitespace-nowrap"
                     >
                       {item.title}
                     </Link>
@@ -109,8 +119,8 @@ export default function Footer() {
         </div>
 
         {/* Trust Badges */}
-        <div className="border-t border-b py-6">
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-sm inter-text text-foreground">
+        <div className="border-t border-b border-black py-6">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-sm inter-text text-black">
             <div className="flex items-center gap-2">
               <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -135,14 +145,14 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm inter-text text-muted-foreground">
+            <p className="text-sm inter-text text-black">
               © 2025 zibly.ai. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/terms" className="text-sm inter-text text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/terms" className="text-sm inter-text text-black hover:text-primary transition-colors">
                 Terms of Service
               </Link>
-              <Link href="/privacy" className="text-sm inter-text text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/privacy" className="text-sm inter-text text-black hover:text-primary transition-colors">
                 Privacy Policy
               </Link>
             </div>

@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Info } from "lucide-react"
-import Logo from "@/components/logo"
 import { useAuth } from "@/components/auth-provider"
 
 export default function LoginPage() {
@@ -67,8 +66,7 @@ export default function LoginPage() {
     // Show loading only if genuinely loading initial auth state or during login
     return (
       <div className="container flex h-screen w-screen flex-col items-center justify-center">
-        <Logo size="lg" />
-        <p className="mt-4 text-muted-foreground">Loading...</p>
+        <p className="text-black">Loading...</p>
       </div>
     )
   }
@@ -84,12 +82,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+    <div className="min-h-screen w-full bg-gray-50">
+      <div className="container flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-12">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col items-center space-y-2 text-center">
-          <Logo size="lg" />
-          <h1 className="text-2xl tracking-tight inter-heading-normal">Welcome back</h1>
-          <p className="text-sm inter-text">Enter your credentials to access your account</p>
+          <h1 className="text-2xl tracking-tight inter-heading-normal text-black">Welcome back</h1>
+          <p className="text-sm inter-text text-black">Enter your credentials to access your account</p>
         </div>
 
         {registered && (
@@ -100,16 +98,16 @@ export default function LoginPage() {
           </Alert>
         )}
 
-        <Alert className="bg-secondary border-border">
+        <Alert className="bg-white border-2 border-black">
           <Info className="h-4 w-4 text-primary" />
-          <AlertDescription className="text-foreground">
+          <AlertDescription className="text-black">
             <div className="space-y-1">
               <div className="font-medium">Demo Account Available</div>
               <div className="text-sm">Email: demo@zibly.ai | Password: password123</div>
               <Button
                 variant="link"
                 size="sm"
-                className="h-auto p-0 text-primary hover:text-foreground"
+                className="h-auto p-0 text-primary hover:text-primary/80"
                 onClick={handleDemoLogin}
               >
                 Click to fill demo credentials
@@ -124,15 +122,15 @@ export default function LoginPage() {
           </Alert>
         )}
 
-        <Card>
+        <Card className="bg-white border-2 border-black">
           <form onSubmit={handleSubmit} noValidate>
             <CardHeader>
-              <CardTitle className="inter-heading-normal">Sign In</CardTitle>
-              <CardDescription className="inter-text">Sign in with your email and password</CardDescription>
+              <CardTitle className="inter-heading-normal text-black">Sign In</CardTitle>
+              <CardDescription className="inter-text text-black">Sign in with your email and password</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="inter-text-medium">Email</Label>
+                <Label htmlFor="email" className="inter-text-medium text-black">Email</Label>
                 <Input
                   id="email"
                   name="email"
@@ -144,7 +142,7 @@ export default function LoginPage() {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="inter-text-medium">Password</Label>
+                  <Label htmlFor="password" className="inter-text-medium text-black">Password</Label>
                   <Link href="/forgot-password" className="text-xs text-primary hover:underline inter-text">
                     Forgot password?
                   </Link>
@@ -164,12 +162,13 @@ export default function LoginPage() {
           </form>
         </Card>
 
-        <div className="text-center text-sm inter-text">
+        <div className="text-center text-sm inter-text text-black">
           Don&apos;t have an account?{" "}
           <Link href="/signup" className="text-primary hover:underline">
             Sign up
           </Link>
         </div>
+      </div>
       </div>
     </div>
   )

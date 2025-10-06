@@ -139,135 +139,137 @@ export default async function BlogPage({
   const posts = await getBlogPosts(tag)
 
   return (
-    <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4 text-primary">
-          {tag ? `${tag} Posts` : 'Blog'}
-        </h1>
-        <p className="text-xl text-white max-w-2xl mx-auto">
-          {tag
-            ? `Explore ${tag} related articles on AI, productivity, and the future of work.`
-            : 'Insights on AI, productivity, and the future of work. Learn how to leverage technology to get more done.'
-          }
-        </p>
-        
-        {/* Tag Filter UI */}
-        {tag && (
-          <div className="flex justify-center mt-6">
-            <div className="flex items-center gap-2 bg-card rounded-lg px-4 py-2">
-              <span className="text-sm text-white">Filtering by:</span>
-              <Badge variant="secondary">{tag}</Badge>
-              <Button
-                asChild
-                variant="ghost"
-                size="sm"
-                className="h-6 w-6 p-0"
-              >
-                <Link href="/blog">
-                  <X className="h-3 w-3" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Posts List */}
-      {posts.length === 0 ? (
-        <div className="text-center py-12">
-          <BookOpen className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2 text-primary">
-            {tag ? `No posts found for "${tag}"` : 'No posts yet'}
-          </h3>
-          <p className="text-white">
-            {tag ? (
-              <>
-                Try browsing{' '}
-                <Link href="/blog" className="text-primary hover:underline">
-                  all posts
-                </Link>{' '}
-                or select a different tag.
-              </>
-            ) : (
-              'Check back soon for new content!'
-            )}
+    <div className="bg-white min-h-screen">
+      <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold tracking-tight mb-4 text-black">
+            {tag ? `${tag} Posts` : 'Blog'}
+          </h1>
+          <p className="text-xl text-black max-w-2xl mx-auto">
+            {tag
+              ? `Explore ${tag} related articles on AI, productivity, and the future of work.`
+              : 'Insights on AI, productivity, and the future of work. Learn how to leverage technology to get more done.'
+            }
           </p>
+
+          {/* Tag Filter UI */}
+          {tag && (
+            <div className="flex justify-center mt-6">
+              <div className="flex items-center gap-2 bg-white border border-black rounded-lg px-4 py-2">
+                <span className="text-sm text-black">Filtering by:</span>
+                <Badge variant="secondary">{tag}</Badge>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-6 p-0"
+                >
+                  <Link href="/blog">
+                    <X className="h-3 w-3" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="space-y-6">
-          {posts.map((post) => (
-            <Card key={post.id} className="hover:shadow-md transition-shadow">
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
+
+        {/* Posts List */}
+        {posts.length === 0 ? (
+          <div className="text-center py-12">
+            <BookOpen className="h-12 w-12 text-primary mx-auto mb-4" />
+            <h3 className="text-lg font-semibold mb-2 text-black">
+              {tag ? `No posts found for "${tag}"` : 'No posts yet'}
+            </h3>
+            <p className="text-black">
+              {tag ? (
+                <>
+                  Try browsing{' '}
+                  <Link href="/blog" className="text-primary hover:underline">
+                    all posts
+                  </Link>{' '}
+                  or select a different tag.
+                </>
+              ) : (
+                'Check back soon for new content!'
+              )}
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {posts.map((post) => (
+              <Card key={post.id} className="bg-white border-2 border-black hover:shadow-md transition-shadow">
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="block group"
+                      >
+                        <h2 className="text-xl font-semibold leading-tight text-black group-hover:text-primary transition-colors">
+                          {post.title}
+                        </h2>
+                      </Link>
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="pt-0">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 text-sm text-black">
+                      <Calendar className="h-4 w-4" />
+                      {formatDate(post.publish_date)}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.slice(0, 3).map((postTag) => (
+                        <Link key={postTag} href={`/blog?tag=${encodeURIComponent(postTag)}`}>
+                          <Badge
+                            variant={tag === postTag ? "default" : "secondary"}
+                            className="text-xs cursor-pointer hover:bg-primary/80 transition-colors"
+                          >
+                            {postTag}
+                          </Badge>
+                        </Link>
+                      ))}
+                      {post.tags.length > 3 && (
+                        <Badge variant="outline" className="text-xs">
+                          +{post.tags.length - 3}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-4">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="block group"
+                      className="text-primary hover:text-primary/80 font-medium text-sm transition-colors"
                     >
-                      <h2 className="text-xl font-semibold leading-tight text-primary group-hover:text-primary/80 transition-colors">
-                        {post.title}
-                      </h2>
+                      Read more →
                     </Link>
                   </div>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="pt-0">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 text-sm text-card-foreground">
-                    <Calendar className="h-4 w-4" />
-                    {formatDate(post.publish_date)}
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.slice(0, 3).map((postTag) => (
-                      <Link key={postTag} href={`/blog?tag=${encodeURIComponent(postTag)}`}>
-                        <Badge 
-                          variant={tag === postTag ? "default" : "secondary"} 
-                          className="text-xs cursor-pointer hover:bg-primary/80 transition-colors"
-                        >
-                          {postTag}
-                        </Badge>
-                      </Link>
-                    ))}
-                    {post.tags.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{post.tags.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-                
-                <div className="mt-4">
-                  <Link 
-                    href={`/blog/${post.slug}`}
-                    className="text-primary hover:text-primary/80 font-medium text-sm transition-colors"
-                  >
-                    Read more →
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
-      
-      {/* Footer CTA */}
-      <div className="mt-16 text-center">
-        <div className="bg-card rounded-lg p-8 border">
-          <h3 className="text-lg font-semibold mb-2 text-primary">
-            Want more insights like these?
-          </h3>
-          <p className="text-card-foreground mb-4">
-            Get AI-powered analysis delivered to your inbox. Try zibly.ai today.
-          </p>
-          <Link 
-            href="/pricing"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-          >
-            Get Started
-          </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* Footer CTA */}
+        <div className="mt-16 text-center">
+          <div className="bg-white rounded-lg p-8 border-2 border-black">
+            <h3 className="text-lg font-semibold mb-2 text-black">
+              Want more insights like these?
+            </h3>
+            <p className="text-black mb-4">
+              Get AI-powered analysis delivered to your inbox. Try zibly.ai today.
+            </p>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+            >
+              Get Started
+            </Link>
+          </div>
         </div>
       </div>
     </div>

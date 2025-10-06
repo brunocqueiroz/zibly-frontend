@@ -1,5 +1,5 @@
 import type React from "react"
-import { Plus_Jakarta_Sans } from "next/font/google"
+import { Cutive_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/auth-provider"
@@ -8,10 +8,10 @@ import Footer from "@/components/footer"
 import "./globals.css"
 import Script from "next/script"
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const cutiveMono = Cutive_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plus-jakarta"
+  weight: ["400"],
+  variable: "--font-cutive-mono"
 })
 
 /**
@@ -166,7 +166,7 @@ export const metadata = {
     siteName: "zibly.ai",
     images: [
       {
-        url: "/logo.png",
+        url: "/zibly_meta.png",
         width: 1200,
         height: 630,
         alt: "zibly.ai – E-mail-powered AI assistant",
@@ -180,7 +180,7 @@ export const metadata = {
     title: "Zibly – Email AI for Finished Deliverables",
     description:
       "Send tasks by email and receive polished files back. First task free.",
-    images: ["/logo.png"],
+    images: ["/zibly_meta.png"],
   },
   robots: {
     index: true,
@@ -215,7 +215,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={plusJakartaSans.className}>
+      <body className={cutiveMono.className}>
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"

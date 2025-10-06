@@ -95,25 +95,25 @@ export default function TeamPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white">
       <div className="flex flex-1">
         <DashboardNav />
-        <main className="flex-1 p-6 lg:p-8">
+        <main className="flex-1 p-6 lg:p-8 bg-white">
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">Team</h1>
-              <p className="text-muted-foreground">Manage members and seats for your organization</p>
+              <h1 className="text-3xl font-bold text-black">Team</h1>
+              <p className="text-black">Manage members and seats for your organization</p>
             </div>
 
             {loading || !org ? (
-              <div className="text-sm text-muted-foreground">Loading...</div>
+              <div className="text-sm text-black">Loading...</div>
             ) : (
               <>
                 <div className="grid gap-6 md:grid-cols-2">
-                  <Card>
+                  <Card className="bg-white border-2 border-black">
                     <CardHeader className="pb-2">
-                      <CardTitle>Seats</CardTitle>
-                      <CardDescription>{org.members.length} used of {org.seats} purchased</CardDescription>
+                      <CardTitle className="text-black">Seats</CardTitle>
+                      <CardDescription className="text-primary">{org.members.length} used of {org.seats} purchased</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <Label htmlFor="seats">Seats</Label>
@@ -122,7 +122,7 @@ export default function TeamPage() {
                           const v = parseInt(e.target.value || "1", 10)
                           setSeatsInput(Math.min(MAX_SEATS, Math.max(1, v)))
                         }} className="w-28" />
-                        <Button onClick={handleSeatsSave} variant="outline" size="sm">Save</Button>
+                        <Button onClick={handleSeatsSave} variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">Save</Button>
                         <Button asChild variant="ghost" size="sm">
                           <Link href="/dashboard/subscription">Adjust billing</Link>
                         </Button>
@@ -130,10 +130,10 @@ export default function TeamPage() {
                     </CardContent>
                   </Card>
 
-                  <Card>
+                  <Card className="bg-white border-2 border-black">
                     <CardHeader className="pb-2">
-                      <CardTitle>Invite Member</CardTitle>
-                      <CardDescription>Send an invite by email</CardDescription>
+                      <CardTitle className="text-black">Invite Member</CardTitle>
+                      <CardDescription className="text-primary">Send an invite by email</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="space-y-2">
@@ -157,24 +157,24 @@ export default function TeamPage() {
                   </Card>
                 </div>
 
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Members</CardTitle>
-                    <CardDescription>Current members of {org.name}</CardDescription>
+                    <CardTitle className="text-black">Members</CardTitle>
+                    <CardDescription className="text-primary">Current members of {org.name}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="rounded-lg border">
+                    <div className="rounded-lg border-2 border-black">
                       {org.members.length === 0 ? (
-                        <div className="p-4 text-sm text-muted-foreground">No members yet</div>
+                        <div className="p-4 text-sm text-black">No members yet</div>
                       ) : (
                         org.members.map((m) => (
-                          <div key={m.email} className="grid grid-cols-1 md:grid-cols-5 items-center gap-4 p-4 border-b last:border-b-0">
+                          <div key={m.email} className="grid grid-cols-1 md:grid-cols-5 items-center gap-4 p-4 border-b-2 last:border-b-0 border-black">
                             <div>
-                              <div className="font-medium">{m.name}</div>
-                              <div className="text-sm text-muted-foreground">{m.email}</div>
+                              <div className="font-medium text-black">{m.name}</div>
+                              <div className="text-sm text-black">{m.email}</div>
                             </div>
                             <div className="md:col-span-2">
-                              <Label className="text-xs text-muted-foreground">Role</Label>
+                              <Label className="text-xs text-black">Role</Label>
                               <Select defaultValue={m.role} onValueChange={(v) => handleRoleChange(m.email, v)}>
                                 <SelectTrigger className="w-40 mt-1">
                                   <SelectValue />
@@ -186,10 +186,10 @@ export default function TeamPage() {
                               </Select>
                             </div>
                             <div>
-                              <div className="text-sm capitalize">{m.status}</div>
+                              <div className="text-sm capitalize text-black">{m.status}</div>
                             </div>
                             <div className="flex justify-end">
-                              <Button variant="outline" size="sm" onClick={() => handleRemove(m.email)}>Remove</Button>
+                              <Button variant="outline" size="sm" onClick={() => handleRemove(m.email)} className="border-2 border-black text-black hover:bg-black hover:text-white">Remove</Button>
                             </div>
                           </div>
                         ))

@@ -30,13 +30,13 @@ Thanks!`
         ],
       }} />
       {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-background">
+      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-8 text-center">
             <div className="space-y-4 max-w-3xl">
               <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">For Students</div>
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-white">From Sources to Instructor‑Ready Deliverables</h1>
-              <p className="mx-auto max-w-[700px] text-white md:text-xl">Email sources, notes, or data. Get a clean summary, analysis, or slide deck you can refine.</p>
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">From Sources to Instructor‑Ready Deliverables</h1>
+              <p className="mx-auto max-w-[700px] text-black md:text-xl">Email sources, notes, or data. Get a clean summary, analysis, or slide deck you can refine.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
@@ -49,74 +49,74 @@ Thanks!`
       </section>
 
       {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-card">
+      <section className="w-full py-16 md:py-24 bg-white">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-card-foreground">We Know Your Juggle</h2>
-            <p className="mt-4 text-card-foreground md:text-lg">Multiple classes, deadlines, and group projects.</p>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">We Know Your Juggle</h2>
+            <p className="mt-4 text-black md:text-lg">Multiple classes, deadlines, and group projects.</p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <Clock className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                <Clock className="h-6 w-6 text-black" />
               </div>
-              <h3 className="text-xl font-semibold text-card-foreground">Time Pressure</h3>
-              <p className="text-card-foreground">Research, write, and present — often all at once.</p>
+              <h3 className="text-xl font-semibold text-black">Time Pressure</h3>
+              <p className="text-black">Research, write, and present — often all at once.</p>
             </div>
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <BarChart3 className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                <BarChart3 className="h-6 w-6 text-black" />
               </div>
-              <h3 className="text-xl font-semibold text-card-foreground">Data to Insight</h3>
-              <p className="text-card-foreground">Turn raw spreadsheets into readable charts and commentary.</p>
+              <h3 className="text-xl font-semibold text-black">Data to Insight</h3>
+              <p className="text-black">Turn raw spreadsheets into readable charts and commentary.</p>
             </div>
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <GraduationCap className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                <GraduationCap className="h-6 w-6 text-black" />
               </div>
-              <h3 className="text-xl font-semibold text-card-foreground">Presentation Quality</h3>
-              <p className="text-card-foreground">Slides and structure matter — even for class.</p>
+              <h3 className="text-xl font-semibold text-black">Presentation Quality</h3>
+              <p className="text-black">Slides and structure matter — even for class.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-background">
+      <section className="w-full py-16 md:py-24 bg-white">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">Your On‑Call Research Assistant</h2>
-            <p className="mt-4 text-white md:text-lg max-w-2xl mx-auto">From summaries to analysis and slides — done cleanly</p>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Your On‑Call Research Assistant</h2>
+            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">From summaries to analysis and slides — done cleanly</p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-card rounded-lg p-6 shadow-sm border border-border">
+            <div className="bg-white border-2 border-black rounded-lg p-6 shadow-sm">
               <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-card-foreground">Research Summaries</h3>
-              <p className="text-card-foreground mb-4">Synthesize sources with citations and key takeaways</p>
+              <h3 className="text-lg font-semibold mb-2 text-black">Research Summaries</h3>
+              <p className="text-black mb-4">Synthesize sources with citations and key takeaways</p>
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>Annotated bibliographies</span></div>
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>Literature matrices</span></div>
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>Summary tables</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Annotated bibliographies</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Literature matrices</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Summary tables</span></div>
               </div>
             </div>
-            <div className="bg-card rounded-lg p-6 shadow-sm border border-border">
+            <div className="bg-white border-2 border-black rounded-lg p-6 shadow-sm">
               <BarChart3 className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-card-foreground">Data Analysis</h3>
-              <p className="text-card-foreground mb-4">Clean datasets and generate charts with commentary</p>
+              <h3 className="text-lg font-semibold mb-2 text-black">Data Analysis</h3>
+              <p className="text-black mb-4">Clean datasets and generate charts with commentary</p>
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>CSV/Excel cleanup</span></div>
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>Basic statistics</span></div>
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>Visualizations</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>CSV/Excel cleanup</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Basic statistics</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Visualizations</span></div>
               </div>
             </div>
-            <div className="bg-card rounded-lg p-6 shadow-sm border border-border">
+            <div className="bg-white border-2 border-black rounded-lg p-6 shadow-sm">
               <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-card-foreground">Presentations</h3>
-              <p className="text-card-foreground mb-4">Slides with speaker notes and clear structure</p>
+              <h3 className="text-lg font-semibold mb-2 text-black">Presentations</h3>
+              <p className="text-black mb-4">Slides with speaker notes and clear structure</p>
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>Title/agenda flow</span></div>
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>Charts + takeaways</span></div>
-                <div className="flex items-center gap-2 text-sm text-card-foreground"><CheckCircle className="h-4 w-4 text-primary" /><span>References slide</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Title/agenda flow</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Charts + takeaways</span></div>
+                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>References slide</span></div>
               </div>
             </div>
           </div>
@@ -124,33 +124,33 @@ Thanks!`
       </section>
 
       {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-card">
+      <section className="w-full py-16 md:py-24 bg-white">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border p-6 bg-background">
-              <h3 className="text-lg font-semibold mb-2 text-white">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-white">
+            <div className="rounded-lg border-2 border-black p-6 bg-white">
+              <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-black">
                 <li>• Research summaries (DOCX/PDF)</li>
                 <li>• Cleaned datasets + charts</li>
                 <li>• Slide decks with notes (PPTX)</li>
               </ul>
             </div>
-            <div className="rounded-lg border p-6 bg-background">
-              <h3 className="text-lg font-semibold mb-2 text-white">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-white">
+            <div className="rounded-lg border-2 border-black p-6 bg-white">
+              <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-black">
                 <li>• Literature review outlines</li>
                 <li>• Presentation storylines</li>
                 <li>• Basic statistical analysis</li>
               </ul>
             </div>
-            <div className="rounded-lg border p-6 bg-background">
-              <h3 className="text-lg font-semibold mb-2 text-white">How it works</h3>
-              <ol className="space-y-2 text-sm text-white list-decimal pl-5">
+            <div className="rounded-lg border-2 border-black p-6 bg-white">
+              <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
+              <ol className="space-y-2 text-sm text-black list-decimal pl-5">
                 <li>Forward sources or datasets</li>
                 <li>Specify output and timeframe</li>
                 <li>Receive the finished deliverable</li>
               </ol>
-              <p className="text-xs text-white/70 mt-3">Use responsibly and follow your school's honor code.</p>
+              <p className="text-xs text-black/70 mt-3">Use responsibly and follow your school's honor code.</p>
             </div>
           </div>
         </div>

@@ -102,14 +102,14 @@ export default function SubscriptionPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white">
       <div className="flex flex-1">
         <DashboardNav />
-        <main className="flex-1 p-6 lg:p-8">
+        <main className="flex-1 p-6 lg:p-8 bg-white">
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">Subscription</h1>
-              <p className="text-muted-foreground">Manage your subscription and billing</p>
+              <h1 className="text-3xl font-bold text-black">Subscription</h1>
+              <p className="text-black">Manage your subscription and billing</p>
             </div>
 
             {subscription.cancelAtPeriodEnd && (
@@ -163,40 +163,40 @@ export default function SubscriptionPage() {
               </TabsContent>
 
               <TabsContent value="billing" className="space-y-4 pt-4">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Billing History</CardTitle>
-                    <CardDescription>View your recent invoices</CardDescription>
+                    <CardTitle className="text-black">Billing History</CardTitle>
+                    <CardDescription className="text-primary">View your recent invoices</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="grid grid-cols-[1fr,auto,auto] items-center gap-4">
                         <div>
-                          <div className="font-medium">Professional Plan - Monthly</div>
-                          <div className="text-sm text-muted-foreground">Dec 1, 2024</div>
+                          <div className="font-medium text-black">Professional Plan - Monthly</div>
+                          <div className="text-sm text-black">Dec 1, 2024</div>
                         </div>
-                        <div className="font-medium">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
-                        <Button variant="outline" size="sm">
+                        <div className="font-medium text-black">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
+                        <Button variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                           View
                         </Button>
                       </div>
                       <div className="grid grid-cols-[1fr,auto,auto] items-center gap-4">
                         <div>
-                          <div className="font-medium">Professional Plan - Monthly</div>
-                          <div className="text-sm text-muted-foreground">Nov 1, 2024</div>
+                          <div className="font-medium text-black">Professional Plan - Monthly</div>
+                          <div className="text-sm text-black">Nov 1, 2024</div>
                         </div>
-                        <div className="font-medium">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
-                        <Button variant="outline" size="sm">
+                        <div className="font-medium text-black">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
+                        <Button variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                           View
                         </Button>
                       </div>
                       <div className="grid grid-cols-[1fr,auto,auto] items-center gap-4">
                         <div>
-                          <div className="font-medium">Professional Plan - Monthly</div>
-                          <div className="text-sm text-muted-foreground">Oct 1, 2024</div>
+                          <div className="font-medium text-black">Professional Plan - Monthly</div>
+                          <div className="text-sm text-black">Oct 1, 2024</div>
                         </div>
-                        <div className="font-medium">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
-                        <Button variant="outline" size="sm">
+                        <div className="font-medium text-black">{formatPrice(PRICING_CONFIG.professional.monthly)}.00</div>
+                        <Button variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                           View
                         </Button>
                       </div>
@@ -206,25 +206,25 @@ export default function SubscriptionPage() {
               </TabsContent>
 
               <TabsContent value="payment" className="space-y-4 pt-4">
-                <Card>
+                <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle>Payment Methods</CardTitle>
-                    <CardDescription>Manage your payment methods</CardDescription>
+                    <CardTitle className="text-black">Payment Methods</CardTitle>
+                    <CardDescription className="text-primary">Manage your payment methods</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between rounded-lg border p-4">
+                    <div className="flex items-center justify-between rounded-lg border-2 border-black p-4">
                       <div className="flex items-center space-x-4">
-                        <CreditCard className="h-6 w-6" />
+                        <CreditCard className="h-6 w-6 text-black" />
                         <div>
-                          <div className="font-medium">Visa ending in 4242</div>
-                          <div className="text-sm text-muted-foreground">Expires 04/2025</div>
+                          <div className="font-medium text-black">Visa ending in 4242</div>
+                          <div className="text-sm text-black">Expires 04/2025</div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                           Edit
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                           Remove
                         </Button>
                       </div>

@@ -49,12 +49,13 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+    <div className="min-h-screen w-full bg-gray-50">
+      <div className="container flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-12">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col items-center space-y-2 text-center">
           <Logo size="lg" />
-          <h1 className="text-2xl tracking-tight inter-heading-normal">Create an account</h1>
-          <p className="text-sm inter-text">Enter your information to create an account</p>
+          <h1 className="text-2xl tracking-tight inter-heading-normal text-black">Create an account</h1>
+          <p className="text-sm inter-text text-black">Enter your information to create an account</p>
         </div>
 
         {error && (
@@ -63,31 +64,31 @@ export default function SignupPage() {
           </Alert>
         )}
 
-        <Card>
+        <Card className="bg-white border-2 border-black">
           <form onSubmit={handleSubmit}>
             <CardHeader>
-              <CardTitle className="inter-heading-normal">Create Account</CardTitle>
-              <CardDescription className="inter-text">Sign up with your email and password</CardDescription>
+              <CardTitle className="inter-heading-normal text-black">Create Account</CardTitle>
+              <CardDescription className="inter-text text-black">Sign up with your email and password</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name" className="inter-text-medium">Name</Label>
+                <Label htmlFor="name" className="inter-text-medium text-black">Name</Label>
                 <Input id="name" name="name" placeholder="John Doe" required />
                 {formErrors.name && <p className="text-xs text-red-500">{formErrors.name[0]}</p>}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email" className="inter-text-medium">Email</Label>
+                <Label htmlFor="email" className="inter-text-medium text-black">Email</Label>
                 <Input id="email" name="email" type="email" placeholder="john@example.com" required />
                 {formErrors.email && <p className="text-xs text-red-500">{formErrors.email[0]}</p>}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="inter-text-medium">Password</Label>
+                <Label htmlFor="password" className="inter-text-medium text-black">Password</Label>
                 <Input id="password" name="password" type="password" required />
                 {formErrors.password && <p className="text-xs text-red-500">{formErrors.password[0]}</p>}
               </div>
               <div className="space-y-2">
-                <Label className="inter-text-medium">Selected Plan</Label>
-                <div className="rounded-md border p-2 text-sm capitalize inter-text">{plan}</div>
+                <Label className="inter-text-medium text-black">Selected Plan</Label>
+                <div className="rounded-md border-2 border-black p-2 text-sm capitalize inter-text text-black bg-white">{plan}</div>
               </div>
             </CardContent>
             <CardFooter>
@@ -98,7 +99,7 @@ export default function SignupPage() {
           </form>
         </Card>
 
-        <p className="px-8 text-center text-sm inter-text">
+        <p className="px-8 text-center text-sm inter-text text-black">
           By clicking continue, you agree to our{" "}
           <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
             Terms of Service
@@ -109,12 +110,13 @@ export default function SignupPage() {
           </Link>
           .
         </p>
-        <div className="text-center text-sm inter-text">
+        <div className="text-center text-sm inter-text text-black">
           Already have an account?{" "}
           <Link href="/login" className="text-primary hover:underline">
             Sign in
           </Link>
         </div>
+      </div>
       </div>
     </div>
   )

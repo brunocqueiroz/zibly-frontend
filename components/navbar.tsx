@@ -34,8 +34,8 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Don't show navbar on auth pages or dashboard
-  if (pathname?.startsWith("/login") || pathname?.startsWith("/signup") || pathname?.startsWith("/dashboard")) {
+  // Don't show navbar on dashboard
+  if (pathname?.startsWith("/dashboard")) {
     return null
   }
 
@@ -55,8 +55,20 @@ export default function Navbar() {
     { title: "Undergraduates", href: "/solutions/undergraduates", description: "Summaries, analysis, presentations" },
   ]
 
+  const isHomePage = pathname === "/"
+  const isFeaturesPage = pathname === "/features"
+  const isAboutPage = pathname === "/about"
+  const isFaqPage = pathname === "/faq"
+  const isBlogPage = pathname?.startsWith("/blog")
+  const isSolutionsPage = pathname?.startsWith("/solutions")
+  const isLoginPage = pathname?.startsWith("/login")
+  const isSignupPage = pathname?.startsWith("/signup")
+  const isWhitePage = isHomePage || isFeaturesPage || isAboutPage || isFaqPage || isBlogPage || isSolutionsPage || isLoginPage || isSignupPage
+  const navBg = isWhitePage ? (isScrolled ? 'bg-white/80' : 'bg-white') : (isScrolled ? 'bg-background/80' : 'bg-background')
+  const textColor = isWhitePage ? 'text-black' : 'text-white'
+
   return (
-    <header className={`sticky top-0 z-50 w-full border-b border-border/20 backdrop-blur-sm shadow-sm transition-all duration-300 ${isScrolled ? 'bg-background/80' : 'bg-background'}`}>
+    <header className={`sticky top-0 z-50 w-full border-b border-border/20 backdrop-blur-sm shadow-sm transition-all duration-300 ${navBg}`}>
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex items-center">
           <Logo />
@@ -67,7 +79,7 @@ export default function Navbar() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <Link href="/features" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
+                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
                     Features
                   </NavigationMenuLink>
                 </Link>
@@ -75,18 +87,18 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/pricing" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
+                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
                     Pricing
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-white hover:text-primary">Solutions</NavigationMenuTrigger>
+                <NavigationMenuTrigger className={`${textColor} hover:text-black`}>Solutions</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="w-[560px] p-4 grid grid-cols-2 gap-4 bg-background border border-border">
+                  <div className={`w-[560px] p-4 grid grid-cols-2 gap-4 ${isWhitePage ? 'bg-white border-2 border-black' : 'bg-background border border-border'}`}>
                     <div>
-                      <div className="text-xs uppercase text-white/70 mb-2">Professionals</div>
+                      <div className={`text-xs uppercase mb-2 ${isWhitePage ? 'text-black/70' : 'text-white/70'}`}>Professionals</div>
                       <ul className="space-y-1">
                         {solutionsPros.map((item) => (
                           <li key={item.title}>
@@ -95,8 +107,8 @@ export default function Navbar() {
                                 href={item.href}
                                 className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className="font-medium text-white group-hover:text-primary">{item.title}</div>
-                                <p className="text-xs text-white/70 group-hover:text-primary">{item.description}</p>
+                                <div className={`font-medium group-hover:text-primary ${isWhitePage ? 'text-black' : 'text-white'}`}>{item.title}</div>
+                                <p className={`text-xs group-hover:text-primary ${isWhitePage ? 'text-black/70' : 'text-white/70'}`}>{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -104,7 +116,7 @@ export default function Navbar() {
                       </ul>
                     </div>
                     <div>
-                      <div className="text-xs uppercase text-white/70 mb-2">Students</div>
+                      <div className={`text-xs uppercase mb-2 ${isWhitePage ? 'text-black/70' : 'text-white/70'}`}>Students</div>
                       <ul className="space-y-1">
                         {solutionsStudents.map((item) => (
                           <li key={item.title}>
@@ -113,8 +125,8 @@ export default function Navbar() {
                                 href={item.href}
                                 className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className="font-medium text-white group-hover:text-primary">{item.title}</div>
-                                <p className="text-xs text-white/70 group-hover:text-primary">{item.description}</p>
+                                <div className={`font-medium group-hover:text-primary ${isWhitePage ? 'text-black' : 'text-white'}`}>{item.title}</div>
+                                <p className={`text-xs group-hover:text-primary ${isWhitePage ? 'text-black/70' : 'text-white/70'}`}>{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -127,7 +139,7 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
+                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
                     About
                   </NavigationMenuLink>
                 </Link>
@@ -135,7 +147,7 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/faq" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
+                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
                     FAQ
                   </NavigationMenuLink>
                 </Link>
@@ -143,7 +155,7 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/blog" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none">
+                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
                     Blog
                   </NavigationMenuLink>
                 </Link>
@@ -154,19 +166,19 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center space-x-4">
           {!loading && user ? (
-            <Button asChild variant="ghost" className="text-white hover:text-primary">
+            <Button asChild variant="ghost" className={`${textColor} hover:text-primary`}>
               <Link href="/dashboard">Dashboard</Link>
             </Button>
           ) : (
-            <Button asChild variant="ghost" className="text-white hover:text-primary">
+            <Button asChild variant="ghost" className={`${textColor} hover:text-primary`}>
               <Link href="/login">Sign In</Link>
             </Button>
           )}
           <div className="flex items-center gap-2">
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button asChild className="bg-black hover:bg-black/90 text-white">
               <Link href="mailto:work@zibly.ai">Email Your First Task Free <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <CopyEmailButton size="sm" variant="outline" className="text-white border-white/30 hover:bg-white/10" />
+            <CopyEmailButton size="sm" variant="outline" className={`${isWhitePage ? 'bg-black text-white border-white/30 hover:bg-black/80' : 'bg-black text-white border-white/30 hover:bg-black/80'}`} />
           </div>
         </div>
 
@@ -174,17 +186,17 @@ export default function Navbar() {
         <div className="flex md:hidden flex-1 justify-end">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white">
+              <Button variant="ghost" size="icon" className={textColor}>
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="bg-background text-white">
               <SheetTitle className="text-lg font-semibold mb-4 text-white">Navigation Menu</SheetTitle>
               <div className="flex flex-col space-y-4">
-                <Link href="/features" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
+                <Link href="/features" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
                   Features
                 </Link>
-                <Link href="/pricing" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
+                <Link href="/pricing" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
                   Pricing
                 </Link>
 
@@ -194,7 +206,7 @@ export default function Navbar() {
                     <div className="text-xs uppercase text-white/70 mb-1">Professionals</div>
                     <div className="pl-2 space-y-1 mb-2">
                       {solutionsPros.map((item) => (
-                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-primary" onClick={() => setIsOpen(false)}>
+                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-black" onClick={() => setIsOpen(false)}>
                           {item.title}
                         </Link>
                       ))}
@@ -202,7 +214,7 @@ export default function Navbar() {
                     <div className="text-xs uppercase text-white/70 mb-1">Students</div>
                     <div className="pl-2 space-y-1">
                       {solutionsStudents.map((item) => (
-                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-primary" onClick={() => setIsOpen(false)}>
+                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-black" onClick={() => setIsOpen(false)}>
                           {item.title}
                         </Link>
                       ))}
@@ -210,13 +222,13 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <Link href="/about" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
+                <Link href="/about" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
                   About
                 </Link>
-                <Link href="/faq" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
+                <Link href="/faq" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
                   FAQ
                 </Link>
-                <Link href="/blog" className="text-lg font-medium text-white hover:text-primary" onClick={() => setIsOpen(false)}>
+                <Link href="/blog" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
                   Blog
                 </Link>
 
@@ -235,12 +247,12 @@ export default function Navbar() {
                     </Button>
                   )}
                   <div className="flex items-center gap-2">
-                    <Button asChild className="bg-primary hover:bg-primary/90">
+                    <Button asChild className="bg-black hover:bg-black/90 text-white">
                       <Link href="mailto:work@zibly.ai" onClick={() => setIsOpen(false)}>
                         Email Your First Task Free
                       </Link>
                     </Button>
-                    <CopyEmailButton size="sm" variant="outline" className="text-white border-white/30" />
+                    <CopyEmailButton size="sm" variant="outline" className="bg-black text-white border-white/30" />
                   </div>
                 </div>
               </div>

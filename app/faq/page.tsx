@@ -71,7 +71,7 @@ export default function FAQPage() {
       />
       
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-20 lg:py-24 bg-background">
+      <section className="w-full py-12 md:py-20 lg:py-24 bg-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <SlideUp>
@@ -80,10 +80,10 @@ export default function FAQPage() {
                   <HelpCircle className="h-3 w-3 mr-1" />
                   Frequently Asked Questions
                 </Badge>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl inter-section-heading">
-                  Everything You <GradientText>Need to Know</GradientText>
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl inter-section-heading text-black">
+                  Everything You <span className="text-primary">Need to Know</span>
                 </h1>
-                <p className="mx-auto max-w-[700px] md:text-xl inter-text">
+                <p className="mx-auto max-w-[700px] md:text-xl inter-text text-black">
                   Get answers about security, pricing, capabilities, and how to make the most of your AI analyst.
                   Can't find what you're looking for? Email us directly.
                 </p>
@@ -106,52 +106,49 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
       {/* Quick Stats */}
-      <section className="w-full py-8 bg-card border-y">
+      <section className="w-full py-8 bg-white border-y border-black/20">
         <div className="container px-4 md:px-6">
           <StaggerContainer className="grid justify-center gap-8 md:grid-cols-3 text-center">
             <StaggerItem>
               <div>
                 <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
-                <p className="text-sm font-medium inter-text-medium text-card-foreground">SOC 2 Compliant</p>
-                <p className="text-xs text-card-foreground inter-text">Bank-grade security</p>
+                <p className="text-sm font-medium inter-text-medium text-black">SOC 2 Compliant</p>
+                <p className="text-xs text-black inter-text">Bank-grade security</p>
               </div>
             </StaggerItem>
             <StaggerItem>
               <div>
                 <Clock className="h-8 w-8 text-primary mx-auto mb-2" />
-                <p className="text-sm font-medium inter-text-medium text-card-foreground">Adaptive analysis</p>
-                <p className="text-xs text-card-foreground inter-text">Average turnaround</p>
+                <p className="text-sm font-medium inter-text-medium text-black">Adaptive analysis</p>
+                <p className="text-xs text-black inter-text">Average turnaround</p>
               </div>
             </StaggerItem>
             <StaggerItem>
               <div>
                 <Zap className="h-8 w-8 text-primary mx-auto mb-2" />
-                <p className="text-sm font-medium inter-text-medium text-card-foreground">No app required</p>
-                <p className="text-xs text-card-foreground inter-text">Just use email</p>
+                <p className="text-sm font-medium inter-text-medium text-black">No app required</p>
+                <p className="text-xs text-black inter-text">Just use email</p>
               </div>
             </StaggerItem>
           </StaggerContainer>
         </div>
       </section>
 
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
       {/* FAQ Content */}
-      <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24 bg-background">
+      <section className="w-full bg-white">
+        <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24">
         <StaggerContainer className="space-y-8">
 
           {/* Getting Started */}
           <StaggerItem>
-            <Card>
+            <Card className="bg-white border-2 border-black">
             <CardHeader>
-              <CardTitle className="inter-heading-normal flex items-center gap-2">
+              <CardTitle className="inter-heading-normal flex items-center gap-2 text-black">
                 <Zap className="h-5 w-5 text-primary" />
                 Getting Started
               </CardTitle>
-              <CardDescription className="inter-text">Everything you need to know to get up and running</CardDescription>
+              <CardDescription className="inter-text text-black">Everything you need to know to get up and running</CardDescription>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible defaultValue="item-1">
@@ -192,8 +189,8 @@ export default function FAQPage() {
                         <li><strong>Document creation:</strong> "Turn these meeting notes into a client memo"</li>
                         <li><strong>Financial modeling:</strong> "Build a 3-year revenue forecast from this data"</li>
                       </ul>
-                      <div className="bg-card p-4 rounded-lg mt-4">
-                        <p className="text-sm text-card-foreground">
+                      <div className="bg-gray-50 p-4 rounded-lg mt-4 border border-black/20">
+                        <p className="text-sm text-black">
                           <strong>Pro tip:</strong> Include context about how you'll use the output.
                           This helps Zibly tailor the deliverable to your specific needs.
                         </p>
@@ -219,13 +216,13 @@ export default function FAQPage() {
 
           {/* Security & Compliance */}
           <StaggerItem>
-            <Card>
+            <Card className="bg-white border-2 border-black">
             <CardHeader>
-              <CardTitle className="inter-heading-normal flex items-center gap-2">
+              <CardTitle className="inter-heading-normal flex items-center gap-2 text-black">
                 <Shield className="h-5 w-5 text-primary" />
                 Security & Compliance
               </CardTitle>
-              <CardDescription className="inter-text">Your data protection is our top priority</CardDescription>
+              <CardDescription className="inter-text text-black">Your data protection is our top priority</CardDescription>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
@@ -288,13 +285,13 @@ export default function FAQPage() {
 
           {/* Capabilities & Limitations */}
           <StaggerItem>
-            <Card>
+            <Card className="bg-white border-2 border-black">
             <CardHeader>
-              <CardTitle className="inter-heading-normal flex items-center gap-2">
+              <CardTitle className="inter-heading-normal flex items-center gap-2 text-black">
                 <Lightbulb className="h-5 w-5 text-primary" />
                 Capabilities & Use Cases
               </CardTitle>
-              <CardDescription className="inter-text">What Zibly can (and can't) do for you</CardDescription>
+              <CardDescription className="inter-text text-black">What Zibly can (and can't) do for you</CardDescription>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
@@ -402,13 +399,13 @@ export default function FAQPage() {
 
           {/* Pricing & Billing */}
           <StaggerItem>
-            <Card>
+            <Card className="bg-white border-2 border-black">
             <CardHeader>
-              <CardTitle className="inter-heading-normal flex items-center gap-2">
+              <CardTitle className="inter-heading-normal flex items-center gap-2 text-black">
                 <DollarSign className="h-5 w-5 text-primary" />
                 Pricing & Billing
               </CardTitle>
-              <CardDescription className="inter-text">Simple, transparent pricing with no hidden fees</CardDescription>
+              <CardDescription className="inter-text text-black">Simple, transparent pricing with no hidden fees</CardDescription>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
@@ -491,13 +488,13 @@ export default function FAQPage() {
 
           {/* How It Works */}
           <StaggerItem>
-            <Card>
+            <Card className="bg-white border-2 border-black">
             <CardHeader>
-              <CardTitle className="inter-heading-normal flex items-center gap-2">
+              <CardTitle className="inter-heading-normal flex items-center gap-2 text-black">
                 <Mail className="h-5 w-5 text-primary" />
                 How to Use Zibly
               </CardTitle>
-              <CardDescription className="inter-text">Tips for getting the best results</CardDescription>
+              <CardDescription className="inter-text text-black">Tips for getting the best results</CardDescription>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
@@ -506,8 +503,8 @@ export default function FAQPage() {
                   <AccordionContent>
                     <div className="space-y-4 inter-text">
                       <p>Follow this simple structure for best results:</p>
-                      <div className="bg-card p-4 rounded-lg">
-                        <div className="font-mono text-sm space-y-2 text-card-foreground">
+                      <div className="bg-gray-50 p-4 rounded-lg border border-black/20">
+                        <div className="font-mono text-sm space-y-2 text-black">
                           <div><strong>Subject:</strong> Clear description of the task</div>
                           <div className="mt-4">
                             <strong>Body:</strong>
@@ -592,13 +589,13 @@ export default function FAQPage() {
 
           {/* Support & Help */}
           <StaggerItem>
-            <Card>
+            <Card className="bg-white border-2 border-black">
             <CardHeader>
-              <CardTitle className="inter-heading-normal flex items-center gap-2">
+              <CardTitle className="inter-heading-normal flex items-center gap-2 text-black">
                 <Users className="h-5 w-5 text-primary" />
                 Support & Resources
               </CardTitle>
-              <CardDescription className="inter-text">We're here to help you succeed</CardDescription>
+              <CardDescription className="inter-text text-black">We're here to help you succeed</CardDescription>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
@@ -643,10 +640,10 @@ export default function FAQPage() {
 
           {/* Still Have Questions? */}
           <StaggerItem>
-            <Card className="border-primary bg-card">
+            <Card className="border-2 border-primary bg-white">
             <CardHeader>
-              <CardTitle className="inter-heading-normal text-center text-card-foreground">Still Have Questions?</CardTitle>
-              <CardDescription className="inter-text text-center">
+              <CardTitle className="inter-heading-normal text-center text-black">Still Have Questions?</CardTitle>
+              <CardDescription className="inter-text text-center text-black">
                 We're here to help. Reach out anytime.
               </CardDescription>
             </CardHeader>
@@ -659,7 +656,7 @@ export default function FAQPage() {
                     </Link>
                   </Button>
                 </MagneticButton>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="bg-white border-2 border-black text-black hover:bg-black hover:text-white">
                   <Link href="mailto:work@zibly.ai?subject=Test task">
                     Try Your First Task Free
                   </Link>
@@ -669,7 +666,8 @@ export default function FAQPage() {
           </Card>
           </StaggerItem>
         </StaggerContainer>
-      </div>
+        </div>
+      </section>
     </>
   )
 }

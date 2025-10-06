@@ -40,7 +40,7 @@ Thanks!`
         }) }}
       />
       {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
+      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-background">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-8 text-center">
             <div className="space-y-4 max-w-3xl">
@@ -48,12 +48,12 @@ Thanks!`
                 For Private Equity
               </div>
               <SlideUp>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-white">
                   Find <GradientText>Alpha</GradientText>, Not Spreadsheet Errors
                 </h1>
               </SlideUp>
               <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">
+                <p className="mx-auto max-w-[700px] text-white md:text-xl">
                   Your LPs expect 20%+ returns, not 20-hour days formatting IC memos. Zibly analyzes targets,
                   builds models, and monitors portfolios with institutional rigor.
                 </p>
@@ -84,16 +84,16 @@ Thanks!`
                 From Sourcing to <GradientText>Exit</GradientText>
               </h2>
             </SlideUp>
-            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">
+            <p className="mt-4 text-muted-foreground md:text-lg max-w-2xl mx-auto">
               Zibly handles the analytical heavy lifting across your entire investment lifecycle
             </p>
           </div>
           <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <StaggerItem>
-              <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="bg-card rounded-lg p-6 shadow-sm">
               <Search className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Deal Sourcing</h3>
-              <p className="text-black mb-4">
+              <h3 className="text-lg font-semibold mb-2">Deal Sourcing</h3>
+              <p className="text-muted-foreground mb-4">
                 Screen multiple targets against your investment thesis systematically
               </p>
               <div className="space-y-2">
@@ -114,10 +114,10 @@ Thanks!`
             </StaggerItem>
 
             <StaggerItem>
-              <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="bg-card rounded-lg p-6 shadow-sm">
               <Target className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Due Diligence</h3>
-              <p className="text-black mb-4">
+              <h3 className="text-lg font-semibold mb-2">Due Diligence</h3>
+              <p className="text-muted-foreground mb-4">
                 Process entire data rooms and identify risks/opportunities instantly
               </p>
               <div className="space-y-2">
@@ -139,10 +139,10 @@ Thanks!`
 
             <StaggerItem>
               <AnimatedCard delay={0.3}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
               <BarChart3 className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Portfolio Monitoring</h3>
-              <p className="text-black mb-4">
+              <h3 className="text-lg font-semibold mb-2">Portfolio Monitoring</h3>
+              <p className="text-muted-foreground mb-4">
                 Track KPIs and identify value creation opportunities across portfolios
               </p>
               <div className="space-y-2">
@@ -167,10 +167,10 @@ Thanks!`
           <StaggerContainer className="grid gap-6 md:grid-cols-2 mt-6 max-w-4xl mx-auto">
             <StaggerItem>
               <AnimatedCard delay={0.4}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
               <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">IC Memos & LBO Models</h3>
-              <p className="text-black mb-4">
+              <h3 className="text-lg font-semibold mb-2">IC Memos & LBO Models</h3>
+              <p className="text-muted-foreground mb-4">
                 Generate comprehensive investment committee materials with full financial models
               </p>
               <div className="space-y-2">
@@ -193,10 +193,10 @@ Thanks!`
 
             <StaggerItem>
               <AnimatedCard delay={0.5}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-card rounded-lg p-6 shadow-sm">
               <TrendingUp className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Value Creation</h3>
-              <p className="text-black mb-4">
+              <h3 className="text-lg font-semibold mb-2">Value Creation</h3>
+              <p className="text-muted-foreground mb-4">
                 Identify and track operational improvements and growth initiatives
               </p>
               <div className="space-y-2">
@@ -223,28 +223,28 @@ Thanks!`
       <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
 
       {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 md:grid-cols-3">
             <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-black">
+              <h3 className="text-lg font-semibold mb-2">Deliverables we often send</h3>
+              <ul className="space-y-2 text-sm text-foreground">
                 <li>• IC memos and board updates</li>
                 <li>• LBO models and returns summaries</li>
                 <li>• Market maps and diligence checklists</li>
               </ul>
             </div>
             <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-black">
+              <h3 className="text-lg font-semibold mb-2">Popular requests</h3>
+              <ul className="space-y-2 text-sm text-foreground">
                 <li>• Data room triage and synthesis</li>
                 <li>• KPI dashboards for portfolio reviews</li>
                 <li>• Add‑on screens and buyer lists</li>
               </ul>
             </div>
             <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-              <ol className="space-y-2 text-sm text-black list-decimal pl-5">
+              <h3 className="text-lg font-semibold mb-2">How it works</h3>
+              <ol className="space-y-2 text-sm text-foreground list-decimal pl-5">
                 <li>Forward materials (data room links, Excel)</li>
                 <li>Specify output (memo/deck/model)</li>
                 <li>Receive the finished deliverable</li>
@@ -266,11 +266,11 @@ Thanks!`
               </h2>
             </SlideUp>
           </div>
-          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+          <div className="max-w-4xl mx-auto bg-card rounded-lg shadow-lg p-8">
             <div className="grid gap-6 md:grid-cols-2">
               <div>
-                <h3 className="text-xl font-semibold mb-4 text-black">Current State</h3>
-                <ul className="space-y-3 text-black">
+                <h3 className="text-xl font-semibold mb-4">Current State</h3>
+                <ul className="space-y-3 text-muted-foreground">
                   <li className="flex justify-between">
                     <span>Associates on team:</span>
                     <span className="font-semibold">4 × $200k = $800k</span>
@@ -290,8 +290,8 @@ Thanks!`
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-4 text-black">With Zibly</h3>
-                <ul className="space-y-3 text-black">
+                <h3 className="text-xl font-semibold mb-4">With Zibly</h3>
+                <ul className="space-y-3 text-muted-foreground">
                   <li className="flex justify-between">
                     <span>Zibly cost:</span>
                     <span className="font-semibold">From $20/month</span>
@@ -312,7 +312,7 @@ Thanks!`
               </div>
             </div>
             <div className="mt-8 p-4 bg-primary/10 rounded-lg text-center">
-              <p className="text-2xl font-bold text-black">
+              <p className="text-2xl font-bold text-white">
                 3x more deals reviewed. 95% cost reduction. Find your next unicorn.
               </p>
             </div>
@@ -323,7 +323,7 @@ Thanks!`
       <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
 
       {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-primary text-black">
+      <section className="w-full py-16 md:py-24 bg-primary text-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
@@ -354,7 +354,7 @@ Thanks!`
                   <Button
                     size="lg"
                     variant="outline"
-                    className="bg-transparent text-black border-white hover:bg-white hover:text-primary"
+                    className="bg-transparent text-white border-white hover:bg-background hover:text-primary"
                     asChild
                   >
                     <Link href="/security">Security & Compliance</Link>

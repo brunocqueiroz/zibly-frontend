@@ -4,9 +4,10 @@ import Link from "next/link"
 interface LogoProps {
   className?: string
   size?: "sm" | "md" | "lg"
+  variant?: "default" | "white"
 }
 
-export default function Logo({ className, size = "md" }: LogoProps) {
+export default function Logo({ className, size = "md", variant = "default" }: LogoProps) {
   const sizes = {
     sm: { width: 160, height: 40 },
     md: { width: 240, height: 60 },
@@ -19,11 +20,13 @@ export default function Logo({ className, size = "md" }: LogoProps) {
     lg: "text-3xl",
   }
 
+  const logoSrc = variant === "white" ? "/logo_white.png" : "/logo.png"
+
   return (
     <Link href="/" className={`flex items-center ${className}`}>
       <div className="relative">
         <Image
-          src="/logo.png"
+          src={logoSrc}
           alt="zibly.ai Logo"
           width={sizes[size].width}
           height={sizes[size].height}

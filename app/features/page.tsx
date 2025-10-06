@@ -34,17 +34,17 @@ Thanks!`
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-20 lg:py-24 bg-background">
+      <section className="w-full py-12 md:py-20 lg:py-24 bg-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-8 text-center">
             <div className="space-y-4">
               <SlideUp>
-                <h1 className="inter-section-heading text-white" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                  Turn <GradientText>6-Hour Tasks</GradientText> Into 6-Minute Emails
+                <h1 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+                  Turn <span className="text-primary">6-Hour Tasks</span> Into 6-Minute Emails
                 </h1>
               </SlideUp>
               <FadeIn delay={0.2}>
-                <p className="max-w-[700px] text-lg md:text-xl inter-text mx-auto text-white">
+                <p className="max-w-[700px] text-lg md:text-xl inter-text mx-auto text-black">
                   Transform how you work. Email your analytical tasks and get back finished deliverables. From data chaos to executive clarity with the depth your work deserves — typically within 2 minutes to 1 hour depending on complexity.
                 </p>
               </FadeIn>
@@ -68,38 +68,38 @@ Thanks!`
       </section>
 
       {/* Trust Bar */}
-      <section className="w-full py-8 bg-background border-y">
+      <section className="w-full py-8 bg-white border-y border-black/20">
         <div className="container px-4 md:px-6">
           <div className="grid gap-8 md:grid-cols-4 text-center">
             <div>
-              <p className="text-3xl font-bold text-white inter-text-medium"><AnimatedCounter value={100} />x</p>
-              <p className="text-sm text-white inter-text">Faster than manual analysis</p>
+              <p className="text-3xl font-bold text-black inter-text-medium"><AnimatedCounter value={100} />x</p>
+              <p className="text-sm text-black inter-text">Faster than manual analysis</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-white inter-text-medium"><AnimatedCounter value={50} />+</p>
-              <p className="text-sm text-white inter-text">File types support</p>
+              <p className="text-3xl font-bold text-black inter-text-medium"><AnimatedCounter value={50} />+</p>
+              <p className="text-sm text-black inter-text">File types support</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-white inter-text-medium">Adaptive</p>
-              <p className="text-sm text-white inter-text">Task-driven timing</p>
+              <p className="text-3xl font-bold text-black inter-text-medium">Adaptive</p>
+              <p className="text-sm text-black inter-text">Task-driven timing</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-white inter-text-medium">Zero</p>
-              <p className="text-sm text-white inter-text">Training with your Data</p>
+              <p className="text-3xl font-bold text-black inter-text-medium">Zero</p>
+              <p className="text-sm text-black inter-text">Training with your Data</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Before/After Transformation */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-card">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="inter-section-heading mb-4 text-card-foreground" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
-                Your Work, <GradientText>Transformed</GradientText>
+              <h2 className="inter-section-heading mb-4 text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+                Your Work, <span className="text-primary">Transformed</span>
               </h2>
-              <p className="max-w-[900px] text-lg inter-text mx-auto text-card-foreground">
+              <p className="max-w-[900px] text-lg inter-text mx-auto text-black">
                 Real examples of how professionals use Zibly every day — from <Link href="/solutions/consultants" className="text-primary hover:underline">consulting decks</Link> and <Link href="/solutions/investment-banking" className="text-primary hover:underline">banking pitch books</Link> to <Link href="/solutions/marketing" className="text-primary hover:underline">marketing campaign analysis</Link>.
               </p>
             </div>
@@ -109,20 +109,20 @@ Thanks!`
             {/* Example 1 */}
             <div className="grid md:grid-cols-2 gap-6 items-center">
               <AnimatedCard delay={0.1}>
-                <Card className="border-border bg-background">
+                <Card className="border-border bg-white">
                 <CardHeader>
-                  <div className="flex items-center gap-2 text-sm text-white mb-2">
+                  <div className="flex items-center gap-2 text-sm text-black mb-2">
                     <Mail className="h-4 w-4" />
                     <span className="inter-text-medium">You send:</span>
                   </div>
-                  <CardTitle className="text-lg inter-heading-normal text-white">Sales data dump (47 sheets)</CardTitle>
+                  <CardTitle className="text-lg inter-heading-normal text-black">Sales data dump (47 sheets)</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4">
-                  <p className="text-sm inter-text text-white">
+                  <p className="text-sm inter-text text-black">
                     "Can you analyze our Q4 sales data and identify growth opportunities?
                     Focus on customer segments and regional performance."
                   </p>
-                  <div className="mt-4 flex items-center gap-2 text-xs text-white">
+                  <div className="mt-4 flex items-center gap-2 text-xs text-black">
                     <FileSpreadsheet className="h-4 w-4" />
                     <span>Q4_sales_raw_data.xlsx (12MB)</span>
                   </div>
@@ -131,16 +131,16 @@ Thanks!`
               </AnimatedCard>
 
               <AnimatedCard delay={0.2}>
-                <Card className="border-primary shadow-lg bg-background">
+                <Card className="border-primary shadow-lg bg-white">
                 <CardHeader>
-                  <div className="flex items-center gap-2 text-sm text-white mb-2">
+                  <div className="flex items-center gap-2 text-sm text-black mb-2">
                     <Zap className="h-4 w-4" />
                     <span className="inter-text-medium">Zibly delivers:</span>
                   </div>
-                  <CardTitle className="text-lg inter-heading-normal text-white">Complete Sales Analysis Package</CardTitle>
+                  <CardTitle className="text-lg inter-heading-normal text-black">Complete Sales Analysis Package</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4">
-                  <ul className="space-y-2 text-sm inter-text text-white">
+                  <ul className="space-y-2 text-sm inter-text text-black">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
                       <span>Executive dashboard with KPIs</span>
@@ -159,11 +159,11 @@ Thanks!`
                     </li>
                   </ul>
                   <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex items-center gap-1 text-white">
+                    <div className="flex items-center gap-1 text-black">
                       <FileSpreadsheet className="h-3 w-3" />
                       <span>Sales_Analysis.xlsx</span>
                     </div>
-                    <div className="flex items-center gap-1 text-white">
+                    <div className="flex items-center gap-1 text-black">
                       <FileText className="h-3 w-3" />
                       <span>Executive_Summary.pdf</span>
                     </div>
@@ -176,20 +176,20 @@ Thanks!`
             {/* Example 2 */}
             <div className="grid md:grid-cols-2 gap-6 items-center">
               <AnimatedCard delay={0.3}>
-                <Card className="border-border bg-background">
+                <Card className="border-border bg-white">
                 <CardHeader>
-                  <div className="flex items-center gap-2 text-sm text-white mb-2">
+                  <div className="flex items-center gap-2 text-sm text-black mb-2">
                     <Mail className="h-4 w-4" />
                     <span className="inter-text-medium">You send:</span>
                   </div>
-                  <CardTitle className="text-lg inter-heading-normal text-white">100+ customer interviews</CardTitle>
+                  <CardTitle className="text-lg inter-heading-normal text-black">100+ customer interviews</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4">
-                  <p className="text-sm inter-text text-white">
+                  <p className="text-sm inter-text text-black">
                     "Synthesize these interview transcripts and identify key themes,
                     pain points, and feature requests."
                   </p>
-                  <div className="mt-4 flex items-center gap-2 text-xs text-white">
+                  <div className="mt-4 flex items-center gap-2 text-xs text-black">
                     <FileText className="h-4 w-4" />
                     <span>Interview_transcripts.zip (85 files)</span>
                   </div>
@@ -198,16 +198,16 @@ Thanks!`
               </AnimatedCard>
 
               <AnimatedCard delay={0.4}>
-                <Card className="border-primary shadow-lg bg-background">
+                <Card className="border-primary shadow-lg bg-white">
                 <CardHeader>
-                  <div className="flex items-center gap-2 text-sm text-white mb-2">
+                  <div className="flex items-center gap-2 text-sm text-black mb-2">
                     <Zap className="h-4 w-4" />
                     <span className="inter-text-medium">Zibly delivers:</span>
                   </div>
-                  <CardTitle className="text-lg inter-heading-normal text-white">Comprehensive Research Report</CardTitle>
+                  <CardTitle className="text-lg inter-heading-normal text-black">Comprehensive Research Report</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4">
-                  <ul className="space-y-2 text-sm inter-text text-white">
+                  <ul className="space-y-2 text-sm inter-text text-black">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
                       <span>Thematic analysis with quotes</span>
@@ -226,11 +226,11 @@ Thanks!`
                     </li>
                   </ul>
                   <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex items-center gap-1 text-white">
+                    <div className="flex items-center gap-1 text-black">
                       <FileText className="h-3 w-3" />
                       <span>Research_Findings.pptx</span>
                     </div>
-                    <div className="flex items-center gap-1 text-white">
+                    <div className="flex items-center gap-1 text-black">
                       <BarChart3 className="h-3 w-3" />
                       <span>Data_Analysis.xlsx</span>
                     </div>
@@ -243,17 +243,17 @@ Thanks!`
         </div>
       </section>
 
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+      <WaveDivider fill="hsl(0 0% 100%)" flip={true} />
 
       {/* Core Capabilities */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-background">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="inter-section-heading mb-4 text-white" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
-                Three Ways Zibly <GradientText>Saves Your Time</GradientText>
+              <h2 className="inter-section-heading mb-4 text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+                Three Ways Zibly <span className="text-primary">Saves Your Time</span>
               </h2>
-              <p className="max-w-[900px] text-lg inter-text mx-auto text-white">
+              <p className="max-w-[900px] text-lg inter-text mx-auto text-black">
                 From quick analysis to complex research, we handle the work you're too valuable to do
               </p>
             </div>
@@ -264,30 +264,30 @@ Thanks!`
               {/* Data Analysis */}
               <StaggerItem className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-background">
-                    <BarChart3 className="h-6 w-6 text-primary" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                    <BarChart3 className="h-6 w-6 text-black" />
                   </div>
-                  <h3 className="text-2xl inter-heading-normal text-white">Data Analysis</h3>
+                  <h3 className="text-2xl inter-heading-normal text-black">Data Analysis</h3>
                 </div>
-                <p className="inter-text text-white">
+                <p className="inter-text text-black">
                   Turn raw data into actionable insights with professional visualizations and clear recommendations.
                 </p>
                 <div className="space-y-3">
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Financial Modeling</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Financial Modeling</h4>
+                    <p className="text-sm inter-text text-black">
                       DCF models, sensitivity analysis, scenario planning
                     </p>
                   </div>
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Performance Analytics</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Performance Analytics</h4>
+                    <p className="text-sm inter-text text-black">
                       KPI dashboards, variance analysis, trend identification
                     </p>
                   </div>
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Data Visualization</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Data Visualization</h4>
+                    <p className="text-sm inter-text text-black">
                       Interactive dashboards, executive summaries, reports
                     </p>
                   </div>
@@ -297,30 +297,30 @@ Thanks!`
               {/* Research & Intelligence */}
               <StaggerItem className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-background">
-                    <Search className="h-6 w-6 text-primary" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                    <Search className="h-6 w-6 text-black" />
                   </div>
-                  <h3 className="text-2xl inter-heading-normal text-white">Research & Intel</h3>
+                  <h3 className="text-2xl inter-heading-normal text-black">Research & Intel</h3>
                 </div>
-                <p className="inter-text text-white">
+                <p className="inter-text text-black">
                   Deep research and synthesis that would take analysts days to complete.
                 </p>
                 <div className="space-y-3">
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Market Research</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Market Research</h4>
+                    <p className="text-sm inter-text text-black">
                       TAM/SAM/SOM sizing, competitive analysis, trends
                     </p>
                   </div>
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Due Diligence</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Due Diligence</h4>
+                    <p className="text-sm inter-text text-black">
                       Company analysis, risk assessment, opportunity ID
                     </p>
                   </div>
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Document Synthesis</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Document Synthesis</h4>
+                    <p className="text-sm inter-text text-black">
                       Contract review, survey analysis, report summaries
                     </p>
                   </div>
@@ -330,30 +330,30 @@ Thanks!`
               {/* Content Creation */}
               <StaggerItem className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-background">
-                    <PenTool className="h-6 w-6 text-green-600" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                    <PenTool className="h-6 w-6 text-black" />
                   </div>
-                  <h3 className="text-2xl inter-heading-normal text-white">Content Creation</h3>
+                  <h3 className="text-2xl inter-heading-normal text-black">Content Creation</h3>
                 </div>
-                <p className="inter-text text-white">
+                <p className="inter-text text-black">
                   Professional documents that look like your best work, not AI-generated content.
                 </p>
                 <div className="space-y-3">
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Executive Comms</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Executive Comms</h4>
+                    <p className="text-sm inter-text text-black">
                       Board memos, investor updates, strategic plans
                     </p>
                   </div>
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Client Deliverables</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Client Deliverables</h4>
+                    <p className="text-sm inter-text text-black">
                       Proposals, presentations, project reports
                     </p>
                   </div>
-                  <div className="rounded-lg border p-4 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold inter-text-medium mb-1 text-white">Internal Docs</h4>
-                    <p className="text-sm inter-text text-white">
+                  <div className="rounded-lg border border-black/20 p-4 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold inter-text-medium mb-1 text-black">Internal Docs</h4>
+                    <p className="text-sm inter-text text-black">
                       Process documentation, training materials, SOPs
                     </p>
                   </div>
@@ -372,7 +372,7 @@ Thanks!`
           <SlideUp>
             <div className="text-center mb-12">
               <h2 className="inter-section-heading mb-4 text-card-foreground" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
-                How <GradientText>Professionals</GradientText> Use Zibly
+                How <span className="text-primary">Professionals</span> Use Zibly
               </h2>
               <p className="max-w-[900px] text-lg inter-text mx-auto text-card-foreground">
                 A typical day with your AI analyst
@@ -386,14 +386,14 @@ Thanks!`
               <div className="relative">
                 <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
                 <div className="relative flex items-start gap-6">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-background border-2 border-primary z-10">
-                    <Clock className="h-6 w-6 text-primary" />
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white border-2 border-black z-10">
+                    <Clock className="h-6 w-6 text-black" />
                   </div>
                   <div className="flex-1 pb-8">
                     <h3 className="text-xl inter-heading-normal mb-2 text-card-foreground">8:47 AM - Board Meeting Prep</h3>
-                    <Card className="bg-background">
+                    <Card className="bg-white border-2 border-black">
                       <CardContent className="pt-6">
-                        <p className="text-sm inter-text text-white mb-3">
+                        <p className="text-sm inter-text text-black mb-3">
                           <strong>You forward:</strong> "FYI - Board meeting next week. Can you prep the quarterly metrics deck?"
                         </p>
                         <div className="bg-card rounded-lg p-3">
@@ -412,14 +412,14 @@ Thanks!`
               <div className="relative">
                 <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
                 <div className="relative flex items-start gap-6">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-background border-2 border-primary z-10">
-                    <TrendingUp className="h-6 w-6 text-primary" />
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white border-2 border-black z-10">
+                    <TrendingUp className="h-6 w-6 text-black" />
                   </div>
                   <div className="flex-1 pb-8">
                     <h3 className="text-xl inter-heading-normal mb-2 text-card-foreground">11:23 AM - Competitive Intel</h3>
-                    <Card className="bg-background">
+                    <Card className="bg-white border-2 border-black">
                       <CardContent className="pt-6">
-                        <p className="text-sm inter-text text-white mb-3">
+                        <p className="text-sm inter-text text-black mb-3">
                           <strong>You send:</strong> "Team asking about CompetitorX's new pricing. Need comparison."
                         </p>
                         <div className="bg-card rounded-lg p-3">
@@ -437,14 +437,14 @@ Thanks!`
               {/* Afternoon */}
               <div className="relative">
                 <div className="relative flex items-start gap-6">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-background border-2 border-primary z-10">
-                    <Brain className="h-6 w-6 text-primary" />
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white border-2 border-black z-10">
+                    <Brain className="h-6 w-6 text-black" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl inter-heading-normal mb-2 text-card-foreground">3:15 PM - Data Deep Dive</h3>
-                    <Card className="bg-background">
+                    <Card className="bg-white border-2 border-black">
                       <CardContent className="pt-6">
-                        <p className="text-sm inter-text text-white mb-3">
+                        <p className="text-sm inter-text text-black mb-3">
                           <strong>You forward:</strong> Sales team data dump with "Why did EMEA miss targets?"
                         </p>
                         <div className="bg-card rounded-lg p-3">
@@ -463,15 +463,15 @@ Thanks!`
         </div>
       </section>
 
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+      <WaveDivider fill="hsl(0 0% 100%)" flip={true} />
 
       {/* Why Zibly Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-background">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="inter-section-heading mb-4 text-white" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
-                Why Professionals <GradientText>Choose Zibly</GradientText>
+              <h2 className="inter-section-heading mb-4 text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+                Why Professionals <span className="text-primary">Choose Zibly</span>
               </h2>
             </div>
           </SlideUp>
@@ -590,17 +590,17 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-4xl">
             <FadeIn>
-              <Card className="border-2 border-primary bg-background shadow-xl">
+              <Card className="border-2 border-black bg-white shadow-xl">
                 <CardContent className="p-8 md:p-12">
                   <div className="text-center space-y-6">
                     <Badge variant="secondary" className="mb-4">
                       <Sparkles className="h-3 w-3 mr-1" />
                       First task free
                     </Badge>
-                    <h2 className="inter-section-heading text-white" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
-                      Stop Reading. Start <GradientText>Delegating</GradientText>.
+                    <h2 className="inter-section-heading text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+                      Stop Reading. Start <span className="text-primary">Delegating</span>.
                     </h2>
-                    <p className="mx-auto max-w-[600px] text-lg inter-text text-white">
+                    <p className="mx-auto max-w-[600px] text-lg inter-text text-black">
                       That task you've been avoiding? The analysis that's been on your list for weeks?
                       Send it now. See what 20 hours back per week feels like.
                     </p>
@@ -610,7 +610,7 @@ Thanks!`
                           Email Your First Task Now <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                       </MagneticButton>
-                      <p className="mt-4 text-sm inter-text text-white">
+                      <p className="mt-4 text-sm inter-text text-black">
                         work@zibly.ai • No signup required • Adaptive delivery
                       </p>
                     </div>

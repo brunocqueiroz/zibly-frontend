@@ -72,26 +72,26 @@ export default function PricingGrid({
   return (
     <div>
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <div className="inline-flex items-center rounded-lg border p-1">
-          <span className="px-2 text-xs text-white hidden sm:inline">Seats</span>
+        <div className="inline-flex items-center rounded-lg border border-black p-1">
+          <span className="px-2 text-xs text-black hidden sm:inline">Seats</span>
           <Button type="button" variant="ghost" size="sm" onClick={() => setSeats(Math.max(1, seats - 1))} disabled={seats <= 1}>
             <Minus className="h-3 w-3" />
           </Button>
-          <div className="px-2 text-sm tabular-nums min-w-[2ch] text-center text-white">{seats}</div>
+          <div className="px-2 text-sm tabular-nums min-w-[2ch] text-center text-black">{seats}</div>
           <Button type="button" variant="ghost" size="sm" onClick={() => setSeats(Math.min(MAX_SEATS, seats + 1))} disabled={seats >= MAX_SEATS}>
             <Plus className="h-3 w-3" />
           </Button>
         </div>
-        <div className="inline-flex items-center rounded-lg border p-1">
-          <span className="px-2 text-xs text-white hidden sm:inline">Referral/Coupon</span>
+        <div className="inline-flex items-center rounded-lg border border-black bg-white p-1">
+          <span className="px-2 text-xs text-black hidden sm:inline">Referral/Coupon</span>
           <Input
             id="coupon"
             placeholder="FRIEND20"
             value={coupon}
             onChange={(e) => setCoupon(e.target.value)}
-            className="h-8 border-none focus-visible:ring-0 focus:ring-0 w-36"
+            className="h-8 border-none focus-visible:ring-0 focus:ring-0 w-36 text-black bg-white"
           />
-          <Button type="button" size="sm" onClick={applyCoupon}>
+          <Button type="button" size="sm" onClick={applyCoupon} className="bg-white text-black border border-black hover:bg-black/5">
             Apply
           </Button>
         </div>
@@ -118,17 +118,17 @@ export default function PricingGrid({
               </div>
               <CardDescription>{plan.description}</CardDescription>
               <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">
+                <span className="inline-flex items-center rounded-full bg-white border border-black px-2 py-1 text-black">
                   {plan.tasksPerMonth}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">
+                <span className="inline-flex items-center rounded-full bg-white border border-black px-2 py-1 text-black">
                   {plan.processingSpeed}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">
+                <span className="inline-flex items-center rounded-full bg-white border border-black px-2 py-1 text-black">
                   {plan.support}
                 </span>
                 {seats > 1 && plan.priceMonthly !== null && (
-                  <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-white">{seats} seats</span>
+                  <span className="inline-flex items-center rounded-full bg-white border border-black px-2 py-1 text-black">{seats} seats</span>
                 )}
                 {discount > 0 && plan.priceMonthly !== null && (
                   <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-1">-{Math.round(discount * 100)}%</span>
@@ -148,18 +148,18 @@ export default function PricingGrid({
             <CardFooter>
               {currentPlanId ? (
                 plan.priceMonthly === null ? (
-                  <Button asChild className="w-full bg-primary hover:bg-primary-600">
+                  <Button asChild className="w-full bg-white text-black border-2 border-black hover:bg-black/5">
                     <Link href="/contact">Contact Sales</Link>
                   </Button>
                 ) : plan.id === currentPlanId ? (
                   <Button disabled variant="outline" className="w-full">Current Plan</Button>
                 ) : (
-                  <Button className="w-full bg-primary hover:bg-primary-600" onClick={() => handleSwitch(plan.id)}>
+                  <Button className="w-full bg-white text-black border-2 border-black hover:bg-black/5" onClick={() => handleSwitch(plan.id)}>
                     Switch Plan
                   </Button>
                 )
               ) : (
-                <Button asChild className="w-full bg-primary hover:bg-primary-600">
+                <Button asChild className="w-full bg-white text-black border-2 border-black hover:bg-black/5">
                   {plan.priceMonthly === null ? (
                     <Link href="/contact">Contact Sales</Link>
                   ) : (

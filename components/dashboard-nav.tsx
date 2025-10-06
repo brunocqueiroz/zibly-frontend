@@ -25,11 +25,11 @@ export default function DashboardNav() {
   }
 
   return (
-    <div className="flex h-full w-64 flex-col border-r bg-background">
-      <div className="flex h-16 items-center border-b px-6">
+    <div className="fixed left-0 top-0 h-screen w-64 flex-col border-r-2 border-black bg-white flex">
+      <div className="flex h-16 items-center border-b-2 border-black px-6 flex-shrink-0">
         <Link href="/" className="flex items-center space-x-2">
           <Mail className="h-6 w-6 text-primary" />
-          <span className="text-xl font-bold">zibly.ai</span>
+          <span className="text-xl font-bold text-black">zibly.ai</span>
         </Link>
       </div>
 
@@ -43,8 +43,8 @@ export default function DashboardNav() {
               className={cn(
                 "flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 pathname === item.href
-                  ? "bg-accent text-accent-foreground"
-                  : "hover:bg-muted hover:text-foreground",
+                  ? "bg-gray-100 text-black border-2 border-black"
+                  : "text-black hover:bg-gray-50",
               )}
             >
               <Icon className="h-4 w-4" />
@@ -54,17 +54,17 @@ export default function DashboardNav() {
         })}
       </nav>
 
-      <div className="border-t p-4">
+      <div className="border-t-2 border-black p-4">
         <div className="flex items-center space-x-3 rounded-lg px-3 py-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent">
-            <User className="h-4 w-4 text-accent-foreground" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-black">
+            <User className="h-4 w-4 text-black" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">{user?.name || "User"}</p>
-            <p className="text-xs truncate">{user?.email || "user@example.com"}</p>
+            <p className="text-sm font-medium truncate text-black">{user?.name || "User"}</p>
+            <p className="text-xs truncate text-black">{user?.email || "user@example.com"}</p>
           </div>
         </div>
-        <Button variant="ghost" size="sm" className="w-full justify-start mt-2" onClick={handleSignOut}>
+        <Button variant="ghost" size="sm" className="w-full justify-start mt-2 text-black hover:bg-gray-50" onClick={handleSignOut}>
           <LogOut className="h-4 w-4 mr-2" />
           Sign Out
         </Button>

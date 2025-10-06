@@ -3,6 +3,14 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { ArrowRight, Sparkles, Star, FileText, BarChart3, PenTool, Mail, Bot, Clock, DollarSign, TrendingDown, TrendingUp, Rocket, Gem, AlertCircle, Upload } from 'lucide-react'
 import type { Metadata } from 'next'
 import CopyEmailButton from "@/components/copy-email-button"
@@ -14,7 +22,6 @@ import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerCo
 import WaveDivider from "@/components/WaveDivider"
 import ScrollProgress from "@/components/ScrollProgress"
 import AnimatedCounter from "@/components/animations/AnimatedCounter"
-import GradientText from "@/components/animations/GradientText"
 import TiltCard from "@/components/animations/TiltCard"
 import MagneticButton from "@/components/animations/MagneticButton"
 import ScrollingText from "@/components/animations/ScrollingText"
@@ -23,14 +30,19 @@ export default function Home() {
   const [taskRequest, setTaskRequest] = useState("")
   const [email, setEmail] = useState("")
   const [files, setFiles] = useState<FileList | null>(null)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const subject = "New Task Request"
-    const body = `${taskRequest}\n\nEmail: ${email}${files ? `\n\nFiles attached: ${files.length}` : ''}`
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
+    // Here you would typically send the data to your backend
+    // For now, we'll just show the success modal
+    setShowSuccessModal(true)
+
+    // Reset form
+    setTaskRequest("")
+    setEmail("")
+    setFiles(null)
   }
 
   const handleEmailClick = () => {
@@ -80,7 +92,7 @@ Sarah`
             {/* Main Heading */}
             <FadeIn>
               <h1 className="inter-section-heading text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
-                Email Your Work.<br />Get Back <span className="bg-gradient-to-r from-primary via-yellow-400 to-primary bg-[length:200%_auto] animate-gradient" style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Finished Deliverables</span>.
+                Email Your Work.<br />Get Back <span className="text-primary">Finished Deliverables</span>.
               </h1>
             </FadeIn>
 
@@ -89,14 +101,13 @@ Sarah`
               <form onSubmit={handleSubmit} className="w-full px-4">
                 <div className="w-full mx-auto flex flex-col gap-4" style={{ maxWidth: '98vw' }}>
                   {/* Top row: Main search input - full width */}
-                  <div className="bg-white rounded-full border-2 border-background shadow-lg hover:shadow-xl transition-shadow p-3 flex items-center gap-4">
-                    <Input
-                      type="text"
-                      placeholder="What do you need help with? E.g., Create a pitch deck..."
+                  <div className="bg-white rounded-3xl border-2 border-black shadow-lg hover:shadow-xl transition-shadow p-4">
+                    <Textarea
+                      placeholder="What do you need help with? E.g., Create a pitch deck from our Q4 metrics, Build a DCF model for this acquisition..."
                       value={taskRequest}
                       onChange={(e) => setTaskRequest(e.target.value)}
                       required
-                      className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-xl px-6 h-24 bg-transparent text-black placeholder:text-gray-500"
+                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-xl px-2 min-h-[120px] bg-transparent text-black placeholder:text-gray-500 resize-none"
                     />
                   </div>
 
@@ -123,7 +134,7 @@ Sarah`
                     <Button
                       type="button"
                       variant="outline"
-                      className="rounded-full h-[60px] px-6 border-2 border-gray-300 bg-white hover:bg-gray-50 hover:text-background flex-shrink-0 text-background"
+                      className="rounded-full h-[60px] px-6 border-2 border-gray-300 bg-white hover:bg-gray-50 hover:text-black flex-shrink-0 text-black"
                       onClick={() => document.getElementById('files')?.click()}
                     >
                       <Upload className="mr-2 h-4 w-4" />
@@ -131,7 +142,7 @@ Sarah`
                     </Button>
 
                     {/* Submit button */}
-                    <Button type="submit" size="lg" className="bg-background hover:bg-background/90 rounded-full px-10 h-[60px] text-base flex-shrink-0">
+                    <Button type="submit" size="lg" className="bg-black hover:bg-black/90 rounded-full px-10 h-[60px] text-base flex-shrink-0">
                       Try Free <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </div>
@@ -143,9 +154,9 @@ Sarah`
       </section>
 
       {/* Scrolling Request Section */}
-      <section className="w-full py-4 bg-background">
+      <section className="w-full py-4 bg-white border-y border-black/10">
         <div className="container px-4 md:px-6">
-          <div className="flex items-center gap-6 text-white">
+          <div className="flex items-center gap-6 text-black">
             <div className="flex-shrink-0" style={{ transform: 'scale(2)' }}>
               <Logo />
             </div>
@@ -197,7 +208,7 @@ Sarah`
                 </div>
                 
                 <div className="flex items-center gap-2 mb-3">
-                  <Mail className="h-4 w-4 text-primary" />
+                  <Mail className="h-4 w-4 text-black" />
                 </div>
 
                 <div className="space-y-3 text-left">
@@ -237,13 +248,13 @@ Sarah`
                   </div>
                   
                   <div className="space-y-2 pt-2">
-                    <div className="flex items-center gap-2 p-2 bg-background rounded border-dashed border-2">
-                      <FileText className="h-4 w-4 text-foreground" />
-                      <span className="text-xs text-foreground">Q4_metrics_dashboard.xlsx (45KB)</span>
+                    <div className="flex items-center gap-2 p-2 bg-white rounded border-dashed border-2 border-black">
+                      <FileText className="h-4 w-4 text-black" />
+                      <span className="text-xs text-black">Q4_metrics_dashboard.xlsx (45KB)</span>
                     </div>
-                    <div className="flex items-center gap-2 p-2 bg-background rounded border-dashed border-2">
-                      <FileText className="h-4 w-4 text-foreground" />
-                      <span className="text-xs text-foreground">Q3_board_deck.pptx (2.1MB)</span>
+                    <div className="flex items-center gap-2 p-2 bg-white rounded border-dashed border-2 border-black">
+                      <FileText className="h-4 w-4 text-black" />
+                      <span className="text-xs text-black">Q3_board_deck.pptx (2.1MB)</span>
                     </div>
                   </div>
                 </div>
@@ -253,7 +264,7 @@ Sarah`
               {/* AI Response */}
               <AnimatedCard delay={0.2}>
                 <div
-                  className="rounded-lg border-2 border-primary bg-card p-4 cursor-pointer hover:shadow-hover transition-all shadow-soft"
+                  className="rounded-lg border-2 border-black bg-card p-4 cursor-pointer hover:shadow-hover transition-all shadow-soft"
                   onClick={handleEmailClick}
                 >
                 {/* Mac Window Controls */}
@@ -267,10 +278,10 @@ Sarah`
                 </div>
 
                 <div className="flex items-center gap-2 mb-3">
-                  <Bot className="h-4 w-4 text-primary" />
+                  <Bot className="h-4 w-4 text-black" />
                   <div className="text-xs inter-text-medium text-card-foreground">Zibly AI Response</div>
                   <div className="ml-auto">
-                    <span className="text-xs inter-text text-primary-foreground bg-primary px-2 py-1 rounded-full">✓ Delivered</span>
+                    <span className="text-xs inter-text text-black bg-white border border-black px-2 py-1 rounded-full">✓ Delivered</span>
                   </div>
                 </div>
 
@@ -336,18 +347,18 @@ Sarah`
       </section>
 
       {/* Wave Divider */}
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+      <WaveDivider fill="hsl(0 0% 100%)" flip={true} />
 
       {/* Why Not ChatGPT Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-background">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-4">
-                <h2 className="inter-section-heading text-white" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                  Stop Managing AI. Start <GradientText>Delegating</GradientText> To It.
+                <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+                  Stop Managing AI. Start <span className="text-primary">Delegating</span> To It.
                 </h2>
-                <p className="max-w-[900px] text-lg inter-text mx-auto text-white">
+                <p className="max-w-[900px] text-lg inter-text mx-auto text-black">
                   ChatGPT is brilliant—but you manage it like software. Zibly works like a person on your team.
                 </p>
               </div>
@@ -404,10 +415,10 @@ Sarah`
           <SlideUp>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-4">
-                <h2 className="inter-section-heading text-card-foreground" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+                <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
                   The Work You'd Do If You Had Time
                 </h2>
-                <p className="max-w-[900px] text-lg inter-text text-card-foreground">
+                <p className="max-w-[900px] text-lg inter-text text-black">
                   Zibly handles analytical work with the depth it deserves—not rushed AI responses
                 </p>
               </div>
@@ -415,34 +426,34 @@ Sarah`
           </SlideUp>
           <StaggerContainer className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <StaggerItem className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <BarChart3 className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                <BarChart3 className="h-6 w-6 text-black" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal text-card-foreground">Financial Modeling & Analysis</h3>
-                <p className="inter-text text-card-foreground">
+                <h3 className="text-xl inter-heading-normal text-black">Financial Modeling & Analysis</h3>
+                <p className="inter-text text-black">
                   DCF models, sensitivity tables, comparable company analysis, LBO models, variance reports. Excel files ready for investment committees.
                 </p>
               </div>
             </StaggerItem>
             <StaggerItem className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <FileText className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                <FileText className="h-6 w-6 text-black" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal text-card-foreground">Strategic Research & Reports</h3>
-                <p className="inter-text text-card-foreground">
+                <h3 className="text-xl inter-heading-normal text-black">Strategic Research & Reports</h3>
+                <p className="inter-text text-black">
                   Market sizing with TAM/SAM/SOM, competitive landscapes, due diligence reports, investment memos. Professional PDFs with executive summaries.
                 </p>
               </div>
             </StaggerItem>
             <StaggerItem className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                <PenTool className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
+                <PenTool className="h-6 w-6 text-black" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal text-card-foreground">Data Synthesis & Presentation</h3>
-                <p className="inter-text text-card-foreground">
+                <h3 className="text-xl inter-heading-normal text-black">Data Synthesis & Presentation</h3>
+                <p className="inter-text text-black">
                   Process 100+ earnings calls, survey responses, or contracts. Extract patterns, create dashboards, build slide decks. Everything formatted and ready.
                 </p>
               </div>
@@ -452,14 +463,14 @@ Sarah`
       </section>
 
       {/* Wave Divider */}
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
+      <WaveDivider fill="hsl(0 0% 100%)" flip={true} />
 
       {/* Depth Takes Time Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-background">
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container max-w-4xl px-4 md:px-6">
           <div className="text-center space-y-6">
-            <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Good Work Takes Time. We Don't Rush It.</h2>
-            <p className="text-lg inter-text max-w-3xl mx-auto">
+            <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Good Work Takes Time. We Don't Rush It.</h2>
+            <p className="text-lg inter-text text-black max-w-3xl mx-auto">
               Zibly isn't instant. Simple tasks complete in minutes. Deep analysis can take up to an hour.
               This isn't a bug—it's the feature. Your work deserves the same depth a human analyst would give it.
             </p>
@@ -480,7 +491,7 @@ Sarah`
                 <p className="text-sm inter-text text-card-foreground">Complex analysis, multi-source research—up to an hour for comprehensive depth</p>
               </div>
             </div>
-            <p className="text-sm inter-text pt-4">
+            <p className="text-sm inter-text text-black pt-4">
               This is the analyst deep-dive you'd do if you had three uninterrupted hours. In your inbox. While you were in meetings.
             </p>
           </div>
@@ -490,7 +501,7 @@ Sarah`
       {/* Amplify Your Impact Section */}
       <section className="w-full py-16 md:py-24 lg:py-32 bg-card">
         <div className="container max-w-4xl px-4 md:px-6">
-          <h2 className="inter-section-heading mb-8 text-center text-card-foreground" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Reclaim Your <GradientText>Time</GradientText></h2>
+          <h2 className="inter-section-heading mb-8 text-center text-card-foreground" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Reclaim Your <span className="text-primary">Time</span></h2>
           <div className="rounded-lg bg-card border shadow-lg p-8">
             <div className="grid gap-6 md:grid-cols-3 text-center">
               <div>
@@ -531,14 +542,14 @@ Sarah`
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="inter-section-heading" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+              <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
                 That Task You've Been Avoiding?
               </h2>
-              <p className="mx-auto max-w-[700px] text-lg inter-text">
+              <p className="mx-auto max-w-[700px] text-lg inter-text text-black">
                 The board deck. The financial model. The competitive analysis. Forward it to work@zibly.ai right now.
                 Your first task is free—see what 20 hours back per week feels like.
               </p>
@@ -557,6 +568,28 @@ Sarah`
           </div>
         </div>
       </section>
+
+      {/* Success Modal */}
+      <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+        <DialogContent className="bg-white border-2 border-black">
+          <DialogHeader>
+            <DialogTitle className="text-2xl text-black inter-heading-normal">Thank you for trying Zibly!</DialogTitle>
+            <DialogDescription className="text-black inter-text pt-4">
+              We've received your request and our AI is already working on it. Check your email inbox within the next 2 minutes to 1 hour for our response.
+              <br /><br />
+              Your first task is completely free—no credit card required.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center pt-4">
+            <Button
+              onClick={() => setShowSuccessModal(false)}
+              className="bg-black hover:bg-black/90 text-white"
+            >
+              Got it!
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
