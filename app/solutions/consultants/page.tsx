@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link"
-import Script from "next/script"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Clock, BarChart3, FileText, Users, CheckCircle, TrendingUp } from "lucide-react"
 import CopyEmailButton from "@/components/copy-email-button"
@@ -29,18 +28,6 @@ Thanks!`
 
   return (
     <div className="flex flex-col">
-      <Script
-        id="consultants-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
-            { "@type": "ListItem", position: 2, name: "Consultants", item: "https://zibly.ai/solutions/consultants" }
-          ]
-        }) }}
-      />
       {/* Hero Section */}
       <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
