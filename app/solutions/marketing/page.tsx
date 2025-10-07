@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link"
+import Script from "next/script"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, TrendingUp, Users, BarChart3, Megaphone, CheckCircle, Zap } from "lucide-react"
 import CopyEmailButton from "@/components/copy-email-button"
@@ -27,7 +28,8 @@ Thanks!`
 
   return (
     <div className="flex flex-col">
-      <script
+      <Script
+        id="marketing-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",

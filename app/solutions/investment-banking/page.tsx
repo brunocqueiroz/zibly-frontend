@@ -2,6 +2,7 @@
 
 
 import Link from "next/link"
+import Script from "next/script"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Clock, BarChart3, FileText, TrendingUp, CheckCircle, DollarSign } from "lucide-react"
 import CopyEmailButton from "@/components/copy-email-button"
@@ -29,7 +30,8 @@ Thanks!`
 
   return (
     <div className="flex flex-col">
-      <script
+      <Script
+        id="investment-banking-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
