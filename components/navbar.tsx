@@ -190,31 +190,31 @@ export default function Navbar() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-background text-white">
-              <SheetTitle className="text-lg font-semibold mb-4 text-white">Navigation Menu</SheetTitle>
+            <SheetContent side="right" className="bg-white text-black border-l-2 border-black">
+              <SheetTitle className="text-lg font-semibold mb-4 text-black">Navigation Menu</SheetTitle>
               <div className="flex flex-col space-y-4">
-                <Link href="/features" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
+                <Link href="/features" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                   Features
                 </Link>
-                <Link href="/pricing" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
+                <Link href="/pricing" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                   Pricing
                 </Link>
 
                 <div className="space-y-2">
-                  <div className="text-lg font-medium text-white">Solutions</div>
+                  <div className="text-lg font-medium text-black">Solutions</div>
                   <div className="pl-4">
-                    <div className="text-xs uppercase text-white/70 mb-1">Professionals</div>
+                    <div className="text-xs uppercase text-black/70 mb-1">Professionals</div>
                     <div className="pl-2 space-y-1 mb-2">
                       {solutionsPros.map((item) => (
-                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-black" onClick={() => setIsOpen(false)}>
+                        <Link key={item.title} href={item.href} className="block text-sm text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                           {item.title}
                         </Link>
                       ))}
                     </div>
-                    <div className="text-xs uppercase text-white/70 mb-1">Students</div>
+                    <div className="text-xs uppercase text-black/70 mb-1">Students</div>
                     <div className="pl-2 space-y-1">
                       {solutionsStudents.map((item) => (
-                        <Link key={item.title} href={item.href} className="block text-sm text-white hover:text-black" onClick={() => setIsOpen(false)}>
+                        <Link key={item.title} href={item.href} className="block text-sm text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                           {item.title}
                         </Link>
                       ))}
@@ -222,37 +222,37 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <Link href="/about" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
+                <Link href="/about" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                   About
                 </Link>
-                <Link href="/faq" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
+                <Link href="/faq" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                   FAQ
                 </Link>
-                <Link href="/blog" className="text-lg font-medium text-white hover:text-black" onClick={() => setIsOpen(false)}>
+                <Link href="/blog" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                   Blog
                 </Link>
 
                 <div className="flex flex-col space-y-2 pt-4">
                   {!loading && user ? (
-                    <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                    <Button asChild variant="outline" className="border-black text-black hover:bg-black hover:text-white">
                       <Link href="/dashboard" onClick={() => setIsOpen(false)}>
                         Dashboard
                       </Link>
                     </Button>
                   ) : (
-                    <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                    <Button asChild variant="outline" className="border-black text-black hover:bg-black hover:text-white">
                       <Link href="/login" onClick={() => setIsOpen(false)}>
                         Sign In
                       </Link>
                     </Button>
                   )}
                   <div className="flex items-center gap-2">
-                    <Button asChild className="bg-black hover:bg-black/90 text-white">
+                    <Button asChild className="bg-black hover:bg-black/90 text-white flex-1">
                       <Link href="mailto:work@zibly.ai" onClick={() => setIsOpen(false)}>
                         Email Your First Task Free
                       </Link>
                     </Button>
-                    <CopyEmailButton size="sm" variant="outline" className="bg-black text-white border-white/30" />
+                    <CopyEmailButton size="sm" variant="outline" className="border-black text-black hover:bg-black hover:text-white" />
                   </div>
                 </div>
               </div>

@@ -98,8 +98,8 @@ Sarah`
 
             {/* Form - Two rows */}
             <FadeIn delay={0.2}>
-              <form onSubmit={handleSubmit} className="w-full px-4">
-                <div className="w-full mx-auto flex flex-col gap-4" style={{ maxWidth: '98vw' }}>
+              <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto px-4">
+                <div className="w-full flex flex-col gap-4">
                   {/* Top row: Main search input - full width */}
                   <div className="bg-white rounded-3xl border-2 border-black shadow-lg hover:shadow-xl transition-shadow p-4">
                     <Textarea
@@ -107,12 +107,12 @@ Sarah`
                       value={taskRequest}
                       onChange={(e) => setTaskRequest(e.target.value)}
                       required
-                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-xl px-2 min-h-[120px] bg-transparent text-black placeholder:text-gray-500 resize-none"
+                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base md:text-xl px-2 min-h-[100px] md:min-h-[120px] bg-transparent text-black placeholder:text-gray-500 resize-none"
                     />
                   </div>
 
-                  {/* Bottom row: Email, Attach, Submit */}
-                  <div className="flex items-center gap-3">
+                  {/* Bottom row: Email, Attach, Submit - Stack on mobile */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     {/* Email input */}
                     <Input
                       type="email"
@@ -120,7 +120,7 @@ Sarah`
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="flex-1 border-2 border-gray-300 rounded-full px-6 h-[60px] text-base bg-white text-black placeholder:text-gray-500"
+                      className="w-full sm:flex-1 border-2 border-gray-300 rounded-full px-4 md:px-6 h-[50px] md:h-[60px] text-sm md:text-base bg-white text-black placeholder:text-gray-500"
                     />
 
                     {/* File upload button */}
@@ -134,7 +134,7 @@ Sarah`
                     <Button
                       type="button"
                       variant="outline"
-                      className="rounded-full h-[60px] px-6 border-2 border-gray-300 bg-white hover:bg-gray-50 hover:text-black flex-shrink-0 text-black"
+                      className="w-full sm:w-auto rounded-full h-[50px] md:h-[60px] px-4 md:px-6 border-2 border-gray-300 bg-white hover:bg-gray-50 hover:text-black text-black text-sm md:text-base"
                       onClick={() => document.getElementById('files')?.click()}
                     >
                       <Upload className="mr-2 h-4 w-4" />
@@ -142,8 +142,8 @@ Sarah`
                     </Button>
 
                     {/* Submit button */}
-                    <Button type="submit" size="lg" className="bg-black hover:bg-black/90 rounded-full px-10 h-[60px] text-base flex-shrink-0">
-                      Try Free <ArrowRight className="ml-2 h-5 w-5" />
+                    <Button type="submit" size="lg" className="w-full sm:w-auto bg-black hover:bg-black/90 rounded-full px-6 md:px-10 h-[50px] md:h-[60px] text-sm md:text-base">
+                      Try Free <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                     </Button>
                   </div>
                 </div>
@@ -154,25 +154,27 @@ Sarah`
       </section>
 
       {/* Scrolling Request Section */}
-      <section className="w-full py-4 bg-white border-y border-black/10">
-        <div className="container px-4 md:px-6">
-          <div className="flex items-center gap-6 text-black">
-            <div className="flex-shrink-0" style={{ transform: 'scale(2)' }}>
+      <section className="w-full py-6 md:py-4 bg-white border-y border-black/10 overflow-hidden">
+        <div className="container px-4 md:px-6 overflow-hidden">
+          <div className="flex items-center gap-3 md:gap-6 text-black overflow-hidden">
+            <div className="flex-shrink-0 scale-75 sm:scale-100 md:scale-150">
               <Logo />
             </div>
-            <div style={{ width: '800px' }}>
-              <ScrollingText
-                texts={[
-                  "draft me a 15-slide pitch deck from our Q4 metrics",
-                  "analyze this Excel file and build a DCF model",
-                  "create a competitive analysis report on the fintech market",
-                  "build me a three-statement financial model with sensitivity tables",
-                  "write an investment memo analyzing this SaaS acquisition",
-                  "summarize these 12 customer interviews into key themes",
-                  "design a tiered pricing strategy with revenue projections"
-                ]}
-                className="text-2xl md:text-3xl font-medium"
-              />
+            <div className="flex-1 min-w-0 overflow-hidden relative">
+              <div className="overflow-hidden">
+                <ScrollingText
+                  texts={[
+                    "draft me a 15-slide pitch deck from our Q4 metrics",
+                    "analyze this Excel file and build a DCF model",
+                    "create a competitive analysis report on the fintech market",
+                    "build me a three-statement financial model with sensitivity tables",
+                    "write an investment memo analyzing this SaaS acquisition",
+                    "summarize these 12 customer interviews into key themes",
+                    "design a tiered pricing strategy with revenue projections"
+                  ]}
+                  className="text-base sm:text-xl md:text-2xl lg:text-3xl font-medium"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -184,8 +186,8 @@ Sarah`
           <div className="mx-auto max-w-6xl">
             <SlideUp>
               <div className="text-center mb-8">
-                <h2 className="inter-section-heading mb-4 text-card-foreground" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>How It Works</h2>
-                <p className="max-w-[900px] text-lg inter-text mx-auto text-card-foreground">This isn't ChatGPT. Delegate like you would to a colleague—just describe what you need. Zibly asks questions when needed, not the other way around.</p>
+                <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>How It Works</h2>
+                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">This isn't ChatGPT. Delegate like you would to a colleague—just describe what you need. Zibly asks questions when needed, not the other way around.</p>
               </div>
             </SlideUp>
 
@@ -355,10 +357,10 @@ Sarah`
           <SlideUp>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-4">
-                <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+                <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                   Stop Managing AI. Start <span className="text-primary">Delegating</span> To It.
                 </h2>
-                <p className="max-w-[900px] text-lg inter-text mx-auto text-black">
+                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-black">
                   ChatGPT is brilliant—but you manage it like software. Zibly works like a person on your team.
                 </p>
               </div>
@@ -415,10 +417,10 @@ Sarah`
           <SlideUp>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-4">
-                <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+                <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                   The Work You'd Do If You Had Time
                 </h2>
-                <p className="max-w-[900px] text-lg inter-text text-black">
+                <p className="max-w-[900px] text-base md:text-lg inter-text text-black">
                   Zibly handles analytical work with the depth it deserves—not rushed AI responses
                 </p>
               </div>
@@ -469,8 +471,8 @@ Sarah`
       <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container max-w-4xl px-4 md:px-6">
           <div className="text-center space-y-6">
-            <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Good Work Takes Time. We Don't Rush It.</h2>
-            <p className="text-lg inter-text text-black max-w-3xl mx-auto">
+            <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Good Work Takes Time. We Don't Rush It.</h2>
+            <p className="text-base md:text-lg inter-text text-black max-w-3xl mx-auto">
               Zibly isn't instant. Simple tasks complete in minutes. Deep analysis can take up to an hour.
               This isn't a bug—it's the feature. Your work deserves the same depth a human analyst would give it.
             </p>
@@ -501,7 +503,7 @@ Sarah`
       {/* Amplify Your Impact Section */}
       <section className="w-full py-16 md:py-24 lg:py-32 bg-card">
         <div className="container max-w-4xl px-4 md:px-6">
-          <h2 className="inter-section-heading mb-8 text-center text-card-foreground" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Reclaim Your <span className="text-primary">Time</span></h2>
+          <h2 className="inter-section-heading mb-8 text-center text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Reclaim Your <span className="text-primary">Time</span></h2>
           <div className="rounded-lg bg-card border shadow-lg p-8">
             <div className="grid gap-6 md:grid-cols-3 text-center">
               <div>
@@ -546,10 +548,10 @@ Sarah`
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+              <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                 That Task You've Been Avoiding?
               </h2>
-              <p className="mx-auto max-w-[700px] text-lg inter-text text-black">
+              <p className="mx-auto max-w-[700px] text-base md:text-lg inter-text text-black">
                 The board deck. The financial model. The competitive analysis. Forward it to work@zibly.ai right now.
                 Your first task is free—see what 20 hours back per week feels like.
               </p>

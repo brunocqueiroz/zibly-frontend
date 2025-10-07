@@ -39,27 +39,27 @@ Thanks!`
           <div className="flex flex-col items-center justify-center space-y-8 text-center">
             <div className="space-y-4">
               <SlideUp>
-                <h1 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
+                <h1 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                   Turn <span className="text-primary">6-Hour Tasks</span> Into 6-Minute Emails
                 </h1>
               </SlideUp>
               <FadeIn delay={0.2}>
-                <p className="max-w-[700px] text-lg md:text-xl inter-text mx-auto text-black">
+                <p className="max-w-[700px] text-base md:text-lg lg:text-xl inter-text mx-auto text-black">
                   Transform how you work. Email your analytical tasks and get back finished deliverables. From data chaos to executive clarity with the depth your work deserves — typically within 2 minutes to 1 hour depending on complexity.
                 </p>
               </FadeIn>
             </div>
             <FadeIn delay={0.4}>
-              <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center items-center">
-                <MagneticButton>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center w-full max-w-2xl mx-auto px-4">
+                <MagneticButton className="flex-1 sm:flex-initial">
+                  <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
                     Email Your First Task Free <Mail className="ml-2 h-4 w-4" />
                   </Button>
                 </MagneticButton>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                   <Link href="#workflow">See How It Works</Link>
                 </Button>
-                <CopyEmailButton size="sm" variant="outline" />
+                <CopyEmailButton size="sm" variant="outline" className="w-full sm:w-auto" />
               </div>
             </FadeIn>
             {/* Removed: attachment/workflow taglines per request */}
@@ -96,10 +96,10 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="inter-section-heading mb-4 text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+              <h2 className="inter-section-heading mb-4 text-black text-3xl sm:text-4xl md:text-5xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                 Your Work, <span className="text-primary">Transformed</span>
               </h2>
-              <p className="max-w-[900px] text-lg inter-text mx-auto text-black">
+              <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-black">
                 Real examples of how professionals use Zibly every day — from <Link href="/solutions/consultants" className="text-primary hover:underline">consulting decks</Link> and <Link href="/solutions/investment-banking" className="text-primary hover:underline">banking pitch books</Link> to <Link href="/solutions/marketing" className="text-primary hover:underline">marketing campaign analysis</Link>.
               </p>
             </div>
@@ -250,10 +250,10 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="inter-section-heading mb-4 text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+              <h2 className="inter-section-heading mb-4 text-black text-3xl sm:text-4xl md:text-5xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                 Three Ways Zibly <span className="text-primary">Saves Your Time</span>
               </h2>
-              <p className="max-w-[900px] text-lg inter-text mx-auto text-black">
+              <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-black">
                 From quick analysis to complex research, we handle the work you're too valuable to do
               </p>
             </div>
@@ -371,10 +371,10 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="inter-section-heading mb-4 text-card-foreground" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+              <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                 How <span className="text-primary">Professionals</span> Use Zibly
               </h2>
-              <p className="max-w-[900px] text-lg inter-text mx-auto text-card-foreground">
+              <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">
                 A typical day with your AI analyst
               </p>
             </div>
@@ -470,7 +470,7 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <SlideUp>
             <div className="text-center mb-12">
-              <h2 className="inter-section-heading mb-4 text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+              <h2 className="inter-section-heading mb-4 text-black text-3xl sm:text-4xl md:text-5xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                 Why Professionals <span className="text-primary">Choose Zibly</span>
               </h2>
             </div>
@@ -597,10 +597,10 @@ Thanks!`
                       <Sparkles className="h-3 w-3 mr-1" />
                       First task free
                     </Badge>
-                    <h2 className="inter-section-heading text-black" style={{ fontSize: '48px', fontWeight: '400', lineHeight: '56px', letterSpacing: '-0.01em' }}>
+                    <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
                       Stop Reading. Start <span className="text-primary">Delegating</span>.
                     </h2>
-                    <p className="mx-auto max-w-[600px] text-lg inter-text text-black">
+                    <p className="mx-auto max-w-[600px] text-base md:text-lg inter-text text-black">
                       That task you've been avoiding? The analysis that's been on your list for weeks?
                       Send it now. See what 20 hours back per week feels like.
                     </p>
