@@ -154,27 +154,25 @@ Sarah`
       </section>
 
       {/* Scrolling Request Section */}
-      <section className="w-full py-6 md:py-4 bg-white border-y border-black/10 overflow-hidden">
-        <div className="container px-4 md:px-6 overflow-hidden">
-          <div className="flex items-center gap-3 md:gap-6 text-black overflow-hidden">
+      <section className="w-full py-6 md:py-4 bg-white border-y border-black/10">
+        <div className="container px-4 md:px-6">
+          <div className="flex items-center gap-3 md:gap-6 text-black">
             <div className="flex-shrink-0 scale-75 sm:scale-100 md:scale-150">
               <Logo />
             </div>
-            <div className="flex-1 min-w-0 overflow-hidden relative">
-              <div className="overflow-hidden">
-                <ScrollingText
-                  texts={[
-                    "draft me a 15-slide pitch deck from our Q4 metrics",
-                    "analyze this Excel file and build a DCF model",
-                    "create a competitive analysis report on the fintech market",
-                    "build me a three-statement financial model with sensitivity tables",
-                    "write an investment memo analyzing this SaaS acquisition",
-                    "summarize these 12 customer interviews into key themes",
-                    "design a tiered pricing strategy with revenue projections"
-                  ]}
-                  className="text-base sm:text-xl md:text-2xl lg:text-3xl font-medium"
-                />
-              </div>
+            <div className="flex-1 min-w-0 max-w-full">
+              <ScrollingText
+                texts={[
+                  "draft me a 15-slide pitch deck from our Q4 metrics",
+                  "analyze this Excel file and build a DCF model",
+                  "create a competitive analysis report on the fintech market",
+                  "build me a three-statement financial model with sensitivity tables",
+                  "write an investment memo analyzing this SaaS acquisition",
+                  "summarize these 12 customer interviews into key themes",
+                  "design a tiered pricing strategy with revenue projections"
+                ]}
+                className="text-base sm:text-xl md:text-2xl lg:text-3xl font-medium"
+              />
             </div>
           </div>
         </div>

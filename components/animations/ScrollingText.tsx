@@ -21,24 +21,29 @@ export default function ScrollingText({ texts, interval = 3000, className = "" }
   }, [texts.length, interval])
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ minHeight: '2.8em', width: '100%' }}>
+    <div className={`relative ${className}`} style={{ minHeight: '2.8em' }}>
       <AnimatePresence mode="wait">
-        <motion.span
+        <motion.div
           key={currentIndex}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
-          className="absolute left-0 right-0 md:whitespace-nowrap block"
-          style={{
-            lineHeight: '1.4',
-            wordBreak: 'break-word',
-            maxHeight: '2.8em',
-            overflow: 'hidden'
-          }}
+          className="absolute inset-0 flex items-start"
         >
-          {texts[currentIndex]}
-        </motion.span>
+          <span
+            className="md:whitespace-nowrap"
+            style={{
+              lineHeight: '1.4',
+              wordBreak: 'break-word',
+              overflow: 'hidden',
+              display: 'block',
+              width: '100%'
+            }}
+          >
+            {texts[currentIndex]}
+          </span>
+        </motion.div>
       </AnimatePresence>
     </div>
   )
