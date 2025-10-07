@@ -87,69 +87,106 @@ Sarah`
       />
       {/* Hero Section */}
       <section className="relative w-full min-h-[85vh] flex items-center justify-center bg-white">
-        <div className="container px-4 md:px-6 py-20">
-          <div className="flex flex-col items-center justify-center space-y-12 text-center max-w-5xl mx-auto">
-            {/* Main Heading */}
-            <FadeIn>
-              <h1 className="inter-section-heading text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
-                Email Your Work.<br />Get Back <span className="text-primary">Finished Deliverables</span>.
-              </h1>
-            </FadeIn>
+        <div className="w-full px-4 md:px-6 lg:px-12 py-20">
+              {/* Main Heading */}
+              <FadeIn>
+                <h1 className="inter-section-heading text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-12 max-w-5xl mx-auto" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
+                  Email Your Work.<br />Get Back <span className="text-primary">Finished Deliverables</span>.
+                </h1>
+              </FadeIn>
 
-            {/* Form - Two rows */}
-            <FadeIn delay={0.2}>
-              <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto px-4">
-                <div className="w-full flex flex-col gap-4">
-                  {/* Top row: Main search input - full width */}
-                  <div className="bg-white rounded-3xl border-2 border-black shadow-lg hover:shadow-xl transition-shadow p-4">
-                    <Textarea
-                      placeholder="What do you need help with? E.g., Create a pitch deck from our Q4 metrics, Build a DCF model for this acquisition..."
-                      value={taskRequest}
-                      onChange={(e) => setTaskRequest(e.target.value)}
-                      required
-                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base md:text-xl px-2 min-h-[100px] md:min-h-[120px] bg-transparent text-black placeholder:text-gray-500 resize-none"
-                    />
+              {/* Email-style Form */}
+              <FadeIn delay={0.2}>
+                <form onSubmit={handleSubmit} className="w-full max-w-[700px] mx-auto mt-18">
+                <div className="bg-white rounded-lg border-2 border-black shadow-soft hover:shadow-hover transition-all overflow-hidden">
+                  {/* Mac Window Controls */}
+                  <div className="bg-gray-50 border-b-2 border-gray-200 px-6 py-3 flex items-center gap-2">
+                    <div className="h-3 w-3 rounded-full bg-red-500" />
+                    <div className="h-3 w-3 rounded-full bg-yellow-500" />
+                    <div className="h-3 w-3 rounded-full bg-green-500" />
+                    <div className="flex-1 text-center">
+                      <span className="text-sm font-semibold text-gray-600">Try a Free Task</span>
+                    </div>
                   </div>
 
-                  {/* Bottom row: Email, Attach, Submit - Stack on mobile */}
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                    {/* Email input */}
+                  {/* Mail Icon */}
+                  <div className="px-6 py-3 border-b border-gray-200">
+                    <Mail className="h-5 w-5 text-primary" />
+                  </div>
+
+                  {/* To Field */}
+                  <div className="border-b border-gray-200 px-6 py-3 flex items-center">
+                    <label className="text-sm font-semibold text-gray-700 w-20">To:</label>
+                    <div className="flex-1 text-sm md:text-base text-primary font-bold">work@zibly.ai</div>
+                  </div>
+
+                  {/* From Field */}
+                  <div className="border-b border-gray-200 px-6 py-3 flex items-center">
+                    <label htmlFor="email" className="text-sm font-semibold text-gray-700 w-20">From:</label>
                     <Input
+                      id="email"
                       type="email"
-                      placeholder="Your email"
+                      placeholder="your.email@company.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full sm:flex-1 border-2 border-gray-300 rounded-full px-4 md:px-6 h-[50px] md:h-[60px] text-sm md:text-base bg-white text-black placeholder:text-gray-500"
+                      className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base bg-transparent text-black placeholder:text-gray-400 px-0"
                     />
+                  </div>
 
-                    {/* File upload button */}
+                  {/* Subject Field */}
+                  <div className="border-b border-gray-200 px-6 py-3 flex items-center">
+                    <label htmlFor="subject" className="text-sm font-semibold text-gray-700 w-20">Subject:</label>
                     <Input
-                      id="files"
-                      type="file"
-                      multiple
-                      onChange={(e) => setFiles(e.target.files)}
-                      className="hidden"
+                      id="subject"
+                      type="text"
+                      placeholder="Request for analysis"
+                      className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base bg-transparent text-black placeholder:text-gray-400 px-0"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="w-full sm:w-auto rounded-full h-[50px] md:h-[60px] px-4 md:px-6 border-2 border-gray-300 bg-white hover:bg-gray-50 hover:text-black text-black text-sm md:text-base"
-                      onClick={() => document.getElementById('files')?.click()}
-                    >
-                      <Upload className="mr-2 h-4 w-4" />
-                      {files && files.length > 0 ? `${files.length} file(s)` : 'Attach files'}
-                    </Button>
+                  </div>
 
-                    {/* Submit button */}
-                    <Button type="submit" size="lg" className="w-full sm:w-auto bg-black hover:bg-black/90 rounded-full px-6 md:px-10 h-[50px] md:h-[60px] text-sm md:text-base">
-                      Try Free <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                  {/* Message Body */}
+                  <div className="px-6 py-4">
+                    <Textarea
+                      placeholder="What do you need help with?&#10;&#10;E.g., Create a pitch deck from our Q4 metrics, Build a DCF model for this acquisition..."
+                      value={taskRequest}
+                      onChange={(e) => setTaskRequest(e.target.value)}
+                      required
+                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base md:text-lg px-0 min-h-[150px] md:min-h-[180px] bg-transparent text-black placeholder:text-gray-400 resize-none w-full"
+                    />
+                  </div>
+
+                  {/* Email Footer with Actions */}
+                  <div className="border-t border-gray-200 px-6 py-4 bg-gray-50 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 justify-between">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                      {/* File upload button */}
+                      <Input
+                        id="files"
+                        type="file"
+                        multiple
+                        onChange={(e) => setFiles(e.target.files)}
+                        className="hidden"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="w-full sm:w-auto border-gray-300 bg-white hover:bg-gray-100 text-black"
+                        onClick={() => document.getElementById('files')?.click()}
+                      >
+                        <Upload className="mr-2 h-4 w-4" />
+                        {files && files.length > 0 ? `${files.length} file(s) attached` : 'Attach files'}
+                      </Button>
+                    </div>
+
+                    {/* Send button */}
+                    <Button type="submit" size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white px-8">
+                      Send Email <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </div>
               </form>
             </FadeIn>
-          </div>
         </div>
       </section>
 
@@ -575,9 +612,7 @@ Sarah`
           <DialogHeader>
             <DialogTitle className="text-2xl text-black inter-heading-normal">Thank you for trying Zibly!</DialogTitle>
             <DialogDescription className="text-black inter-text pt-4">
-              We've received your request and our AI is already working on it. Check your email inbox within the next 2 minutes to 1 hour for our response.
-              <br /><br />
-              Your first task is completely free—no credit card required.
+              Check your email for Zibly's response to your task. You can ask for more tasks whenever by emailing work@zibly.ai.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-center pt-4">

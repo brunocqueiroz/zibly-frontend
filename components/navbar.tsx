@@ -107,8 +107,8 @@ export default function Navbar() {
                                 href={item.href}
                                 className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className={`font-medium group-hover:text-primary ${isWhitePage ? 'text-black' : 'text-white'}`}>{item.title}</div>
-                                <p className={`text-xs group-hover:text-primary ${isWhitePage ? 'text-black/70' : 'text-white/70'}`}>{item.description}</p>
+                                <div className={`font-medium ${isWhitePage ? 'text-black group-hover:text-primary' : 'text-white group-hover:text-white'}`}>{item.title}</div>
+                                <p className={`text-xs ${isWhitePage ? 'text-black/70 group-hover:text-primary' : 'text-white/70 group-hover:text-white'}`}>{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -125,8 +125,8 @@ export default function Navbar() {
                                 href={item.href}
                                 className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className={`font-medium group-hover:text-primary ${isWhitePage ? 'text-black' : 'text-white'}`}>{item.title}</div>
-                                <p className={`text-xs group-hover:text-primary ${isWhitePage ? 'text-black/70' : 'text-white/70'}`}>{item.description}</p>
+                                <div className={`font-medium ${isWhitePage ? 'text-black group-hover:text-primary' : 'text-white group-hover:text-white'}`}>{item.title}</div>
+                                <p className={`text-xs ${isWhitePage ? 'text-black/70 group-hover:text-primary' : 'text-white/70 group-hover:text-white'}`}>{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -166,11 +166,11 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center space-x-4">
           {!loading && user ? (
-            <Button asChild variant="ghost" className={`${textColor} hover:text-primary`}>
+            <Button asChild variant="ghost" className={`${textColor} ${isWhitePage ? 'hover:text-primary' : 'hover:text-white'}`}>
               <Link href="/dashboard">Dashboard</Link>
             </Button>
           ) : (
-            <Button asChild variant="ghost" className={`${textColor} hover:text-primary`}>
+            <Button asChild variant="ghost" className={`${textColor} ${isWhitePage ? 'hover:text-primary' : 'hover:text-white'}`}>
               <Link href="/login">Sign In</Link>
             </Button>
           )}

@@ -113,11 +113,11 @@ Thanks!`
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
             <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
                 Your AI <GradientText>Senior Accountant</GradientText>
               </h2>
             </SlideUp>
-            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">
+            <p className="mt-4 text-white md:text-lg max-w-2xl mx-auto">
               From financial analysis to audit procedures, Zibly handles the technical work with CPA-level accuracy
             </p>
           </div>
