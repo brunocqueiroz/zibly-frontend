@@ -29,9 +29,8 @@ export default function ScrollingText({ texts, interval = 3000, className = "" }
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
-          className="absolute left-0 md:whitespace-nowrap block"
+          className="absolute left-0 right-0 md:whitespace-nowrap block"
           style={{
-            width: '100%',
             lineHeight: '1.4',
             wordBreak: 'break-word',
             maxHeight: '2.8em',
