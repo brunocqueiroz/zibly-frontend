@@ -339,14 +339,14 @@ Thanks!`
 
 
       {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-primary text-black">
+      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
                 Win More Cases. Bill More Hours. Work Less Nights.
               </h2>
-              <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
+              <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">
                 Join leading law firms using Zibly to transform their practice. Your first
                 case analysis is free—see why they'll never go back.
               </p>
@@ -354,7 +354,7 @@ Thanks!`
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 size="lg"
-                variant="secondary"
+                className="bg-black hover:bg-black/90 text-white"
                 onClick={handleEmailClick}
               >
                 Analyze Your First Case Free <ArrowRight className="ml-2 h-4 w-4" />
@@ -362,7 +362,7 @@ Thanks!`
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-transparent text-black border-white hover:bg-white hover:text-primary"
+                className="border-black text-black hover:bg-black hover:text-white"
                 asChild
               >
                 <Link href="/security">Bank-Level Security</Link>

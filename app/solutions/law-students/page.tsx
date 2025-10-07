@@ -187,18 +187,18 @@ Thanks!`
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-primary text-black">
+      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Study Smarter This Semester</h2>
-              <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">Send a task to work@zibly.ai. Your first task is free.</p>
+              <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">Send a task to work@zibly.ai. Your first task is free.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" variant="secondary" onClick={handleEmailClick}>
+              <Button size="lg" className="bg-black hover:bg-black/90 text-white" onClick={handleEmailClick}>
                 Start Your Free Task <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" className="bg-transparent text-black border-white hover:bg-white hover:text-primary" asChild>
+              <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white" asChild>
                 <Link href="/features#workflow">See How It Works</Link>
               </Button>
             </div>

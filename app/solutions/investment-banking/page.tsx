@@ -288,17 +288,17 @@ Thanks!`
       <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
 
       {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-primary text-black">
+      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <SlideUp>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
                   Win More <GradientText>Mandates</GradientText>. Sleep More Hours.
                 </h2>
               </SlideUp>
               <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
+                <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">
                   Join the top banks already using Zibly to dominate their sectors. Your first pitch book
                   is free—experience the speed yourself.
                 </p>
@@ -309,7 +309,7 @@ Thanks!`
                 <MagneticButton>
                   <Button
                     size="lg"
-                    variant="secondary"
+                    className="bg-black hover:bg-black/90 text-white"
                     onClick={handleEmailClick}
                   >
                     Build Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
@@ -319,7 +319,7 @@ Thanks!`
                   <Button
                     size="lg"
                     variant="outline"
-                    className="bg-transparent text-black border-white hover:bg-white hover:text-primary"
+                    className="border-black text-black hover:bg-black hover:text-white"
                     asChild
                   >
                     <Link href="/pricing">View Pricing</Link>

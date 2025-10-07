@@ -346,17 +346,17 @@ Thanks!`
       <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
 
       {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-primary text-black">
+      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <SlideUp>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
                   Make Your Next Move Your <GradientText>Best Move</GradientText>
                 </h2>
               </SlideUp>
               <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-white/80 md:text-xl">
+                <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">
                   The future belongs to leaders who move decisively with perfect information.
                   Get your first strategic analysis free and see what you've been missing.
                 </p>
@@ -367,7 +367,7 @@ Thanks!`
                 <MagneticButton>
                   <Button
                     size="lg"
-                    variant="secondary"
+                    className="bg-black hover:bg-black/90 text-white"
                     onClick={handleEmailClick}
                   >
                     Get Strategic Analysis Free <ArrowRight className="ml-2 h-4 w-4" />
@@ -377,7 +377,7 @@ Thanks!`
                   <Button
                     size="lg"
                     variant="outline"
-                    className="bg-transparent text-black border-white hover:bg-white hover:text-primary"
+                    className="border-black text-black hover:bg-black hover:text-white"
                     asChild
                   >
                     <Link href="/security">Enterprise Security</Link>
