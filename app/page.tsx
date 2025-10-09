@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -26,11 +26,29 @@ import TiltCard from "@/components/animations/TiltCard"
 import MagneticButton from "@/components/animations/MagneticButton"
 import ScrollingText from "@/components/animations/ScrollingText"
 
+const PLACEHOLDERS = [
+  "Create a pitch deck from our Q4 metrics",
+  "Build a DCF model for this acquisition",
+  "Analyze these customer interviews and find key themes",
+  "Draft an investment memo for this SaaS company",
+  "Create a competitive analysis of the fintech market",
+  "Build a three-statement financial model with sensitivity tables"
+]
+
 export default function Home() {
   const [taskRequest, setTaskRequest] = useState("")
   const [email, setEmail] = useState("")
   const [files, setFiles] = useState<FileList | null>(null)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [placeholderIndex, setPlaceholderIndex] = useState(0)
+
+  // Cycle through placeholders
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prev) => (prev + 1) % PLACEHOLDERS.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -86,7 +104,7 @@ Sarah`
         }) }}
       />
       {/* Hero Section */}
-      <section className="relative w-full min-h-[85vh] flex items-center justify-center bg-white">
+      <section className="relative w-full min-h-[85vh] flex items-center justify-center bg-gradient-to-b from-white to-gray-50">
         <div className="w-full px-4 md:px-6 lg:px-12 py-20">
               {/* Main Heading */}
               <FadeIn>
@@ -98,15 +116,10 @@ Sarah`
               {/* Email-style Form */}
               <FadeIn delay={0.2}>
                 <form onSubmit={handleSubmit} className="w-full max-w-[700px] mx-auto mt-18">
-                <div className="bg-white rounded-lg border-2 border-black shadow-soft hover:shadow-hover transition-all overflow-hidden">
-                  {/* Mac Window Controls */}
-                  <div className="bg-gray-50 border-b-2 border-gray-200 px-6 py-3 flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-red-500" />
-                    <div className="h-3 w-3 rounded-full bg-yellow-500" />
-                    <div className="h-3 w-3 rounded-full bg-green-500" />
-                    <div className="flex-1 text-center">
-                      <span className="text-sm font-semibold text-gray-600">Try a Free Task</span>
-                    </div>
+                <div className="bg-white rounded-lg border-2 border-black shadow-lg hover:shadow-2xl transition-all overflow-hidden ring-4 ring-primary/10 hover:ring-primary/20">
+                  {/* Header */}
+                  <div className="bg-gray-50 border-b border-gray-200 px-6 py-4 flex items-center justify-center">
+                    <span className="text-base font-semibold text-black">Send Your Task</span>
                   </div>
 
                   {/* Mail Icon */}
@@ -121,38 +134,64 @@ Sarah`
                   </div>
 
                   {/* From Field */}
-                  <div className="border-b border-gray-200 px-6 py-3 flex items-center">
+                  <div className="border-b border-gray-200 px-6 py-3 flex items-center group hover:bg-gray-50/50 transition-colors">
                     <label htmlFor="email" className="text-sm font-semibold text-gray-700 w-20">From:</label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="your.email@company.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base bg-transparent text-black placeholder:text-gray-400 px-0"
-                    />
+                    <div className="flex-1 relative">
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="your.email@company.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onFocus={() => document.getElementById('email-cursor')?.classList.add('hidden')}
+                        onBlur={() => !email && document.getElementById('email-cursor')?.classList.remove('hidden')}
+                        required
+                        className="flex-1 w-full border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base bg-transparent text-black placeholder:text-gray-400 px-0 cursor-text"
+                      />
+                      {/* Blinking cursor when empty and not focused */}
+                      {!email && (
+                        <span
+                          id="email-cursor"
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-5 bg-primary pointer-events-none"
+                          style={{
+                            animation: 'blink 1.2s step-end infinite'
+                          }}
+                        />
+                      )}
+                      <style jsx>{`
+                        @keyframes blink {
+                          0%, 49% { opacity: 1; }
+                          50%, 100% { opacity: 0; }
+                        }
+                      `}</style>
+                    </div>
                   </div>
 
                   {/* Subject Field */}
-                  <div className="border-b border-gray-200 px-6 py-3 flex items-center">
+                  <div className="border-b border-gray-200 px-6 py-3 flex items-center group hover:bg-gray-50/50 transition-colors">
                     <label htmlFor="subject" className="text-sm font-semibold text-gray-700 w-20">Subject:</label>
                     <Input
                       id="subject"
                       type="text"
                       placeholder="Request for analysis"
-                      className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base bg-transparent text-black placeholder:text-gray-400 px-0"
+                      className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base bg-transparent text-black placeholder:text-gray-400 px-0 cursor-text"
                     />
                   </div>
 
                   {/* Message Body */}
-                  <div className="px-6 py-4">
+                  <div className="px-6 py-4 hover:bg-gray-50/50 transition-colors cursor-text relative">
+                    {!taskRequest && (
+                      <div className="absolute left-6 top-4 pointer-events-none text-base md:text-lg text-gray-400">
+                        <div className="transition-opacity duration-500">
+                          {PLACEHOLDERS[placeholderIndex]}
+                        </div>
+                      </div>
+                    )}
                     <Textarea
-                      placeholder="What do you need help with?&#10;&#10;E.g., Create a pitch deck from our Q4 metrics, Build a DCF model for this acquisition..."
                       value={taskRequest}
                       onChange={(e) => setTaskRequest(e.target.value)}
                       required
-                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base md:text-lg px-0 min-h-[150px] md:min-h-[180px] bg-transparent text-black placeholder:text-gray-400 resize-none w-full"
+                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base md:text-lg px-0 min-h-[150px] md:min-h-[180px] bg-transparent text-black placeholder:text-transparent resize-none w-full cursor-text"
                     />
                   </div>
 
@@ -171,7 +210,7 @@ Sarah`
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="w-full sm:w-auto border-gray-300 bg-white hover:bg-gray-100 text-black"
+                        className="w-full sm:w-auto border-gray-300 bg-white hover:bg-gray-100 hover:scale-[1.02] text-black transition-all"
                         onClick={() => document.getElementById('files')?.click()}
                       >
                         <Upload className="mr-2 h-4 w-4" />
@@ -180,7 +219,7 @@ Sarah`
                     </div>
 
                     {/* Send button */}
-                    <Button type="submit" size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white px-8">
+                    <Button type="submit" size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-xl text-white px-8 transition-all">
                       Send Email <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
