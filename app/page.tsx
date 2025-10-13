@@ -319,20 +319,32 @@ Sarah`
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-6xl">
             <SlideUp>
-              <div className="text-center mb-8">
-                <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>How It Works</h2>
-                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">This isn't ChatGPT. Delegate like you would to a colleague—just describe what you need. Zibly asks questions when needed, not the other way around.</p>
+              <div className="text-center mb-12">
+                <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Delegate Work Over Email — Zibly Does the Rest.</h2>
+                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Zibly isn't a chatbot — it's an AI coworker. Instead of typing prompts, just forward your email. Zibly figures out what's needed, asks questions when unclear, and sends back finished work.</p>
               </div>
             </SlideUp>
 
             {/* Email Cards Side by Side */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-8 relative">
+              {/* Arrow between panels */}
+              <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 items-center justify-center">
+                <div className="bg-primary text-white rounded-full p-3 shadow-lg">
+                  <ArrowRight className="h-6 w-6" />
+                </div>
+              </div>
+
               {/* User's Email */}
               <AnimatedCard delay={0.1}>
-                <div
-                  className="rounded-lg border-2 border-border bg-card p-4 cursor-pointer hover:shadow-hover transition-all shadow-soft"
-                  onClick={handleEmailClick}
-                >
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Step 1</span>
+                    <span className="text-sm inter-text-medium text-card-foreground">Forward your request to work@zibly.ai</span>
+                  </div>
+                  <div
+                    className="rounded-lg border-2 border-border bg-card p-4 cursor-pointer hover:shadow-hover transition-all shadow-soft opacity-90 hover:opacity-100"
+                    onClick={handleEmailClick}
+                  >
                 {/* Mac Window Controls */}
                 <div className="flex items-center gap-2 mb-3">
                   <div className="h-2 w-2 rounded-full bg-red-500" />
@@ -362,20 +374,16 @@ Sarah`
                     <strong>Zibly,</strong>
                     <br />
                     <br />
-                    Can you create a <strong>10-slide board update</strong> from our Q4 data? 
-                    <br />
-                    Need:
-                    <br />
-                    • Revenue analysis with YoY comparisons
-                    <br />
-                    • Customer acquisition cost trends
-                    <br />
-                    • Market expansion opportunities
-                    <br />
-                    • 2025 strategic priorities
+                    Please create a <strong>10-slide Q4 board update</strong> using the attached data. Include:
                     <br />
                     <br />
-                    I've attached our metrics dashboard and last quarter's deck.
+                    • YoY revenue analysis
+                    <br />
+                    • CAC trends
+                    <br />
+                    • Market opportunities
+                    <br />
+                    • 2025 priorities
                     <br />
                     <br />
                     Thanks,
@@ -395,14 +403,20 @@ Sarah`
                   </div>
                 </div>
                 </div>
+                </div>
               </AnimatedCard>
 
               {/* AI Response */}
               <AnimatedCard delay={0.2}>
-                <div
-                  className="rounded-lg border-2 border-black bg-card p-4 cursor-pointer hover:shadow-hover transition-all shadow-soft"
-                  onClick={handleEmailClick}
-                >
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Step 2</span>
+                    <span className="text-sm inter-text-medium text-card-foreground">Zibly delivers the finished work</span>
+                  </div>
+                  <div
+                    className="rounded-lg border-2 border-primary bg-card p-4 cursor-pointer hover:shadow-xl transition-all shadow-lg ring-2 ring-primary/20"
+                    onClick={handleEmailClick}
+                  >
                 {/* Mac Window Controls */}
                 <div className="flex items-center gap-2 mb-3">
                   <div className="h-2 w-2 rounded-full bg-red-500" />
@@ -466,16 +480,43 @@ Sarah`
                   </div>
                 </div>
                 </div>
+                </div>
               </AnimatedCard>
             </div>
 
             {/* What happened in between */}
             <FadeIn delay={0.4}>
-              <div className="mt-8 text-center">
-              <p className="text-sm inter-text text-card-foreground mb-2">What happened in between?</p>
-              <p className="text-base inter-text-medium text-card-foreground">
-                Sarah forwarded the task and went to her next meeting. Zibly did the deep work—just like delegating to a senior analyst.
-              </p>
+              <div className="mt-12 text-center max-w-3xl mx-auto">
+                <div className="bg-white border-2 border-border rounded-lg p-8 shadow-soft">
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <Sparkles className="h-5 w-5 text-primary" />
+                    <h3 className="text-xl inter-text-medium text-card-foreground">What happens in between?</h3>
+                  </div>
+                  <p className="text-base md:text-lg inter-text text-card-foreground leading-relaxed">
+                    Zibly reads your email, analyzes attachments, and delivers complete outputs — presentations, spreadsheets, or reports — just like a senior analyst would. Sarah forwarded the task and went to her next meeting while Zibly did the deep work.
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* CTA Below Example */}
+            <FadeIn delay={0.5}>
+              <div className="mt-12 text-center">
+                <p className="text-lg inter-text-medium text-card-foreground mb-4">
+                  Try it now — forward any task to <span className="text-primary font-bold">work@zibly.ai</span>
+                </p>
+                <p className="text-base inter-text text-card-foreground mb-6">
+                  Zibly will reply in minutes with your first draft.
+                </p>
+                <MagneticButton>
+                  <Button
+                    size="lg"
+                    className="bg-primary hover:bg-primary/90 hover:shadow-xl transition-all text-white px-8"
+                    onClick={handleEmailClick}
+                  >
+                    Send Your First Task <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </MagneticButton>
               </div>
             </FadeIn>
           </div>
@@ -492,53 +533,120 @@ Sarah`
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-4">
                 <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
-                  Stop Managing AI. Start <span className="text-primary">Delegating</span> To It.
+                  Stop Babysitting AI. Start <span className="text-primary">Delegating</span> Work.
                 </h2>
                 <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-black">
-                  ChatGPT is brilliant—but you manage it like software. Zibly works like a person on your team.
+                  ChatGPT is brilliant—but it needs managing. Zibly works like a person on your team.
                 </p>
               </div>
             </div>
           </SlideUp>
           <div className="mx-auto max-w-5xl py-12">
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-8 relative">
+              {/* VS divider */}
+              <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="bg-black text-white rounded-full w-12 h-12 flex items-center justify-center font-bold shadow-lg border-4 border-white">
+                  VS
+                </div>
+              </div>
+
               {/* ChatGPT Column */}
               <AnimatedCard delay={0.1}>
-                <TiltCard className="rounded-lg p-6 bg-white shadow-elevated hover:shadow-hover transition-shadow">
-                  <h3 className="text-xl inter-heading-normal mb-4 text-card-foreground">The ChatGPT Workflow</h3>
+                <TiltCard className="rounded-lg p-6 bg-gray-50 shadow-elevated hover:shadow-hover transition-shadow border-2 border-gray-200">
+                  <div className="mb-4">
+                    <p className="text-xs inter-text-medium text-gray-500 uppercase tracking-wide mb-2">The Old Way</p>
+                    <h3 className="text-xl inter-heading-normal text-card-foreground">The ChatGPT Loop</h3>
+                    <p className="text-sm inter-text text-gray-600 mt-1">(You're Still Doing the Work)</p>
+                  </div>
                   <ul className="space-y-3 inter-text text-card-foreground">
-                    <li>• Open new tab, paste data</li>
-                    <li>• "Can you analyze this?"</li>
-                    <li>• "Actually, make it more detailed"</li>
-                    <li>• "Now add revenue comparisons"</li>
-                    <li>• "Format as a table"</li>
-                    <li>• Copy-paste into Excel</li>
-                    <li>• Spend an hour formatting</li>
-                    <li>• Repeat tomorrow for new task</li>
+                    <li className="flex items-start gap-3">
+                      <AlertCircle className="h-5 w-5 text-gray-500 flex-shrink-0 mt-0.5" />
+                      <span>Open new tab, paste data</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <AlertCircle className="h-5 w-5 text-gray-500 flex-shrink-0 mt-0.5" />
+                      <span>"Can you analyze this?" (again)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <AlertCircle className="h-5 w-5 text-gray-500 flex-shrink-0 mt-0.5" />
+                      <span>Keep tweaking the prompt</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <AlertCircle className="h-5 w-5 text-gray-500 flex-shrink-0 mt-0.5" />
+                      <span>Copy, paste, format, repeat</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <AlertCircle className="h-5 w-5 text-gray-500 flex-shrink-0 mt-0.5" />
+                      <span>Lose another hour managing your AI</span>
+                    </li>
                   </ul>
-                  <p className="mt-4 text-sm inter-text-medium text-primary">Time spent managing AI: 2-3 hours</p>
+                  <div className="mt-6 pt-4 border-t border-gray-300">
+                    <p className="text-sm inter-text text-gray-600">Time spent managing AI:</p>
+                    <p className="text-2xl inter-text-medium text-red-600 font-bold">2-3 hours</p>
+                  </div>
                 </TiltCard>
               </AnimatedCard>
 
               {/* Zibly Column */}
               <AnimatedCard delay={0.2}>
-                <TiltCard className="rounded-lg p-6 bg-white shadow-elevated hover:shadow-hover transition-shadow">
-                  <h3 className="text-xl inter-heading-normal mb-4 text-card-foreground">The Zibly Workflow</h3>
+                <TiltCard className="rounded-lg p-6 bg-gradient-to-br from-green-50 to-emerald-50 shadow-lg hover:shadow-xl transition-shadow border-2 border-primary">
+                  <div className="mb-4">
+                    <p className="text-xs inter-text-medium text-primary uppercase tracking-wide mb-2">The Zibly Way</p>
+                    <h3 className="text-xl inter-heading-normal text-card-foreground">Delegate & Move On</h3>
+                    <p className="text-sm inter-text text-gray-700 mt-1">(You Don't Lift a Finger)</p>
+                  </div>
                   <ul className="space-y-3 inter-text text-card-foreground">
-                    <li>• Forward the task (or describe what you need)</li>
-                    <li>• Go to your next meeting</li>
-                    <li>• Open inbox to find finished deliverable</li>
-                    <li className="text-card-foreground line-through">• No prompts to engineer</li>
-                    <li className="text-card-foreground line-through">• No hand-holding required</li>
-                    <li className="text-card-foreground line-through">• No cleanup needed</li>
-                    <li className="text-card-foreground line-through">• No formatting work</li>
-                    <li>• Send to boss/client</li>
+                    <li className="flex items-start gap-3">
+                      <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Forward the email or describe the task</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <ArrowRight className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Go to your next meeting</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FileText className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Return to find the finished deliverable</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Rocket className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>Send it to your boss or client</span>
+                    </li>
                   </ul>
-                  <p className="mt-4 text-sm inter-text-medium text-primary">Time spent managing Zibly: 60 seconds</p>
+                  <div className="mt-6 pt-4 border-t border-primary/30">
+                    <p className="text-sm inter-text text-gray-700">Time spent managing Zibly:</p>
+                    <div className="flex items-center gap-3 mt-1">
+                      <Clock className="h-6 w-6 text-primary" />
+                      <p className="text-3xl inter-text-medium text-primary font-bold">60 seconds</p>
+                    </div>
+                  </div>
                 </TiltCard>
               </AnimatedCard>
             </div>
           </div>
+
+          {/* CTA Below Comparison */}
+          <FadeIn delay={0.3}>
+            <div className="text-center max-w-2xl mx-auto mt-12">
+              <div className="bg-card border-2 border-border rounded-lg p-8 shadow-soft">
+                <p className="text-lg md:text-xl inter-text-medium text-card-foreground mb-4">
+                  Zibly doesn't wait for prompts. It gets the job done.
+                </p>
+                <p className="text-base inter-text text-card-foreground mb-6">
+                  Ready to delegate your next task? Forward any request to <span className="text-primary font-bold">work@zibly.ai</span> and see what happens.
+                </p>
+                <MagneticButton>
+                  <Button
+                    size="lg"
+                    className="bg-primary hover:bg-primary/90 hover:shadow-xl transition-all text-white px-8"
+                    onClick={handleEmailClick}
+                  >
+                    Try Delegating Now <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </MagneticButton>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
