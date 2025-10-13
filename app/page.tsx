@@ -38,8 +38,11 @@ const PLACEHOLDERS = [
 export default function Home() {
   const [taskRequest, setTaskRequest] = useState("")
   const [email, setEmail] = useState("")
+  const [subject, setSubject] = useState("")
   const [files, setFiles] = useState<FileList | null>(null)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
   const [placeholderIndex, setPlaceholderIndex] = useState(0)
 
   // Cycle through placeholders
@@ -52,15 +55,54 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
+    setErrorMessage("")
 
-    // Here you would typically send the data to your backend
-    // For now, we'll just show the success modal
-    setShowSuccessModal(true)
+    try {
+      // Prepare attachments array
+      const attachments = files && files.length > 0
+        ? Array.from(files).map(file => ({ filename: file.name }))
+        : []
 
-    // Reset form
-    setTaskRequest("")
-    setEmail("")
-    setFiles(null)
+      // Make API request
+      const response = await fetch("https://bgbd0pzte6.execute-api.us-east-1.amazonaws.com/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          from_email: email,
+          subject: subject || "Request for analysis",
+          body: taskRequest,
+          attachments: attachments,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.ok) {
+        // Success
+        setShowSuccessModal(true)
+
+        // Reset form
+        setTaskRequest("")
+        setEmail("")
+        setSubject("")
+        setFiles(null)
+        // Reset file input
+        const fileInput = document.getElementById('files') as HTMLInputElement
+        if (fileInput) fileInput.value = ''
+      } else {
+        // API returned error
+        setErrorMessage("Failed to send email. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error sending email:", error)
+      setErrorMessage("Network error. Please check your connection and try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleEmailClick = () => {
@@ -174,6 +216,8 @@ Sarah`
                       id="subject"
                       type="text"
                       placeholder="Request for analysis"
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
                       className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm md:text-base bg-transparent text-black placeholder:text-gray-400 px-0 cursor-text"
                     />
                   </div>
@@ -210,7 +254,8 @@ Sarah`
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="w-full sm:w-auto border-gray-300 bg-white hover:bg-gray-100 hover:scale-[1.02] text-black transition-all"
+                        disabled={isSubmitting}
+                        className="w-full sm:w-auto border-gray-300 bg-white hover:bg-gray-100 hover:scale-[1.02] text-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={() => document.getElementById('files')?.click()}
                       >
                         <Upload className="mr-2 h-4 w-4" />
@@ -219,10 +264,25 @@ Sarah`
                     </div>
 
                     {/* Send button */}
-                    <Button type="submit" size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-xl text-white px-8 transition-all">
-                      Send Email <ArrowRight className="ml-2 h-4 w-4" />
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={isSubmitting}
+                      className="w-full sm:w-auto bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-xl text-white px-8 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? "Sending..." : "Send Email"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
+
+                  {/* Error message */}
+                  {errorMessage && (
+                    <div className="px-6 py-3 bg-red-50 border-t border-red-200">
+                      <p className="text-sm text-red-600 flex items-center gap-2">
+                        <AlertCircle className="h-4 w-4" />
+                        {errorMessage}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </form>
             </FadeIn>

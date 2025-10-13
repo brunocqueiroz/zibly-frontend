@@ -1,5 +1,5 @@
 import type React from "react"
-import { Cutive_Mono } from "next/font/google"
+import { Exo_2 } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/auth-provider"
@@ -8,10 +8,9 @@ import Footer from "@/components/footer"
 import "./globals.css"
 import Script from "next/script"
 
-const cutiveMono = Cutive_Mono({
+const exo2 = Exo_2({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-cutive-mono"
+  variable: "--font-exo-2"
 })
 
 /**
@@ -215,7 +214,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cutiveMono.className}>
+      <body className={exo2.className}>
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"
