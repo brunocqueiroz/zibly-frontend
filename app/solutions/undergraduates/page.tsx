@@ -1,180 +1,186 @@
-"use client";
+'use client';
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Clock, BarChart3, FileText, GraduationCap, CheckCircle } from "lucide-react"
-import JsonLd from "@/components/json-ld"
-import CopyEmailButton from "@/components/copy-email-button"
+import UseCaseTemplate, { UseCaseContent } from "@/components/UseCaseTemplate"
+import { BarChart3, TrendingUp, FileText, Clock } from "lucide-react"
 
-export default function UndergradsPage() {
-  const handleEmailClick = () => {
-    const subject = "Undergrad help: research summary and slides"
-    const body = `Hi Zibly,
+const undergraduatesContent: UseCaseContent = {
+  // Hero Section
+  badge: "For Undergraduates",
+  headline: "Stop Pulling",
+  headlineHighlight: "All-Nighters on Essays and Slides",
+  subheadline: "Send your notes, drafts, or research sources to Zibly. Get back polished essays, summaries, or presentations — structured, cited, and ready to learn from.",
+  emailPlaceholderSubject: "Essay Outline – Climate Policy Paper",
+  emailPlaceholderBody: "Please turn the attached notes into a 1,500-word essay outline on climate policy. Include an introduction, three supporting arguments, and conclusion. Add 3–5 credible academic sources (APA format).",
+  emailPlaceholderFrom: "your.email@university.edu",
 
-Please produce [deliverable: research summary/slides/analysis] from the attached sources and notes.
+  // What You Send/Get Section
+  whatYouSendItems: [
+    "Notes, slides, or draft essays",
+    "Reading material or links to articles",
+    "Instructions or assignment prompts"
+  ],
+  whatYouGetBackItems: [
+    "<strong>Essay or outline</strong> (structured, with introduction and arguments)",
+    "<strong>Presentation deck</strong> (clean, visual slides)",
+    "<strong>Summary notes or study guide</strong> (1–2 pages, easy to revise from)"
+  ],
 
-Thanks!`
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
-  }
+  // Task Recipes
+  taskRecipes: [
+    {
+      icon: FileText,
+      title: "Essay Outline",
+      taskDescription: "Turn notes into a clear essay structure",
+      deliverable: "1,500-word outline or draft",
+      emailSubject: "Essay Outline Request",
+      emailBody: "Please create a 1,500-word essay outline analyzing the impact of social media on mental health among teenagers. Include an introduction with thesis statement, three body paragraphs (each with main argument and supporting evidence), counterargument section, and conclusion. Add 5 academic sources in APA format. Use attached research notes and articles."
+    },
+    {
+      icon: BarChart3,
+      title: "Research Summary",
+      taskDescription: "Summarize 3–5 articles or readings",
+      deliverable: "1-page summary sheet",
+      emailSubject: "Research Summary Request",
+      emailBody: "Please summarize the 4 attached journal articles about renewable energy policy. For each article, include author/year, main thesis, key findings, and methodology. Create a comparison table showing similarities and differences. Format in APA style. Return 1-2 page summary document."
+    },
+    {
+      icon: TrendingUp,
+      title: "Presentation Deck",
+      taskDescription: "Build slides from essay or group project notes",
+      deliverable: "10-slide presentation",
+      emailSubject: "Presentation Deck Request",
+      emailBody: "Please create a 10-slide presentation deck for my biology group project on CRISPR gene editing. Include title slide, background/context (2 slides), how CRISPR works (2 slides), applications and benefits (2 slides), ethical concerns (2 slides), and conclusion. Add speaker notes for each slide. Use attached group notes and research."
+    },
+    {
+      icon: FileText,
+      title: "Lab Report Summary",
+      taskDescription: "Summarize data or experiment results",
+      deliverable: "Report outline + charts",
+      emailSubject: "Lab Report Summary Request",
+      emailBody: "Please create a lab report summary for my chemistry experiment on acid-base titration. Include introduction, materials/methods, results section with 2-3 charts from attached data, discussion of findings, sources of error, and conclusion. Follow standard lab report format. Return Word document with embedded charts."
+    },
+    {
+      icon: BarChart3,
+      title: "Study Guide",
+      taskDescription: "Create a concise exam review sheet",
+      deliverable: "2-page summary by topic",
+      emailSubject: "Study Guide Request",
+      emailBody: "Please create a study guide for my psychology midterm covering chapters 1-6. Include key concepts, important theories (with researchers/dates), definitions, and examples for each chapter. Organize by topic with clear headings. Keep to 2-3 pages. Use attached textbook notes and lecture slides. Return formatted PDF."
+    },
+    {
+      icon: TrendingUp,
+      title: "Group Project Brief",
+      taskDescription: "Combine group notes into one unified deck",
+      deliverable: "Polished PPTX + summary doc",
+      emailSubject: "Group Project Brief Request",
+      emailBody: "Please combine our team's notes into one cohesive presentation deck for our marketing class project. Create 12-15 slides analyzing Nike's brand strategy including market analysis, target audience, competitive positioning, marketing mix, and recommendations. Ensure consistent formatting and clear storyline. Use attached notes from 4 team members. Return PowerPoint + 1-page exec summary."
+    }
+  ],
 
-  return (
-    <div className="flex flex-col">
-      <JsonLd data={{
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
-          { "@type": "ListItem", position: 2, name: "Solutions", item: "https://zibly.ai/solutions" },
-          { "@type": "ListItem", position: 3, name: "Undergraduates", item: "https://zibly.ai/solutions/undergraduates" },
-        ],
-      }} />
-      {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-8 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">For Students</div>
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">From Sources to Instructor‑Ready Deliverables</h1>
-              <p className="mx-auto max-w-[700px] text-black md:text-xl">Email sources, notes, or data. Get a clean summary, analysis, or slide deck you can refine.</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                Start Your First Task Free <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <CopyEmailButton size="sm" variant="outline" />
-            </div>
-          </div>
-        </div>
-      </section>
+  // Benefits Section
+  benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Study Partner",
+  benefitsSubheadline: "Zibly helps you organize your thoughts, write better, and study smarter. Whether you're preparing for exams or pulling together a group project, Zibly turns chaos into clarity.",
+  benefitCards: [
+    {
+      icon: Clock,
+      title: "No More Last-Minute Panic",
+      description: "Submit clean, structured work — even on tight deadlines."
+    },
+    {
+      icon: TrendingUp,
+      title: "Learn by Example",
+      description: "See how top-tier writing and analysis are structured."
+    },
+    {
+      icon: BarChart3,
+      title: "Polished and Professional",
+      description: "Get work that's easy to understand, easy to present."
+    }
+  ],
 
-      {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">We Know Your Juggle</h2>
-            <p className="mt-4 text-black md:text-lg">Multiple classes, deadlines, and group projects.</p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <Clock className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Time Pressure</h3>
-              <p className="text-black">Research, write, and present — often all at once.</p>
-            </div>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <BarChart3 className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Data to Insight</h3>
-              <p className="text-black">Turn raw spreadsheets into readable charts and commentary.</p>
-            </div>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <GraduationCap className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Presentation Quality</h3>
-              <p className="text-black">Slides and structure matter — even for class.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+  // ROI Section
+  roiWithoutItems: [
+    "Late-night writing and stress = <strong class=\"text-gray-700\">exhaustion</strong>",
+    "Confusing research notes = <strong class=\"text-gray-700\">wasted hours</strong>",
+    "Weak presentation visuals = <strong class=\"text-gray-700\">lower grades</strong>",
+    "Cramming before exams = <strong class=\"text-gray-700\">poor retention</strong>"
+  ],
+  roiWithItems: [
+    "Projects done in hours from <strong class=\"text-primary\">$20</strong>",
+    "Clean, summarized outlines = <strong class=\"text-primary\">better learning</strong>",
+    "Beautifully formatted slides = <strong class=\"text-primary\">confidence</strong>",
+    "Study guides ready in advance = <strong class=\"text-primary\">less stress</strong>"
+  ],
+  roiTagline: "Save hours every week. Submit work you're proud of.",
 
-      {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Your On‑Call Research Assistant</h2>
-            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">From summaries to analysis and slides — done cleanly</p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white border-2 border-black rounded-lg p-6 shadow-sm">
-              <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Research Summaries</h3>
-              <p className="text-black mb-4">Synthesize sources with citations and key takeaways</p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Annotated bibliographies</span></div>
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Literature matrices</span></div>
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Summary tables</span></div>
-              </div>
-            </div>
-            <div className="bg-white border-2 border-black rounded-lg p-6 shadow-sm">
-              <BarChart3 className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Data Analysis</h3>
-              <p className="text-black mb-4">Clean datasets and generate charts with commentary</p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>CSV/Excel cleanup</span></div>
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Basic statistics</span></div>
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Visualizations</span></div>
-              </div>
-            </div>
-            <div className="bg-white border-2 border-black rounded-lg p-6 shadow-sm">
-              <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Presentations</h3>
-              <p className="text-black mb-4">Slides with speaker notes and clear structure</p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Title/agenda flow</span></div>
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Charts + takeaways</span></div>
-                <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>References slide</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  // Quality Standards
+  qualityStandardsHeadline: "Quality Standards for Undergraduates",
+  qualityStandardsSubheadline: "Academic rigor meets academic integrity",
+  qualityStandards: [
+    {
+      title: "Clear structure",
+      description: "Logical flow and strong organization"
+    },
+    {
+      title: "Readable academic language",
+      description: "Clear but formal tone appropriate for college work"
+    },
+    {
+      title: "Citation support",
+      description: "APA, MLA, or Chicago formatting on request"
+    },
+    {
+      title: "Academic integrity",
+      description: "Supports understanding and drafting, not plagiarism"
+    },
+    {
+      title: "Privacy and deletion",
+      description: "All uploads removed after delivery"
+    }
+  ],
 
-      {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border-2 border-black p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Research summaries (DOCX/PDF)</li>
-                <li>• Cleaned datasets + charts</li>
-                <li>• Slide decks with notes (PPTX)</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border-2 border-black p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Literature review outlines</li>
-                <li>• Presentation storylines</li>
-                <li>• Basic statistical analysis</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border-2 border-black p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-              <ol className="space-y-2 text-sm text-black list-decimal pl-5">
-                <li>Forward sources or datasets</li>
-                <li>Specify output and timeframe</li>
-                <li>Receive the finished deliverable</li>
-              </ol>
-              <p className="text-xs text-black/70 mt-3">Use responsibly and follow your school's honor code.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+  // How It Works
+  howItWorksSteps: [
+    {
+      title: "Forward your files to work@zibly.ai",
+      description: "Send notes, drafts, or instructions"
+    },
+    {
+      title: "Describe what you need",
+      description: "E.g., \"essay outline,\" \"presentation deck\""
+    },
+    {
+      title: "Receive your deliverable",
+      description: "Organized, formatted, and ready to learn from"
+    }
+  ],
+  howItWorksSubheadline: "No new tools. No templates. Just email and get it done.",
 
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Get Time Back for What Matters</h2>
-              <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">Send a task to work@zibly.ai. Your first task is free.</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-black hover:bg-black/90 text-white" onClick={handleEmailClick}>
-                Start Your Free Task <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white" asChild>
-                <Link href="/features#workflow">See How It Works</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  // CTA
+  ctaHeadline: "Ready to <span class=\"text-primary\">Study Smarter</span>?",
+  ctaSubheadline: "Undergraduates everywhere use Zibly to organize notes, structure essays, and build beautiful decks — all over email. Your first project is free.",
+  ctaButtonText: "Start Your Free Project",
+
+  // Related Use Cases
+  relatedUseCases: [
+    {
+      title: "MBA Students",
+      description: "Polished decks and business reports built from notes.",
+      href: "/solutions/mba-students"
+    },
+    {
+      title: "Law Students",
+      description: "Structured case briefs and legal outlines, ready to review.",
+      href: "/solutions/law-students"
+    },
+    {
+      title: "Management Consultants",
+      description: "Professional-grade decks and models — the skills you're learning, automated.",
+      href: "/solutions/consultants"
+    }
+  ]
+}
+
+export default function UndergraduatesPage() {
+  return <UseCaseTemplate content={undergraduatesContent} />
 }

@@ -22,8 +22,8 @@ export default function Footer() {
               <h3 className="text-base font-bold mb-4 text-black">Product</h3>
               <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="/features" className="text-black hover:text-primary transition-colors">
-                    Features
+                  <Link href="/solutions" className="text-black hover:text-primary transition-colors">
+                    Use Cases
                   </Link>
                 </li>
                 <li>
@@ -61,9 +61,9 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Solutions - Professionals */}
+            {/* Use Cases - Professionals */}
             <div className="col-span-2 md:col-span-1">
-              <h3 className="text-base font-bold mb-4 text-black">Solutions</h3>
+              <h3 className="text-base font-bold mb-4 text-black">Use Cases</h3>
               <ul className="space-y-3 text-sm">
                 <li>
                   <Link href="/solutions/consultants" className="text-black hover:text-primary transition-colors">
@@ -108,7 +108,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Solutions - Students */}
+            {/* Use Cases - Students */}
             <div className="col-span-2 md:col-span-1 lg:col-span-1">
               <h3 className="text-base font-bold mb-4 text-black">Students</h3>
               <ul className="space-y-3 text-sm">

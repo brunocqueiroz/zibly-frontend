@@ -1,376 +1,186 @@
-"use client";
+'use client';
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Calculator, FileText, BarChart3, Shield, CheckCircle, AlertCircle } from "lucide-react"
-import CopyEmailButton from "@/components/copy-email-button"
-import FadeIn from "@/components/animations/FadeIn"
-import SlideUp from "@/components/animations/SlideUp"
-import AnimatedCard from "@/components/animations/AnimatedCard"
-import MagneticButton from "@/components/animations/MagneticButton"
-import GradientText from "@/components/animations/GradientText"
-import WaveDivider from "@/components/WaveDivider"
-import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+import UseCaseTemplate, { UseCaseContent } from "@/components/UseCaseTemplate"
+import { BarChart3, TrendingUp, FileText, Clock } from "lucide-react"
 
+const accountantsContent: UseCaseContent = {
+  // Hero Section
+  badge: "For Accountants",
+  headline: "Stop Spending Nights",
+  headlineHighlight: "Cleaning Spreadsheets",
+  subheadline: "Send your data exports, trial balances, or reports to Zibly. Get back reconciled schedules, summaries, and formatted management reports — built to accounting standards.",
+  emailPlaceholderSubject: "Monthly P&L and Variance Summary",
+  emailPlaceholderBody: "Please summarize the attached P&L and balance sheet. Create a 5-slide management summary showing revenue, expenses, and profit trends vs. budget, and include a variance analysis table in Excel.",
+  emailPlaceholderFrom: "your.email@accountingfirm.com",
+
+  // What You Send/Get Section
+  whatYouSendItems: [
+    "Trial balances or general ledger exports (Excel/CSV)",
+    "Financial statements or templates",
+    "Notes or commentary on key changes"
+  ],
+  whatYouGetBackItems: [
+    "<strong>Reconciled Excel reports</strong> (cleaned, formula-checked)",
+    "<strong>Variance and trend analyses</strong> (tables and charts)",
+    "<strong>Presentation deck</strong> (summary slides for management)"
+  ],
+
+  // Task Recipes
+  taskRecipes: [
+    {
+      icon: BarChart3,
+      title: "Month-End Variance Analysis",
+      taskDescription: "Compare actuals vs. budget",
+      deliverable: "Excel report + 5-slide deck",
+      emailSubject: "Month-End Variance Analysis Request",
+      emailBody: "Please create a variance analysis comparing October actuals to budget. Include revenue breakdown by product line, expense analysis by department, EBITDA variance, key drivers of differences, and recommendations. Use attached trial balance and budget file. Return Excel variance report + 5-slide management summary deck."
+    },
+    {
+      icon: TrendingUp,
+      title: "Balance Sheet Reconciliation",
+      taskDescription: "Match and verify account balances",
+      deliverable: "Reconciled Excel workbook",
+      emailSubject: "Balance Sheet Reconciliation Request",
+      emailBody: "Please reconcile Q3 balance sheet accounts including cash, AR, AP, inventory, fixed assets, and debt. Match general ledger to sub-ledgers, identify discrepancies, and create reconciliation schedules for each account. Flag any items requiring adjustment. Use attached GL export and sub-ledger files. Return reconciled workbook with supporting schedules."
+    },
+    {
+      icon: FileText,
+      title: "Management Summary Pack",
+      taskDescription: "Turn financials into a clean slide deck",
+      deliverable: "PPTX deck + charts",
+      emailSubject: "Management Summary Pack Request",
+      emailBody: "Please create a management summary deck from Q3 financial statements. Include executive summary, P&L highlights, balance sheet review, cash flow analysis, KPI dashboard, and variance commentary. Add charts showing trends and comparisons. Use attached financials and prior quarter deck template. Return 10-12 slide PowerPoint presentation."
+    },
+    {
+      icon: BarChart3,
+      title: "Cash Flow Forecast",
+      taskDescription: "Build or update rolling forecast",
+      deliverable: "Excel model + summary slides",
+      emailSubject: "Cash Flow Forecast Request",
+      emailBody: "Please build a 13-week cash flow forecast starting November 1st. Include beginning cash, expected receipts (by customer), planned disbursements (by category), net cash flow, and ending balance. Use attached AR aging, AP schedule, and payroll forecast. Add sensitivity analysis for collection timing. Return Excel model + 3-slide summary."
+    },
+    {
+      icon: TrendingUp,
+      title: "Expense Analysis",
+      taskDescription: "Categorize spend and identify trends",
+      deliverable: "Excel pivot + summary table",
+      emailSubject: "Expense Analysis Request",
+      emailBody: "Please analyze year-to-date operating expenses from attached GL export. Categorize by department and expense type, calculate percentage of revenue, identify top 10 expense drivers, compare to prior year, and flag unusual trends or outliers. Create pivot tables and variance analysis. Return Excel workbook with analysis tabs and charts."
+    },
+    {
+      icon: FileText,
+      title: "Audit Support Pack",
+      taskDescription: "Compile schedules and notes for auditors",
+      deliverable: "Excel binder + checklist",
+      emailSubject: "Audit Support Pack Request",
+      emailBody: "Please prepare audit support schedules for year-end audit. Compile account reconciliations, fixed asset rollforward, debt schedule, AR/AP aging, inventory valuation, accruals schedule, and supporting documentation index. Use attached trial balance and supporting files. Organize in Excel workbook with tabs by account. Return audit binder with checklist."
+    }
+  ],
+
+  // Benefits Section
+  benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Accounting Assistant",
+  benefitsSubheadline: "Zibly delivers reconciled reports, formatted management packs, and accurate summaries — so your accounting team can close faster and sleep better.",
+  benefitCards: [
+    {
+      icon: Clock,
+      title: "Close the Books Faster",
+      description: "Delegate repetitive reporting and reconciliations."
+    },
+    {
+      icon: TrendingUp,
+      title: "Improve Accuracy",
+      description: "Zibly checks, structures, and formats automatically."
+    },
+    {
+      icon: BarChart3,
+      title: "Save Time Every Cycle",
+      description: "Automate the 80% of work that isn't analysis."
+    }
+  ],
+
+  // ROI Section
+  roiWithoutItems: [
+    "Manual reconciliations every month = <strong class=\"text-gray-700\">20+ hours</strong>",
+    "Hours lost to formatting = <strong class=\"text-gray-700\">wasted time</strong>",
+    "Errors in versioning = <strong class=\"text-gray-700\">rework + stress</strong>",
+    "<strong class=\"text-gray-700\">5–7 day close process</strong>"
+  ],
+  roiWithItems: [
+    "Automated and verified reports from <strong class=\"text-primary\">$20</strong>",
+    "Clean, standardized outputs = <strong class=\"text-primary\">time savings</strong>",
+    "Consistent files every time = <strong class=\"text-primary\">no errors</strong>",
+    "<strong class=\"text-primary\">Close in 2–3 days</strong>"
+  ],
+  roiTagline: "Close books faster. Deliver cleaner reports. Sleep better.",
+
+  // Quality Standards
+  qualityStandardsHeadline: "Quality Standards for Accountants",
+  qualityStandardsSubheadline: "Built to accounting standards with accuracy and security",
+  qualityStandards: [
+    {
+      title: "Verified formulas",
+      description: "Tested calculations and linked checks"
+    },
+    {
+      title: "Standardized templates",
+      description: "Consistent formatting across cycles"
+    },
+    {
+      title: "Audit-ready formatting",
+      description: "Clear headers, reconciliations, and notes"
+    },
+    {
+      title: "Confidentiality guaranteed",
+      description: "Automatic file deletion after delivery"
+    },
+    {
+      title: "Supports GAAP and IFRS conventions",
+      description: "Professional accounting standards maintained"
+    }
+  ],
+
+  // How It Works
+  howItWorksSteps: [
+    {
+      title: "Forward your files to work@zibly.ai",
+      description: "Attach reports, exports, or trial balances"
+    },
+    {
+      title: "Describe the output you need",
+      description: "E.g., \"variance analysis,\" \"reconciliation,\" or \"management summary\""
+    },
+    {
+      title: "Receive your completed deliverable",
+      description: "Accurate, formatted, and ready to review"
+    }
+  ],
+  howItWorksSubheadline: "No portals. No prompts. Just email it and get the results back.",
+
+  // CTA
+  ctaHeadline: "Ready to <span class=\"text-primary\">Close the Books Faster</span>?",
+  ctaSubheadline: "Join accountants using Zibly to automate month-end reporting, reconciliations, and management summaries. Your first deliverable is free.",
+  ctaButtonText: "Start Your Free Report",
+
+  // Related Use Cases
+  relatedUseCases: [
+    {
+      title: "Investment Banking",
+      description: "Clean, reconciled models and financial decks for deal teams.",
+      href: "/solutions/investment-banking"
+    },
+    {
+      title: "Private Equity",
+      description: "Portfolio-level reporting and KPI dashboards delivered overnight.",
+      href: "/solutions/private-equity"
+    },
+    {
+      title: "Strategy Executives",
+      description: "Forecasting and management reporting simplified.",
+      href: "/solutions/strategy"
+    }
+  ]
+}
 
 export default function AccountantsPage() {
-  const handleEmailClick = () => {
-    const subject = "Financial analysis needed"
-    const body = `Hi Zibly,
-
-I need help with financial analysis for a client. Can you [describe your need]?
-
-Thanks!`
-
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
-  }
-
-  return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-8 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">
-                For Accountants & CPAs
-              </div>
-              <SlideUp>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">
-                  Focus on <GradientText>Advisory</GradientText>, Not Excel
-                </h1>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">
-                  Your clients need strategic guidance, not another variance analysis. Zibly handles the
-                  number-crunching so you can deliver insights that transform businesses.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                    Automate Your First Analysis Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <CopyEmailButton size="sm" variant="outline" />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                The <GradientText>Compliance Trap</GradientText> Is Real
-              </h2>
-            </SlideUp>
-          </div>
-          <StaggerContainer className="grid gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <Calculator className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Manual Everything</h3>
-              <p className="text-black">
-                80% of your day spent on data entry and reconciliation instead of strategic advisory
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <AlertCircle className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Deadline Pressure</h3>
-              <p className="text-black">
-                Tax season means 70-hour weeks and turning away profitable advisory work
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <Shield className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Commoditization</h3>
-              <p className="text-black">
-                Clients see compliance as a commodity while you struggle to showcase your true value
-              </p>
-            </div>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-secondary">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
-                Your AI <GradientText>Senior Accountant</GradientText>
-              </h2>
-            </SlideUp>
-            <p className="mt-4 text-white md:text-lg max-w-2xl mx-auto">
-              From financial analysis to audit procedures, Zibly handles the technical work with CPA-level accuracy
-            </p>
-          </div>
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <StaggerItem delay={0.1}>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <BarChart3 className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Financial Analysis</h3>
-                  <p className="text-black mb-4">
-                    Transform raw financials into comprehensive analysis with insights and recommendations
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Ratio analysis</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Cash flow projections</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Variance analysis</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-
-            <StaggerItem delay={0.2}>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <FileText className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Client Reporting</h3>
-                  <p className="text-black mb-4">
-                    Generate professional reports that clearly communicate complex financial information
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Management reports</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Board presentations</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>KPI dashboards</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-
-            <StaggerItem delay={0.3}>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <Shield className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Audit Support</h3>
-                  <p className="text-black mb-4">
-                    Accelerate audit procedures with AI that understands GAAP and documentation requirements
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Test procedures</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Risk assessment</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Documentation</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Monthly reporting packs (PPTX/PDF)</li>
-                <li>• Excel workbooks: P&L, cash flow, projections</li>
-                <li>• Executive variance commentary (DOCX)</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Budget vs actuals with insights</li>
-                <li>• Ratio analysis + KPI dashboard</li>
-                <li>• Forecast scenarios and what‑ifs</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-              <ol className="space-y-2 text-sm text-black list-decimal pl-5">
-                <li>Forward exports or trial balance</li>
-                <li>State the output and timeframe</li>
-                <li>Receive the finished files</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* Value Prop Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Shift to <GradientText>High-Value Advisory</GradientText>
-              </h2>
-            </SlideUp>
-          </div>
-          <div className="max-w-5xl mx-auto">
-            <div className="grid gap-8 md:grid-cols-2">
-              <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-black">Before Zibly</h3>
-                <div className="space-y-4">
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-16 text-right">
-                      <span className="text-3xl font-bold text-black">70%</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-black">Compliance & Bookkeeping</p>
-                      <p className="text-black">Low-margin, commodity work</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-16 text-right">
-                      <span className="text-3xl font-bold text-black">20%</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-black">Basic Analysis</p>
-                      <p className="text-black">Monthly reporting, variance analysis</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-16 text-right">
-                      <span className="text-3xl font-bold text-black">10%</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-black">Strategic Advisory</p>
-                      <p className="text-black">High-value consulting</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-black">After Zibly</h3>
-                <div className="space-y-4">
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-16 text-right">
-                      <span className="text-3xl font-bold text-black">60%</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-black">Strategic Advisory</p>
-                      <p className="text-black">CFO services, growth strategy</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-16 text-right">
-                      <span className="text-3xl font-bold text-black">30%</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-black">Advanced Analysis</p>
-                      <p className="text-black">Forecasting, scenario planning</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-16 text-right">
-                      <span className="text-3xl font-bold text-black">10%</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-black">Compliance Oversight</p>
-                      <p className="text-black">Review and sign-off only</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="mt-12 text-center">
-              <p className="text-2xl font-bold text-black">
-                3x revenue per client. 50% higher margins. Actually enjoy your work.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <SlideUp>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                  Become the <GradientText>Advisor</GradientText> Your Clients Actually Need
-                </h2>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">
-                  Join accountants who've transformed their practice with Zibly.
-                  Your first analysis is free—see the difference AI makes.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    className="bg-black hover:bg-black/90 text-white"
-                    onClick={handleEmailClick}
-                  >
-                    Try Your First Analysis Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-black text-black hover:bg-black hover:text-white"
-                    asChild
-                  >
-                    <Link href="/security">SOC 2 Compliant</Link>
-                  </Button>
-                </MagneticButton>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  return <UseCaseTemplate content={accountantsContent} />
 }

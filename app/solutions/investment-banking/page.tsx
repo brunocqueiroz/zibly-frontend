@@ -1,335 +1,187 @@
 'use client';
 
+import UseCaseTemplate, { UseCaseContent } from "@/components/UseCaseTemplate"
+import { BarChart3, TrendingUp, FileText, Clock } from "lucide-react"
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Clock, BarChart3, FileText, TrendingUp, CheckCircle, DollarSign } from "lucide-react"
-import CopyEmailButton from "@/components/copy-email-button"
-import FadeIn from "@/components/animations/FadeIn"
-import SlideUp from "@/components/animations/SlideUp"
-import AnimatedCard from "@/components/animations/AnimatedCard"
-import MagneticButton from "@/components/animations/MagneticButton"
-import GradientText from "@/components/animations/GradientText"
-import WaveDivider from "@/components/WaveDivider"
-import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+const investmentBankingContent: UseCaseContent = {
+  // Hero Section
+  badge: "For Investment Bankers",
+  headline: "Stop Pulling",
+  headlineHighlight: "All-Nighters",
+  subheadline: "Send your models, data rooms, or CIM drafts to Zibly. Get back finished models, transaction decks, and diligence memos — polished, accurate, and built to banking standards.",
+  emailPlaceholderSubject: "Comparable Company Analysis Request",
+  emailPlaceholderBody: "Please build a comparable company analysis for SaaS companies with $50M-$200M revenue. Include EV/Revenue, EV/EBITDA multiples, and create a valuation summary with median, mean, and range. Return Excel + 5-slide summary.",
+  emailPlaceholderFrom: "your.email@bank.com",
 
+  // What You Send/Get Section
+  whatYouSendItems: [
+    "Excel models or comps files",
+    "PDF or PowerPoint pitch decks",
+    "Links to data rooms or financial statements",
+    "Short description of the transaction or analysis goal"
+  ],
+  whatYouGetBackItems: [
+    "<strong>Excel model</strong> (cleaned, updated, or built from scratch)",
+    "<strong>Valuation summary deck</strong> (5–10 slides, your template)",
+    "<strong>Supporting memo</strong> (key findings or deal summary)"
+  ],
+
+  // Task Recipes
+  taskRecipes: [
+    {
+      icon: BarChart3,
+      title: "Comparable Company Analysis",
+      taskDescription: "Update trading comps and valuation summary",
+      deliverable: "Updated Excel + 5-slide summary deck",
+      emailSubject: "Comparable Company Analysis Request",
+      emailBody: "Please build a comparable company analysis for publicly-traded cybersecurity companies with $100M+ revenue. Include latest financials, trading multiples (EV/Revenue, EV/EBITDA, P/E), growth rates, and margins. Create valuation summary with median, mean, and range. Return Excel file + 5-slide summary deck."
+    },
+    {
+      icon: TrendingUp,
+      title: "Precedent Transactions Analysis",
+      taskDescription: "Refresh deal comps with new data",
+      deliverable: "Excel comps sheet + 3-slide summary",
+      emailSubject: "Precedent Transactions Analysis",
+      emailBody: "Please create a precedent transactions analysis for M&A deals in the enterprise SaaS space over the last 3 years. Include transaction multiples (EV/Revenue, EV/EBITDA), deal premiums, and strategic rationale. Filter for deals >$500M. Return Excel + 3-slide summary."
+    },
+    {
+      icon: BarChart3,
+      title: "DCF Model Build",
+      taskDescription: "Create discounted cash flow model",
+      deliverable: "Excel model + sensitivity tables",
+      emailSubject: "DCF Model Build Request",
+      emailBody: "Please build a 5-year DCF model for a B2B SaaS company with $75M ARR growing at 40% YoY. Include revenue build-up by segment, operating expense assumptions, working capital, capex, and terminal value calculation. Add sensitivity tables for WACC (8-12%) and terminal growth (2-4%). Return Excel model."
+    },
+    {
+      icon: FileText,
+      title: "Pitch Deck Formatting",
+      taskDescription: "Clean, align, and polish slides",
+      deliverable: "Branded 10-15 slide deck",
+      emailSubject: "Pitch Deck Formatting Request",
+      emailBody: "Please format and clean up my 12-slide pitch deck. Ensure consistent font usage, alignment, color scheme (blue-gray palette), proper chart formatting, and professional table styling. Fix any spacing issues and ensure all slides follow the same template style. Return formatted PowerPoint."
+    },
+    {
+      icon: TrendingUp,
+      title: "Company Profile Slides",
+      taskDescription: "Build 1-page profiles for comps or targets",
+      deliverable: "Slides with charts and summary metrics",
+      emailSubject: "Company Profile Slides Request",
+      emailBody: "Please create 1-page company profile slides for these 5 public fintech companies: Square, PayPal, Stripe, Adyen, and Affirm. Include company overview, key metrics, financial snapshot, recent performance trends, and valuation multiples. Use consistent formatting across all profiles. Return PowerPoint."
+    },
+    {
+      icon: FileText,
+      title: "LBO Model Analysis",
+      taskDescription: "Build leveraged buyout model",
+      deliverable: "Excel LBO + returns analysis",
+      emailSubject: "LBO Model Request",
+      emailBody: "Please build an LBO model for a manufacturing company with $500M revenue and 20% EBITDA margins. Assume 60% debt financing, 5-year hold period, and exit at 8x EBITDA. Include sources & uses, debt schedule with PIK and revolver, cash flow waterfall, and IRR/MOIC analysis. Add sensitivity for entry/exit multiples. Return Excel."
+    }
+  ],
+
+  // Benefits Section
+  benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Investment Banking Analyst",
+  benefitsSubheadline: "Zibly delivers the Excel models and pitch materials your team needs — without the burnout or bandwidth limits.",
+  benefitCards: [
+    {
+      icon: Clock,
+      title: "Overloaded Teams → Instant Capacity",
+      description: "Handle more live deals without hiring another analyst."
+    },
+    {
+      icon: TrendingUp,
+      title: "Analyst Burnout Prevention",
+      description: "Let Zibly take the midnight model updates."
+    },
+    {
+      icon: BarChart3,
+      title: "Client-Ready Materials, Overnight",
+      description: "Decks and models arrive formatted to your bank's standards."
+    }
+  ],
+
+  // ROI Section
+  roiWithoutItems: [
+    "Analyst team: $150/hr × 40 hrs = <strong class=\"text-gray-700\">$6,000 per model</strong>",
+    "Associate review cycles = <strong class=\"text-gray-700\">2 days</strong>",
+    "<strong class=\"text-gray-700\">Late nights + weekend work</strong>",
+    "Hiring costs rising"
+  ],
+  roiWithItems: [
+    "Same deliverable from <strong class=\"text-primary\">$20</strong>",
+    "<strong class=\"text-primary\">6–24 hour turnaround</strong>",
+    "<strong class=\"text-primary\">Free weekends</strong>",
+    "Scale without headcount"
+  ],
+  roiTagline: "Save $30,000+ per deal cycle. Deliver 10× faster.",
+
+  // Quality Standards
+  qualityStandardsHeadline: "Quality Standards for Bankers",
+  qualityStandardsSubheadline: "Built for precision, auditability, and confidentiality",
+  qualityStandards: [
+    {
+      title: "Accurate, auditable models",
+      description: "Traceable formulas, clear assumptions tabs"
+    },
+    {
+      title: "Bank-style pitch formatting",
+      description: "Standard color palette, consistent alignment"
+    },
+    {
+      title: "Valuation rigor",
+      description: "Checks for rounding, consistency, and error flags"
+    },
+    {
+      title: "Confidential data handling",
+      description: "Encryption and post-delivery deletion"
+    },
+    {
+      title: "Client-ready charts",
+      description: "Valuation bridges, football fields, scenario tables"
+    }
+  ],
+
+  // How It Works
+  howItWorksSteps: [
+    {
+      title: "Forward your files to work@zibly.ai",
+      description: "Send models, comps, or decks"
+    },
+    {
+      title: "Describe the deliverable",
+      description: "E.g., \"refresh trading comps, update charts\""
+    },
+    {
+      title: "Receive the finished model or deck",
+      description: "Polished and error-checked"
+    }
+  ],
+  howItWorksSubheadline: "No data rooms. No prompts — just email and get it done.",
+
+  // CTA
+  ctaHeadline: "Ready to <span class=\"text-primary\">10×</span> Your Deal Throughput?",
+  ctaSubheadline: "Join top banking teams using Zibly to turn data into deal materials overnight. Try your first model free — no setup required.",
+  ctaButtonText: "Start Your Free Model",
+
+  // Related Use Cases
+  relatedUseCases: [
+    {
+      title: "Private Equity",
+      description: "Portfolio monitoring and deal analysis with institutional-grade outputs.",
+      href: "/solutions/private-equity"
+    },
+    {
+      title: "Management Consultants",
+      description: "Strategic decks and market sizing for client engagements.",
+      href: "/solutions/consultants"
+    },
+    {
+      title: "Accountants",
+      description: "Financial analysis and reporting automation.",
+      href: "/solutions/accountants"
+    }
+  ]
+}
 
 export default function InvestmentBankingPage() {
-  const handleEmailClick = () => {
-    const subject = "Deal analysis needed - urgent"
-    const body = `Hi Zibly,
-
-I need help with a deal analysis. Can you [describe your need]?
-
-Thanks!`
-
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
-  }
-
-  return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-8 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">
-                For Investment Bankers
-              </div>
-              <SlideUp>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">
-                  Close <GradientText>Deals</GradientText>, Not PowerPoint
-                </h1>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">
-                  While you're perfecting pixel alignment at 3am, deals are moving without you. Zibly creates
-                  institutional-quality pitch books, CIMs, and financial models with the thoroughness they require.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                    Create Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <CopyEmailButton size="sm" variant="outline" />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                We've Lived Your <GradientText>100-Hour Weeks</GradientText>
-              </h2>
-            </SlideUp>
-          </div>
-          <StaggerContainer className="grid gap-8 md:grid-cols-3">
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                  <Clock className="h-6 w-6 text-black" />
-                </div>
-                <h3 className="text-xl font-semibold text-black">All-Nighters for Formatting</h3>
-                <p className="text-black">
-                  You didn't go to Wharton to align logos and update page numbers until 4am
-                </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                  <FileText className="h-6 w-6 text-black" />
-                </div>
-                <h3 className="text-xl font-semibold text-black">Version Control Hell</h3>
-                <p className="text-black">
-                  "Pitch_v47_FINAL_FINAL_USE_THIS_ONE.pptx" - sound familiar?
-                </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                  <TrendingUp className="h-6 w-6 text-black" />
-                </div>
-                <h3 className="text-xl font-semibold text-black">Missed Opportunities</h3>
-                <p className="text-black">
-                  While you're updating comps, your competition is winning mandates
-                </p>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                Your <GradientText>AI Associate</GradientText> That Never Sleeps
-              </h2>
-            </SlideUp>
-            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">
-              From first pitch to final close, Zibly handles the heavy lifting
-            </p>
-          </div>
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <StaggerItem>
-              <AnimatedCard delay={0.1}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <FileText className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Pitch Books & CIMs</h3>
-                  <p className="text-black mb-4">
-                    Upload company data, get back polished presentations with all the essentials
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Company overview</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Investment highlights</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Transaction rationale</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-
-            <StaggerItem>
-              <AnimatedCard delay={0.2}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <BarChart3 className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Valuation Analysis</h3>
-                  <p className="text-black mb-4">
-                    Comprehensive valuations with all standard methodologies, ready for committee
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>DCF analysis</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Comparable companies</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Precedent transactions</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-
-            <StaggerItem>
-              <AnimatedCard delay={0.3}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <DollarSign className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Financial Models</h3>
-                  <p className="text-black mb-4">
-                    LBO models, merger models, and operating models with full functionality
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Returns analysis</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Sensitivity tables</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-black">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                      <span>Debt schedules</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Pitch books and teasers (PPTX)</li>
-                <li>• CIM outlines and summary sections</li>
-                <li>• Valuation packs (DCF, comps, precedents)</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Sector overviews and buyers lists</li>
-                <li>• Operating model clean‑ups</li>
-                <li>• Returns and sensitivity tables</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-              <ol className="space-y-2 text-sm text-black list-decimal pl-5">
-                <li>Forward materials (data room links, decks, Excel)</li>
-                <li>Specify the output (e.g., 12‑slide buyer deck)</li>
-                <li>Receive the deliverable, ready to finalize</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* Speed Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                <GradientText>Speed</GradientText> Wins Deals
-              </h2>
-            </SlideUp>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid gap-8 md:grid-cols-3 text-center">
-              <div>
-                <p className="text-xl font-semibold mb-1 text-black">Move faster</p>
-                <p className="text-black">Draft decks and analyses quickly so you can focus on the narrative.</p>
-              </div>
-              <div>
-                <p className="text-xl font-semibold mb-1 text-black">Stay thorough</p>
-                <p className="text-black">Valuation methods and comps included, with clear assumptions.</p>
-              </div>
-              <div>
-                <p className="text-xl font-semibold mb-1 text-black">Win time back</p>
-                <p className="text-black">Spend more hours with clients and fewer in PowerPoint and Excel.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Social proof (generic) */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6 text-center">
-          <h3 className="text-xl font-semibold text-black">What teams say</h3>
-          <p className="mx-auto max-w-2xl mt-4 text-black">"Zibly frees our team to focus on relationships and strategy while keeping deliverables moving."</p>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <SlideUp>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                  Win More <GradientText>Mandates</GradientText>. Sleep More Hours.
-                </h2>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">
-                  Join the top banks already using Zibly to dominate their sectors. Your first pitch book
-                  is free—experience the speed yourself.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    className="bg-black hover:bg-black/90 text-white"
-                    onClick={handleEmailClick}
-                  >
-                    Build Your First Pitch Book Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-black text-black hover:bg-black hover:text-white"
-                    asChild
-                  >
-                    <Link href="/pricing">View Pricing</Link>
-                  </Button>
-                </MagneticButton>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  return <UseCaseTemplate content={investmentBankingContent} />
 }

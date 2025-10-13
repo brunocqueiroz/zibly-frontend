@@ -1,257 +1,186 @@
-"use client";
+'use client';
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Clock, BarChart3, FileText, Users, CheckCircle, TrendingUp, FileSpreadsheet } from "lucide-react"
-import JsonLd from "@/components/json-ld"
-import CopyEmailButton from "@/components/copy-email-button"
-import FadeIn from "@/components/animations/FadeIn"
-import SlideUp from "@/components/animations/SlideUp"
-import AnimatedCard from "@/components/animations/AnimatedCard"
-import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+import UseCaseTemplate, { UseCaseContent } from "@/components/UseCaseTemplate"
+import { BarChart3, TrendingUp, FileText, Clock } from "lucide-react"
 
-export default function MBAPage() {
-  const handleEmailClick = () => {
-    const subject = "MBA help: case prep and modeling"
-    const body = `Hi Zibly,
+const mbaStudentsContent: UseCaseContent = {
+  // Hero Section
+  badge: "For MBA Students",
+  headline: "Stop Pulling",
+  headlineHighlight: "All-Nighters on Case Decks",
+  subheadline: "Send your case prompts, data, and notes to Zibly. Get back structured frameworks, Excel models, and polished decks — so you can focus on insights and interviews.",
+  emailPlaceholderSubject: "Case Competition Deck Request",
+  emailPlaceholderBody: "Please create a 12-slide case competition deck analyzing market entry strategy for a fintech startup expanding to Europe. Include market sizing, competitive landscape, go-to-market recommendations, and 3-year financial projections. Use attached case packet and market data. Return PowerPoint deck.",
+  emailPlaceholderFrom: "your.email@business-school.edu",
 
-I need help preparing for [case/interview/class]. Please create [deliverable], using [attached materials].
+  // What You Send/Get Section
+  whatYouSendItems: [
+    "Case prompts or assignment instructions",
+    "Excel files with data or company financials",
+    "Class notes, readings, or previous templates"
+  ],
+  whatYouGetBackItems: [
+    "<strong>PowerPoint deck</strong> (10–15 slides, professionally formatted)",
+    "<strong>Excel financial model</strong> or analysis",
+    "<strong>Executive summary</strong> or recommendation memo"
+  ],
 
-Thanks!`
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
-  }
+  // Task Recipes
+  taskRecipes: [
+    {
+      icon: FileText,
+      title: "Case Study Presentation",
+      taskDescription: "Build structured deck from case materials",
+      deliverable: "12-slide PowerPoint + exec summary",
+      emailSubject: "Case Study Presentation Request",
+      emailBody: "Please create a case presentation analyzing whether Company X should enter the Southeast Asian market. Include situation analysis, market sizing, competitive landscape, strategic options (3 scenarios), financial impact, and recommendation. Use attached case packet and exhibits. Return 12-slide PowerPoint with executive summary."
+    },
+    {
+      icon: BarChart3,
+      title: "Financial Model Cleanup",
+      taskDescription: "Polish and structure Excel model",
+      deliverable: "Clean Excel model + charts",
+      emailSubject: "Financial Model Cleanup Request",
+      emailBody: "Please clean up and structure my 3-statement financial model for a SaaS company valuation project. Add proper formatting, create an assumptions page, build sensitivity tables for revenue growth (20-40%) and discount rate (8-12%), and generate 5 charts (revenue build, cash flow waterfall, valuation bridge). Return formatted Excel file."
+    },
+    {
+      icon: TrendingUp,
+      title: "Market Entry Analysis",
+      taskDescription: "Research and analyze new market opportunity",
+      deliverable: "10-slide market analysis deck",
+      emailSubject: "Market Entry Analysis Request",
+      emailBody: "Please analyze the opportunity for a US-based meal kit company to enter the Canadian market. Research market size, growth trends, key competitors (HelloFresh, GoodFood, Chef's Plate), regulatory requirements, and distribution challenges. Create TAM/SAM/SOM analysis and provide go/no-go recommendation. Return 10-slide deck."
+    },
+    {
+      icon: FileText,
+      title: "Recruiting Deck",
+      taskDescription: "Create professional interview deck",
+      deliverable: "8-10 slide polished deck",
+      emailSubject: "Recruiting Deck Request",
+      emailBody: "Please create a professional consulting case interview deck about improving profitability for a retail chain. Include situation overview, issue tree, analysis across 3 areas (revenue, costs, operations), data exhibits, and structured recommendation with implementation roadmap. Format to McKinsey/Bain style. Return polished PowerPoint."
+    },
+    {
+      icon: BarChart3,
+      title: "Business Plan Summary",
+      taskDescription: "Draft startup business plan sections",
+      deliverable: "15-page business plan + financial model",
+      emailSubject: "Business Plan Summary Request",
+      emailBody: "Please draft a business plan for my entrepreneurship class for a B2B SaaS startup in HR tech. Include executive summary, market analysis, competitive landscape, business model (pricing/unit economics), go-to-market strategy, team overview, and 3-year financial projections. Use attached pitch deck and research. Return Word doc + Excel model."
+    },
+    {
+      icon: TrendingUp,
+      title: "Class Project Slides",
+      taskDescription: "Build presentation from project notes",
+      deliverable: "15-slide presentation deck",
+      emailSubject: "Class Project Slides Request",
+      emailBody: "Please create presentation slides for my operations management project analyzing supply chain optimization at Amazon. Cover current state analysis, problem identification, solution framework (3 recommendations), implementation plan, expected benefits, and risks. Use attached research notes and professor's template. Return 15-slide PowerPoint."
+    }
+  ],
 
-  return (
-    <div className="flex flex-col">
-      <JsonLd data={{
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
-          { "@type": "ListItem", position: 2, name: "Solutions", item: "https://zibly.ai/solutions" },
-          { "@type": "ListItem", position: 3, name: "MBA Students", item: "https://zibly.ai/solutions/mba-students" },
-        ],
-      }} />
-      {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-8 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">For MBA Students</div>
-              <FadeIn>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">Turn Case Prompts Into Board‑Ready Deliverables</h1>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">Email prompts, data, and notes. Get case frameworks, financial models, and polished decks.</p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                  Start Your First Analysis Free <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <CopyEmailButton size="sm" variant="outline" />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
+  // Benefits Section
+  benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Study Partner",
+  benefitsSubheadline: "Zibly helps you produce the polished deliverables your professors and recruiters expect — without sacrificing sleep or social life.",
+  benefitCards: [
+    {
+      icon: Clock,
+      title: "All-Nighters → Actual Sleep",
+      description: "Get professional-quality work done faster so you can focus on learning and interviews."
+    },
+    {
+      icon: TrendingUp,
+      title: "Polish That Impresses",
+      description: "Slides and models that look consultant-grade, not student-rushed."
+    },
+    {
+      icon: BarChart3,
+      title: "More Time for What Matters",
+      description: "Spend less time formatting, more time networking and preparing for recruiting."
+    }
+  ],
 
-      {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">We Know Your Grind</h2>
-              <p className="mt-4 text-black md:text-lg">Because applications, cases, and classes collide.</p>
-            </SlideUp>
-          </div>
-          <StaggerContainer className="grid gap-8 md:grid-cols-3">
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                    <Clock className="h-6 w-6 text-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black">Time Pressure</h3>
-                  <p className="text-black">Cases tomorrow, interviews next week, finals next month.</p>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                    <Users className="h-6 w-6 text-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black">Polish Matters</h3>
-                  <p className="text-black">Recruiting decks and class deliverables must look professional.</p>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                    <TrendingUp className="h-6 w-6 text-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black">Scattered Inputs</h3>
-                  <p className="text-black">Exhibits here, notes there — and a deck needed fast.</p>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
+  // ROI Section
+  roiWithoutItems: [
+    "Formatting slides until 3 AM = <strong class=\"text-gray-700\">exhaustion + mistakes</strong>",
+    "Excel errors in model = <strong class=\"text-gray-700\">points off + stress</strong>",
+    "<strong class=\"text-gray-700\">20+ hours per case</strong> leaves no time for recruiting prep",
+    "Amateur-looking work doesn't impress recruiters"
+  ],
+  roiWithItems: [
+    "Polished deliverables from <strong class=\"text-primary\">$20</strong>",
+    "<strong class=\"text-primary\">6-24 hour turnaround</strong> for most projects",
+    "<strong class=\"text-primary\">Professional-quality work</strong> that stands out",
+    "More time for interview prep and networking events"
+  ],
+  roiTagline: "Better grades. Better sleep. Better recruiting outcomes.",
 
-      {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Your On‑Call Analyst</h2>
-              <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">From case frameworks to decks and models, delivered with professional depth</p>
-            </SlideUp>
-          </div>
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-black">
-                  <BarChart3 className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Market & Case Analysis</h3>
-                  <p className="text-black mb-4">Frameworks, sizing, competitor maps, and recommendation write‑ups</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Market entry, profitability, growth</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>SWOT and Five Forces</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Exhibit commentary</span></div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-black">
-                  <FileText className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Decks & Storylines</h3>
-                  <p className="text-black mb-4">Polished slides with charts, structure, and an executive narrative</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Professional formatting</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Data visualizations</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Storyline development</span></div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-black">
-                  <FileSpreadsheet className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Financial Models</h3>
-                  <p className="text-black mb-4">DCF, LBO, and 3‑statement models with sensitivities</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Clean inputs & structure</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Assumptions & scenarios</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Charts + executive summary</span></div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
+  // Quality Standards
+  qualityStandardsHeadline: "Quality Standards for Students",
+  qualityStandardsSubheadline: "Academic rigor meets professional polish",
+  qualityStandards: [
+    {
+      title: "Professional formatting",
+      description: "Slides and models that look consultant/banker-grade"
+    },
+    {
+      title: "Structured thinking",
+      description: "MECE frameworks, clear storylines, and logical flow"
+    },
+    {
+      title: "Accurate calculations",
+      description: "Error-checked models with clear assumptions"
+    },
+    {
+      title: "Academic integrity support",
+      description: "We provide drafts and frameworks — you own the final work and insights"
+    },
+    {
+      title: "Fast turnaround",
+      description: "Most projects delivered within 6-24 hours"
+    }
+  ],
 
-      {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            <FadeIn delay={0.1}>
-              <div className="rounded-lg border p-6 bg-white">
-                <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-                <ul className="space-y-2 text-sm text-black">
-                  <li>• 10–20 slide decks (PPTX)</li>
-                  <li>• Excel models with sensitivities</li>
-                  <li>• Executive memos (PDF/DOCX)</li>
-                </ul>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <div className="rounded-lg border p-6 bg-white">
-                <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-                <ul className="space-y-2 text-sm text-black">
-                  <li>• Market sizing + competitor maps</li>
-                  <li>• Pricing/packaging teardown</li>
-                  <li>• KPI deep‑dives + commentary</li>
-                </ul>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.3}>
-              <div className="rounded-lg border p-6 bg-white">
-                <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-                <ol className="space-y-2 text-sm text-black list-decimal pl-5">
-                  <li>Forward files or link to data</li>
-                  <li>State the outcome you want</li>
-                  <li>Receive the finished deliverable</li>
-                </ol>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
+  // How It Works
+  howItWorksSteps: [
+    {
+      title: "Forward your assignment to work@zibly.ai",
+      description: "Send case prompts, data files, or project instructions"
+    },
+    {
+      title: "Describe what you need",
+      description: "E.g., \"12-slide deck + exec summary\" or \"clean up my Excel model\""
+    },
+    {
+      title: "Receive polished deliverable",
+      description: "Review, customize, and submit per your school's guidelines"
+    }
+  ],
+  howItWorksSubheadline: "No learning curve. No subscriptions. Just email and get help.",
 
-      {/* ROI Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">The Payoff Is Obvious</h2>
-            </SlideUp>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid gap-8 md:grid-cols-2">
-              <AnimatedCard delay={0.1}>
-                <div className="bg-white rounded-lg p-6 shadow-lg border-2 border-black">
-                  <h3 className="text-xl font-semibold mb-4 text-black">Without Zibly</h3>
-                  <ul className="space-y-3 text-black">
-                    <li>• Hours formatting slides and exhibits</li>
-                    <li>• Last‑minute edits before class</li>
-                    <li>• Less time for practice and networking</li>
-                  </ul>
-                </div>
-              </AnimatedCard>
-              <AnimatedCard delay={0.2}>
-                <div className="bg-white rounded-lg p-6 shadow-lg border-2 border-primary">
-                  <h3 className="text-xl font-semibold mb-4 text-black">With Zibly</h3>
-                  <ul className="space-y-3 text-black">
-                    <li>• Polished decks, models, and memos</li>
-                    <li>• Clear storylines and visuals</li>
-                    <li>• More time for prep and interviews</li>
-                  </ul>
-                </div>
-              </AnimatedCard>
-            </div>
-          </div>
-        </div>
-      </section>
+  // CTA
+  ctaHeadline: "Ready to <span class=\"text-primary\">Level Up</span> Your MBA Work?",
+  ctaSubheadline: "Join MBA students at top schools already using Zibly to deliver better work in less time. Your first project is free — see the quality for yourself.",
+  ctaButtonText: "Start Your Free Project",
 
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Ready to Stand Out This Semester?</h2>
-              <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">Send a task to work@zibly.ai. Your first analysis is free.</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-black hover:bg-black/90 text-white" onClick={handleEmailClick}>
-                Start Your Free Task <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white" asChild>
-                <Link href="/features#workflow">See How It Works</Link>
-              </Button>
-              <CopyEmailButton size="sm" variant="outline" />
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  // Related Use Cases
+  relatedUseCases: [
+    {
+      title: "Management Consultants",
+      description: "See how professionals use Zibly for client-ready decks and analysis.",
+      href: "/solutions/consultants"
+    },
+    {
+      title: "Investment Banking",
+      description: "Professional-grade pitch decks and financial models.",
+      href: "/solutions/investment-banking"
+    },
+    {
+      title: "Law Students",
+      description: "Legal research, briefs, and memo drafting assistance.",
+      href: "/solutions/law-students"
+    }
+  ]
+}
+
+export default function MBAStudentsPage() {
+  return <UseCaseTemplate content={mbaStudentsContent} />
 }

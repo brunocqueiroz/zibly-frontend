@@ -90,7 +90,7 @@ export const metaByPath: Record<
     canonical: "https://zibly.ai/terms",
   },
 
-  // ── Solutions (industry pages) ─────────────────────────────────────
+  // ── Use Cases (industry pages) ─────────────────────────────────────
   "/solutions/consultants": {
     title: "AI for Consultants – Faster Decks & Deeper Insights",
     description:

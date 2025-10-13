@@ -9,7 +9,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Info } from "lucide-react"
 import { useAuth } from "@/components/auth-provider"
 
 export default function LoginPage() {
@@ -71,16 +70,6 @@ export default function LoginPage() {
     )
   }
 
-  const handleDemoLogin = () => {
-    const emailInput = document.getElementById("email") as HTMLInputElement
-    const passwordInput = document.getElementById("password") as HTMLInputElement
-
-    if (emailInput && passwordInput) {
-      emailInput.value = "demo@zibly.ai"
-      passwordInput.value = "password123"
-    }
-  }
-
   return (
     <div className="min-h-screen w-full bg-gray-50">
       <div className="container flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-12">
@@ -97,24 +86,6 @@ export default function LoginPage() {
             </AlertDescription>
           </Alert>
         )}
-
-        <Alert className="bg-white border-2 border-black">
-          <Info className="h-4 w-4 text-primary" />
-          <AlertDescription className="text-black">
-            <div className="space-y-1">
-              <div className="font-medium">Demo Account Available</div>
-              <div className="text-sm">Email: demo@zibly.ai | Password: password123</div>
-              <Button
-                variant="link"
-                size="sm"
-                className="h-auto p-0 text-primary hover:text-primary/80"
-                onClick={handleDemoLogin}
-              >
-                Click to fill demo credentials
-              </Button>
-            </div>
-          </AlertDescription>
-        </Alert>
 
         {error && (
           <Alert variant="destructive">

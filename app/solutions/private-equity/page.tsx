@@ -1,359 +1,186 @@
 'use client';
 
+import UseCaseTemplate, { UseCaseContent } from "@/components/UseCaseTemplate"
+import { BarChart3, TrendingUp, FileText, Clock } from "lucide-react"
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Target, BarChart3, FileText, TrendingUp, CheckCircle, Search } from "lucide-react"
-import CopyEmailButton from "@/components/copy-email-button"
-import FadeIn from "@/components/animations/FadeIn"
-import SlideUp from "@/components/animations/SlideUp"
-import AnimatedCard from "@/components/animations/AnimatedCard"
-import MagneticButton from "@/components/animations/MagneticButton"
-import GradientText from "@/components/animations/GradientText"
-import WaveDivider from "@/components/WaveDivider"
-import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+const privateEquityContent: UseCaseContent = {
+  // Hero Section
+  badge: "For Private Equity",
+  headline: "Stop Drowning in",
+  headlineHighlight: "Portco Spreadsheets",
+  subheadline: "Send us your portfolio data, financials, or deal models. Get back QBR packs, investment memos, and valuation updates — institutional-grade, overnight.",
+  emailPlaceholderSubject: "Q4 Portfolio KPI Dashboard Request",
+  emailPlaceholderBody: "Please update our portfolio dashboard with Q4 financials for 8 companies. Include revenue, EBITDA, burn, and ARR trends. Flag any companies off-plan by >15%. Return Excel dashboard + 3-slide summary.",
+  emailPlaceholderFrom: "your.email@pefirm.com",
+
+  // What You Send/Get Section
+  whatYouSendItems: [
+    "Excel portfolio tracking files or company financials",
+    "Investment memos or data room links",
+    "Brief instructions on analysis or update needed"
+  ],
+  whatYouGetBackItems: [
+    "<strong>Updated Excel dashboard</strong> with KPIs and variance analysis",
+    "<strong>Investment memo</strong> or diligence summary",
+    "<strong>QBR presentation deck</strong> (10–15 slides, your template)"
+  ],
+
+  // Task Recipes
+  taskRecipes: [
+    {
+      icon: BarChart3,
+      title: "Portfolio KPI Dashboard Update",
+      taskDescription: "Refresh portfolio company metrics and trends",
+      deliverable: "Excel dashboard + 3-slide summary",
+      emailSubject: "Portfolio KPI Dashboard Update Request",
+      emailBody: "Please update our portfolio dashboard with latest quarterly financials for all 12 portfolio companies. Include revenue growth, EBITDA margins, cash burn, ARR/MRR trends, and headcount changes. Flag any companies >15% off plan. Add YoY and QoQ comparisons. Return Excel dashboard + 3-slide executive summary."
+    },
+    {
+      icon: TrendingUp,
+      title: "LBO or DCF Model Refresh",
+      taskDescription: "Update deal model with new assumptions",
+      deliverable: "Excel model + sensitivity tables",
+      emailSubject: "LBO Model Refresh Request",
+      emailBody: "Please refresh our LBO model for Target Co with updated Q3 actuals and revised projections. Update revenue assumptions to reflect 35% growth (down from 40%), adjust EBITDA margins, and revise exit multiple to 8x (from 9x). Recalculate IRR and MOIC. Add sensitivity tables for exit timing and multiples. Return updated Excel model."
+    },
+    {
+      icon: FileText,
+      title: "Investment Memo Draft",
+      taskDescription: "Create IC memo from diligence materials",
+      deliverable: "15-page investment memo",
+      emailSubject: "Investment Memo Draft Request",
+      emailBody: "Please draft an investment committee memo for a $50M Series B investment in a B2B SaaS company. Include executive summary, market overview, business model analysis, competitive positioning, financial projections, valuation (comps + DCF), key risks, and investment thesis. Use attached management deck and financials. Return Word document memo."
+    },
+    {
+      icon: BarChart3,
+      title: "Market Scan / Add-On Target List",
+      taskDescription: "Identify add-on acquisition targets",
+      deliverable: "Target list Excel + 5-slide summary",
+      emailSubject: "Add-On Target List Request",
+      emailBody: "Please create a target list of potential add-on acquisitions for our healthcare IT portfolio company. Focus on companies with $10M-$50M revenue in patient engagement software. Include company overview, estimated revenue, geographic focus, product capabilities, and strategic rationale. Prioritize top 15 targets. Return Excel list + 5-slide summary deck."
+    },
+    {
+      icon: TrendingUp,
+      title: "QBR Pack Preparation",
+      taskDescription: "Quarterly board review materials",
+      deliverable: "20-slide QBR deck + Excel backup",
+      emailSubject: "QBR Pack Preparation Request",
+      emailBody: "Please prepare Q4 QBR materials for PortCo Board meeting. Include financial performance (actuals vs. plan), key metrics dashboard, operational highlights, strategic initiatives update, market developments, and upcoming milestones. Use attached financials and previous QBR template. Return PowerPoint deck + supporting Excel."
+    },
+    {
+      icon: FileText,
+      title: "Valuation Cross-Check",
+      taskDescription: "Validate portfolio company valuations",
+      deliverable: "Valuation memo + comps analysis",
+      emailSubject: "Valuation Cross-Check Request",
+      emailBody: "Please perform a valuation cross-check for our cybersecurity portfolio company ahead of year-end mark. Build trading comps (5-7 public peers) and precedent transactions analysis (last 2 years). Compare to our current carrying value of 10x revenue. Include sensitivity analysis and market trends. Return memo + Excel comps."
+    }
+  ],
+
+  // Benefits Section
+  benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Portfolio Operations Team",
+  benefitsSubheadline: "Zibly delivers the models, memos, and board materials your portfolio demands — without adding headcount.",
+  benefitCards: [
+    {
+      icon: Clock,
+      title: "Small Team → Enterprise Output",
+      description: "Monitor 20+ portcos without building a massive ops team."
+    },
+    {
+      icon: TrendingUp,
+      title: "Deal Flow Bottleneck Relief",
+      description: "Your associates focus on sourcing, not spreadsheets."
+    },
+    {
+      icon: BarChart3,
+      title: "Institutional-Grade Materials",
+      description: "IC memos and QBR decks arrive polished and audit-ready."
+    }
+  ],
+
+  // ROI Section
+  roiWithoutItems: [
+    "Associate $200/hr × 30 hrs = <strong class=\"text-gray-700\">$6,000 per QBR</strong>",
+    "Analyst team for 10 portcos = <strong class=\"text-gray-700\">$400K+ annually</strong>",
+    "<strong class=\"text-gray-700\">2-week turnaround</strong> for investment memos",
+    "Deal flow constrained by bandwidth"
+  ],
+  roiWithItems: [
+    "Same QBR pack from <strong class=\"text-primary\">$20</strong>",
+    "Scale portfolio without ops headcount: <strong class=\"text-primary\">save $300K+/year</strong>",
+    "<strong class=\"text-primary\">24-hour turnaround</strong> on most deliverables",
+    "Evaluate 3× more deals per quarter"
+  ],
+  roiTagline: "Save $40,000+ per month. Scale without hiring.",
+
+  // Quality Standards
+  qualityStandardsHeadline: "Quality Standards for PE Firms",
+  qualityStandardsSubheadline: "Built for the precision and confidentiality institutional investors demand",
+  qualityStandards: [
+    {
+      title: "Audit-ready models and variance analysis",
+      description: "Clear formulas, assumption tabs, and change logs"
+    },
+    {
+      title: "IC-ready formatting and structure",
+      description: "Professional memos and decks matching your firm's standards"
+    },
+    {
+      title: "Confidential data handling",
+      description: "Enterprise-grade encryption and post-delivery deletion"
+    },
+    {
+      title: "Institutional valuation rigor",
+      description: "Traceable comps, defensible DCF assumptions, sensitivity tables"
+    },
+    {
+      title: "Portfolio-grade KPI dashboards",
+      description: "Consistent metrics, trend analysis, and variance flags"
+    }
+  ],
+
+  // How It Works
+  howItWorksSteps: [
+    {
+      title: "Forward your files to work@zibly.ai",
+      description: "Send portco financials, models, or data rooms"
+    },
+    {
+      title: "Describe the deliverable",
+      description: "E.g., \"refresh KPI dashboard, flag outliers\""
+    },
+    {
+      title: "Receive the finished analysis or deck",
+      description: "Polished, institutional-grade materials"
+    }
+  ],
+  howItWorksSubheadline: "No new platforms. No training. Just email and get it done.",
+
+  // CTA
+  ctaHeadline: "Ready to <span class=\"text-primary\">3×</span> Your Deal Capacity?",
+  ctaSubheadline: "Join PE firms already using Zibly to manage larger portfolios with leaner teams. Your first analysis is free — see the institutional quality for yourself.",
+  ctaButtonText: "Start Your Free Analysis",
+
+  // Related Use Cases
+  relatedUseCases: [
+    {
+      title: "Investment Banking",
+      description: "Pitch materials and valuation models built to banking standards.",
+      href: "/solutions/investment-banking"
+    },
+    {
+      title: "Management Consultants",
+      description: "Strategic decks and market sizing for client engagements.",
+      href: "/solutions/consultants"
+    },
+    {
+      title: "Strategy Executives",
+      description: "Market intelligence and competitive analysis on demand.",
+      href: "/solutions/strategy"
+    }
+  ]
+}
 
 export default function PrivateEquityPage() {
-  const handleEmailClick = () => {
-    const subject = "PE deal analysis needed"
-    const body = `Hi Zibly,
-
-I need help analyzing a potential acquisition. Can you [describe your need]?
-
-Thanks!`
-
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
-  }
-
-  return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-8 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">
-                For Private Equity
-              </div>
-              <SlideUp>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">
-                  Find <GradientText>Alpha</GradientText>, Not Spreadsheet Errors
-                </h1>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">
-                  Your LPs expect 20%+ returns, not 20-hour days formatting IC memos. Zibly analyzes targets,
-                  builds models, and monitors portfolios with institutional rigor.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                    Analyze Your First Deal Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <CopyEmailButton size="sm" variant="outline" />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Use Cases Section */}
-      <section className="w-full py-16 md:py-24 bg-secondary">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                From Sourcing to <GradientText>Exit</GradientText>
-              </h2>
-            </SlideUp>
-            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">
-              Zibly handles the analytical heavy lifting across your entire investment lifecycle
-            </p>
-          </div>
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <StaggerItem>
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-              <Search className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Deal Sourcing</h3>
-              <p className="text-black mb-4">
-                Screen multiple targets against your investment thesis systematically
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Market mapping</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Competitive analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Thesis validation</span>
-                </div>
-              </div>
-              </div>
-            </StaggerItem>
-
-            <StaggerItem>
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-              <Target className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Due Diligence</h3>
-              <p className="text-black mb-4">
-                Process entire data rooms and identify risks/opportunities instantly
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Financial analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Contract review</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Red flag identification</span>
-                </div>
-              </div>
-            </div>
-            </StaggerItem>
-
-            <StaggerItem>
-              <AnimatedCard delay={0.3}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-              <BarChart3 className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Portfolio Monitoring</h3>
-              <p className="text-black mb-4">
-                Track KPIs and identify value creation opportunities across portfolios
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>KPI dashboards</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>100-day plans</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Exit readiness</span>
-                </div>
-              </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 mt-6 max-w-4xl mx-auto">
-            <StaggerItem>
-              <AnimatedCard delay={0.4}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-              <FileText className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">IC Memos & LBO Models</h3>
-              <p className="text-black mb-4">
-                Generate comprehensive investment committee materials with full financial models
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Returns analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Scenario modeling</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Risk assessment</span>
-                </div>
-              </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-
-            <StaggerItem>
-              <AnimatedCard delay={0.5}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-              <TrendingUp className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Value Creation</h3>
-              <p className="text-black mb-4">
-                Identify and track operational improvements and growth initiatives
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Synergy analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Add-on screening</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Exit planning</span>
-                </div>
-              </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• IC memos and board updates</li>
-                <li>• LBO models and returns summaries</li>
-                <li>• Market maps and diligence checklists</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Data room triage and synthesis</li>
-                <li>• KPI dashboards for portfolio reviews</li>
-                <li>• Add‑on screens and buyer lists</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-              <ol className="space-y-2 text-sm text-black list-decimal pl-5">
-                <li>Forward materials (data room links, Excel)</li>
-                <li>Specify output (memo/deck/model)</li>
-                <li>Receive the finished deliverable</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* ROI Calculator Section */}
-      <section className="w-full py-16 md:py-24 bg-secondary">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Your <GradientText>ROI</GradientText> Calculator
-              </h2>
-            </SlideUp>
-          </div>
-          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            <div className="grid gap-6 md:grid-cols-2">
-              <div>
-                <h3 className="text-xl font-semibold mb-4 text-black">Current State</h3>
-                <ul className="space-y-3 text-black">
-                  <li className="flex justify-between">
-                    <span>Associates on team:</span>
-                    <span className="font-semibold">4 × $200k = $800k</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Deals reviewed/year:</span>
-                    <span className="font-semibold">~20 deals</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Time per deal:</span>
-                    <span className="font-semibold">2-3 weeks</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Cost per deal:</span>
-                    <span className="font-semibold">~$40,000</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-4 text-black">With Zibly</h3>
-                <ul className="space-y-3 text-black">
-                  <li className="flex justify-between">
-                    <span>Zibly cost:</span>
-                    <span className="font-semibold">From $20/month</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Deals reviewed/year:</span>
-                    <span className="font-semibold">60+ deals</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Time per deal:</span>
-                    <span className="font-semibold">Typically 2 minutes to 1 hour</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Cost per deal:</span>
-                    <span className="font-semibold">~$200</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="mt-8 p-4 bg-primary/10 rounded-lg text-center">
-              <p className="text-2xl font-bold text-black">
-                3x more deals reviewed. 95% cost reduction. Find your next unicorn.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <SlideUp>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                  Stop Missing Deals. Start Making <GradientText>Alpha</GradientText>.
-                </h2>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">
-                  The best PE firms are already using Zibly to outpace their competition.
-                  Your first deal analysis is free—see why they switched.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    className="bg-black hover:bg-black/90 text-white"
-                    onClick={handleEmailClick}
-                  >
-                    Analyze Your First Deal Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-black text-black hover:bg-black hover:text-white"
-                    asChild
-                  >
-                    <Link href="/security">Security & Compliance</Link>
-                  </Button>
-                </MagneticButton>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  return <UseCaseTemplate content={privateEquityContent} />
 }

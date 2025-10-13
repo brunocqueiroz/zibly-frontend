@@ -276,8 +276,8 @@ Sarah`
 
                   {/* Error message */}
                   {errorMessage && (
-                    <div className="px-6 py-3 bg-red-50 border-t border-red-200">
-                      <p className="text-sm text-red-600 flex items-center gap-2">
+                    <div className="px-6 py-3 bg-gray-50 border-t border-gray-300">
+                      <p className="text-sm text-gray-700 flex items-center gap-2">
                         <AlertCircle className="h-4 w-4" />
                         {errorMessage}
                       </p>
@@ -582,7 +582,7 @@ Sarah`
                   </ul>
                   <div className="mt-6 pt-4 border-t border-gray-300">
                     <p className="text-sm inter-text text-gray-600">Time spent managing AI:</p>
-                    <p className="text-2xl inter-text-medium text-red-600 font-bold">2-3 hours</p>
+                    <p className="text-2xl inter-text-medium text-gray-700 font-bold">2-3 hours</p>
                   </div>
                 </TiltCard>
               </AnimatedCard>

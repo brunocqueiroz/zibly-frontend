@@ -56,14 +56,16 @@ export default function Navbar() {
   ]
 
   const isHomePage = pathname === "/"
-  const isFeaturesPage = pathname === "/features"
-  const isAboutPage = pathname === "/about"
   const isFaqPage = pathname === "/faq"
   const isBlogPage = pathname?.startsWith("/blog")
   const isSolutionsPage = pathname?.startsWith("/solutions")
   const isLoginPage = pathname?.startsWith("/login")
   const isSignupPage = pathname?.startsWith("/signup")
-  const isWhitePage = isHomePage || isFeaturesPage || isAboutPage || isFaqPage || isBlogPage || isSolutionsPage || isLoginPage || isSignupPage
+  const isTermsPage = pathname === "/terms"
+  const isPrivacyPage = pathname === "/privacy"
+  const isSecurityPage = pathname === "/security"
+  const isPricingPage = pathname === "/pricing"
+  const isWhitePage = isHomePage || isFaqPage || isBlogPage || isSolutionsPage || isLoginPage || isSignupPage || isTermsPage || isPrivacyPage || isSecurityPage || isPricingPage
   const navBg = isWhitePage ? (isScrolled ? 'bg-white/80' : 'bg-white') : (isScrolled ? 'bg-background/80' : 'bg-background')
   const textColor = isWhitePage ? 'text-black' : 'text-white'
 
@@ -78,23 +80,9 @@ export default function Navbar() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link href="/features" legacyBehavior passHref>
-                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
-                    Features
-                  </NavigationMenuLink>
+                <Link href="/solutions" legacyBehavior passHref>
+                  <NavigationMenuTrigger className={`${textColor} hover:text-black`}>Use Cases</NavigationMenuTrigger>
                 </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link href="/pricing" legacyBehavior passHref>
-                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
-                    Pricing
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={`${textColor} hover:text-black`}>Solutions</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className={`w-[560px] p-4 grid grid-cols-2 gap-4 ${isWhitePage ? 'bg-white border-2 border-black' : 'bg-background border border-border'}`}>
                     <div>
@@ -107,8 +95,8 @@ export default function Navbar() {
                                 href={item.href}
                                 className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className={`font-medium ${isWhitePage ? 'text-black group-hover:text-primary' : 'text-white group-hover:text-white'}`}>{item.title}</div>
-                                <p className={`text-xs ${isWhitePage ? 'text-black/70 group-hover:text-primary' : 'text-white/70 group-hover:text-white'}`}>{item.description}</p>
+                                <div className={`font-medium ${isWhitePage ? 'text-black group-hover:text-white' : 'text-white group-hover:text-white'}`}>{item.title}</div>
+                                <p className={`text-xs ${isWhitePage ? 'text-black/70 group-hover:text-white' : 'text-white/70 group-hover:text-white'}`}>{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -125,8 +113,8 @@ export default function Navbar() {
                                 href={item.href}
                                 className="block select-none rounded-md p-2 text-sm no-underline outline-none transition-colors hover:bg-accent group"
                               >
-                                <div className={`font-medium ${isWhitePage ? 'text-black group-hover:text-primary' : 'text-white group-hover:text-white'}`}>{item.title}</div>
-                                <p className={`text-xs ${isWhitePage ? 'text-black/70 group-hover:text-primary' : 'text-white/70 group-hover:text-white'}`}>{item.description}</p>
+                                <div className={`font-medium ${isWhitePage ? 'text-black group-hover:text-white' : 'text-white group-hover:text-white'}`}>{item.title}</div>
+                                <p className={`text-xs ${isWhitePage ? 'text-black/70 group-hover:text-white' : 'text-white/70 group-hover:text-white'}`}>{item.description}</p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -138,9 +126,9 @@ export default function Navbar() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/about" legacyBehavior passHref>
+                <Link href="/pricing" legacyBehavior passHref>
                   <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
-                    About
+                    Pricing
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -193,15 +181,10 @@ export default function Navbar() {
             <SheetContent side="right" className="bg-white text-black border-l-2 border-black">
               <SheetTitle className="text-lg font-semibold mb-4 text-black">Navigation Menu</SheetTitle>
               <div className="flex flex-col space-y-4">
-                <Link href="/features" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
-                  Features
-                </Link>
-                <Link href="/pricing" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
-                  Pricing
-                </Link>
-
                 <div className="space-y-2">
-                  <div className="text-lg font-medium text-black">Solutions</div>
+                  <Link href="/solutions" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
+                    Use Cases
+                  </Link>
                   <div className="pl-4">
                     <div className="text-xs uppercase text-black/70 mb-1">Professionals</div>
                     <div className="pl-2 space-y-1 mb-2">
@@ -222,8 +205,8 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <Link href="/about" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
-                  About
+                <Link href="/pricing" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
+                  Pricing
                 </Link>
                 <Link href="/faq" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                   FAQ

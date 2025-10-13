@@ -1,333 +1,186 @@
-"use client";
+'use client';
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, TrendingUp, Users, BarChart3, Megaphone, CheckCircle, Zap } from "lucide-react"
-import CopyEmailButton from "@/components/copy-email-button"
-import FadeIn from "@/components/animations/FadeIn"
-import SlideUp from "@/components/animations/SlideUp"
-import AnimatedCard from "@/components/animations/AnimatedCard"
-import MagneticButton from "@/components/animations/MagneticButton"
-import GradientText from "@/components/animations/GradientText"
-import WaveDivider from "@/components/WaveDivider"
-import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+import UseCaseTemplate, { UseCaseContent } from "@/components/UseCaseTemplate"
+import { BarChart3, TrendingUp, FileText, Clock } from "lucide-react"
+
+const marketingContent: UseCaseContent = {
+  // Hero Section
+  badge: "For Marketing Teams",
+  headline: "Stop Drowning in",
+  headlineHighlight: "Decks, Briefs, and Reports",
+  subheadline: "Send your campaign briefs, data reports, or outlines to Zibly. Get back polished decks, summaries, or content plans — consistent, branded, and ready to share.",
+  emailPlaceholderSubject: "Q4 Campaign Performance Report",
+  emailPlaceholderBody: "Please create a 10-slide performance deck summarizing the attached campaign data. Include top-performing channels, ROI breakdown, and key learnings. Use a clean, executive-friendly layout with charts and concise text.",
+  emailPlaceholderFrom: "your.email@company.com",
+
+  // What You Send/Get Section
+  whatYouSendItems: [
+    "Campaign data exports (Google Ads, Meta, HubSpot, etc.)",
+    "Marketing briefs or brainstorm notes",
+    "Brand assets or design templates"
+  ],
+  whatYouGetBackItems: [
+    "<strong>Campaign reports and decks</strong> (10–15 slides, formatted and visualized)",
+    "<strong>Content calendars or briefs</strong> (structured and templated)",
+    "<strong>Market or competitor summaries</strong> (PDFs, slides, or memos)"
+  ],
+
+  // Task Recipes
+  taskRecipes: [
+    {
+      icon: BarChart3,
+      title: "Campaign Performance Report",
+      taskDescription: "Summarize ad data and ROI",
+      deliverable: "Deck + summary PDF",
+      emailSubject: "Campaign Performance Report Request",
+      emailBody: "Please create a campaign performance report for our Q3 paid media efforts across Google Ads, Meta, and LinkedIn. Include spend by channel, impressions, clicks, conversions, CPA, ROI, and top 5 performing ad creatives. Add YoY comparison and recommendations for Q4 optimization. Use attached campaign exports. Return 12-slide PowerPoint + 1-page PDF summary."
+    },
+    {
+      icon: FileText,
+      title: "Creative Brief Draft",
+      taskDescription: "Turn brainstorm notes into a clear brief",
+      deliverable: "1–2 page brief (DOCX/PDF)",
+      emailSubject: "Creative Brief Request",
+      emailBody: "Please create a creative brief for our new product launch campaign targeting B2B SaaS buyers. Include campaign objectives, target audience profile, key messaging pillars, brand voice guidelines, deliverables needed (video, display ads, landing page), success metrics, and timeline. Use attached brainstorm notes and brand guidelines. Return 2-page Word document."
+    },
+    {
+      icon: TrendingUp,
+      title: "Content Calendar",
+      taskDescription: "Build a month of content from ideas",
+      deliverable: "Spreadsheet + summary plan",
+      emailSubject: "Content Calendar Request",
+      emailBody: "Please create a content calendar for November covering blog posts, social media, email newsletters, and webinars. Include content themes, target keywords, distribution channels, owner assignments, and publishing dates. Use attached content ideas doc and previous month's performance data. Return Excel calendar + 1-page content strategy summary."
+    },
+    {
+      icon: BarChart3,
+      title: "Competitor Analysis",
+      taskDescription: "Analyze competitor campaigns or websites",
+      deliverable: "Deck + table of insights",
+      emailSubject: "Competitor Analysis Request",
+      emailBody: "Please analyze the top 4 competitors in our space (Company A, B, C, D). Research their website messaging, value propositions, pricing models, content marketing approach, social media presence, and recent campaign themes. Create comparison table and SWOT analysis. Include screenshots and links. Return 10-slide deck + Excel comparison matrix."
+    },
+    {
+      icon: FileText,
+      title: "Blog or Article Outline",
+      taskDescription: "Turn topic ideas into structured outlines",
+      deliverable: "800–1,000 word outline",
+      emailSubject: "Blog Outline Request",
+      emailBody: "Please create a detailed outline for a blog post titled 'The Complete Guide to Marketing Automation for B2B Companies.' Include introduction, 5-7 main sections with subheadings, key points to cover in each section, internal/external linking opportunities, and conclusion with CTA. Target 2,000 words. Use attached topic research and keyword list. Return formatted outline document."
+    },
+    {
+      icon: TrendingUp,
+      title: "Marketing Strategy Deck",
+      taskDescription: "Summarize goals, channels, KPIs",
+      deliverable: "10-slide strategy deck",
+      emailSubject: "Marketing Strategy Deck Request",
+      emailBody: "Please create a 2025 marketing strategy deck covering our goals (pipeline, revenue, brand awareness), target audience segments, channel mix (paid, organic, events), budget allocation, key campaigns, success metrics/KPIs, and timeline. Use attached strategic planning notes and 2024 performance data. Format for executive presentation. Return 10-slide PowerPoint."
+    }
+  ],
+
+  // Benefits Section
+  benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Marketing Coordinator",
+  benefitsSubheadline: "Zibly helps marketing teams plan, analyze, and report faster. From campaign decks to content briefs, it works like the assistant you wish you had — reliable, fast, and perfectly formatted.",
+  benefitCards: [
+    {
+      icon: Clock,
+      title: "Instant Campaign Reporting",
+      description: "Turn analytics into executive decks overnight."
+    },
+    {
+      icon: TrendingUp,
+      title: "Briefs and Content Plans",
+      description: "Zibly structures your creative notes into clean, reusable briefs."
+    },
+    {
+      icon: BarChart3,
+      title: "Team Alignment",
+      description: "Everyone works from the same templates and formats — automatically."
+    }
+  ],
+
+  // ROI Section
+  roiWithoutItems: [
+    "Hours lost formatting decks and slides = <strong class=\"text-gray-700\">wasted time</strong>",
+    "Disorganized brainstorming notes = <strong class=\"text-gray-700\">confusion</strong>",
+    "Repetitive end-of-quarter reports = <strong class=\"text-gray-700\">burnout</strong>",
+    "Missed deadlines, late nights = <strong class=\"text-gray-700\">stress</strong>"
+  ],
+  roiWithItems: [
+    "Ready-to-share reports in hours from <strong class=\"text-primary\">$20</strong>",
+    "Structured, formatted briefs = <strong class=\"text-primary\">clarity</strong>",
+    "Automated summaries = <strong class=\"text-primary\">efficiency</strong>",
+    "Instant outputs, no prompts = <strong class=\"text-primary\">peace of mind</strong>"
+  ],
+  roiTagline: "Save hours every week. Present data beautifully — without the grind.",
+
+  // Quality Standards
+  qualityStandardsHeadline: "Quality Standards for Marketing Teams",
+  qualityStandardsSubheadline: "Built for brand consistency and marketing excellence",
+  qualityStandards: [
+    {
+      title: "Brand consistency",
+      description: "Decks match fonts, colors, and voice guidelines"
+    },
+    {
+      title: "Data visualization",
+      description: "Charts automatically generated and cleanly formatted"
+    },
+    {
+      title: "Structured storytelling",
+      description: "Clear insights, summaries, and takeaways"
+    },
+    {
+      title: "Version control",
+      description: "Consistent templates across campaigns"
+    },
+    {
+      title: "Confidentiality",
+      description: "All client and campaign data deleted after delivery"
+    }
+  ],
+
+  // How It Works
+  howItWorksSteps: [
+    {
+      title: "Forward your files to work@zibly.ai",
+      description: "Attach reports, briefs, or campaign data"
+    },
+    {
+      title: "Describe what you need",
+      description: "E.g., \"campaign report,\" \"creative brief,\" \"competitor analysis\""
+    },
+    {
+      title: "Receive your deliverable",
+      description: "Polished, branded, and ready to share"
+    }
+  ],
+  howItWorksSubheadline: "No dashboards. No prompts. Just email your work — Zibly takes care of the rest.",
+
+  // CTA
+  ctaHeadline: "Ready to <span class=\"text-primary\">Automate Your Marketing Workflow</span>?",
+  ctaSubheadline: "Join marketing teams using Zibly to create campaign reports, content briefs, and strategy decks in record time. Your first project is free.",
+  ctaButtonText: "Start Your Free Project",
+
+  // Related Use Cases
+  relatedUseCases: [
+    {
+      title: "Management Consultants",
+      description: "Strategy decks and market analyses — built the same way.",
+      href: "/solutions/consultants"
+    },
+    {
+      title: "Strategy Executives",
+      description: "Executive reports and investor updates, formatted automatically.",
+      href: "/solutions/strategy"
+    },
+    {
+      title: "MBA Students",
+      description: "Clear, professional decks and business reports made from notes.",
+      href: "/solutions/mba-students"
+    }
+  ]
+}
 
 export default function MarketingPage() {
-  const handleEmailClick = () => {
-    const subject = "Marketing analysis needed"
-    const body = `Hi Zibly,
-
-I need help with marketing analysis. Can you [describe your need]?
-
-Thanks!`
-
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
-  }
-
-  return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-8 text-center">
-            <div className="space-y-4 max-w-3xl">
-              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-black mb-4">
-                For Marketing Teams
-              </div>
-              <SlideUp>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-                  Launch <GradientText>Campaigns</GradientText>, Not Spreadsheets
-                </h1>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">
-                  While you're pivoting tables, your competition is pivoting strategies. Zibly turns data
-                  into insights and insights into campaigns that actually convert.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                    Analyze Your First Campaign Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <CopyEmailButton size="sm" variant="outline" />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                The Data <GradientText>Drowning</GradientText> Is Real
-              </h2>
-            </SlideUp>
-          </div>
-          <StaggerContainer className="grid gap-8 md:grid-cols-3">
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <BarChart3 className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Analysis Paralysis</h3>
-              <p className="text-black">
-                17 dashboards, 43 metrics, 0 actionable insights. Sound familiar?
-              </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <Users className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Resource Stretched</h3>
-              <p className="text-black">
-                "Do more with less" while channels multiply and budgets shrink
-              </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <Zap className="h-6 w-6 text-black" />
-              </div>
-              <h3 className="text-xl font-semibold text-black">Speed to Market</h3>
-              <p className="text-black">
-                By the time your analysis is done, the trend is already over
-              </p>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-secondary">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Your <GradientText>AI Marketing</GradientText> Analyst
-              </h2>
-            </SlideUp>
-            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">
-              From campaign analysis to content creation, Zibly handles the heavy lifting
-            </p>
-          </div>
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <StaggerItem>
-              <AnimatedCard delay={0.1}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-              <TrendingUp className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Campaign Analysis</h3>
-              <p className="text-black mb-4">
-                Turn raw campaign data into actionable insights and optimization strategies
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Multi-channel attribution</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>ROI analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>A/B test insights</span>
-                </div>
-              </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-
-            <StaggerItem>
-              <AnimatedCard delay={0.2}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-              <Users className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Competitor Research</h3>
-              <p className="text-black mb-4">
-                Track competitor moves and identify market opportunities in real-time
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Campaign tracking</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Messaging analysis</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Gap identification</span>
-                </div>
-              </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-
-            <StaggerItem>
-              <AnimatedCard delay={0.3}>
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-              <Megaphone className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2 text-black">Content Strategy</h3>
-              <p className="text-black mb-4">
-                Create data-driven content strategies and editorial calendars that convert
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Topic research</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>SEO optimization</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span>Content calendars</span>
-                </div>
-              </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* Results Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Real <GradientText>Results</GradientText> from Real Marketers
-              </h2>
-            </SlideUp>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-            <div className="text-center">
-              <p className="text-5xl font-bold text-black mb-2">312%</p>
-              <p className="text-xl font-semibold mb-2 text-black">ROI Improvement</p>
-              <p className="text-black">Average across all Zibly users after 3 months</p>
-            </div>
-            <div className="text-center">
-              <p className="text-5xl font-bold text-black mb-2">8 hours</p>
-              <p className="text-xl font-semibold mb-2 text-black">Saved Per Week</p>
-              <p className="text-black">On reporting and analysis tasks</p>
-            </div>
-            <div className="text-center">
-              <p className="text-5xl font-bold text-black mb-2">2.4x</p>
-              <p className="text-xl font-semibold mb-2 text-black">Faster Campaigns</p>
-              <p className="text-black">From ideation to launch</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* Use Case Section */}
-      <section className="w-full py-16 md:py-24 bg-secondary">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Monday Morning vs. Monday with <GradientText>Zibly</GradientText>
-              </h2>
-            </SlideUp>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid gap-8 md:grid-cols-2">
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="text-xl font-semibold mb-4 text-black">Without Zibly</h3>
-                <div className="space-y-3 text-black">
-                  <p>✗ 9:00 AM - Open 7 analytics dashboards</p>
-                  <p>✗ 10:30 AM - Still exporting data to Excel</p>
-                  <p>✗ 12:00 PM - Lunch at desk, building pivot tables</p>
-                  <p>✗ 2:00 PM - Realize you need different metrics</p>
-                  <p>✗ 4:00 PM - First draft of insights</p>
-                  <p>✗ 6:00 PM - "Can you add competitor data?"</p>
-                  <p>✗ 8:00 PM - Still at office, no campaign work done</p>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-primary">
-                <h3 className="text-xl font-semibold mb-4 text-black">With Zibly</h3>
-                <div className="space-y-3 text-black">
-                  <p>✓ 9:00 AM - Email data files to Zibly</p>
-                  <p>✓ 9:05 AM - Coffee & catch up on industry news</p>
-                  <p>✓ 9:30 AM - Review Zibly's analysis & insights</p>
-                  <p>✓ 10:00 AM - Strategy meeting with fresh data</p>
-                  <p>✓ 11:00 AM - Brief creative team on new campaign</p>
-                  <p>✓ 12:00 PM - Actual lunch break</p>
-                  <p>✓ 2:00 PM - Campaign launched, tracking live</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(210 40% 16%)" flip={true} />
-
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <SlideUp>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
-                  Stop Reporting. Start <GradientText>Growing</GradientText>.
-                </h2>
-              </SlideUp>
-              <FadeIn delay={0.2}>
-                <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">
-                  Join marketing teams who use Zibly to turn data into
-                  growth. Your first campaign analysis is free.
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    className="bg-black hover:bg-black/90 text-white"
-                    onClick={handleEmailClick}
-                  >
-                    Analyze Your Campaign Free <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </MagneticButton>
-                <MagneticButton>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-black text-black hover:bg-black hover:text-white"
-                    asChild
-                  >
-                    <Link href="/features#workflow">See How It Works</Link>
-                  </Button>
-                </MagneticButton>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  return <UseCaseTemplate content={marketingContent} />
 }

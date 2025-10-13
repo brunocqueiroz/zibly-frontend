@@ -1,210 +1,186 @@
-"use client";
+'use client';
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Clock, FileText, Scale, BookOpen, CheckCircle, Users } from "lucide-react"
-import JsonLd from "@/components/json-ld"
-import CopyEmailButton from "@/components/copy-email-button"
-import FadeIn from "@/components/animations/FadeIn"
-import SlideUp from "@/components/animations/SlideUp"
-import AnimatedCard from "@/components/animations/AnimatedCard"
-import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
+import UseCaseTemplate, { UseCaseContent } from "@/components/UseCaseTemplate"
+import { BarChart3, TrendingUp, FileText, Clock } from "lucide-react"
+
+const lawStudentsContent: UseCaseContent = {
+  // Hero Section
+  badge: "For Law Students",
+  headline: "Stop Spending",
+  headlineHighlight: "All Night Writing Case Briefs",
+  subheadline: "Send your readings, case citations, and assignment prompts to Zibly. Get back structured briefs, outlines, and research memos — so you can focus on understanding the law.",
+  emailPlaceholderSubject: "Case Brief Request - Constitutional Law",
+  emailPlaceholderBody: "Please create an IRAC case brief for Marbury v. Madison (5 U.S. 137). Include facts, procedural history, issue, rule, analysis, holding, and significance. Focus on judicial review establishment. Return 2-page Word document.",
+  emailPlaceholderFrom: "your.email@law-school.edu",
+
+  // What You Send/Get Section
+  whatYouSendItems: [
+    "Case citations or reading assignments",
+    "Class notes or professor outlines",
+    "Assignment instructions or memo prompts"
+  ],
+  whatYouGetBackItems: [
+    "<strong>Case briefs</strong> with IRAC/CREAC structure",
+    "<strong>Course outlines</strong> organized by topic",
+    "<strong>Research memos</strong> or exam study materials"
+  ],
+
+  // Task Recipes
+  taskRecipes: [
+    {
+      icon: FileText,
+      title: "Case Brief",
+      taskDescription: "IRAC/CREAC brief from case citation",
+      deliverable: "2-3 page structured brief",
+      emailSubject: "Case Brief Request",
+      emailBody: "Please create an IRAC case brief for Brown v. Board of Education (347 U.S. 483). Include complete facts, procedural history, legal issue, applicable constitutional rules, court's analysis and reasoning, final holding, and case significance for future doctrine. Return 2-3 page Word document formatted for class preparation."
+    },
+    {
+      icon: BarChart3,
+      title: "Legal Outline",
+      taskDescription: "Organize course material by topic",
+      deliverable: "20-30 page course outline",
+      emailSubject: "Legal Outline Request",
+      emailBody: "Please create a comprehensive outline for my Civil Procedure course covering personal jurisdiction, subject matter jurisdiction, pleadings, discovery, summary judgment, and trial procedure. Include black-letter law, key case holdings, tests and factors for each topic, exceptions, and practice tips. Use attached syllabus and case list. Return formatted Word outline."
+    },
+    {
+      icon: TrendingUp,
+      title: "Research Memo",
+      taskDescription: "Legal research and analysis memo",
+      deliverable: "8-12 page legal memo",
+      emailSubject: "Research Memo Request",
+      emailBody: "Please draft a legal research memo analyzing whether a non-compete agreement is enforceable in California for a software engineer. Research relevant statutes (Bus. & Prof. Code § 16600), case law precedents, exceptions for trade secrets, and provide recommendation. Use IRAC structure with pinpoint citations. Return 8-12 page memo in Bluebook format."
+    },
+    {
+      icon: FileText,
+      title: "Practice Question Summary",
+      taskDescription: "Answer outline for exam practice",
+      deliverable: "Answer outline with analysis",
+      emailSubject: "Practice Question Summary Request",
+      emailBody: "Please create a detailed answer outline for this Contracts practice exam question about statute of frauds and promissory estoppel. Identify all legal issues, state applicable rules from UCC and Restatement (Second) of Contracts, apply facts systematically using IRAC, and reach conclusions for each issue. Return organized answer outline."
+    },
+    {
+      icon: BarChart3,
+      title: "Exam Study Sheet",
+      taskDescription: "Condensed topic summaries for exam",
+      deliverable: "10-page exam study guide",
+      emailSubject: "Exam Study Sheet Request",
+      emailBody: "Please create a condensed exam study sheet for my Criminal Law final covering actus reus, mens rea, homicide (murder degrees and manslaughter), inchoate crimes, accomplice liability, and defenses. For each topic: state the rule, list key cases, note important exceptions, and include memory aids. Keep to 10 pages. Return formatted Word document."
+    },
+    {
+      icon: TrendingUp,
+      title: "Argument Map",
+      taskDescription: "Structure both sides of legal issue",
+      deliverable: "Visual argument outline",
+      emailSubject: "Argument Map Request",
+      emailBody: "Please create an argument map for a Fourth Amendment search and seizure issue involving warrantless cell phone location tracking. Map out plaintiff's arguments (reasonable expectation of privacy, Carpenter precedent), defendant's counter-arguments (third-party doctrine, exigent circumstances), and likely court analysis. Include supporting cases for each point. Return structured outline."
+    }
+  ],
+
+  // Benefits Section
+  benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Study Partner",
+  benefitsSubheadline: "Zibly helps you organize readings and draft materials faster — so you can spend more time actually learning the law.",
+  benefitCards: [
+    {
+      icon: Clock,
+      title: "Reading Overload → Clear Structure",
+      description: "Turn 100+ pages of dense case law into organized, reviewable briefs and outlines."
+    },
+    {
+      icon: TrendingUp,
+      title: "Consistent Quality",
+      description: "Every brief follows proper IRAC/CREAC structure with complete analysis."
+    },
+    {
+      icon: BarChart3,
+      title: "More Time for Understanding",
+      description: "Spend less time on mechanical briefing, more time on doctrine and exam prep."
+    }
+  ],
+
+  // ROI Section
+  roiWithoutItems: [
+    "Briefing 15 cases per week = <strong class=\"text-gray-700\">15+ hours</strong>",
+    "Outline creation during finals = <strong class=\"text-gray-700\">40+ hours of stress</strong>",
+    "<strong class=\"text-gray-700\">Inconsistent formatting</strong> wastes review time",
+    "Less time for practice exams and understanding"
+  ],
+  roiWithItems: [
+    "Professional briefs from <strong class=\"text-primary\">$20</strong>",
+    "<strong class=\"text-primary\">6-24 hour turnaround</strong> for most assignments",
+    "<strong class=\"text-primary\">Consistent structure</strong> makes review efficient",
+    "More time for practice questions and comprehension"
+  ],
+  roiTagline: "Better organization. Better understanding. Better exam performance.",
+
+  // Quality Standards
+  qualityStandardsHeadline: "Quality Standards for Law Students",
+  qualityStandardsSubheadline: "Legal precision meets academic rigor",
+  qualityStandards: [
+    {
+      title: "IRAC/CREAC structure",
+      description: "Every brief follows proper legal writing frameworks"
+    },
+    {
+      title: "Complete analysis",
+      description: "Facts, holdings, reasoning, and significance fully developed"
+    },
+    {
+      title: "Proper citations",
+      description: "Bluebook-compliant citations when cases are provided"
+    },
+    {
+      title: "Academic integrity support",
+      description: "Study aids and drafts for your review — you own the final analysis"
+    },
+    {
+      title: "Organized formatting",
+      description: "Clear headings, readable structure, ready for class and review"
+    }
+  ],
+
+  // How It Works
+  howItWorksSteps: [
+    {
+      title: "Forward readings to work@zibly.ai",
+      description: "Send case citations, assignment prompts, or class notes"
+    },
+    {
+      title: "Describe what you need",
+      description: "E.g., \"IRAC brief for Palsgraf\" or \"outline my Torts course\""
+    },
+    {
+      title: "Receive structured draft",
+      description: "Review, customize, and use per your school's honor code"
+    }
+  ],
+  howItWorksSubheadline: "No complex tools. No subscriptions. Just email and get help.",
+
+  // CTA
+  ctaHeadline: "Ready to <span class=\"text-primary\">Master</span> Your Readings?",
+  ctaSubheadline: "Join law students already using Zibly to stay on top of their reading load. Your first brief is free — see how it helps your study process.",
+  ctaButtonText: "Start Your Free Brief",
+
+  // Related Use Cases
+  relatedUseCases: [
+    {
+      title: "MBA Students",
+      description: "Case decks, financial models, and business analysis.",
+      href: "/solutions/mba-students"
+    },
+    {
+      title: "Attorneys",
+      description: "See how practicing attorneys use Zibly for research and drafting.",
+      href: "/solutions/attorneys"
+    },
+    {
+      title: "Management Consultants",
+      description: "Professional analysis and presentation creation.",
+      href: "/solutions/consultants"
+    }
+  ]
+}
 
 export default function LawStudentsPage() {
-  const handleEmailClick = () => {
-    const subject = "Law school help: outlines and briefs"
-    const body = `Hi Zibly,
-
-Please create [deliverable: outline/case brief/memo] using the attached materials and citations.
-
-Thanks!`
-    const mailtoLink = `mailto:work@zibly.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoLink
-  }
-
-  return (
-    <div className="flex flex-col">
-      <JsonLd data={{
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
-          { "@type": "ListItem", position: 2, name: "Solutions", item: "https://zibly.ai/solutions" },
-          { "@type": "ListItem", position: 3, name: "Law Students", item: "https://zibly.ai/solutions/law-students" },
-        ],
-      }} />
-      {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-8 text-center">
-            <FadeIn>
-              <div className="space-y-4 max-w-3xl">
-                <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground mb-4">For Law Students</div>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-black">Turn Readings Into Clear Outlines and Briefs</h1>
-                <p className="mx-auto max-w-[700px] text-black md:text-xl">Email readings and notes. Get structured outlines, case briefs, and study checklists you can review and refine.</p>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                  Start Your First Task Free <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <CopyEmailButton size="sm" variant="outline" />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* Pain Points Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">We Know Your Load</h2>
-            </SlideUp>
-            <p className="mt-4 text-black md:text-lg">Dense readings, exact citations, tight deadlines.</p>
-          </div>
-          <StaggerContainer className="grid gap-8 md:grid-cols-3">
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                  <BookOpen className="h-6 w-6 text-black" />
-                </div>
-                <h3 className="text-xl font-semibold text-black">Dense Readings</h3>
-                <p className="text-black">Turn long casebooks and notes into usable outlines.</p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                  <Clock className="h-6 w-6 text-black" />
-                </div>
-                <h3 className="text-xl font-semibold text-black">Time Pressure</h3>
-                <p className="text-black">Class prep, moot court, journals — and exams around the corner.</p>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                  <Users className="h-6 w-6 text-black" />
-                </div>
-                <h3 className="text-xl font-semibold text-black">Precision & Format</h3>
-                <p className="text-black">Headings and structure exactly as requested.</p>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Solutions Section */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <SlideUp>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Your On‑Call Study Assistant</h2>
-            </SlideUp>
-            <p className="mt-4 text-black md:text-lg max-w-2xl mx-auto">From course outlines to case briefs and checklists, drafted cleanly for you to review</p>
-          </div>
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-black">
-                  <BookOpen className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Course Outlines</h3>
-                  <p className="text-black mb-4">Concise outlines from readings and class notes</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Black‑letter law and elements</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Tests and factors</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Key cases organized</span></div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-black">
-                  <FileText className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Case Briefs</h3>
-                  <p className="text-black mb-4">IRAC/CREAC briefs with facts and cites you provide</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Issue, Rule, Application, Conclusion</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Pinpoint cites (if provided)</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Comparable case links</span></div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-            <StaggerItem>
-              <AnimatedCard>
-                <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-black">
-                  <Scale className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-black">Memos & Checklists</h3>
-                  <p className="text-black mb-4">Exam checklists and memo scaffolds to study from</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Elements checklists</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Outline‑to‑memo draft</span></div>
-                    <div className="flex items-center gap-2 text-sm text-black"><CheckCircle className="h-4 w-4 text-primary" /><span>Formatting to your template</span></div>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Deliverables + Popular Requests */}
-      <section className="w-full py-16 md:py-24 bg-white">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-lg border p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">Deliverables we often send</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Course outlines (DOCX/PDF)</li>
-                <li>• Case briefs (DOCX/PDF)</li>
-                <li>• Exam checklists (DOCX)</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">Popular requests</h3>
-              <ul className="space-y-2 text-sm text-black">
-                <li>• Elements and tests summaries</li>
-                <li>• Closed‑memo scaffolds</li>
-                <li>• Reading summaries</li>
-              </ul>
-            </div>
-            <div className="rounded-lg border p-6 bg-white">
-              <h3 className="text-lg font-semibold mb-2 text-black">How it works</h3>
-              <ol className="space-y-2 text-sm text-black list-decimal pl-5">
-                <li>Forward readings/notes and prompt</li>
-                <li>Specify structure and formatting</li>
-                <li>Review, refine, and submit per your rules</li>
-              </ol>
-              <p className="text-xs text-black/70 mt-3">Use responsibly and follow your school's honor code.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 bg-white border-t-2 border-black">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">Study Smarter This Semester</h2>
-              <p className="mx-auto max-w-[700px] text-black/70 md:text-xl">Send a task to work@zibly.ai. Your first task is free.</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-black hover:bg-black/90 text-white" onClick={handleEmailClick}>
-                Start Your Free Task <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white" asChild>
-                <Link href="/features#workflow">See How It Works</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  return <UseCaseTemplate content={lawStudentsContent} />
 }

@@ -1,129 +1,169 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Clock, FileText, Target } from "lucide-react"
-import SlideUp from "@/components/animations/SlideUp"
+import { ArrowRight } from "lucide-react"
 import FadeIn from "@/components/animations/FadeIn"
-import GradientText from "@/components/animations/GradientText"
-import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer"
-import WaveDivider from "@/components/WaveDivider"
 import MagneticButton from "@/components/animations/MagneticButton"
 
-export default function AboutPage() {
+export default function WhyZiblyPage() {
   return (
-    <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-      {/* Our Story Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
+    <div className="flex flex-col min-h-[calc(100vh-4rem)] bg-white">
+      <article className="w-full py-12 md:py-16">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
+          <div className="max-w-3xl mx-auto">
             <FadeIn>
-              <div className="flex flex-col justify-center space-y-6">
+              <div className="space-y-8">
+                {/* Title */}
+                <h1 className="text-4xl md:text-5xl font-light text-black tracking-tight">
+                  Why Zibly
+                </h1>
+
+                {/* The Problem */}
+                <div className="space-y-3">
+                  <h2 className="text-2xl font-semibold text-primary">The problem</h2>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    Large-language models are incredible — but they live in places we don't actually work.
+                  </p>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    You have to open a new tab, type a prompt, babysit its replies, and copy-paste the output back into email, PowerPoint, or Excel.
+                  </p>
+                  <p className="text-lg text-gray-900 font-medium leading-relaxed">
+                    That's not productivity; that's project management.
+                  </p>
+                </div>
+
+                {/* The Insight */}
+                <div className="space-y-3">
+                  <h2 className="text-2xl font-semibold text-primary">The insight</h2>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    The best AI experience should feel like working with a colleague.
+                  </p>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    You don't "chat" your teammates through every step — you delegate.
+                  </p>
+                  <p className="text-lg text-gray-900 font-medium leading-relaxed">
+                    And the universal language of delegation is email.
+                  </p>
+                </div>
+
+                {/* The Solution */}
+                <div className="space-y-3">
+                  <h2 className="text-2xl font-semibold text-primary">The solution</h2>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    Zibly makes AI live where real work happens: the inbox.
+                  </p>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    You forward a task — "Build a five-slide summary of this report," "Fill in this immigration form," or "Update this KPI deck."
+                  </p>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    Zibly reads your email, the attachments, and the context, then sends back finished deliverables in hours: PPTX, XLSX, DOCX, or PDFs — perfectly formatted, ready to use.
+                  </p>
+                </div>
+
+                {/* Why It Matters */}
+                <div className="space-y-3">
+                  <h2 className="text-2xl font-semibold text-primary">Why it matters</h2>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    Zibly doesn't want to be another workspace.
+                  </p>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    It wants to disappear into the one you already have.
+                  </p>
+                  <p className="text-lg text-gray-900 font-semibold leading-relaxed">
+                    No dashboards, no prompts, no friction — just the speed of AI combined with the trust and simplicity of email.
+                  </p>
+                </div>
+
+                {/* Bridge Statement */}
+                <div className="py-6 my-6 border-t border-b border-gray-200">
+                  <p className="text-xl text-gray-900 font-medium leading-relaxed">
+                    Zibly isn't changing how you think. It's changing where you work — back to the tools you already know.
+                  </p>
+                </div>
+
+                {/* How It Works */}
                 <div className="space-y-4">
-                  <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>Our <span className="text-primary">Story</span></h2>
-                  <div className="space-y-4 text-lg inter-text text-black">
-                    <p>
-                      We are professionals in the technology space—a lawyer, a physicist, and a computer scientist—and we're passionate about democratizing AI by putting powerful tools in the hands of as many people as possible.
-                    </p>
-                    <p>
-                      We think ChatGPT is an amazing product, but believe it's in the wrong place. We aim to meet professionals exactly where they work.
-                    </p>
-                    <p>
-                      We are at a turning point where intelligent agents, equipped with the right tools, can empower humans to focus solely on the work that truly matters.
-                    </p>
+                  <h2 className="text-2xl font-semibold text-primary">How it works</h2>
+                  <div className="space-y-4">
+                    <div className="flex gap-4 items-start">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-semibold">
+                        1
+                      </div>
+                      <div>
+                        <p className="text-lg font-semibold text-black">Email Zibly at work@zibly.ai</p>
+                        <p className="text-base text-gray-700">With your brief or files.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-semibold">
+                        2
+                      </div>
+                      <div>
+                        <p className="text-lg font-semibold text-black">Zibly works behind the scenes</p>
+                        <p className="text-base text-gray-700">Analyzing, formatting, completing.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-semibold">
+                        3
+                      </div>
+                      <div>
+                        <p className="text-lg font-semibold text-black">You receive the deliverable</p>
+                        <p className="text-base text-gray-700">In your inbox, ready to send or present.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col items-center justify-center space-y-4">
-                <div className="relative w-32 h-32">
-                  <Image src="/logo.png" alt="zibly.ai Logo" fill className="object-contain" />
-                </div>
-                <div className="text-center">
-                  <h3 className="text-2xl inter-text-medium text-black">zibly ai</h3>
-                  <p className="text-sm inter-text text-black mt-1">Your AI Analyst</p>
+
+                {/* Trust */}
+                <div className="space-y-4 pt-6 border-t border-gray-200">
+                  <h2 className="text-2xl font-semibold text-primary">Trust built-in</h2>
+                  <p className="text-base text-gray-700">
+                    Security and privacy aren't features — they're foundations.
+                  </p>
+                  <div className="grid gap-6 md:grid-cols-3 pt-2">
+                    <div className="space-y-1">
+                      <p className="text-base font-semibold text-black">Files encrypted</p>
+                      <p className="text-sm text-gray-600">In transit and at rest</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-base font-semibold text-black">Auto-deletion</p>
+                      <p className="text-sm text-gray-600">After delivery</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-base font-semibold text-black">Never used for training</p>
+                      <p className="text-sm text-gray-600">Your data stays yours</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </FadeIn>
           </div>
         </div>
-      </section>
+      </article>
 
-      <WaveDivider fill="hsl(0 0% 100%)" />
-
-      {/* The Zibly Difference Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
-        <div className="container px-4 md:px-6">
-          <SlideUp>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>The Zibly <span className="text-primary">Difference</span></h2>
-              </div>
-            </div>
-          </SlideUp>
-          <StaggerContainer className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-            <StaggerItem className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <Target className="h-6 w-6 text-black" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal text-black">We Don't Do Chat</h3>
-                <p className="inter-text text-black">
-                  ChatGPT is a conversationalist. Zibly is an employee. We don't just give you answers—we complete your work.
-                </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <Clock className="h-6 w-6 text-black" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal text-black">Quality Takes Time</h3>
-                <p className="inter-text text-black">
-                  Good work takes time. Zibly thoughtfully researches, analyzes, and refines. This isn't instant AI—this is thoughtful work.
-                </p>
-              </div>
-            </StaggerItem>
-            <StaggerItem className="flex flex-col justify-center space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white border-2 border-black">
-                <FileText className="h-6 w-6 text-black" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl inter-heading-normal text-black">We Deliver Files</h3>
-                <p className="inter-text text-black">
-                  Real deliverables you can use. Formatted Excel files. Professional presentations. Documents ready for your signature.
-                </p>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
-
-      <WaveDivider fill="hsl(0 0% 100%)" flip={true} />
-
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
+      {/* CTA */}
+      <section className="w-full py-16 bg-gray-50 border-t border-gray-200">
         <div className="container px-4 md:px-6">
           <FadeIn>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-4">
-                <h2 className="inter-section-heading text-black" style={{ fontSize: '56px', fontWeight: '400', lineHeight: '64px', letterSpacing: '-0.01em' }}>
-                  Ready to <span className="text-primary">Reclaim Your Time</span>?
-                </h2>
-                <p className="mx-auto max-w-[700px] text-lg inter-text text-black">
-                  Stop spending your evenings on analytical work. Let Zibly handle the heavy lifting while you focus on strategy, growth, and the work that truly requires your expertise.
-                </p>
-              </div>
-              <div className="flex justify-center">
+            <div className="max-w-3xl mx-auto text-center space-y-6">
+              <p className="text-xl text-gray-900 font-light leading-relaxed">
+                Zibly brings AI into the workflow you already trust: your inbox.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <MagneticButton>
-                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                    <Link href="/signup">
-                      Get Started Today
+                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white px-8">
+                    <Link href="mailto:work@zibly.ai">
+                      Send Your First Task Free <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 </MagneticButton>
+                <Button asChild size="lg" variant="outline" className="border-2 border-black text-black hover:bg-black hover:text-white px-8">
+                  <Link href="/solutions/consultants">
+                    Explore Use Cases
+                  </Link>
+                </Button>
               </div>
             </div>
           </FadeIn>
