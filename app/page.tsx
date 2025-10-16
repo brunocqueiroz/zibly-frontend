@@ -27,12 +27,12 @@ import MagneticButton from "@/components/animations/MagneticButton"
 import ScrollingText from "@/components/animations/ScrollingText"
 
 const PLACEHOLDERS = [
-  "Create a pitch deck from our Q4 metrics",
-  "Build a DCF model for this acquisition",
-  "Analyze these customer interviews and find key themes",
-  "Draft an investment memo for this SaaS company",
-  "Create a competitive analysis of the fintech market",
-  "Build a three-statement financial model with sensitivity tables"
+  "Can you handle the board deck? Need it by Friday with Q4 metrics",
+  "I'm forwarding the acquisition target info - need a DCF model",
+  "Please synthesize these 50 customer interviews into key themes",
+  "Need you to draft an investment memo for this SaaS company",
+  "Can you pull together competitive intel on our main rivals?",
+  "Build me a three-statement model with sensitivity analysis"
 ]
 
 export default function Home() {
@@ -106,17 +106,18 @@ export default function Home() {
   }
 
   const handleEmailClick = () => {
-    const subject = "Fwd: Board deck needed by Friday"
-    const body = `Zibly,
+    const subject = "Board deck prep - need by Friday"
+    const body = `Hi Zibly,
 
-Can you create a 10-slide board update from our Q4 data?
-Need:
+Can you handle the board deck? I'm forwarding our Q4 data.
+
+Please include:
 - Revenue analysis with YoY comparisons
 - Customer acquisition cost trends
 - Market expansion opportunities
 - 2025 strategic priorities
 
-I've attached our metrics dashboard and last quarter's deck.
+Make it look like our usual format - last quarter's deck attached for reference.
 
 Thanks,
 Sarah`
@@ -151,7 +152,7 @@ Sarah`
               {/* Main Heading */}
               <FadeIn>
                 <h1 className="inter-section-heading text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-12 max-w-5xl mx-auto" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
-                  Email Your Work.<br />Get Back <span className="text-primary">Finished Deliverables</span>.
+                  Your AI Colleague.<br /><span className="text-primary">Just Email the Work.</span>
                 </h1>
               </FadeIn>
 
@@ -161,7 +162,7 @@ Sarah`
                 <div className="bg-white rounded-lg border-2 border-black shadow-lg hover:shadow-2xl transition-all overflow-hidden ring-4 ring-primary/10 hover:ring-primary/20">
                   {/* Header */}
                   <div className="bg-gray-50 border-b border-gray-200 px-6 py-4 flex items-center justify-center">
-                    <span className="text-base font-semibold text-black">Send Your Task</span>
+                    <span className="text-base font-semibold text-black">Delegate Work</span>
                   </div>
 
                   {/* Mail Icon */}
@@ -320,8 +321,8 @@ Sarah`
           <div className="mx-auto max-w-6xl">
             <SlideUp>
               <div className="text-center mb-12">
-                <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Delegate Work Over Email — Zibly Does the Rest.</h2>
-                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Zibly isn't a chatbot — it's an AI coworker. Instead of typing prompts, just forward your email. Zibly figures out what's needed, asks questions when unclear, and sends back finished work.</p>
+                <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Delegate Like They're On Your Team.<br />Because They Are.</h2>
+                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Zibly isn't a chatbot — it's your AI employee. No prompts, no hand-holding, no learning curve. Just email tasks like you would to a senior analyst, and get professional work back. The kind you can send directly to your boss.</p>
               </div>
             </SlideUp>
 
@@ -514,7 +515,7 @@ Sarah`
                     className="bg-primary hover:bg-primary/90 hover:shadow-xl transition-all text-white px-8"
                     onClick={handleEmailClick}
                   >
-                    Send Your First Task <ArrowRight className="ml-2 h-4 w-4" />
+                    Delegate a Task Now <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </MagneticButton>
               </div>
@@ -533,10 +534,10 @@ Sarah`
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-4">
                 <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
-                  Stop Babysitting AI. Start <span className="text-primary">Delegating</span> Work.
+                  AI as a <span className="text-primary">Colleague</span>, Not a Tool
                 </h2>
                 <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-black">
-                  ChatGPT is brilliant—but it needs managing. Zibly works like a person on your team.
+                  Other AI requires constant prompting and supervision. Zibly works like a senior team member — understands context, asks clarifying questions, and delivers polished work while you move on.
                 </p>
               </div>
             </div>
@@ -555,8 +556,8 @@ Sarah`
                 <TiltCard className="rounded-lg p-6 bg-gray-50 shadow-elevated hover:shadow-hover transition-shadow border-2 border-gray-200">
                   <div className="mb-4">
                     <p className="text-xs inter-text-medium text-gray-500 uppercase tracking-wide mb-2">The Old Way</p>
-                    <h3 className="text-xl inter-heading-normal text-card-foreground">The ChatGPT Loop</h3>
-                    <p className="text-sm inter-text text-gray-600 mt-1">(You're Still Doing the Work)</p>
+                    <h3 className="text-xl inter-heading-normal text-card-foreground">The Chatbot Treadmill</h3>
+                    <p className="text-sm inter-text text-gray-600 mt-1">(You're the Manager, Not the Executive)</p>
                   </div>
                   <ul className="space-y-3 inter-text text-card-foreground">
                     <li className="flex items-start gap-3">
@@ -592,8 +593,8 @@ Sarah`
                 <TiltCard className="rounded-lg p-6 bg-gradient-to-br from-green-50 to-emerald-50 shadow-lg hover:shadow-xl transition-shadow border-2 border-primary">
                   <div className="mb-4">
                     <p className="text-xs inter-text-medium text-primary uppercase tracking-wide mb-2">The Zibly Way</p>
-                    <h3 className="text-xl inter-heading-normal text-card-foreground">Delegate & Move On</h3>
-                    <p className="text-sm inter-text text-gray-700 mt-1">(You Don't Lift a Finger)</p>
+                    <h3 className="text-xl inter-heading-normal text-card-foreground">Your AI Colleague</h3>
+                    <p className="text-sm inter-text text-gray-700 mt-1">(Delegate Like You Would to a Team Member)</p>
                   </div>
                   <ul className="space-y-3 inter-text text-card-foreground">
                     <li className="flex items-start gap-3">
@@ -660,10 +661,10 @@ Sarah`
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-4">
                 <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
-                  The Work You'd Do If You Had Time
+                  Work Your <span className="text-primary">Colleague</span> Handles
                 </h2>
                 <p className="max-w-[900px] text-base md:text-lg inter-text text-black">
-                  Zibly handles analytical work with the depth it deserves—not rushed AI responses
+                  Delegate the deep analytical work. Zibly delivers with the same care and depth you would—if you had the time.
                 </p>
               </div>
             </div>
@@ -713,10 +714,10 @@ Sarah`
       <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container max-w-4xl px-4 md:px-6">
           <div className="text-center space-y-6">
-            <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Good Work Takes Time. We Don't Rush It.</h2>
+            <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Your Colleague Works <span className="text-primary">Independently</span></h2>
             <p className="text-base md:text-lg inter-text text-black max-w-3xl mx-auto">
-              Zibly isn't instant. Simple tasks complete in minutes. Deep analysis can take up to an hour.
-              This isn't a bug—it's the feature. Your work deserves the same depth a human analyst would give it.
+              Like any trusted colleague, Zibly takes the time needed to do the job right. Simple requests? Minutes. Complex analysis? Up to an hour.
+              You don't have to watch or manage—just delegate and move on to your next priority.
             </p>
             <div className="grid gap-6 md:grid-cols-3 pt-8">
               <div className="p-6 rounded-lg bg-card border border-border">
@@ -736,7 +737,7 @@ Sarah`
               </div>
             </div>
             <p className="text-sm inter-text text-black pt-4">
-              This is the analyst deep-dive you'd do if you had three uninterrupted hours. In your inbox. While you were in meetings.
+              Your AI colleague working while you lead. Deep work happening while you're in meetings. Professional deliverables waiting in your inbox.
             </p>
           </div>
         </div>
@@ -769,15 +770,15 @@ Sarah`
             </div>
             <div className="mt-8 space-y-4">
               <p className="text-center inter-text text-card-foreground">
-                Every hour formatting slides or building models is an hour not closing deals, building relationships, or making strategic decisions.
-                Zibly handles the deep work so you can focus on what only you can do.
+                Every hour in Excel is an hour not closing deals, building relationships, or making strategic decisions.
+                Delegate the analysis to Zibly. Focus on what only you can do.
               </p>
               <div className="bg-accent rounded-lg p-6 text-center">
                 <p className="inter-text-medium text-lg mb-2 text-accent-foreground">
-                  Stop Spending Evenings on Excel
+                  Leave Work at Work
                 </p>
                 <p className="inter-text text-accent-foreground">
-                  Forward your analytical work to Zibly at 5pm. Go home. The deliverable will be in your inbox tomorrow morning.
+                  Delegate to Zibly at 5pm. Go home. Your colleague will have the deliverable ready by morning.
                 </p>
               </div>
             </div>
@@ -791,11 +792,11 @@ Sarah`
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
-                That Task You've Been Avoiding?
+                Ready to <span className="text-primary">Delegate</span>?
               </h2>
               <p className="mx-auto max-w-[700px] text-base md:text-lg inter-text text-black">
-                The board deck. The financial model. The competitive analysis. Forward it to work@zibly.ai right now.
-                Your first task is free—see what 20 hours back per week feels like.
+                That board deck. The financial model. The competitive analysis you've been putting off.
+                Email it to your AI colleague right now. First task free—experience what it's like to have someone you can trust with real work.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
@@ -805,7 +806,7 @@ Sarah`
                   className="bg-primary hover:bg-primary/90 hover:shadow-hover transition-all"
                   onClick={handleEmailClick}
                 >
-                  Try Your First Task Free <ArrowRight className="ml-2 h-4 w-4" />
+                  Delegate Your First Task <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </MagneticButton>
             </div>

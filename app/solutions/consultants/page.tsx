@@ -8,7 +8,7 @@ const consultantsContent: UseCaseContent = {
   badge: "For Management Consultants",
   headline: "Stop Burning",
   headlineHighlight: "Midnight Oil",
-  subheadline: "Send your analysis requests, models, or data files to Zibly. Get back polished decks, models, and executive summaries — built to consulting standards.",
+  subheadline: "Delegate your analysis requests, models, or data files to your AI colleague. Zibly delivers polished decks, models, and executive summaries — built to consulting standards.",
   emailPlaceholderSubject: "Q4 Market Expansion Analysis",
   emailPlaceholderBody: "Build a 10-slide deck on TAM and expansion opportunities using attached market data. Include 3 regional recommendations and YoY trends.",
   emailPlaceholderFrom: "your.email@company.com",
@@ -79,7 +79,7 @@ const consultantsContent: UseCaseContent = {
 
   // Benefits Section
   benefitsHeadline: "Your <span class=\"text-primary\">24/7</span> Senior Analyst",
-  benefitsSubheadline: "Zibly produces the decks, models, and memos your clients expect — with the quality your reputation demands.",
+  benefitsSubheadline: "Your AI colleague produces the decks, models, and memos your clients expect — with the quality your reputation demands.",
   benefitCards: [
     {
       icon: Clock,
@@ -142,15 +142,15 @@ const consultantsContent: UseCaseContent = {
   // How It Works
   howItWorksSteps: [
     {
-      title: "Forward your email or files to work@zibly.ai",
-      description: "Send your data, attachments, or just a description"
+      title: "Email your work to work@zibly.ai",
+      description: "Delegate the task with data, attachments, or just a description"
     },
     {
-      title: "Describe what you need",
+      title: "Tell your colleague what you need",
       description: "Brief instructions about the deliverable and format"
     },
     {
-      title: "Receive the finished deliverable in your inbox",
+      title: "Get the finished deliverable in your inbox",
       description: "Polished, professional work ready for your client"
     }
   ],
@@ -158,8 +158,8 @@ const consultantsContent: UseCaseContent = {
 
   // CTA
   ctaHeadline: "Ready to <span class=\"text-primary\">10×</span> Your Consulting Practice?",
-  ctaSubheadline: "Join consulting teams already using Zibly to deliver more, faster. Your first analysis is free — see the quality for yourself.",
-  ctaButtonText: "Start Your Free Analysis",
+  ctaSubheadline: "Join consulting teams already delegating to their AI colleague. Your first task is free — experience the quality for yourself.",
+  ctaButtonText: "Delegate Your First Task",
 
   // Related Use Cases
   relatedUseCases: [

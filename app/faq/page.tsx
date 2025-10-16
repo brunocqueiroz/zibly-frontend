@@ -24,7 +24,7 @@ const faqData = {
       "name": "How does zibly.ai work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Simply email your tasks to work@zibly.ai with any attachments. Our AI analyzes your request, processes the data, and sends back professional deliverables (Excel models, presentations, reports). Simple tasks complete in minutes, while complex analyses receive the deep attention they deserve. No app downloads or logins required."
+        "text": "Simply email your work to work@zibly.ai with any attachments. Your AI colleague analyzes the request, processes the data, and delivers professional outputs (Excel models, presentations, reports). Simple tasks complete in minutes, while complex analyses receive the deep attention they deserve. No app downloads or logins required."
       }
     },
     {
@@ -84,7 +84,7 @@ export default function FAQPage() {
                   Everything You <span className="text-primary">Need to Know</span>
                 </h1>
                 <p className="mx-auto max-w-[700px] md:text-xl inter-text text-black">
-                  Get answers about security, pricing, capabilities, and how to make the most of your AI analyst.
+                  Get answers about security, pricing, capabilities, and how to make the most of your AI colleague.
                   Can't find what you're looking for? Email us directly.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -158,9 +158,9 @@ export default function FAQPage() {
                     <div className="space-y-4 inter-text">
                       <p>It's incredibly simple:</p>
                       <ol className="space-y-2 list-decimal pl-6">
-                        <li>Email your task to <strong>work@zibly.ai</strong> with any attachments</li>
-                        <li>Our AI analyzes your request and may ask clarifying questions</li>
-                        <li>We process your task using advanced AI models</li>
+                        <li>Email your work to <strong>work@zibly.ai</strong> with any attachments</li>
+                        <li>Your AI colleague analyzes the request and may ask clarifying questions</li>
+                        <li>Zibly processes the task with the same care as a human analyst</li>
                         <li>You receive professional deliverables in your inbox - timing adapted to task complexity</li>
                       </ol>
                       <p>No apps to download, no accounts to manage, no interfaces to learn. Just email.</p>

@@ -23,10 +23,10 @@ export default function PricingPage() {
   const ldJson = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Zibly – Email AI for Deliverables',
+    name: 'Zibly – Your AI Colleague',
     url: 'https://zibly.ai/pricing',
     description:
-      'Send tasks by email and receive finished Excel models, decks, and research memos. First task free.',
+      'Delegate work by email to your AI colleague. Receive finished Excel models, decks, and research memos. First task free.',
     offers,
   }
   return (

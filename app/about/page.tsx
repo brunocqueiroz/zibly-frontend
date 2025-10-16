@@ -40,7 +40,7 @@ export default function WhyZiblyPage() {
                     The best AI experience should feel like working with a colleague.
                   </p>
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    You don't "chat" your teammates through every step — you delegate.
+                    You don't micromanage your team through every step — you delegate.
                   </p>
                   <p className="text-lg text-gray-900 font-medium leading-relaxed">
                     And the universal language of delegation is email.
@@ -100,8 +100,8 @@ export default function WhyZiblyPage() {
                         2
                       </div>
                       <div>
-                        <p className="text-lg font-semibold text-black">Zibly works behind the scenes</p>
-                        <p className="text-base text-gray-700">Analyzing, formatting, completing.</p>
+                        <p className="text-lg font-semibold text-black">Your AI colleague gets to work</p>
+                        <p className="text-base text-gray-700">Analyzing, formatting, completing — independently.</p>
                       </div>
                     </div>
                     <div className="flex gap-4 items-start">

@@ -8,7 +8,7 @@ const investmentBankingContent: UseCaseContent = {
   badge: "For Investment Bankers",
   headline: "Stop Pulling",
   headlineHighlight: "All-Nighters",
-  subheadline: "Send your models, data rooms, or CIM drafts to Zibly. Get back finished models, transaction decks, and diligence memos — polished, accurate, and built to banking standards.",
+  subheadline: "Delegate your models, data rooms, or CIM drafts to your AI colleague. Zibly delivers finished models, transaction decks, and diligence memos — polished, accurate, and built to banking standards.",
   emailPlaceholderSubject: "Comparable Company Analysis Request",
   emailPlaceholderBody: "Please build a comparable company analysis for SaaS companies with $50M-$200M revenue. Include EV/Revenue, EV/EBITDA multiples, and create a valuation summary with median, mean, and range. Return Excel + 5-slide summary.",
   emailPlaceholderFrom: "your.email@bank.com",

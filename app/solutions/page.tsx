@@ -13,10 +13,10 @@ import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerCo
 
 export default function SolutionsPage() {
   const handleEmailClick = () => {
-    const subject = "I need help with analysis"
+    const subject = "Need help with analysis"
     const body = `Hi Zibly,
 
-Can you help me with [describe your task]?
+I need you to handle [describe the work you're delegating].
 
 Thanks!`
 
@@ -105,12 +105,12 @@ Thanks!`
             <div className="space-y-4">
               <SlideUp>
                 <h1 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
-                  AI That Works <span className="text-primary">Where You Work</span>
+                  Your AI Colleague <span className="text-primary">For Every Role</span>
                 </h1>
               </SlideUp>
               <FadeIn delay={0.2}>
                 <p className="max-w-[700px] text-base md:text-lg lg:text-xl inter-text mx-auto text-black">
-                  From consulting decks to legal briefs, Zibly understands the work that matters in your field. Email your task and get back professional-grade deliverables.
+                  From consulting decks to legal briefs, Zibly works like a skilled team member who understands your field. Delegate the work, get professional deliverables.
                 </p>
               </FadeIn>
             </div>
@@ -118,7 +118,7 @@ Thanks!`
               <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center w-full max-w-2xl mx-auto px-4">
                 <MagneticButton className="flex-1 sm:flex-initial">
                   <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90" onClick={handleEmailClick}>
-                    Email Your First Task Free <Mail className="ml-2 h-4 w-4" />
+                    Delegate Your First Task <Mail className="ml-2 h-4 w-4" />
                   </Button>
                 </MagneticButton>
                 <CopyEmailButton size="sm" variant="outline" className="w-full sm:w-auto" />
@@ -137,7 +137,7 @@ Thanks!`
                 For <span className="text-primary">Professionals</span>
               </h2>
               <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-black">
-                Trusted by consultants, bankers, executives, and specialists who need exceptional work, fast
+                Trusted by consultants, bankers, and executives who delegate analytical work to their AI colleague
               </p>
             </div>
           </SlideUp>
@@ -180,7 +180,7 @@ Thanks!`
                 For <span className="text-primary">Students</span>
               </h2>
               <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-black">
-                Excel in your studies with professional-grade analysis and deliverables
+                Get an AI colleague who handles your analytical work while you focus on learning
               </p>
             </div>
           </SlideUp>
@@ -223,15 +223,15 @@ Thanks!`
                 <CardContent className="p-8 md:p-12">
                   <div className="text-center space-y-6">
                     <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
-                      Ready to <span className="text-primary">Get Started</span>?
+                      Ready to <span className="text-primary">Delegate</span>?
                     </h2>
                     <p className="mx-auto max-w-[600px] text-base md:text-lg inter-text text-black">
-                      No signup required. No credit card needed. Just email your task and experience the difference.
+                      No signup required. No credit card needed. Just email the work to your AI colleague and see the results.
                     </p>
                     <div className="pt-4">
                       <MagneticButton>
                         <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={handleEmailClick}>
-                          Email Your First Task Free <ArrowRight className="ml-2 h-5 w-5" />
+                          Delegate Your First Task <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                       </MagneticButton>
                       <p className="mt-4 text-sm inter-text text-black">
