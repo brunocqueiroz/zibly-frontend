@@ -2,9 +2,40 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
+interface BlogPost {
+  id: string
+  title: string
+  slug: string
+  publish_date: string
+}
+
+// Helper function to truncate long titles
+function truncateTitle(title: string, maxLength: number = 30): string {
+  if (title.length <= maxLength) return title
+  return title.substring(0, maxLength).trim() + '...'
+}
 
 export default function Footer() {
   const pathname = usePathname()
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([])
+
+  useEffect(() => {
+    // Fetch recent posts
+    fetch('https://1ce20ayeb1.execute-api.us-east-1.amazonaws.com/zibly/blog/posts')
+      .then(res => res.json())
+      .then(data => {
+        const posts = Array.isArray(data) ? data : (data.posts || [])
+        const sorted = posts
+          .sort((a: BlogPost, b: BlogPost) =>
+            new Date(b.publish_date).getTime() - new Date(a.publish_date).getTime()
+          )
+          .slice(0, 4)
+        setRecentPosts(sorted)
+      })
+      .catch(err => console.error('Error fetching blog posts:', err))
+  }, [])
 
   // Don't show footer on dashboard pages
   if (pathname?.startsWith("/dashboard")) {
@@ -16,7 +47,7 @@ export default function Footer() {
       <div className="container px-4 md:px-6">
         {/* Main Footer Content */}
         <div className="py-12 md:py-16">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
             {/* Product Links */}
             <div>
               <h3 className="text-base font-bold mb-4 text-black">Product</h3>
@@ -125,6 +156,55 @@ export default function Footer() {
                 <li>
                   <Link href="/solutions/undergraduates" className="text-black hover:text-primary transition-colors">
                     Undergraduates
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Recent Blog Posts */}
+            <div className="col-span-2 md:col-span-1 lg:col-span-1">
+              <h3 className="text-base font-bold mb-4 text-black">Recent Blog Posts</h3>
+              <ul className="space-y-3 text-sm">
+                {recentPosts.length > 0 ? (
+                  recentPosts.map((post) => (
+                    <li key={post.id}>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="text-black hover:text-primary transition-colors"
+                        title={post.title}
+                      >
+                        {truncateTitle(post.title)}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  // Fallback links while loading
+                  <>
+                    <li>
+                      <Link href="/blog/avoiding-api-pricing-pitfalls-a-comprehensive-guide" className="text-black hover:text-primary transition-colors">
+                        API Pricing Guide
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/mba-course-a-comprehensive-guide-to-organizational-behaviour" className="text-black hover:text-primary transition-colors">
+                        MBA: Organizational Behaviour
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/law-school-a-comprehensive-guide-to-criminal-law" className="text-black hover:text-primary transition-colors">
+                        Law School: Criminal Law
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/a-comprehensive-and-complete-guide-to-pricing-of-saas-products" className="text-black hover:text-primary transition-colors">
+                        SaaS Pricing Strategies
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link href="/blog" className="text-primary font-semibold hover:underline transition-colors">
+                    View All Articles →
                   </Link>
                 </li>
               </ul>

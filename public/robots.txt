@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /_next/
+Disallow: /static/
+
+# Sitemap
+Sitemap: https://zibly.ai/sitemap.xml

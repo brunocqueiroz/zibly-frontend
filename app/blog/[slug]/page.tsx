@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Clock, Share2, Linkedin, Twitter } from "lucide-react"
 import ReactMarkdown from 'react-markdown'
 import { Metadata } from 'next'
+import BlogSidebar from "@/components/blog-sidebar"
 
 interface BlogPost {
   id: string
@@ -144,9 +145,6 @@ export default async function BlogPostPage({
     new Date(b.publish_date).getTime() - new Date(a.publish_date).getTime()
   )
 
-  // Get recent posts (excluding current)
-  const recentPosts = sortedPosts.filter(p => p.slug !== slug).slice(0, 5)
-
   // Find next and previous posts
   const currentIndex = sortedPosts.findIndex(p => p.slug === slug)
   const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
@@ -174,34 +172,8 @@ export default async function BlogPostPage({
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Left Sidebar - Recent Posts */}
-          <aside className="lg:w-64 flex-shrink-0 order-2 lg:order-1">
-            <div className="lg:sticky lg:top-24">
-              <h3 className="text-sm font-semibold inter-heading-normal mb-4 text-black">Recent Posts</h3>
-              <div className="space-y-4">
-                {recentPosts.map((recentPost) => (
-                  <Link
-                    key={recentPost.slug}
-                    href={`/blog/${recentPost.slug}`}
-                    className="block group"
-                  >
-                    <div className="border-2 border-black rounded-lg p-3 hover:bg-gray-50 transition-colors">
-                      <h4 className="text-sm font-medium inter-text-medium text-black group-hover:text-primary line-clamp-2 mb-2">
-                        {recentPost.title}
-                      </h4>
-                      <p className="text-xs text-gray-600 flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        {formatDate(recentPost.publish_date)}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </aside>
-
           {/* Main Content */}
-          <div className="flex-1 max-w-3xl order-1 lg:order-2">
+          <div className="flex-1 max-w-3xl">
             {/* Post Header */}
             <header className="mb-8">
               <h1 className="text-4xl font-bold tracking-tight mb-4 text-black">
@@ -320,6 +292,13 @@ export default async function BlogPostPage({
               </div>
             </div>
           </div>
+
+          {/* Right Sidebar */}
+          <aside className="lg:w-80 flex-shrink-0">
+            <div className="lg:sticky lg:top-24">
+              <BlogSidebar currentSlug={slug} posts={sortedPosts} />
+            </div>
+          </aside>
         </div>
       </div>
     </div>

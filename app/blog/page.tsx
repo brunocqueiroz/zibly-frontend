@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Calendar, BookOpen, X } from "lucide-react"
 import { Metadata } from 'next'
+import BlogSidebar from "@/components/blog-sidebar"
 
 // Metadata will be generated dynamically based on tag filter
 
@@ -140,9 +141,9 @@ export default async function BlogPage({
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="container max-w-4xl px-4 py-16 md:px-6 md:py-24">
+      <div className="container px-4 py-16 md:px-6 md:py-24">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold tracking-tight mb-4 text-black">
             {tag ? `${tag} Posts` : 'Blog'}
           </h1>
@@ -174,9 +175,13 @@ export default async function BlogPage({
           )}
         </div>
 
-        {/* Posts List */}
-        {posts.length === 0 ? (
-          <div className="text-center py-12">
+        {/* Content with Sidebar */}
+        <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
+          {/* Main Content */}
+          <div className="flex-1">
+            {/* Posts List */}
+            {posts.length === 0 ? (
+              <div className="text-center py-12">
             <BookOpen className="h-12 w-12 text-primary mx-auto mb-4" />
             <h3 className="text-lg font-semibold mb-2 text-black">
               {tag ? `No posts found for "${tag}"` : 'No posts yet'}
@@ -254,22 +259,31 @@ export default async function BlogPage({
           </div>
         )}
 
-        {/* Footer CTA */}
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-lg p-8 border-2 border-black">
-            <h3 className="text-lg font-semibold mb-2 text-black">
-              Want more insights like these?
-            </h3>
-            <p className="text-black mb-4">
-              Get AI-powered analysis delivered to your inbox. Try zibly.ai today.
-            </p>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-            >
-              Get Started
-            </Link>
+            {/* Footer CTA */}
+            <div className="mt-16 text-center">
+              <div className="bg-white rounded-lg p-8 border-2 border-black">
+                <h3 className="text-lg font-semibold mb-2 text-black">
+                  Want more insights like these?
+                </h3>
+                <p className="text-black mb-4">
+                  Get AI-powered analysis delivered to your inbox. Try zibly.ai today.
+                </p>
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </div>
           </div>
+
+          {/* Right Sidebar */}
+          <aside className="lg:w-80 flex-shrink-0">
+            <div className="lg:sticky lg:top-24">
+              <BlogSidebar posts={posts} />
+            </div>
+          </aside>
         </div>
       </div>
     </div>
