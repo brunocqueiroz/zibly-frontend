@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Features – Email AI for Models, Decks & Memos | Zibly",
-  description: "Send tasks by email and get back finished Excel models, slide decks, and research memos. Typical turnaround is 2 minutes to 1 hour depending on complexity.",
+  title: "Deep Work Agent – Zibly's Agent Engine for Complex Analysis | Zibly",
+  description: "When tasks require deep analysis, Zibly's Deep Work Agent activates. Our agent system works autonomously for up to an hour, delivering work that would take days to complete.",
   alternates: { canonical: "https://zibly.ai/features" },
 }
 

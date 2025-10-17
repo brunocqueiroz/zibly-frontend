@@ -65,7 +65,8 @@ export default function Navbar() {
   const isPrivacyPage = pathname === "/privacy"
   const isSecurityPage = pathname === "/security"
   const isPricingPage = pathname === "/pricing"
-  const isWhitePage = isHomePage || isFaqPage || isBlogPage || isSolutionsPage || isLoginPage || isSignupPage || isTermsPage || isPrivacyPage || isSecurityPage || isPricingPage
+  const isFeaturesPage = pathname === "/features"
+  const isWhitePage = isHomePage || isFaqPage || isBlogPage || isSolutionsPage || isLoginPage || isSignupPage || isTermsPage || isPrivacyPage || isSecurityPage || isPricingPage || isFeaturesPage
   const navBg = isWhitePage ? (isScrolled ? 'bg-white/80' : 'bg-white') : (isScrolled ? 'bg-background/80' : 'bg-background')
   const textColor = isWhitePage ? 'text-black' : 'text-white'
 
@@ -79,6 +80,14 @@ export default function Navbar() {
         <div className="hidden md:flex flex-1 items-center justify-center">
           <NavigationMenu>
             <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="/features" legacyBehavior passHref>
+                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
+                    Deep Work Agent
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+
               <NavigationMenuItem>
                 <Link href="/solutions" legacyBehavior passHref>
                   <NavigationMenuTrigger className={`${textColor} hover:text-black`}>Use Cases</NavigationMenuTrigger>
@@ -181,6 +190,9 @@ export default function Navbar() {
             <SheetContent side="right" className="bg-white text-black border-l-2 border-black">
               <SheetTitle className="text-lg font-semibold mb-4 text-black">Navigation Menu</SheetTitle>
               <div className="flex flex-col space-y-4">
+                <Link href="/features" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
+                  Deep Work Agent
+                </Link>
                 <div className="space-y-2">
                   <Link href="/solutions" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                     Use Cases
