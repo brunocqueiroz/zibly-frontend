@@ -24,15 +24,15 @@ export const metaByPath: Record<
 > = {
   // ── Core nav pages ─────────────────────────────────────────────────
   "/features": {
-    title: "Features – AI Workflow Automation for Professionals",
+    title: "Deep Work Agent – Your AI Colleague for Complex Tasks",
     description:
-      "Explore how zibly.ai turns e-mails into finished analyses, reports, and forms so consultants, bankers, lawyers, and operators can focus on strategy.",
+      "Zibly's Deep Work Agent tackles complex analysis autonomously. Your AI colleague works for up to an hour delivering work that would take days.",
     canonical: "https://zibly.ai/features",
   },
   "/pricing": {
-    title: "Pricing & Plans – Simple, Flexible AI Task Automation",
+    title: "Pricing – Your AI Colleague Starting at $29/month",
     description:
-      "Choose a plan that matches your workload. Transparent usage-based pricing with generous free tasks so you can trial zibly.ai risk-free.",
+      "Simple pricing for your AI colleague. Start free, scale as needed. Email unlimited tasks, pay only for Deep Work. No setup fees, cancel anytime.",
     canonical: "https://zibly.ai/pricing",
   },
   "/about": {
@@ -42,27 +42,27 @@ export const metaByPath: Record<
     canonical: "https://zibly.ai/about",
   },
   "/faq": {
-    title: "FAQ – Security, Pricing & Getting Started With zibly.ai",
+    title: "FAQ – Everything About Your AI Colleague | Zibly",
     description:
-      "Find answers to common questions about data privacy, task turnaround, integrations, billing, and more.",
+      "Everything about your AI colleague: security, pricing, how it works. SOC 2 compliant, no training on your data. Email tasks, get deliverables.",
     canonical: "https://zibly.ai/faq",
   },
   "/blog": {
-    title: "Blog – AI Productivity Tips, Case Studies & Product News",
+    title: "Blog – How Teams Use Their AI Colleague | Zibly",
     description:
-      "Read expert insights and real-world stories on using AI to supercharge research, analysis, and document creation.",
+      "Learn how professionals use their AI colleague to save 20+ hours weekly. Real case studies, productivity tips, and Zibly product updates.",
     canonical: "https://zibly.ai/blog",
   },
   "/signup": {
-    title: "Sign Up – Get Started With zibly.ai",
+    title: "Sign Up – Get Your AI Colleague Today | First Task Free",
     description:
-      "Create your account and start automating your analytical work with zibly.ai's email-powered AI colleague.",
+      "Start working with your AI colleague in 2 minutes. Email your first task free. No credit card required. Join teams saving 20+ hours weekly.",
     canonical: "https://zibly.ai/signup",
   },
   "/contact": {
-    title: "Contact Us – Get in Touch With zibly.ai",
+    title: "Contact Zibly – Support, Enterprise & Partnership Inquiries",
     description:
-      "Have questions? Get in touch with our team for support, partnerships, or enterprise inquiries.",
+      "Questions about your AI colleague? Contact our team for support, enterprise plans, or partnerships. We respond within 24 hours. Email or chat.",
     canonical: "https://zibly.ai/contact",
   },
   "/help": {
@@ -92,21 +92,21 @@ export const metaByPath: Record<
 
   // ── Use Cases (industry pages) ─────────────────────────────────────
   "/solutions/consultants": {
-    title: "AI for Consultants – Faster Decks & Deeper Insights",
+    title: "AI Colleague for Consultants – MBB-Quality Analysis",
     description:
-      "Automate data crunching, competitor research, and slide drafting so you can spend more time on client strategy.",
+      "Your AI colleague handles data analysis, deck creation, and research. Email tasks, get client-ready deliverables. Used by top consulting firms.",
     canonical: "https://zibly.ai/solutions/consultants",
   },
   "/solutions/investment-banking": {
-    title: "AI for Investment Bankers – Pitch Decks & Valuations in Minutes",
+    title: "AI Colleague for Investment Banking – Instant Pitch Decks",
     description:
-      "Generate comps, DCFs, and polished pitch materials by simply e-mailing your raw data to zibly.ai.",
+      "Your AI colleague builds comps, DCFs, and pitch books. Email raw data, receive polished materials. Trusted by bulge bracket analysts.",
     canonical: "https://zibly.ai/solutions/investment-banking",
   },
   "/solutions/private-equity": {
-    title: "AI for Private Equity – Portfolio Analysis & Due Diligence",
+    title: "AI Colleague for Private Equity – Deal Analysis in Hours",
     description:
-      "Accelerate deal screening and periodic reviews by offloading modelling, market sizing, and memo drafting to zibly.ai.",
+      "Your AI colleague accelerates deal screening and portfolio reviews. Email data rooms, get comprehensive analysis. SOC 2 compliant.",
     canonical: "https://zibly.ai/solutions/private-equity",
   },
   "/solutions/accountants": {
@@ -116,15 +116,15 @@ export const metaByPath: Record<
     canonical: "https://zibly.ai/solutions/accountants",
   },
   "/solutions/attorneys": {
-    title: "AI for Attorneys – Research, Drafting & Form Filling by E-mail",
+    title: "AI Colleague for Attorneys – Legal Research & Drafting",
     description:
-      "Outsource first-pass legal research, citation checking, and complex form completion with enterprise-grade security.",
+      "Your AI colleague handles legal research and document drafting. Email briefs, get comprehensive memos. Enterprise security, no data training.",
     canonical: "https://zibly.ai/solutions/attorneys",
   },
   "/solutions/marketing": {
-    title: "AI for Marketing Teams – Instant Market & Campaign Analysis",
+    title: "AI Colleague for Marketing – Campaign Analysis & Reports",
     description:
-      "Turn raw campaign exports into performance dashboards and competitor insights without leaving your inbox.",
+      "Your AI colleague analyzes campaigns and creates reports. Email metrics, get dashboards and insights. From performance reviews to content briefs.",
     canonical: "https://zibly.ai/solutions/marketing",
   },
   "/solutions/product-managers": {
@@ -149,18 +149,18 @@ export const metaByPath: Record<
 export const metadata = {
   metadataBase: new URL('https://zibly.ai'),
   title: {
-    default: "Zibly – Email AI for Finished Deliverables",
+    default: "Zibly – Your AI Colleague. Just Email the Work.",
     template: "%s | zibly.ai",
   },
   description:
-    "Forward tasks to work@zibly.ai and get back finished Excel models, slide decks, and research memos. Not advice—actual deliverables.",
+    "Email work@zibly.ai like you would a colleague. Get back finished decks, models, and memos. Your AI colleague that delivers professional work, not just advice.",
   alternates: {
     canonical: "https://zibly.ai",
   },
   openGraph: {
-    title: "Zibly – Email AI for Finished Deliverables",
+    title: "Zibly – Your AI Colleague. Just Email the Work.",
     description:
-      "Send tasks by email and receive polished files back. First task free.",
+      "Email tasks to your AI colleague. Get back professional deliverables. First task free.",
     url: "https://zibly.ai",
     siteName: "zibly.ai",
     images: [
@@ -176,9 +176,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zibly – Email AI for Finished Deliverables",
+    title: "Zibly – Your AI Colleague. Just Email the Work.",
     description:
-      "Send tasks by email and receive polished files back. First task free.",
+      "Email tasks to your AI colleague. Get back professional deliverables. First task free.",
     images: ["/zibly_meta.png"],
   },
   robots: {
