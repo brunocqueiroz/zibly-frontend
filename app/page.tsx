@@ -322,7 +322,7 @@ Sarah`
             <SlideUp>
               <div className="text-center mb-12">
                 <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Delegate Like They're On Your Team.<br />Because They Are.</h2>
-                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Zibly isn't a chatbot — it's your AI employee. No prompts, no hand-holding, no learning curve. Just email tasks like you would to a senior analyst, and get professional work back. The kind you can send directly to your boss.</p>
+                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Zibly isn't a chatbot — it's your AI colleague. No prompts, no hand-holding, no learning curve. Just email tasks like you would to a senior analyst, and get professional work back. The kind you can send directly to your boss.</p>
               </div>
             </SlideUp>
 
@@ -477,7 +477,7 @@ Sarah`
                     <br />
                     <strong>Best regards,</strong>
                     <br />
-                    Zibly AI Assistant
+                    Your AI Colleague
                   </div>
                 </div>
                 </div>

@@ -38,7 +38,7 @@ export const metaByPath: Record<
   "/about": {
     title: "About zibly.ai – Our Mission to Simplify Knowledge Work",
     description:
-      "Learn how the zibly.ai team is building an e-mail-powered AI assistant that eliminates busywork and helps teams deliver better results faster.",
+      "Learn how the zibly.ai team is building an e-mail-powered AI colleague that eliminates busywork and helps teams deliver better results faster.",
     canonical: "https://zibly.ai/about",
   },
   "/faq": {
@@ -56,7 +56,7 @@ export const metaByPath: Record<
   "/signup": {
     title: "Sign Up – Get Started With zibly.ai",
     description:
-      "Create your account and start automating your analytical work with zibly.ai's email-powered AI assistant.",
+      "Create your account and start automating your analytical work with zibly.ai's email-powered AI colleague.",
     canonical: "https://zibly.ai/signup",
   },
   "/contact": {
@@ -86,7 +86,7 @@ export const metaByPath: Record<
   "/terms": {
     title: "Terms of Service – zibly.ai User Agreement",
     description:
-      "Review the terms and conditions for using zibly.ai's email-powered AI assistant service.",
+      "Review the terms and conditions for using zibly.ai's email-powered AI colleague service.",
     canonical: "https://zibly.ai/terms",
   },
 
@@ -168,7 +168,7 @@ export const metadata = {
         url: "/zibly_meta.png",
         width: 1200,
         height: 630,
-        alt: "zibly.ai – E-mail-powered AI assistant",
+        alt: "zibly.ai – E-mail-powered AI colleague",
       },
     ],
     locale: "en_US",
