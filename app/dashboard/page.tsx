@@ -37,12 +37,18 @@ export default function DashboardPage() {
       
       try {
         const apiClient = getApiClient()
+        console.log('🔍 Dashboard: Loading API data for user:', user.id)
+        console.log('🌐 API Base URL:', process.env.NEXT_PUBLIC_API_BASE_URL || 'using default')
         
         // Fetch user usage data
         const [userUsage, monthlyUsage] = await Promise.all([
           apiClient.getUserUsage(user.id as number),
           apiClient.getUserMonthlyUsage(user.id as number)
         ])
+        
+        console.log('✅ Dashboard: API data loaded successfully')
+        console.log('📊 Usage data:', userUsage)
+        console.log('📅 Monthly data:', monthlyUsage)
         
         setApiData({
           usage: userUsage,
@@ -51,7 +57,8 @@ export default function DashboardPage() {
         })
         
       } catch (error) {
-        console.warn('API data unavailable (user not found or no data):', error)
+        console.error('❌ Dashboard: API data loading failed:', error)
+        console.log('🔧 Falling back to empty data structure')
         // Gracefully handle missing user data - dashboard will show fallback values
         setApiData({
           usage: null,
