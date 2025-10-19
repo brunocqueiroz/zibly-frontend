@@ -16,7 +16,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/components/auth-provider"
 
 export default function SettingsPage() {
-  const { user } = useAuth()
+  const { user, refetch } = useAuth()
   const [isProfileLoading, setIsProfileLoading] = useState(false)
   const [isPasswordLoading, setIsPasswordLoading] = useState(false)
   const [isNotificationsLoading, setIsNotificationsLoading] = useState(false)
@@ -31,7 +31,13 @@ export default function SettingsPage() {
     setProfileError(null)
 
     try {
-      const result = await updateProfile(new FormData(e.currentTarget))
+      const formData = new FormData(e.currentTarget)
+      
+      // Add user ID for the server action
+      const userId = user?.id?.toString() || ""
+      formData.append("userId", userId)
+      
+      const result = await updateProfile(formData)
 
       if (result.error) {
         setProfileError(result.error)
@@ -40,6 +46,8 @@ export default function SettingsPage() {
           title: "Success",
           description: "Your profile has been updated.",
         })
+        // Refresh user data from API to show updated profile
+        await refetch()
       }
     } catch (error) {
       setProfileError("Something went wrong")
@@ -54,7 +62,14 @@ export default function SettingsPage() {
     setPasswordError(null)
 
     try {
-      const result = await updatePassword(new FormData(e.currentTarget))
+      const formData = new FormData(e.currentTarget)
+      
+      // Add user ID for the server action
+      const userId = user?.id?.toString() || ""
+      formData.append("userId", userId)
+
+
+      const result = await updatePassword(formData)
 
       if (result.error) {
         setPasswordError(result.error)
@@ -79,7 +94,13 @@ export default function SettingsPage() {
     setNotificationsError(null)
 
     try {
-      const result = await updateNotificationPreferences(new FormData(e.currentTarget))
+      const formData = new FormData(e.currentTarget)
+      
+      // Add user ID for the server action
+      const userId = user?.id?.toString() || ""
+      formData.append("userId", userId)
+      
+      const result = await updateNotificationPreferences(formData)
 
       if (result.error) {
         setNotificationsError(result.error)
@@ -88,6 +109,8 @@ export default function SettingsPage() {
           title: "Success",
           description: "Your notification preferences have been updated.",
         })
+        // Refresh user data from API to show updated preferences
+        await refetch()
       }
     } catch (error) {
       setNotificationsError("Something went wrong")
@@ -127,17 +150,62 @@ export default function SettingsPage() {
                           <AlertDescription>{profileError}</AlertDescription>
                         </Alert>
                       )}
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Name</Label>
-                        <Input id="name" name="name" defaultValue={user?.name || ""} />
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="first_name">First Name</Label>
+                          <Input 
+                            id="first_name" 
+                            name="first_name" 
+                            defaultValue={user?.first_name || ""} 
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="last_name">Last Name</Label>
+                          <Input 
+                            id="last_name" 
+                            name="last_name" 
+                            defaultValue={user?.last_name || ""} 
+                          />
+                        </div>
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" name="email" type="email" defaultValue={user?.email || ""} />
+                        <Input 
+                          id="email" 
+                          name="email" 
+                          type="email" 
+                          defaultValue={user?.email || ""} 
+                          disabled
+                          className="bg-muted"
+                        />
+                        <p className="text-xs text-muted-foreground">Email cannot be changed after account creation</p>
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="company">Company (Optional)</Label>
-                        <Input id="company" name="company" defaultValue={user?.company || ""} />
+                        <Input 
+                          id="company" 
+                          name="company" 
+                          defaultValue={user?.company || ""} 
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="website">Website (Optional)</Label>
+                        <Input 
+                          id="website" 
+                          name="website" 
+                          type="url" 
+                          placeholder="https://example.com"
+                          defaultValue={user?.website || ""} 
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="bio">Bio (Optional)</Label>
+                        <Input 
+                          id="bio" 
+                          name="bio" 
+                          placeholder="Tell us about yourself"
+                          defaultValue={user?.bio || ""} 
+                        />
                       </div>
                     </CardContent>
                     <CardFooter>
@@ -169,7 +237,7 @@ export default function SettingsPage() {
                             Receive email notifications about your account
                           </div>
                         </div>
-                        <Switch name="emailNotifications" defaultChecked={user?.notifications?.emailNotifications} />
+                        <Switch name="email" defaultChecked={user?.preferences?.notifications?.email ?? true} />
                       </div>
                       <div className="flex items-center justify-between">
                         <div>
@@ -178,7 +246,7 @@ export default function SettingsPage() {
                             Get notified when you're approaching your usage limit
                           </div>
                         </div>
-                        <Switch name="usageAlerts" defaultChecked={user?.notifications?.usageAlerts} />
+                        <Switch name="usage" defaultChecked={user?.preferences?.notifications?.usage ?? false} />
                       </div>
                       <div className="flex items-center justify-between">
                         <div>
@@ -187,7 +255,7 @@ export default function SettingsPage() {
                             Receive updates about new features and promotions
                           </div>
                         </div>
-                        <Switch name="marketingEmails" defaultChecked={user?.notifications?.marketingEmails} />
+                        <Switch name="marketing" defaultChecked={user?.preferences?.notifications?.marketing ?? false} />
                       </div>
                     </CardContent>
                     <CardFooter>
@@ -225,7 +293,7 @@ export default function SettingsPage() {
                         <Input id="newPassword" name="newPassword" type="password" />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="confirmPasswor">Confirm New Password</Label>
+                        <Label htmlFor="confirmPassword">Confirm New Password</Label>
                         <Input id="confirmPassword" name="confirmPassword" type="password" />
                       </div>
                     </CardContent>
@@ -235,22 +303,6 @@ export default function SettingsPage() {
                       </Button>
                     </CardFooter>
                   </form>
-                </Card>
-
-                <Card className="bg-white border-2 border-black">
-                  <CardHeader>
-                    <CardTitle className="text-black">Two-Factor Authentication</CardTitle>
-                    <CardDescription className="text-primary">Add an extra layer of security to your account</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-black">Two-Factor Authentication</div>
-                        <div className="text-sm text-black">Secure your account with 2FA</div>
-                      </div>
-                      <Switch />
-                    </div>
-                  </CardContent>
                 </Card>
               </TabsContent>
             </Tabs>
