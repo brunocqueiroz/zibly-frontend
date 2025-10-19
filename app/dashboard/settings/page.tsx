@@ -304,22 +304,6 @@ export default function SettingsPage() {
                     </CardFooter>
                   </form>
                 </Card>
-
-                <Card className="bg-white border-2 border-black">
-                  <CardHeader>
-                    <CardTitle className="text-black">Two-Factor Authentication</CardTitle>
-                    <CardDescription className="text-primary">Add an extra layer of security to your account</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-black">Two-Factor Authentication</div>
-                        <div className="text-sm text-black">Secure your account with 2FA</div>
-                      </div>
-                      <Switch />
-                    </div>
-                  </CardContent>
-                </Card>
               </TabsContent>
             </Tabs>
           </div>
