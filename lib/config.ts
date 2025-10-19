@@ -6,7 +6,7 @@
 export const config = {
   // FastAPI Backend Configuration
   api: {
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000/zibly',
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://1ce20ayeb1.execute-api.us-east-1.amazonaws.com/zibly',
     key: process.env.NEXT_PUBLIC_API_KEY || 'zibly-dev-key-2024',
     adminKey: process.env.NEXT_PUBLIC_ADMIN_API_KEY || 'zibly-admin-key-2024',
   },
