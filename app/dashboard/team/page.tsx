@@ -6,6 +6,8 @@ import DashboardNav from "@/components/dashboard-nav"
 import { useAuth } from "@/components/auth-provider"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Users, UserPlus, Crown, Shield } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -27,15 +29,50 @@ export default function TeamPage() {
 
   const refresh = async () => {
     setLoading(true)
-    const res = await getTeam()
-    if ("error" in res) {
-      toast({ variant: "destructive", title: "Error", description: res.error })
-      setLoading(false)
-      return
+    
+    // Fake data for development - replace with real API call later
+    const fakeOrg: Org = {
+      name: "Zibly Inc.",
+      seats: 8,
+      members: [
+        {
+          name: "John Smith",
+          email: "john.smith@zibly.ai",
+          role: "admin",
+          status: "active"
+        },
+        {
+          name: "Sarah Johnson",
+          email: "sarah.johnson@zibly.ai", 
+          role: "admin",
+          status: "active"
+        },
+        {
+          name: "Michael Chen",
+          email: "michael.chen@zibly.ai",
+          role: "member",
+          status: "active"
+        },
+        {
+          name: "Emily Rodriguez",
+          email: "emily.rodriguez@zibly.ai",
+          role: "member", 
+          status: "active"
+        },
+        {
+          name: "David Kim",
+          email: "david.kim@zibly.ai",
+          role: "member",
+          status: "pending"
+        }
+      ]
     }
-    setOrg(res.org as Org)
-    setSeatsInput(res.org.seats)
-    setLoading(false)
+    
+    setTimeout(() => {
+      setOrg(fakeOrg)
+      setSeatsInput(fakeOrg.seats)
+      setLoading(false)
+    }, 500) // Simulate loading time
   }
 
   useEffect(() => {
@@ -101,14 +138,61 @@ export default function TeamPage() {
         <main className="flex-1 p-6 lg:p-8 bg-white">
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-black">Team</h1>
+              <div className="flex items-center gap-3 mb-2">
+                <Users className="h-8 w-8 text-primary" />
+                <h1 className="text-3xl font-bold text-black">Team</h1>
+              </div>
               <p className="text-black">Manage members and seats for your organization</p>
             </div>
 
             {loading || !org ? (
-              <div className="text-sm text-black">Loading...</div>
+              <div className="flex items-center justify-center py-12">
+                <div className="text-center space-y-2">
+                  <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+                  <div className="text-sm text-black">Loading team data...</div>
+                </div>
+              </div>
             ) : (
               <>
+                {/* Team Overview Stats */}
+                <div className="grid gap-6 md:grid-cols-3 mb-6">
+                  <Card className="bg-white border-2 border-black">
+                    <CardContent className="p-6">
+                      <div className="flex items-center">
+                        <div>
+                          <p className="text-sm font-medium text-gray-600">Total Members</p>
+                          <p className="text-2xl font-bold text-black">{org.members.length}</p>
+                        </div>
+                        <Users className="h-8 w-8 text-primary ml-auto" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-white border-2 border-black">
+                    <CardContent className="p-6">
+                      <div className="flex items-center">
+                        <div>
+                          <p className="text-sm font-medium text-gray-600">Active Users</p>
+                          <p className="text-2xl font-bold text-black">{org.members.filter(m => m.status === 'active').length}</p>
+                        </div>
+                        <Badge className="bg-green-100 text-green-800 ml-auto">Active</Badge>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-white border-2 border-black">
+                    <CardContent className="p-6">
+                      <div className="flex items-center">
+                        <div>
+                          <p className="text-sm font-medium text-gray-600">Admins</p>
+                          <p className="text-2xl font-bold text-black">{org.members.filter(m => m.role === 'admin').length}</p>
+                        </div>
+                        <Crown className="h-8 w-8 text-yellow-500 ml-auto" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
                 <div className="grid gap-6 md:grid-cols-2">
                   <Card className="bg-white border-2 border-black">
                     <CardHeader className="pb-2">
@@ -132,7 +216,10 @@ export default function TeamPage() {
 
                   <Card className="bg-white border-2 border-black">
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-black">Invite Member</CardTitle>
+                      <CardTitle className="flex items-center gap-2 text-black">
+                        <UserPlus className="h-5 w-5" />
+                        Invite Member
+                      </CardTitle>
                       <CardDescription className="text-primary">Send an invite by email</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
@@ -168,10 +255,20 @@ export default function TeamPage() {
                         <div className="p-4 text-sm text-black">No members yet</div>
                       ) : (
                         org.members.map((m) => (
-                          <div key={m.email} className="grid grid-cols-1 md:grid-cols-5 items-center gap-4 p-4 border-b-2 last:border-b-0 border-black">
-                            <div>
-                              <div className="font-medium text-black">{m.name}</div>
-                              <div className="text-sm text-black">{m.email}</div>
+                          <div key={m.email} className="grid grid-cols-1 md:grid-cols-5 items-center gap-4 p-4 border-b-2 last:border-b-0 border-black hover:bg-gray-50 transition-colors">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                <span className="text-sm font-medium text-primary">
+                                  {m.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                                </span>
+                              </div>
+                              <div>
+                                <div className="font-medium text-black flex items-center gap-2">
+                                  {m.name}
+                                  {m.role === 'admin' && <Crown className="h-4 w-4 text-yellow-500" />}
+                                </div>
+                                <div className="text-sm text-gray-600">{m.email}</div>
+                              </div>
                             </div>
                             <div className="md:col-span-2">
                               <Label className="text-xs text-black">Role</Label>
@@ -180,16 +277,33 @@ export default function TeamPage() {
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="member">Member</SelectItem>
-                                  <SelectItem value="admin">Admin</SelectItem>
+                                  <SelectItem value="member">
+                                    <div className="flex items-center gap-2">
+                                      <Shield className="h-4 w-4" />
+                                      Member
+                                    </div>
+                                  </SelectItem>
+                                  <SelectItem value="admin">
+                                    <div className="flex items-center gap-2">
+                                      <Crown className="h-4 w-4" />
+                                      Admin
+                                    </div>
+                                  </SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
                             <div>
-                              <div className="text-sm capitalize text-black">{m.status}</div>
+                              <Badge 
+                                variant={m.status === 'active' ? 'default' : 'secondary'}
+                                className={m.status === 'active' ? 'bg-green-100 text-green-800 hover:bg-green-100' : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100'}
+                              >
+                                {m.status}
+                              </Badge>
                             </div>
                             <div className="flex justify-end">
-                              <Button variant="outline" size="sm" onClick={() => handleRemove(m.email)} className="border-2 border-black text-black hover:bg-black hover:text-white">Remove</Button>
+                              <Button variant="outline" size="sm" onClick={() => handleRemove(m.email)} className="border-2 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300">
+                                Remove
+                              </Button>
                             </div>
                           </div>
                         ))

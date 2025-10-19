@@ -10,12 +10,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { registerUser } from "@/app/actions/auth"
-import Logo from "@/components/logo"
+import { PRICING_PLANS, formatPrice } from "@/lib/pricing-config"
 
 export default function SignupPage() {
   const searchParams = useSearchParams()
-  const plan = searchParams.get("plan") || "starter"
+  const initialPlan = searchParams.get("plan") || "starter"
+  const [selectedPlan, setSelectedPlan] = useState(initialPlan)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({})
@@ -27,6 +29,8 @@ export default function SignupPage() {
     setFormErrors({})
 
     const formData = new FormData(e.currentTarget)
+    // Add selected plan to form data
+    formData.append("plan", selectedPlan)
 
     try {
       const result = await registerUser(formData)
@@ -52,7 +56,6 @@ export default function SignupPage() {
       <div className="container flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-12">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col items-center space-y-2 text-center">
-          <Logo size="lg" />
           <h1 className="text-2xl tracking-tight inter-heading-normal text-black">Create an account</h1>
           <p className="text-sm inter-text text-black">Enter your information to create an account</p>
         </div>
@@ -66,14 +69,21 @@ export default function SignupPage() {
         <Card className="bg-white border-2 border-black">
           <form onSubmit={handleSubmit}>
             <CardHeader>
-              <CardTitle className="inter-heading-normal text-black">Create Account</CardTitle>
-              <CardDescription className="inter-text text-black">Sign up with your email and password</CardDescription>
+              <CardTitle className="inter-heading-normal text-black">Sign Up</CardTitle>
+              <CardDescription className="inter-text text-black">Choose your plan and get started</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="inter-text-medium text-black">Name</Label>
-                <Input id="name" name="name" placeholder="John Doe" required />
-                {formErrors.name && <p className="text-xs text-red-500">{formErrors.name[0]}</p>}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="first_name" className="inter-text-medium text-black">First Name</Label>
+                  <Input id="first_name" name="first_name" placeholder="John" required />
+                  {formErrors.first_name && <p className="text-xs text-red-500">{formErrors.first_name[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="last_name" className="inter-text-medium text-black">Last Name</Label>
+                  <Input id="last_name" name="last_name" placeholder="Doe" required />
+                  {formErrors.last_name && <p className="text-xs text-red-500">{formErrors.last_name[0]}</p>}
+                </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email" className="inter-text-medium text-black">Email</Label>
@@ -86,8 +96,25 @@ export default function SignupPage() {
                 {formErrors.password && <p className="text-xs text-red-500">{formErrors.password[0]}</p>}
               </div>
               <div className="space-y-2">
-                <Label className="inter-text-medium text-black">Selected Plan</Label>
-                <div className="rounded-md border-2 border-black p-2 text-sm capitalize inter-text text-black bg-white">{plan}</div>
+                <Label htmlFor="plan" className="inter-text-medium text-black">Select Plan</Label>
+                <Select name="plan" value={selectedPlan} onValueChange={setSelectedPlan}>
+                  <SelectTrigger className="border-2 border-black">
+                    <SelectValue placeholder="Select a plan" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PRICING_PLANS.map((plan) => (
+                      <SelectItem key={plan.id} value={plan.id}>
+                        <div className="flex items-center justify-between w-full">
+                          <span className="font-medium">{plan.name}</span>
+                          <span className="text-sm text-muted-foreground ml-2">
+                            {plan.priceMonthly ? formatPrice(plan.priceMonthly) : 'Contact Sales'}
+                          </span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {formErrors.plan && <p className="text-xs text-red-500">{formErrors.plan[0]}</p>}
               </div>
             </CardContent>
             <CardFooter>

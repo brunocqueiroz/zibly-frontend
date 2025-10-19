@@ -260,18 +260,7 @@ export default function DashboardPage() {
       return { day: key, emails: count }
     })
 
-    // Build categories data from history
-    const categoryCounts = userData.history.reduce((acc, item) => {
-      acc[item.category] = (acc[item.category] || 0) + 1
-      return acc
-    }, {} as Record<string, number>)
-    
-    const categories = Object.entries(categoryCounts).map(([name, value]) => ({
-      name,
-      value
-    }))
-
-    return { totals, days, categories }
+    return { totals, days }
   }, [historyThisMonth, userData.history, apiData])
   
   // Show loading state if auth is still loading
@@ -392,16 +381,16 @@ export default function DashboardPage() {
                 </Card>
               </div>
 
-              <div className="grid gap-6 lg:grid-cols-2">
+              <div className="grid gap-6">
                 <Card className="bg-white border-2 border-black">
                   <CardHeader>
-                    <CardTitle className="text-black">Usage Over Last 14 Days</CardTitle>
+                    <CardTitle className="text-black">Usage Over Last 30 Days</CardTitle>
                     <CardDescription className="text-primary">Emails sent per day</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ChartContainer
                       config={{ emails: { label: "Emails", color: "#6366f1" } }}
-                      className="h-[260px] w-full"
+                      className="h-[300px] w-full"
                     >
                       <LineChart data={analytics.days} margin={{ left: 12, right: 12, top: 12, bottom: 12 }} width="100%">
                         <CartesianGrid strokeDasharray="3 3" />
@@ -423,32 +412,6 @@ export default function DashboardPage() {
                           activeDot={{ r: 5, fill: "#6366f1" }}
                         />
                       </LineChart>
-                    </ChartContainer>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-white border-2 border-black">
-                  <CardHeader>
-                    <CardTitle className="text-black">Workload by Category</CardTitle>
-                    <CardDescription className="text-primary">Distribution of tasks</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ChartContainer
-                      config={{
-                        Slides: { label: "Slides", color: "#06b6d4" },
-                        Modeling: { label: "Modeling", color: "#10b981" },
-                        Research: { label: "Research", color: "#f59e0b" },
-                        Analysis: { label: "Analysis", color: "#a855f7" },
-                      }}
-                      className="h-[260px]"
-                    >
-                      <BarChart data={analytics.categories} margin={{ left: 12, right: 12 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" tickLine={false} axisLine={false} />
-                        <YAxis allowDecimals={false} width={28} />
-                        <ChartTooltip content={<ChartTooltipContent labelKey="name" nameKey="value" />} />
-                        <Bar dataKey="value" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
-                      </BarChart>
                     </ChartContainer>
                   </CardContent>
                 </Card>

@@ -38,8 +38,8 @@ export async function registerUser(formData: FormData) {
   }
 
   const { first_name, last_name, email, password } = validatedFields.data
-  // Default to starter plan, user can upgrade later
-  const plan = "starter"
+  // Get selected plan from form data, default to starter
+  const plan = formData.get("plan") as string || "starter"
 
   try {
     if (config.features.useMockData) {
