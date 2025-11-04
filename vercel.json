@@ -2,5 +2,18 @@
   "buildCommand": "pnpm build",
   "devCommand": "pnpm dev",
   "installCommand": "pnpm install",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zibly.ai"
+        }
+      ],
+      "destination": "https://zibly.ai/:path*",
+      "permanent": true
+    }
+  ]
 } 

@@ -226,7 +226,7 @@ Thanks!`
                       Ready to <span className="text-primary">Delegate</span>?
                     </h2>
                     <p className="mx-auto max-w-[600px] text-base md:text-lg inter-text text-black">
-                      No signup required. No credit card needed. Just email the work to your AI colleague and see the results.
+                      No signup required. No credit card needed. Just email your work to your AI colleague and see the results.
                     </p>
                     <div className="pt-4">
                       <MagneticButton>

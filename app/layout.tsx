@@ -149,7 +149,7 @@ export const metaByPath: Record<
 export const metadata = {
   metadataBase: new URL('https://zibly.ai'),
   title: {
-    default: "Zibly – Your AI Colleague. Just Email the Work.",
+    default: "Zibly – Your AI Colleague. Just Email your work.",
     template: "%s | zibly.ai",
   },
   description:
@@ -158,7 +158,7 @@ export const metadata = {
     canonical: "https://zibly.ai",
   },
   openGraph: {
-    title: "Zibly – Your AI Colleague. Just Email the Work.",
+    title: "Zibly – Your AI Colleague. Just Email your work.",
     description:
       "Email tasks to your AI colleague. Get back professional deliverables. First task free.",
     url: "https://zibly.ai",
@@ -176,7 +176,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zibly – Your AI Colleague. Just Email the Work.",
+    title: "Zibly – Your AI Colleague. Just Email your work.",
     description:
       "Email tasks to your AI colleague. Get back professional deliverables. First task free.",
     images: ["/zibly_meta.png"],

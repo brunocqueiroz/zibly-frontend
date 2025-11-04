@@ -152,7 +152,7 @@ Sarah`
               {/* Main Heading */}
               <FadeIn>
                 <h1 className="inter-section-heading text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-12 max-w-5xl mx-auto" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
-                  Your AI Colleague.<br /><span className="text-primary">Just Email the Work.</span>
+                  Your AI Colleague.<br /><span className="text-primary">Just Email your work.</span>
                 </h1>
               </FadeIn>
 
