@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Privacy Policy – Zibly',
   description: 'Learn how Zibly collects, uses, and protects your information. Request deletion at any time.',
-  alternates: { canonical: 'https://zibly.ai/privacy' },
+  alternates: { canonical: 'https://www.zibly.ai/privacy' },
 }
 
 export default function PrivacyPage() {

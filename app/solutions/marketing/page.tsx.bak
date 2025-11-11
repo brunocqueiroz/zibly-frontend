@@ -33,8 +33,8 @@ Thanks!`
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://zibly.ai/" },
-            { "@type": "ListItem", position: 2, name: "Marketing", item: "https://zibly.ai/solutions/marketing" }
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.zibly.ai/" },
+            { "@type": "ListItem", position: 2, name: "Marketing", item: "https://www.zibly.ai/solutions/marketing" }
           ]
         }) }}
       />

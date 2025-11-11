@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Terms of Service – Zibly',
   description: 'Read the Zibly terms governing use of our email-powered AI colleague and services.',
-  alternates: { canonical: 'https://zibly.ai/terms' },
+  alternates: { canonical: 'https://www.zibly.ai/terms' },
 }
 
 export default function TermsPage() {

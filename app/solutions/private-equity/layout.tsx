@@ -3,11 +3,11 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "AI for Private Equity | LBO Models & IC Memos - zibly.ai",
   description: "Portfolio monitoring to deal sourcing with institutional depth. Automate due diligence, operating models & investment committee presentations.",
-  alternates: { canonical: "https://zibly.ai/solutions/private-equity" },
+  alternates: { canonical: "https://www.zibly.ai/solutions/private-equity" },
   openGraph: {
     title: "AI for Private Equity | LBO Models & IC Memos - zibly.ai",
     description: "Portfolio monitoring to deal sourcing with institutional depth. Automate due diligence, operating models & investment committee presentations.",
-    url: "https://zibly.ai/solutions/private-equity",
+    url: "https://www.zibly.ai/solutions/private-equity",
     siteName: "zibly.ai",
     images: [{ url: "/logo.png", width: 1200, height: 630 }],
     type: "website",

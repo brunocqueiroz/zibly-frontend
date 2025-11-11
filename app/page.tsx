@@ -136,8 +136,8 @@ Sarah`
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Zibly",
-          url: "https://zibly.ai/",
-          logo: "https://zibly.ai/logo.png",
+          url: "https://www.zibly.ai/",
+          logo: "https://www.zibly.ai/logo.png",
           sameAs: [],
           contactPoint: [{
             "@type": "ContactPoint",

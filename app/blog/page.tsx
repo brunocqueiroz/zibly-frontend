@@ -87,7 +87,7 @@ export async function generateMetadata({
       openGraph: {
         title: `${tag} Articles - Zibly.ai Blog`,
         description,
-        url: `https://zibly.ai/blog?tag=${encodeURIComponent(tag)}`,
+        url: `https://www.zibly.ai/blog?tag=${encodeURIComponent(tag)}`,
         siteName: 'Zibly.ai',
         type: 'website',
       },
@@ -97,7 +97,7 @@ export async function generateMetadata({
         description,
       },
       alternates: {
-        canonical: `https://zibly.ai/blog?tag=${encodeURIComponent(tag)}`,
+        canonical: `https://www.zibly.ai/blog?tag=${encodeURIComponent(tag)}`,
       },
       robots: {
         index: postCount > 0, // Only index if there are posts
@@ -112,7 +112,7 @@ export async function generateMetadata({
     openGraph: {
       title: 'Blog - Zibly.ai',
       description: 'Insights on AI, productivity, and the future of work. Learn how to leverage technology to get more done with zibly.ai.',
-      url: 'https://zibly.ai/blog',
+      url: 'https://www.zibly.ai/blog',
       siteName: 'Zibly.ai',
       type: 'website',
     },
@@ -122,7 +122,7 @@ export async function generateMetadata({
       description: 'Insights on AI, productivity, and the future of work. Learn how to leverage technology to get more done with zibly.ai.',
     },
     alternates: {
-      canonical: 'https://zibly.ai/blog',
+      canonical: 'https://www.zibly.ai/blog',
     },
     robots: {
       index: true,

@@ -3,11 +3,11 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "AI for Law Students | Outlines, Briefs, and Research - zibly.ai",
   description: "Turn readings and notes into clear outlines, case briefs, and research memos. Use responsibly and follow your school’s honor code.",
-  alternates: { canonical: "https://zibly.ai/solutions/law-students" },
+  alternates: { canonical: "https://www.zibly.ai/solutions/law-students" },
   openGraph: {
     title: "AI for Law Students | Outlines, Briefs, and Research - zibly.ai",
     description: "Turn readings and notes into clear outlines, case briefs, and research memos. Use responsibly and follow your school’s honor code.",
-    url: "https://zibly.ai/solutions/law-students",
+    url: "https://www.zibly.ai/solutions/law-students",
     siteName: "zibly.ai",
     images: [{ url: "/logo.png", width: 1200, height: 630 }],
     type: "website",

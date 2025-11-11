@@ -102,7 +102,7 @@ export async function generateMetadata({
         .substring(0, 160) + '...'
     : `Read about ${post.title} on the Zibly.ai blog. Insights on AI, productivity, and the future of work.`
   
-  const canonicalUrl = `https://zibly.ai/blog/${post.slug}`
+  const canonicalUrl = `https://www.zibly.ai/blog/${post.slug}`
   
   return {
     title: `${post.title} - Zibly.ai Blog`,
@@ -154,7 +154,7 @@ export default async function BlogPostPage({
   const readingTime = post.content_markdown ? calculateReadingTime(post.content_markdown) : 0
 
   // Share URLs
-  const postUrl = `https://zibly.ai/blog/${slug}`
+  const postUrl = `https://www.zibly.ai/blog/${slug}`
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`
   const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(post.title)}`
 

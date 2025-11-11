@@ -18,16 +18,5 @@
         { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        { "type": "host", "value": "www.zibly.ai" },
-        { "type": "header", "key": "accept", "value": ".*text/html.*" }
-      ],
-      "destination": "https://zibly.ai/:path*",
-      "permanent": true
-    }
   ]
-} 
+}

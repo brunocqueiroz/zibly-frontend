@@ -7,4 +7,4 @@ Disallow: /_next/
 Disallow: /static/
 
 # Sitemap
-Sitemap: https://zibly.ai/sitemap.xml
+Sitemap: https://www.zibly.ai/sitemap.xml

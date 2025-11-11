@@ -4,7 +4,7 @@ import { Shield, Lock, FileText, Database, CheckCircle2, AlertCircle, Mail, Refr
 export const metadata = {
   title: "Security at Zibly.ai",
   description: "How Zibly protects your data: encryption, privacy, compliance, and responsible AI use.",
-  alternates: { canonical: "https://zibly.ai/security" },
+  alternates: { canonical: "https://www.zibly.ai/security" },
   openGraph: {
     title: "Security at Zibly.ai",
     description: "See how Zibly secures your business data and ensures privacy at every step.",

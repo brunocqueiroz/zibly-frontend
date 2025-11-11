@@ -36,7 +36,7 @@ function getPopularTags(posts: any[]) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://zibly.ai'
+  const baseUrl = 'https://www.zibly.ai'
   
   // Get blog posts
   const blogPosts = await getBlogPosts()
