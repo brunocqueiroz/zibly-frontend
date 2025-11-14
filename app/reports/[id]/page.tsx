@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ArrowLeft, Download, Share2, Calendar, Globe, AlertCircle, FileText, Edit3, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 
 interface OpposingArticle {
   url: string
@@ -241,8 +242,34 @@ export default function ReportPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     // Force light theme for this page
     document.documentElement.classList.remove('dark')
+    document.documentElement.style.backgroundColor = '#ffffff'
+    document.documentElement.style.color = '#000000'
     document.body.style.backgroundColor = '#ffffff'
     document.body.style.color = '#000000'
+
+    // Force all elements to light theme
+    const forceWhiteTheme = () => {
+      const darkElements = document.querySelectorAll('[class*="bg-black"], [class*="bg-gray-900"], [class*="bg-slate-900"], [class*="dark:"]')
+      darkElements.forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.style.backgroundColor = 'white'
+          el.style.color = '#111827'
+        }
+      })
+
+      // Specifically target header elements
+      const headers = document.querySelectorAll('header, nav, [role="banner"], [role="navigation"]')
+      headers.forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.style.backgroundColor = 'white'
+          el.style.color = '#111827'
+        }
+      })
+    }
+
+    // Apply immediately and after a short delay to catch any late-loading elements
+    forceWhiteTheme()
+    const timer = setTimeout(forceWhiteTheme, 100)
 
     // Fetch report
     getReport(params.id).then(data => {
@@ -252,6 +279,9 @@ export default function ReportPage({ params }: { params: { id: string } }) {
 
     // Cleanup
     return () => {
+      clearTimeout(timer)
+      document.documentElement.style.backgroundColor = ''
+      document.documentElement.style.color = ''
       document.body.style.backgroundColor = ''
       document.body.style.color = ''
     }
@@ -278,6 +308,59 @@ export default function ReportPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
+      <style jsx global>{`
+        /* Force white background for header and navigation */
+        header, nav, .header, .navigation {
+          background-color: white !important;
+          color: #111827 !important;
+        }
+
+        /* Force white background for any dark themed elements */
+        .dark {
+          background-color: white !important;
+          color: #111827 !important;
+        }
+
+        /* Override any dark theme styles */
+        [class*="dark:"], [class*="bg-black"], [class*="bg-gray-900"], [class*="bg-slate-900"] {
+          background-color: white !important;
+        }
+
+        /* Force white background for tabs */
+        [role="tablist"] {
+          background-color: #f3f4f6 !important;
+        }
+        [role="tab"] {
+          background-color: transparent !important;
+          color: #6b7280 !important;
+        }
+        [role="tab"][data-state="active"] {
+          background-color: white !important;
+          color: #111827 !important;
+          border-color: #e5e7eb !important;
+        }
+        [role="tab"]:hover {
+          background-color: #f9fafb !important;
+        }
+
+        /* Markdown styling for rewritten article */
+        .markdown-content h1 { font-size: 2em; font-weight: bold; margin: 1em 0 0.5em 0; }
+        .markdown-content h2 { font-size: 1.5em; font-weight: bold; margin: 1em 0 0.5em 0; }
+        .markdown-content h3 { font-size: 1.2em; font-weight: bold; margin: 1em 0 0.5em 0; }
+        .markdown-content h4 { font-size: 1.1em; font-weight: bold; margin: 1em 0 0.5em 0; }
+        .markdown-content p { margin: 0.8em 0; line-height: 1.6; }
+        .markdown-content ul, .markdown-content ol { margin: 0.8em 0; padding-left: 1.5em; }
+        .markdown-content li { margin: 0.3em 0; }
+        .markdown-content strong { font-weight: 600; }
+        .markdown-content em { font-style: italic; }
+        .markdown-content blockquote {
+          border-left: 4px solid #e5e7eb;
+          padding-left: 1em;
+          margin: 1em 0;
+          color: #6b7280;
+        }
+      `}</style>
+
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
@@ -328,35 +411,35 @@ export default function ReportPage({ params }: { params: { id: string } }) {
           </CardHeader>
         </Card>
 
-        {/* Bias Score */}
-        <Card className="mb-6 border-gray-200 bg-white">
-          <CardHeader>
-            <CardTitle className="text-gray-900">Bias Assessment</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <BiasScoreIndicator score={report.biasScore} />
-            <div className="prose prose-sm max-w-none">
-              <p className="text-gray-700">{report.biasExplanation}</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Tabs for Original vs Rewritten (if enhanced) */}
+        {/* Tabs for Analysis vs Rewritten (if enhanced) */}
         {isEnhanced && report.rewrittenArticle ? (
           <Tabs defaultValue="analysis" className="mb-6">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="analysis">
+            <TabsList className="grid w-full grid-cols-2 bg-gray-100">
+              <TabsTrigger value="analysis" className="data-[state=active]:bg-white">
                 <FileText className="mr-2 h-4 w-4" />
-                Original Analysis
+                Analysis
               </TabsTrigger>
-              <TabsTrigger value="rewritten">
+              <TabsTrigger value="rewritten" className="data-[state=active]:bg-white">
                 <Edit3 className="mr-2 h-4 w-4" />
                 Unbiased Rewrite
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="analysis" className="space-y-6">
-              {/* Original Analysis */}
+              {/* Bias Assessment - Now inside Analysis tab */}
+              <Card className="border-gray-200 bg-white">
+                <CardHeader>
+                  <CardTitle className="text-gray-900">Bias Assessment</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <BiasScoreIndicator score={report.biasScore} />
+                  <div className="prose prose-sm max-w-none">
+                    <p className="text-gray-700">{report.biasExplanation}</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Detailed Analysis */}
               <Card className="border-gray-200 bg-white">
                 <CardHeader>
                   <CardTitle className="text-gray-900">Detailed Analysis</CardTitle>
@@ -393,8 +476,8 @@ export default function ReportPage({ params }: { params: { id: string } }) {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="prose prose-sm max-w-none">
-                    <p className="text-gray-700 whitespace-pre-wrap">{report.rewrittenArticle}</p>
+                  <div className="prose prose-sm max-w-none markdown-content">
+                    <ReactMarkdown>{report.rewrittenArticle || ''}</ReactMarkdown>
                   </div>
                 </CardContent>
               </Card>
@@ -403,6 +486,20 @@ export default function ReportPage({ params }: { params: { id: string } }) {
         ) : (
           /* Non-tabbed view for non-enhanced reports */
           <>
+            {/* Bias Assessment */}
+            <Card className="mb-6 border-gray-200 bg-white">
+              <CardHeader>
+                <CardTitle className="text-gray-900">Bias Assessment</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <BiasScoreIndicator score={report.biasScore} />
+                <div className="prose prose-sm max-w-none">
+                  <p className="text-gray-700">{report.biasExplanation}</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Detailed Analysis */}
             <Card className="mb-6 border-gray-200 bg-white">
               <CardHeader>
                 <CardTitle className="text-gray-900">Detailed Analysis</CardTitle>

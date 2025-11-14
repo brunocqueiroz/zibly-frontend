@@ -66,7 +66,8 @@ export default function Navbar() {
   const isSecurityPage = pathname === "/security"
   const isPricingPage = pathname === "/pricing"
   const isFeaturesPage = pathname === "/features"
-  const isWhitePage = isHomePage || isFaqPage || isBlogPage || isSolutionsPage || isLoginPage || isSignupPage || isTermsPage || isPrivacyPage || isSecurityPage || isPricingPage || isFeaturesPage
+  const isReportsPage = pathname?.startsWith("/reports")
+  const isWhitePage = isHomePage || isFaqPage || isBlogPage || isSolutionsPage || isLoginPage || isSignupPage || isTermsPage || isPrivacyPage || isSecurityPage || isPricingPage || isFeaturesPage || isReportsPage
   const navBg = isWhitePage ? (isScrolled ? 'bg-white/80' : 'bg-white') : (isScrolled ? 'bg-background/80' : 'bg-background')
   const textColor = isWhitePage ? 'text-black' : 'text-white'
 
