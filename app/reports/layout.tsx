@@ -76,8 +76,8 @@ export default function ReportsLayout({
           color: #111827 !important;
         }
 
-        /* Fix any gradient backgrounds */
-        [class*="gradient"] {
+        /* Fix any gradient backgrounds - but preserve political spectrum gradient */
+        [class*="gradient"]:not(.bg-gradient-to-r) {
           background: white !important;
         }
 

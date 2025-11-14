@@ -103,7 +103,12 @@ function PoliticalSpectrum({ lean, analysis }: { lean: number; analysis: string 
 
   return (
     <div className="space-y-4">
-      <div className="relative h-8 bg-gradient-to-r from-blue-600 via-purple-500 to-red-600 rounded-full">
+      <div
+        className="relative h-8 rounded-full"
+        style={{
+          background: 'linear-gradient(to right, rgb(37, 99, 235), rgb(168, 85, 247), rgb(220, 38, 38))'
+        }}
+      >
         <div
           className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-gray-800 rounded-full shadow-lg transition-all duration-500"
           style={{ left: `${position}%`, transform: 'translateX(-50%) translateY(-50%)' }}
@@ -439,6 +444,21 @@ export default function ReportPage({ params }: { params: { id: string } }) {
                 </CardContent>
               </Card>
 
+              {/* Political Spectrum - Moved before Detailed Analysis */}
+              {report.politicalSpectrum && (
+                <Card className="border-gray-200 bg-white">
+                  <CardHeader>
+                    <CardTitle className="text-gray-900">Political Orientation</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <PoliticalSpectrum
+                      lean={report.politicalSpectrum.lean}
+                      analysis={report.politicalSpectrum.analysis}
+                    />
+                  </CardContent>
+                </Card>
+              )}
+
               {/* Detailed Analysis */}
               <Card className="border-gray-200 bg-white">
                 <CardHeader>
@@ -451,17 +471,79 @@ export default function ReportPage({ params }: { params: { id: string } }) {
                 </CardContent>
               </Card>
 
-              {/* Political Spectrum */}
-              {report.politicalSpectrum && (
+              {/* Omitted Facts - Moved into Analysis tab */}
+              {report.omittedFacts && report.omittedFacts.length > 0 && (
                 <Card className="border-gray-200 bg-white">
                   <CardHeader>
-                    <CardTitle className="text-gray-900">Political Orientation</CardTitle>
+                    <CardTitle className="flex items-center gap-2 text-gray-900">
+                      <AlertCircle className="h-5 w-5 text-amber-500" />
+                      Potentially Omitted Facts
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <PoliticalSpectrum
-                      lean={report.politicalSpectrum.lean}
-                      analysis={report.politicalSpectrum.analysis}
-                    />
+                    <ul className="space-y-2">
+                      {report.omittedFacts.map((fact, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <span className="text-amber-500 mt-1">•</span>
+                          <span className="text-gray-700">{fact}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Opposing Articles - Moved into Analysis tab */}
+              {report.opposingArticles && report.opposingArticles.length > 0 && (
+                <Card className="border-gray-200 bg-white">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-gray-900">
+                      <ExternalLink className="h-5 w-5 text-blue-500" />
+                      Alternative Perspectives
+                    </CardTitle>
+                    <CardDescription className="text-gray-600">
+                      Search for articles presenting different viewpoints on this topic
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="bg-blue-50 p-3 rounded-lg mb-4">
+                      <p className="text-sm text-gray-700 italic">
+                        <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Click below to search Google for articles from different perspectives
+                      </p>
+                    </div>
+                    <div className="space-y-4">
+                      {report.opposingArticles.map((article, index) => (
+                        <div key={index} className="border-l-4 border-blue-500 pl-4 py-2">
+                          <h4 className="font-semibold text-gray-900">
+                            <a href={article.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600 flex items-center gap-2">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                              </svg>
+                              {article.title}
+                            </a>
+                          </h4>
+                          <p className="text-sm text-gray-600 mt-1">Suggested source: {article.source || 'Various sources'}</p>
+                          {article.keyPoints && article.keyPoints.length > 0 && (
+                            <div className="mt-2 ml-4">
+                              <p className="text-xs text-gray-500 font-medium">This search may reveal:</p>
+                              <ul className="text-xs text-gray-600 mt-1 list-disc list-inside">
+                                {article.keyPoints.slice(0, 3).map((point, pointIdx) => (
+                                  <li key={pointIdx}>{point}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                      <p className="text-xs text-gray-600">
+                        <strong>Note:</strong> These are curated search suggestions to help you discover alternative viewpoints. Each link opens a Google search with relevant keywords and source filters.
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -499,18 +581,7 @@ export default function ReportPage({ params }: { params: { id: string } }) {
               </CardContent>
             </Card>
 
-            {/* Detailed Analysis */}
-            <Card className="mb-6 border-gray-200 bg-white">
-              <CardHeader>
-                <CardTitle className="text-gray-900">Detailed Analysis</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose prose-sm max-w-none">
-                  <p className="text-gray-700 whitespace-pre-wrap">{report.analysis}</p>
-                </div>
-              </CardContent>
-            </Card>
-
+            {/* Political Orientation - Moved before Detailed Analysis */}
             {report.politicalSpectrum && (
               <Card className="mb-6 border-gray-200 bg-white">
                 <CardHeader>
@@ -524,57 +595,96 @@ export default function ReportPage({ params }: { params: { id: string } }) {
                 </CardContent>
               </Card>
             )}
-          </>
-        )}
 
-        {/* Opposing Articles (if enhanced) */}
-        {report.opposingArticles && report.opposingArticles.length > 0 && (
-          <Card className="mb-6 border-gray-200 bg-white">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <ExternalLink className="h-5 w-5 text-blue-500" />
-                Opposing Viewpoints
-              </CardTitle>
-              <CardDescription className="text-gray-600">
-                Articles from different perspectives on the same topic
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {report.opposingArticles.map((article, index) => (
-                <div key={index} className="border-l-4 border-blue-500 pl-4 py-2">
-                  <h4 className="font-semibold text-gray-900">
-                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600">
-                      {article.title}
-                    </a>
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">{article.source}</p>
-                  <p className="text-sm text-gray-700 mt-2">{article.snippet}</p>
+            {/* Detailed Analysis */}
+            <Card className="mb-6 border-gray-200 bg-white">
+              <CardHeader>
+                <CardTitle className="text-gray-900">Detailed Analysis</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="prose prose-sm max-w-none">
+                  <p className="text-gray-700 whitespace-pre-wrap">{report.analysis}</p>
                 </div>
-              ))}
-            </CardContent>
-          </Card>
-        )}
+              </CardContent>
+            </Card>
 
-        {/* Omitted Facts */}
-        {report.omittedFacts && report.omittedFacts.length > 0 && (
-          <Card className="mb-6 border-gray-200 bg-white">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <AlertCircle className="h-5 w-5 text-amber-500" />
-                Potentially Omitted Facts
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {report.omittedFacts.map((fact, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <span className="text-amber-500 mt-1">•</span>
-                    <span className="text-gray-700">{fact}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+            {/* Omitted Facts - Added for non-enhanced reports too */}
+            {report.omittedFacts && report.omittedFacts.length > 0 && (
+              <Card className="mb-6 border-gray-200 bg-white">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-gray-900">
+                    <AlertCircle className="h-5 w-5 text-amber-500" />
+                    Potentially Omitted Facts
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {report.omittedFacts.map((fact, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="text-amber-500 mt-1">•</span>
+                        <span className="text-gray-700">{fact}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Opposing Articles - Added for non-enhanced reports if they have them */}
+            {report.opposingArticles && report.opposingArticles.length > 0 && (
+              <Card className="mb-6 border-gray-200 bg-white">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-gray-900">
+                    <ExternalLink className="h-5 w-5 text-blue-500" />
+                    Alternative Perspectives
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    Search for articles presenting different viewpoints on this topic
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-blue-50 p-3 rounded-lg mb-4">
+                    <p className="text-sm text-gray-700 italic">
+                      <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Click below to search Google for articles from different perspectives
+                    </p>
+                  </div>
+                  <div className="space-y-4">
+                    {report.opposingArticles.map((article, index) => (
+                      <div key={index} className="border-l-4 border-blue-500 pl-4 py-2">
+                        <h4 className="font-semibold text-gray-900">
+                          <a href={article.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600 flex items-center gap-2">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            {article.title}
+                          </a>
+                        </h4>
+                        <p className="text-sm text-gray-600 mt-1">Suggested source: {article.source || 'Various sources'}</p>
+                        {article.keyPoints && article.keyPoints.length > 0 && (
+                          <div className="mt-2 ml-4">
+                            <p className="text-xs text-gray-500 font-medium">This search may reveal:</p>
+                            <ul className="text-xs text-gray-600 mt-1 list-disc list-inside">
+                              {article.keyPoints.slice(0, 3).map((point, pointIdx) => (
+                                <li key={pointIdx}>{point}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                    <p className="text-xs text-gray-600">
+                      <strong>Note:</strong> These are curated search suggestions to help you discover alternative viewpoints. Each link opens a Google search with relevant keywords and source filters.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </>
         )}
 
         {/* Footer */}
