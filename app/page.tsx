@@ -53,16 +53,63 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
+  // Helper function to read file as base64
+  const readFileAsBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => {
+        const result = reader.result as string
+        // Remove data URL prefix (e.g., "data:image/png;base64,")
+        const base64 = result.split(',')[1] || result
+        resolve(base64)
+      }
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setErrorMessage("")
 
     try {
-      // Prepare attachments array
-      const attachments = files && files.length > 0
-        ? Array.from(files).map(file => ({ filename: file.name }))
-        : []
+      // Total file size limit: 7 MB (sum of all files)
+      const MAX_TOTAL_SIZE = 7 * 1024 * 1024 // 7 MB in bytes
+      
+      // Validate total file size before processing
+      if (files && files.length > 0) {
+        const totalSize = Array.from(files).reduce((sum, file) => sum + file.size, 0)
+        if (totalSize > MAX_TOTAL_SIZE) {
+          const totalSizeMB = (totalSize / (1024 * 1024)).toFixed(2)
+          setErrorMessage(`Total file size limit exceeded. Your files total ${totalSizeMB} MB, but the limit is 7 MB. Please reduce the total size of your attachments.`)
+          setIsSubmitting(false)
+          return
+        }
+      }
+
+      // Prepare attachments array with base64 encoded content
+      let attachments: Array<{ filename: string; content: string; content_type: string }> = []
+      
+      if (files && files.length > 0) {
+        try {
+          attachments = await Promise.all(
+            Array.from(files).map(async (file) => {
+              const base64Content = await readFileAsBase64(file)
+              return {
+                filename: file.name,
+                content: base64Content,
+                content_type: file.type || 'application/octet-stream',
+              }
+            })
+          )
+        } catch (fileError) {
+          console.error("Error reading files:", fileError)
+          setErrorMessage("Failed to read one or more files. Please try again.")
+          setIsSubmitting(false)
+          return
+        }
+      }
 
       // Make API request
       const response = await fetch("https://bgbd0pzte6.execute-api.us-east-1.amazonaws.com/upload", {
