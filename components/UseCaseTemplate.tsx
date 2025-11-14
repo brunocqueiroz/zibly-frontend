@@ -133,7 +133,7 @@ export default function UseCaseTemplate({ content }: UseCaseTemplateProps) {
       }
 
       // Prepare attachments array with base64 encoded content
-      let attachments: Array<{ filename: string; content: string; content_type: string }> = []
+      let attachments: Array<{ filename: string; content_base64: string }> = []
       
       if (files && files.length > 0) {
         try {
@@ -142,8 +142,7 @@ export default function UseCaseTemplate({ content }: UseCaseTemplateProps) {
               const base64Content = await readFileAsBase64(file)
               return {
                 filename: file.name,
-                content: base64Content,
-                content_type: file.type || 'application/octet-stream',
+                content_base64: base64Content,
               }
             })
           )
