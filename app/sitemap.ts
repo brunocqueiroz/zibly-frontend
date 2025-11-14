@@ -15,6 +15,28 @@ async function getBlogPosts() {
   }
 }
 
+// Function to fetch recent bias reports for sitemap
+// Only include high-quality reports (bias score 5+ or enhanced reports)
+async function getBiasReports() {
+  try {
+    // Fetch public reports from API
+    const response = await fetch('https://1ce20ayeb1.execute-api.us-east-1.amazonaws.com/zibly/bias-reports/public?limit=100&min_bias_score=5', {
+      next: { revalidate: 3600 }  // Cache for 1 hour
+    })
+
+    if (!response.ok) {
+      console.error('Failed to fetch public reports:', response.status)
+      return []
+    }
+
+    const data = await response.json()
+    return data.reports || []
+  } catch (error) {
+    console.error('Error fetching bias reports for sitemap:', error)
+    return []
+  }
+}
+
 // Function to extract popular tags from blog posts
 function getPopularTags(posts: any[]) {
   const tagCounts: { [key: string]: number } = {}
@@ -37,9 +59,12 @@ function getPopularTags(posts: any[]) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.zibly.ai'
-  
+
   // Get blog posts
   const blogPosts = await getBlogPosts()
+
+  // Get bias reports (when API is ready)
+  const biasReports = await getBiasReports()
   
   // Static pages
   const staticPages = [
@@ -205,6 +230,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'weekly' as const,
     priority: 0.6,
   }))
-  
-  return [...staticPages, ...blogPostPages, ...tagPages]
+
+  // Add bias reports to sitemap
+  const reportPages = biasReports.map((report: any) => ({
+    url: `${baseUrl}/reports/${report.reportId}`,
+    lastModified: new Date(report.createdAt || report.createdAtISO),
+    changeFrequency: 'never' as const, // Reports don't change after creation
+    priority: 0.5,
+  }))
+
+  return [...staticPages, ...blogPostPages, ...tagPages, ...reportPages]
 } 
