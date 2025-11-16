@@ -30,7 +30,7 @@ interface AuthContextType {
   user: User | null
   loading: boolean
   login: (email: string, password: string) => Promise<boolean>
-  loginWithGoogle: (idToken: string) => Promise<boolean>
+  loginWithGoogle: (idToken: string) => Promise<{ success: boolean; error?: string }>
   logout: () => Promise<void>
   refetch: () => Promise<void>
 }
@@ -71,12 +71,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser(user)
             storeUser(freshUserData)
           } catch (error) {
-            console.error("Error fetching user with JWT token:", error)
-            // Token might be expired, clear OAuth data
-            if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
-              clearOAuthData()
-            }
-            setUser(null)
+          // Token might be expired, clear OAuth data
+          if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
+            clearOAuthData()
+          }
+          setUser(null)
           }
         } else {
           // Check for stored user session (password-based auth)
@@ -93,13 +92,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 // Convert fresh FastAPI UserResponse to our User interface
                 const user: User = {
                   ...freshUserData,
-                  name: freshUserData.name || `${freshUserData.first_name || ''} ${freshUserData.last_name || ''}`.trim(),
+                  name: `${freshUserData.first_name || ''} ${freshUserData.last_name || ''}`.trim(),
                 }
                 setUser(user)
                 // Update localStorage with fresh data
                 storeUser(freshUserData)
               } catch (error) {
-                console.error("Error fetching fresh user data:", error)
                 // Fallback to cached data
                 const user: User = {
                   ...parsedUser,
@@ -121,7 +119,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       }
     } catch (error) {
-      console.error("Fetch user error:", error)
       setUser(null)
     } finally {
       if (isInitialLoad) setLoading(false)
@@ -146,8 +143,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setUser(data.user) // Set user directly from login response
           return true
         } else {
-          const errorData = await response.json()
-          console.error("Login failed:", errorData.error || "Unknown login error")
           setUser(null) // Ensure user is null on failed login
           setLoading(false)
           return false
@@ -178,29 +173,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             return false
           }
         } catch (error) {
-          console.error("Authentication failed:", error)
           setUser(null)
           setLoading(false)
           return false
         }
       }
     } catch (error) {
-      console.error("Login request failed:", error)
       setUser(null)
       setLoading(false)
       return false
     }
   }
 
-  const loginWithGoogle = async (idToken: string): Promise<boolean> => {
+  const loginWithGoogle = async (idToken: string): Promise<{ success: boolean; error?: string }> => {
     setLoading(true)
     
     try {
       if (config.features.useMockData) {
         // OAuth not supported in mock mode
-        console.error("OAuth not supported in mock mode")
         setLoading(false)
-        return false
+        return { success: false, error: "OAuth not supported in mock mode" }
       }
 
       const apiClient = getApiClient()
@@ -222,23 +214,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // Store user data
           storeUser(apiUser)
           setUser(user)
-          return true
+          return { success: true }
         } else {
           setUser(null)
           setLoading(false)
-          return false
+          return { success: false, error: "User account is not active" }
         }
       } catch (error) {
-        console.error("Google OAuth failed:", error)
+        // Provide more detailed error information
+        let errorMessage = "Google sign-in failed"
+        
+        if (error instanceof ApiError) {
+          // Check if this is a backend error (500) that might be temporary
+          if (error.status === 500) {
+            errorMessage = `Backend error: ${error.message}. Please try again or contact support if the issue persists.`
+          } else {
+            errorMessage = error.message || `Google sign-in failed (HTTP ${error.status})`
+          }
+        } else if (error instanceof Error) {
+          errorMessage = error.message
+        }
+        
         setUser(null)
         setLoading(false)
-        return false
+        return { success: false, error: errorMessage }
       }
     } catch (error) {
-      console.error("Google OAuth request failed:", error)
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
       setUser(null)
       setLoading(false)
-      return false
+      return { success: false, error: errorMessage }
     }
   }
 
@@ -254,7 +259,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         removeUser()
       }
     } catch (error) {
-      console.error("Logout error:", error)
+      // Silently handle logout errors
     } finally {
       setUser(null)
       setLoading(false) // Ensure loading is set to false after user is cleared

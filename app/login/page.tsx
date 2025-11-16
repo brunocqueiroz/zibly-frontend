@@ -45,7 +45,6 @@ export default function LoginPage() {
       }
       // If successful, isSubmitting will be reset by the redirect or if authLoading becomes false without a user
     } catch (error) {
-      console.error("Login error:", error)
       setError("Something went wrong")
       setIsSubmitting(false)
     }
@@ -56,15 +55,16 @@ export default function LoginPage() {
     setError(null)
     
     try {
-      const success = await loginWithGoogle(idToken)
-      if (!success) {
-        setError("Google sign-in failed. Please try again.")
+      const result = await loginWithGoogle(idToken)
+      if (!result.success) {
+        setError(result.error || "Google sign-in failed. Please try again.")
         setIsGoogleLoading(false)
       }
       // Success redirect is handled by useEffect below
-    } catch (error) {
-      console.error("Google sign-in error:", error)
-      setError("Something went wrong with Google sign-in")
+    } catch (error: any) {
+      // Fallback error handling
+      const errorMessage = error?.message || "Something went wrong with Google sign-in"
+      setError(errorMessage)
       setIsGoogleLoading(false)
     }
   }
