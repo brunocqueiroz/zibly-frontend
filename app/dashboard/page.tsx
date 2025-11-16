@@ -37,18 +37,12 @@ export default function DashboardPage() {
       
       try {
         const apiClient = getApiClient()
-        console.log('🔍 Dashboard: Loading API data for user:', user.id)
-        console.log('🌐 API Base URL:', process.env.NEXT_PUBLIC_API_BASE_URL || 'using default')
         
         // Fetch user usage data
         const [userUsage, monthlyUsage] = await Promise.all([
           apiClient.getUserUsage(user.id as number),
           apiClient.getUserMonthlyUsage(user.id as number)
         ])
-        
-        console.log('✅ Dashboard: API data loaded successfully')
-        console.log('📊 Usage data:', userUsage)
-        console.log('📅 Monthly data:', monthlyUsage)
         
         setApiData({
           usage: userUsage,
@@ -57,8 +51,6 @@ export default function DashboardPage() {
         })
         
       } catch (error) {
-        console.error('❌ Dashboard: API data loading failed:', error)
-        console.log('🔧 Falling back to empty data structure')
         // Gracefully handle missing user data - dashboard will show fallback values
         setApiData({
           usage: null,
@@ -399,7 +391,7 @@ export default function DashboardPage() {
                       config={{ emails: { label: "Emails", color: "#6366f1" } }}
                       className="h-[300px] w-full"
                     >
-                      <LineChart data={analytics.days} margin={{ left: 12, right: 12, top: 12, bottom: 12 }} width="100%">
+                      <LineChart data={analytics.days} margin={{ left: 12, right: 12, top: 12, bottom: 12 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis 
                           dataKey="day" 

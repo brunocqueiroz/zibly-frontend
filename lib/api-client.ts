@@ -4,6 +4,7 @@
  */
 
 import config from './config'
+import { getStoredToken } from './oauth'
 
 interface ApiConfig {
   baseUrl: string
@@ -86,7 +87,13 @@ export class FastAPIClient {
     const url = `${this.config.baseUrl}${endpoint}`
     const apiKey = useAdminKey ? this.config.adminApiKey : this.config.apiKey
     
-    if (requireAuth && !apiKey) {
+    // Check if Authorization header is already set (for JWT tokens)
+    const hasAuthHeader = options.headers && 'Authorization' in (options.headers as Record<string, string>)
+    
+    // Check for JWT token in localStorage (for OAuth users)
+    const jwtToken = typeof window !== 'undefined' ? getStoredToken() : null
+    
+    if (requireAuth && !apiKey && !hasAuthHeader && !jwtToken) {
       throw new ApiError('API key not configured', 401)
     }
 
@@ -95,9 +102,18 @@ export class FastAPIClient {
       ...(options.headers as Record<string, string> || {}),
     }
 
-    // Only add API key header if authentication is required
-    if (requireAuth && apiKey) {
-      headers['X-API-Key'] = apiKey
+    // Priority: Use JWT token if available (OAuth), then explicit Authorization header, then API key
+    if (requireAuth) {
+      if (jwtToken && !hasAuthHeader) {
+        // Use JWT token for OAuth users
+        headers['Authorization'] = `Bearer ${jwtToken}`
+      } else if (hasAuthHeader) {
+        // Use explicit Authorization header if provided
+        // Already set in headers above
+      } else if (apiKey) {
+        // Fall back to API key for password-based auth
+        headers['X-API-Key'] = apiKey
+      }
     }
 
     try {
@@ -109,8 +125,26 @@ export class FastAPIClient {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         
+        // Extract error message from FastAPI error format
+        // FastAPI can return: {detail: "message"} or {detail: [{msg: "message"}]}
+        let errorMessage = `HTTP ${response.status}`
+        if (errorData.detail) {
+          if (typeof errorData.detail === 'string') {
+            errorMessage = errorData.detail
+          } else if (Array.isArray(errorData.detail) && errorData.detail.length > 0) {
+            // Handle validation errors format
+            errorMessage = errorData.detail[0].msg || JSON.stringify(errorData.detail[0])
+          } else if (typeof errorData.detail === 'object') {
+            errorMessage = JSON.stringify(errorData.detail)
+          }
+        } else if (errorData.message) {
+          errorMessage = errorData.message
+        } else if (errorData.error) {
+          errorMessage = errorData.error
+        }
+        
         throw new ApiError(
-          errorData.detail || `HTTP ${response.status}`,
+          errorMessage,
           response.status,
           errorData
         )
@@ -241,6 +275,32 @@ export class FastAPIClient {
       }
       throw error
     }
+  }
+
+  // OAuth Authentication Methods
+  async verifyGoogleToken(idToken: string): Promise<{ access_token: string; token_type: string; user: UserResponse }> {
+    return this.makeRequest<{ access_token: string; token_type: string; user: UserResponse }>('/auth/google/verify', {
+      method: 'POST',
+      body: JSON.stringify({ id_token: idToken }),
+    }, false, false) // No admin key, no auth required
+  }
+
+  async getCurrentUser(token: string): Promise<UserResponse> {
+    return this.makeRequest<UserResponse>('/auth/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }, false, false) // Use Bearer token instead of API key
+  }
+
+  async refreshToken(token: string): Promise<{ access_token: string; token_type: string }> {
+    return this.makeRequest<{ access_token: string; token_type: string }>('/auth/refresh', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }, false, false) // Use Bearer token instead of API key
   }
 }
 

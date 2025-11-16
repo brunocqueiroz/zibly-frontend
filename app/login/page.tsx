@@ -11,12 +11,15 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useAuth } from "@/components/auth-provider"
 import { createDemoUser } from "@/app/actions/auth"
+import { GoogleSignInButton } from "@/components/google-signin-button"
+import { Separator } from "@/components/ui/separator"
 
 export default function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { login, user, loading: authLoading, refetch } = useAuth() // Keep refetch if needed elsewhere, but not for immediate post-login
+  const { login, loginWithGoogle, user, loading: authLoading, refetch } = useAuth() // Keep refetch if needed elsewhere, but not for immediate post-login
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
@@ -42,9 +45,27 @@ export default function LoginPage() {
       }
       // If successful, isSubmitting will be reset by the redirect or if authLoading becomes false without a user
     } catch (error) {
-      console.error("Login error:", error)
       setError("Something went wrong")
       setIsSubmitting(false)
+    }
+  }
+
+  const handleGoogleSignIn = async (idToken: string) => {
+    setIsGoogleLoading(true)
+    setError(null)
+    
+    try {
+      const result = await loginWithGoogle(idToken)
+      if (!result.success) {
+        setError(result.error || "Google sign-in failed. Please try again.")
+        setIsGoogleLoading(false)
+      }
+      // Success redirect is handled by useEffect below
+    } catch (error: any) {
+      // Fallback error handling
+      const errorMessage = error?.message || "Something went wrong with Google sign-in"
+      setError(errorMessage)
+      setIsGoogleLoading(false)
     }
   }
 
@@ -52,12 +73,16 @@ export default function LoginPage() {
     // Only redirect if auth is not loading and user is successfully set
     if (!authLoading && user) {
       router.push(callbackUrl)
-    } else if (!authLoading && !user && isSubmitting) {
-      // If login attempt finished (isSubmitting was true), auth is not loading, but no user
-      // it means login failed at some point, ensure isSubmitting is reset.
+      // Reset loading states after redirect
       setIsSubmitting(false)
+      setIsGoogleLoading(false)
+    } else if (!authLoading && !user && (isSubmitting || isGoogleLoading)) {
+      // If login attempt finished (isSubmitting or isGoogleLoading was true), auth is not loading, but no user
+      // it means login failed at some point, ensure loading states are reset.
+      setIsSubmitting(false)
+      setIsGoogleLoading(false)
     }
-  }, [user, authLoading, router, callbackUrl, isSubmitting])
+  }, [user, authLoading, router, callbackUrl, isSubmitting, isGoogleLoading])
 
   if (authLoading && !user) {
     // Show loading only if genuinely loading initial auth state or during login
@@ -98,6 +123,25 @@ export default function LoginPage() {
               <CardDescription className="inter-text text-black">Sign in with your email and password</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              <GoogleSignInButton
+                onSuccess={handleGoogleSignIn}
+                onError={(error) => {
+                  setError(`Google sign-in error: ${error.message}`)
+                  setIsGoogleLoading(false)
+                }}
+                text="signin_with"
+                className="w-full flex justify-center"
+              />
+              
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <Separator className="w-full" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email" className="inter-text-medium text-black">Email</Label>
                 <Input
@@ -123,7 +167,7 @@ export default function LoginPage() {
               <Button
                 type="submit"
                 className="w-full bg-primary hover:bg-primary/90"
-                disabled={isSubmitting || authLoading}
+                disabled={isSubmitting || authLoading || isGoogleLoading}
               >
                 {isSubmitting || authLoading ? "Signing in..." : "Sign in"}
               </Button>
