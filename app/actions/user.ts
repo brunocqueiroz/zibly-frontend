@@ -66,10 +66,10 @@ export async function updateProfile(formData: FormData) {
       const user = await getSessionFromCookies()
       if (!user?.email) return { error: "Not authenticated" }
       
-      const userDetails = getUser(user.email)
+      const userDetails = await getUser(user.email)
       if (!userDetails) return { error: "User not found" }
 
-      updateUser(user.email, {
+      await updateUser(user.email, {
         name: `${updateData.first_name} ${updateData.last_name}`,
         company: updateData.company,
       })
@@ -148,7 +148,7 @@ export async function updatePassword(formData: FormData) {
       // Hash new password
       const hashedPassword = await simpleHash(newPassword)
 
-      updateUser(user.email, {
+      await updateUser(user.email, {
         password: hashedPassword,
       })
     } else {
@@ -207,10 +207,10 @@ export async function updateNotificationPreferences(formData: FormData) {
       const user = await getSessionFromCookies()
       if (!user?.email) return { error: "Not authenticated" }
       
-      const userDetails = getUser(user.email)
+      const userDetails = await getUser(user.email)
       if (!userDetails) return { error: "User not found" }
 
-      updateUser(user.email, {
+      await updateUser(user.email, {
         notifications: { email, usage, marketing },
       })
     } else {

@@ -86,7 +86,10 @@ export class FastAPIClient {
     const url = `${this.config.baseUrl}${endpoint}`
     const apiKey = useAdminKey ? this.config.adminApiKey : this.config.apiKey
     
-    if (requireAuth && !apiKey) {
+    // Check if Authorization header is already set (for JWT tokens)
+    const hasAuthHeader = options.headers && 'Authorization' in (options.headers as Record<string, string>)
+    
+    if (requireAuth && !apiKey && !hasAuthHeader) {
       throw new ApiError('API key not configured', 401)
     }
 
@@ -95,8 +98,8 @@ export class FastAPIClient {
       ...(options.headers as Record<string, string> || {}),
     }
 
-    // Only add API key header if authentication is required
-    if (requireAuth && apiKey) {
+    // Only add API key header if authentication is required and no Bearer token is present
+    if (requireAuth && apiKey && !hasAuthHeader) {
       headers['X-API-Key'] = apiKey
     }
 
@@ -241,6 +244,32 @@ export class FastAPIClient {
       }
       throw error
     }
+  }
+
+  // OAuth Authentication Methods
+  async verifyGoogleToken(idToken: string): Promise<{ access_token: string; token_type: string; user: UserResponse }> {
+    return this.makeRequest<{ access_token: string; token_type: string; user: UserResponse }>('/auth/google/verify', {
+      method: 'POST',
+      body: JSON.stringify({ id_token: idToken }),
+    }, false, false) // No admin key, no auth required
+  }
+
+  async getCurrentUser(token: string): Promise<UserResponse> {
+    return this.makeRequest<UserResponse>('/auth/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }, false, false) // Use Bearer token instead of API key
+  }
+
+  async refreshToken(token: string): Promise<{ access_token: string; token_type: string }> {
+    return this.makeRequest<{ access_token: string; token_type: string }>('/auth/refresh', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }, false, false) // Use Bearer token instead of API key
   }
 }
 

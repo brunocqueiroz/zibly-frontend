@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -11,14 +11,21 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 import { registerUser } from "@/app/actions/auth"
 import { PRICING_PLANS, formatPrice } from "@/lib/pricing-config"
+import { GoogleSignInButton } from "@/components/google-signin-button"
+import { useAuth } from "@/components/auth-provider"
+import { useRouter } from "next/navigation"
 
 export default function SignupPage() {
+  const router = useRouter()
   const searchParams = useSearchParams()
+  const { loginWithGoogle, user, loading: authLoading } = useAuth()
   const initialPlan = searchParams.get("plan") || "starter"
   const [selectedPlan, setSelectedPlan] = useState(initialPlan)
   const [isLoading, setIsLoading] = useState(false)
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({})
 
@@ -51,6 +58,31 @@ export default function SignupPage() {
     }
   }
 
+  const handleGoogleSignIn = async (idToken: string) => {
+    setIsGoogleLoading(true)
+    setError(null)
+    
+    try {
+      const success = await loginWithGoogle(idToken)
+      if (!success) {
+        setError("Google sign-in failed. Please try again.")
+        setIsGoogleLoading(false)
+      }
+      // Success redirect is handled by useEffect below
+    } catch (error) {
+      console.error("Google sign-in error:", error)
+      setError("Something went wrong with Google sign-in")
+      setIsGoogleLoading(false)
+    }
+  }
+
+  // Redirect to dashboard if user is logged in
+  useEffect(() => {
+    if (!authLoading && user) {
+      router.push("/dashboard")
+    }
+  }, [user, authLoading, router])
+
   return (
     <div className="min-h-screen w-full bg-gray-50">
       <div className="container flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-12">
@@ -73,6 +105,25 @@ export default function SignupPage() {
               <CardDescription className="inter-text text-black">Choose your plan and get started</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              <GoogleSignInButton
+                onSuccess={handleGoogleSignIn}
+                onError={(error) => {
+                  setError(`Google sign-in error: ${error.message}`)
+                  setIsGoogleLoading(false)
+                }}
+                text="signup_with"
+                className="w-full flex justify-center"
+              />
+              
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <Separator className="w-full" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-white px-2 text-muted-foreground">Or create account with</span>
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="first_name" className="inter-text-medium text-black">First Name</Label>
@@ -118,7 +169,7 @@ export default function SignupPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading || isGoogleLoading || authLoading}>
                 {isLoading ? "Creating account..." : "Create account"}
               </Button>
             </CardFooter>

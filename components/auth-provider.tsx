@@ -4,6 +4,7 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { getApiClient, ApiError, UserResponse } from "@/lib/api-client"
 import config from "@/lib/config"
+import { getStoredToken, storeToken, removeToken, getStoredUser, storeUser, removeUser, clearOAuthData } from "@/lib/oauth"
 
 interface User {
   id: number | string  // Support both FastAPI (number) and mock (string)
@@ -29,6 +30,7 @@ interface AuthContextType {
   user: User | null
   loading: boolean
   login: (email: string, password: string) => Promise<boolean>
+  loginWithGoogle: (idToken: string) => Promise<boolean>
   logout: () => Promise<void>
   refetch: () => Promise<void>
 }
@@ -52,28 +54,61 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setUser(null)
         }
       } else {
-        // Use FastAPI backend - check if we have a stored user session
-        const sessionUser = localStorage.getItem('zibly_user')
-        if (sessionUser) {
-          const parsedUser = JSON.parse(sessionUser)
-          
-          // If this is not the initial load, fetch fresh user data from API to get updated preferences
-          if (!isInitialLoad && parsedUser.id) {
-            try {
-              const apiClient = getApiClient()
-              const freshUserData = await apiClient.getUserById(parsedUser.id)
-              
-              // Convert fresh FastAPI UserResponse to our User interface
-              const user: User = {
-                ...freshUserData,
-                name: freshUserData.name || `${freshUserData.first_name || ''} ${freshUserData.last_name || ''}`.trim(),
+        // Use FastAPI backend - check for JWT token first (OAuth), then fallback to stored user
+        const jwtToken = getStoredToken()
+        
+        if (jwtToken) {
+          // OAuth user - verify token and get current user
+          try {
+            const apiClient = getApiClient()
+            const freshUserData = await apiClient.getCurrentUser(jwtToken)
+            
+            // Convert FastAPI UserResponse to our User interface
+            const user: User = {
+              ...freshUserData,
+              name: `${freshUserData.first_name} ${freshUserData.last_name}`,
+            }
+            setUser(user)
+            storeUser(freshUserData)
+          } catch (error) {
+            console.error("Error fetching user with JWT token:", error)
+            // Token might be expired, clear OAuth data
+            if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
+              clearOAuthData()
+            }
+            setUser(null)
+          }
+        } else {
+          // Check for stored user session (password-based auth)
+          const sessionUser = getStoredUser()
+          if (sessionUser) {
+            const parsedUser = sessionUser
+            
+            // If this is not the initial load, fetch fresh user data from API to get updated preferences
+            if (!isInitialLoad && parsedUser.id) {
+              try {
+                const apiClient = getApiClient()
+                const freshUserData = await apiClient.getUserById(parsedUser.id)
+                
+                // Convert fresh FastAPI UserResponse to our User interface
+                const user: User = {
+                  ...freshUserData,
+                  name: freshUserData.name || `${freshUserData.first_name || ''} ${freshUserData.last_name || ''}`.trim(),
+                }
+                setUser(user)
+                // Update localStorage with fresh data
+                storeUser(freshUserData)
+              } catch (error) {
+                console.error("Error fetching fresh user data:", error)
+                // Fallback to cached data
+                const user: User = {
+                  ...parsedUser,
+                  name: parsedUser.name || `${parsedUser.first_name || ''} ${parsedUser.last_name || ''}`.trim(),
+                }
+                setUser(user)
               }
-              setUser(user)
-              // Update localStorage with fresh data
-              localStorage.setItem('zibly_user', JSON.stringify(freshUserData))
-            } catch (error) {
-              console.error("Error fetching fresh user data:", error)
-              // Fallback to cached data
+            } else {
+              // Initial load - use cached data
               const user: User = {
                 ...parsedUser,
                 name: parsedUser.name || `${parsedUser.first_name || ''} ${parsedUser.last_name || ''}`.trim(),
@@ -81,15 +116,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               setUser(user)
             }
           } else {
-            // Initial load - use cached data
-            const user: User = {
-              ...parsedUser,
-              name: parsedUser.name || `${parsedUser.first_name || ''} ${parsedUser.last_name || ''}`.trim(),
-            }
-            setUser(user)
+            setUser(null)
           }
-        } else {
-          setUser(null)
         }
       }
     } catch (error) {
@@ -164,6 +192,56 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const loginWithGoogle = async (idToken: string): Promise<boolean> => {
+    setLoading(true)
+    
+    try {
+      if (config.features.useMockData) {
+        // OAuth not supported in mock mode
+        console.error("OAuth not supported in mock mode")
+        setLoading(false)
+        return false
+      }
+
+      const apiClient = getApiClient()
+      
+      try {
+        // Verify Google token and get JWT
+        const { access_token, user: apiUser } = await apiClient.verifyGoogleToken(idToken)
+        
+        if (apiUser && apiUser.is_active) {
+          // Store JWT token
+          storeToken(access_token)
+          
+          // Convert FastAPI UserResponse to our User interface
+          const user: User = {
+            ...apiUser,
+            name: `${apiUser.first_name} ${apiUser.last_name}`,
+          }
+          
+          // Store user data
+          storeUser(apiUser)
+          setUser(user)
+          return true
+        } else {
+          setUser(null)
+          setLoading(false)
+          return false
+        }
+      } catch (error) {
+        console.error("Google OAuth failed:", error)
+        setUser(null)
+        setLoading(false)
+        return false
+      }
+    } catch (error) {
+      console.error("Google OAuth request failed:", error)
+      setUser(null)
+      setLoading(false)
+      return false
+    }
+  }
+
   const logout = async () => {
     setLoading(true)
     try {
@@ -171,8 +249,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Use existing mock API
         await fetch("/api/auth/logout", { method: "POST", credentials: "include" })
       } else {
-        // Clear FastAPI session
-        localStorage.removeItem('zibly_user')
+        // Clear both OAuth (JWT) and password-based sessions
+        clearOAuthData()
+        removeUser()
       }
     } catch (error) {
       console.error("Logout error:", error)
@@ -198,7 +277,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await fetchUser()
   }
 
-  return <AuthContext.Provider value={{ user, loading, login, logout, refetch }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, logout, refetch }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {
