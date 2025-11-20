@@ -412,7 +412,7 @@ export default function FAQPage() {
                         <div className="border rounded-lg p-4">
                           <h4 className="font-semibold">Starter - {formatPrice(PRICING_CONFIG.starter.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
-                            <li>• 50 tasks per month</li>
+                            <li>• 20 tasks per month</li>
                             <li>• Standard processing</li>
                             <li>• Email support</li>
                           </ul>
@@ -420,7 +420,7 @@ export default function FAQPage() {
                         <div className="border rounded-lg p-4 border-primary">
                           <h4 className="font-semibold">Professional - {formatPrice(PRICING_CONFIG.professional.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
-                            <li>• 200 tasks per month</li>
+                            <li>• 80 tasks per month</li>
                             <li>• Priority processing</li>
                             <li>• Priority support</li>
                             <li>• Custom templates</li>

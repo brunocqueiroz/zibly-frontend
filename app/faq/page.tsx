@@ -48,7 +48,7 @@ const faqData = {
       "name": "How much does zibly.ai cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.noSetupFees}. Starter: 50 tasks/month, Standard processing. Professional: 10,000 tasks/month, Priority processing. Enterprise: Unlimited tasks, Urgent processing and dedicated support.`
+        "text": `${PRICING_MESSAGES.freeTrial}. ${PRICING_MESSAGES.startingPrice}. ${PRICING_MESSAGES.noSetupFees}. Starter: 20 tasks/month, Standard processing. Professional: 80 tasks/month, Priority processing. Enterprise: Unlimited tasks, Urgent processing and dedicated support.`
       }
     },
     {
@@ -417,14 +417,14 @@ export default function FAQPage() {
                         <div className="border rounded-lg p-4">
                           <h4 className="font-semibold">Starter - {formatPrice(PRICING_CONFIG.starter.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
-                            <li>• 50 tasks per month</li>
+                            <li>• 20 tasks per month</li>
                             <li>• Email support</li>
                           </ul>
                         </div>
                         <div className="border rounded-lg p-4 border-primary">
                           <h4 className="font-semibold">Professional - {formatPrice(PRICING_CONFIG.professional.monthly)}/month</h4>
                           <ul className="mt-2 space-y-1 text-sm">
-                            <li>• Unlimited tasks per month</li>
+                            <li>• 80 tasks per month</li>
                             <li>• Priority support</li>
                           </ul>
                         </div>

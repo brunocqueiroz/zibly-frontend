@@ -22,11 +22,11 @@ export interface PricingPlan {
 export const PRICING_CONFIG = {
   // Core pricing values - change these to update prices site-wide
   starter: {
-    monthly: 20,
+    monthly: 59,
     annual: 200, // ~17% discount
   },
   professional: {
-    monthly: 200,
+    monthly: 199,
     annual: 2000, // ~17% discount
   },
   enterprise: {
@@ -77,7 +77,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       'Never Trains Models with your Data',
       'Email support',
     ],
-    tasksPerMonth: '50 tasks per month',
+    tasksPerMonth: '20 tasks per month',
     processingSpeed: 'Standard processing',
     support: 'Email support',
   },
@@ -88,7 +88,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     priceMonthly: PRICING_CONFIG.professional.monthly,
     priceAnnual: PRICING_CONFIG.professional.annual,
     features: [
-      '10,000 Tasks a month (effectively unlimited)',
+      '80 Tasks a month (effectively unlimited)',
       'Always uses most advanced models',
       'Priority Processing',
       'Perfect for: Small Teams, Directors, VPs',
@@ -97,7 +97,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       'Never Trains Models with your Data',
       'Priority support',
     ],
-    tasksPerMonth: '10,000 tasks per month',
+    tasksPerMonth: '80 tasks per month',
     processingSpeed: 'Priority processing',
     support: 'Priority support',
     popular: true,
