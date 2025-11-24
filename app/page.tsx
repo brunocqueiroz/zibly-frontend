@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { ArrowRight, Sparkles, Star, FileText, BarChart3, PenTool, Mail, Bot, Clock, DollarSign, TrendingDown, TrendingUp, Rocket, Gem, AlertCircle, Upload } from 'lucide-react'
+import { ArrowRight, Sparkles, Star, FileText, BarChart3, PenTool, Mail, Bot, Clock, DollarSign, TrendingDown, TrendingUp, Rocket, Gem, AlertCircle, Upload, Shield, Lock } from 'lucide-react'
 import type { Metadata } from 'next'
 import CopyEmailButton from "@/components/copy-email-button"
 import Logo from "@/components/logo"
@@ -198,7 +198,7 @@ Sarah`
               {/* Main Heading */}
               <FadeIn>
                 <h1 className="inter-section-heading text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-12 max-w-5xl mx-auto" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
-                  Your AI Colleague.<br /><span className="text-primary">Just Email your work.</span>
+                  Your AI Colleague.<br /><span className="text-primary">Just hit send.</span>
                 </h1>
               </FadeIn>
 
@@ -367,8 +367,9 @@ Sarah`
           <div className="mx-auto max-w-6xl">
             <SlideUp>
               <div className="text-center mb-12">
-                <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Delegate Like They're On Your Team.<br />Because They Are.</h2>
-                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Zibly isn't a chatbot — it's your AI colleague. No prompts, no hand-holding, no learning curve. Just email tasks like you would to a senior analyst, and get professional work back. The kind you can send directly to your boss.</p>
+                <h2 className="inter-section-heading mb-4 text-card-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Not a Chatbot. A Partner.</h2>
+                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Email Zibly like a trusted colleague. Get professional work back. No prompts. No training.</p>
+                <p className="max-w-[900px] text-base md:text-lg inter-text mx-auto text-card-foreground">Completely secure and confidential.</p>
               </div>
             </SlideUp>
 
@@ -700,6 +701,51 @@ Sarah`
       {/* Wave Divider */}
       <WaveDivider fill="hsl(0 0% 100%)" />
 
+      {/* Security Section */}
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
+        <div className="container px-4 md:px-6">
+          <SlideUp>
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-4">
+                <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>
+                  Enterprise-Grade Security
+                </h2>
+                <p className="max-w-[900px] text-base md:text-lg inter-text text-black">
+                  Zibly processes your most sensitive data with bank-grade security
+                </p>
+              </div>
+            </div>
+          </SlideUp>
+          <StaggerContainer className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-2 lg:gap-12">
+            <StaggerItem className="flex flex-col justify-center space-y-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-card border-2 border-black">
+                <Shield className="h-6 w-6 text-black" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl inter-heading-normal text-black">SOC 2 Compliant</h3>
+                <p className="inter-text text-black">
+                  SOC 2 compliant security controls. Your data is encrypted at rest and in transit, with zero retention after processing.
+                </p>
+              </div>
+            </StaggerItem>
+            <StaggerItem className="flex flex-col justify-center space-y-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-card border-2 border-black">
+                <Lock className="h-6 w-6 text-black" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl inter-heading-normal text-black">Isolated Processing</h3>
+                <p className="inter-text text-black">
+                  Each Zibly session runs in an isolated environment. Your data never mingles with other users' information.
+                </p>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* Divider between Security and Features */}
+      <WaveDivider fill="hsl(0 0% 100%)" />
+
       {/* Features Section - More Specific */}
       <section className="w-full py-16 md:py-24 lg:py-32 bg-card">
         <div className="container px-4 md:px-6">
@@ -760,10 +806,9 @@ Sarah`
       <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
         <div className="container max-w-4xl px-4 md:px-6">
           <div className="text-center space-y-6">
-            <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>Your Colleague Works <span className="text-primary">Independently</span></h2>
+            <h2 className="inter-section-heading text-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontWeight: '400', lineHeight: '1.15', letterSpacing: '-0.01em' }}>What happens in between? The <span className="text-primary">Deep Work</span>.</h2>
             <p className="text-base md:text-lg inter-text text-black max-w-3xl mx-auto">
-              Like any trusted colleague, Zibly takes the time needed to do the job right. Simple requests? Minutes. Complex analysis? Up to an hour.
-              You don't have to watch or manage—just delegate and move on to your next priority.
+              Zibly researches, analyzes, delivers. Complete presentations, spreadsheets, reports — all with direct citations.
             </p>
             <div className="grid gap-6 md:grid-cols-3 pt-8">
               <div className="p-6 rounded-lg bg-card border border-border">
@@ -783,7 +828,7 @@ Sarah`
               </div>
             </div>
             <p className="text-sm inter-text text-black pt-4">
-              Your AI colleague working while you lead. Deep work happening while you're in meetings. Professional deliverables waiting in your inbox.
+              You're free to go to your next meeting. Or take a nap. We won't tell.
             </p>
           </div>
         </div>
