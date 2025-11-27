@@ -26,6 +26,44 @@ import TiltCard from "@/components/animations/TiltCard"
 import MagneticButton from "@/components/animations/MagneticButton"
 import ScrollingText from "@/components/animations/ScrollingText"
 
+const ROTATING_TEXTS = [
+  "pitch deck",
+  "financial model",
+  "competitive analysis",
+  "market sizing",
+  "board presentation",
+  "due diligence report",
+  "DCF model",
+  "strategy memo",
+  "pricing analysis",
+  "quarterly review"
+]
+
+function RotatingText() {
+  const [index, setIndex] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsAnimating(true)
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % ROTATING_TEXTS.length)
+        setIsAnimating(false)
+      }, 300)
+    }, 2500)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <span
+      className="text-primary transition-opacity duration-300"
+      style={{ opacity: isAnimating ? 0 : 1 }}
+    >
+      {ROTATING_TEXTS[index]}
+    </span>
+  )
+}
+
 const PLACEHOLDERS = [
   "Can you handle the board deck? Need it by Friday with Q4 metrics",
   "I'm forwarding the acquisition target info - need a DCF model",
@@ -197,14 +235,23 @@ Sarah`
         <div className="w-full px-4 md:px-6 lg:px-12 py-20">
               {/* Main Heading */}
               <FadeIn>
-                <h1 className="inter-section-heading text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-12 max-w-5xl mx-auto" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
-                  Your AI Colleague.<br /><span className="text-primary">Just hit send.</span>
-                </h1>
+                <div className="text-center mb-12 max-w-5xl mx-auto">
+                  <p className="text-2xl sm:text-3xl md:text-4xl text-black inter-section-heading mb-2" style={{ fontWeight: '400' }}>
+                    Need a...
+                  </p>
+                  <h1 className="inter-section-heading text-primary text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4" style={{ fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
+                    <RotatingText />
+                  </h1>
+                  <p className="text-xl sm:text-2xl md:text-3xl text-black inter-section-heading" style={{ fontWeight: '400', lineHeight: '1.2' }}>
+                    Ask your AI colleague. <span className="text-primary">Just hit send.</span>
+                  </p>
+                </div>
               </FadeIn>
 
               {/* Email-style Form */}
               <FadeIn delay={0.2}>
-                <form onSubmit={handleSubmit} className="w-full max-w-[700px] mx-auto mt-18">
+                <div className="relative w-full max-w-[700px] mx-auto mt-18">
+                <form onSubmit={handleSubmit} className="">
                 <div className="bg-white rounded-lg border-2 border-black shadow-lg hover:shadow-2xl transition-all overflow-hidden ring-4 ring-primary/10 hover:ring-primary/20">
                   {/* Header */}
                   <div className="bg-gray-50 border-b border-gray-200 px-6 py-4 flex items-center justify-center">
@@ -284,6 +331,14 @@ Sarah`
                       required
                       className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base md:text-lg px-0 min-h-[150px] md:min-h-[180px] bg-transparent text-black placeholder:text-transparent resize-none w-full cursor-text"
                     />
+                    {/* Speech bubble prompt */}
+                    <div className="pointer-events-none absolute left-6 bottom-4">
+                      <div className="relative bg-primary/10 border border-primary/30 rounded-2xl px-4 py-2 shadow-sm">
+                        <p className="inter-text text-sm font-medium text-primary">
+                          Hello! Are you out there? Try me! I work!
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Email Footer with Actions */}
@@ -332,32 +387,8 @@ Sarah`
                   )}
                 </div>
               </form>
+              </div>
             </FadeIn>
-        </div>
-      </section>
-
-      {/* Scrolling Request Section */}
-      <section className="w-full py-6 md:py-4 bg-white border-y border-black/10">
-        <div className="container px-4 md:px-6">
-          <div className="flex items-center gap-3 md:gap-6 text-black">
-            <div className="flex-shrink-0 scale-75 sm:scale-100 md:scale-150">
-              <Logo />
-            </div>
-            <div className="flex-1 min-w-0 max-w-full">
-              <ScrollingText
-                texts={[
-                  "draft me a 15-slide pitch deck from our Q4 metrics",
-                  "analyze this Excel file and build a DCF model",
-                  "create a competitive analysis report on the fintech market",
-                  "build me a three-statement financial model with sensitivity tables",
-                  "write an investment memo analyzing this SaaS acquisition",
-                  "summarize these 12 customer interviews into key themes",
-                  "design a tiered pricing strategy with revenue projections"
-                ]}
-                className="text-base sm:text-xl md:text-2xl lg:text-3xl font-medium"
-              />
-            </div>
-          </div>
         </div>
       </section>
 

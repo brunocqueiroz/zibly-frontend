@@ -90,6 +90,14 @@ export default function Navbar() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
+                <Link href="/security" legacyBehavior passHref>
+                  <NavigationMenuLink className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium ${textColor} transition-colors hover:text-black focus:text-black focus:outline-none`}>
+                    Security + Privacy
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
                 <Link href="/solutions" legacyBehavior passHref>
                   <NavigationMenuTrigger className={`${textColor} hover:text-black`}>Use Cases</NavigationMenuTrigger>
                 </Link>
@@ -193,6 +201,9 @@ export default function Navbar() {
               <div className="flex flex-col space-y-4">
                 <Link href="/features" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
                   Deep Work Agent
+                </Link>
+                <Link href="/security" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
+                  Security + Privacy
                 </Link>
                 <div className="space-y-2">
                   <Link href="/solutions" className="text-lg font-medium text-black hover:text-primary" onClick={() => setIsOpen(false)}>
