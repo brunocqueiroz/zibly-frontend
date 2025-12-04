@@ -301,7 +301,7 @@ export async function getSubscriptionStatus() {
     if (customers.data.length === 0) {
       return {
         subscription: null,
-        tier: 'free',
+        tier: 'starter',
       }
     }
 
@@ -317,7 +317,7 @@ export async function getSubscriptionStatus() {
     if (subscriptions.data.length === 0) {
       return {
         subscription: null,
-        tier: 'free',
+        tier: 'starter',
       }
     }
 
@@ -357,5 +357,5 @@ function determineTierFromPrice(priceId: string): string {
   if (priceIdLower.includes('starter')) return 'starter'
   if (priceIdLower.includes('professional') || priceIdLower.includes('pro')) return 'professional'
   if (priceIdLower.includes('enterprise')) return 'enterprise'
-  return 'free'
+  return 'starter' // Default to starter tier
 }

@@ -35,9 +35,9 @@ export async function GET(request: NextRequest) {
     });
 
     if (customers.data.length === 0) {
-      // No Stripe customer - return free tier info
+      // No Stripe customer - return starter tier info (free trial)
       return NextResponse.json({
-        plan: 'free',
+        plan: 'starter',
         status: 'active',
         cancelAtPeriodEnd: false,
         currentPeriodEnd: null,
@@ -57,9 +57,9 @@ export async function GET(request: NextRequest) {
     });
 
     if (subscriptions.data.length === 0) {
-      // Customer exists but no subscription - free tier
+      // Customer exists but no active subscription - starter tier (free trial)
       return NextResponse.json({
-        plan: 'free',
+        plan: 'starter',
         status: 'active',
         cancelAtPeriodEnd: false,
         currentPeriodEnd: null,

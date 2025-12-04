@@ -30,26 +30,31 @@ export default function DashboardPage() {
     loading: true
   })
 
+  // State for subscription data from Stripe
+  const [subscriptionData, setSubscriptionData] = useState<{
+    plan: string
+    currentPeriodEnd: string | null
+  } | null>(null)
+
   // Load real data from API
   useEffect(() => {
     const loadApiData = async () => {
       if (!user?.id) return
-      
+
       try {
         const apiClient = getApiClient()
-        
+
         // Fetch user usage data
         const [userUsage, monthlyUsage] = await Promise.all([
           apiClient.getUserUsage(user.id as number),
           apiClient.getUserMonthlyUsage(user.id as number)
         ])
-        
+
         setApiData({
           usage: userUsage,
           monthlyUsage: monthlyUsage,
           loading: false
         })
-        
       } catch (error) {
         // Gracefully handle missing user data - dashboard will show fallback values
         setApiData({
@@ -60,175 +65,94 @@ export default function DashboardPage() {
       }
     }
 
+    // Fetch subscription data from Stripe
+    const loadSubscriptionData = async () => {
+      if (!user?.email) return
+
+      try {
+        const response = await fetch(`/api/stripe/subscription?email=${encodeURIComponent(user.email)}`)
+        if (response.ok) {
+          const data = await response.json()
+          setSubscriptionData({
+            plan: data.plan || 'starter',
+            currentPeriodEnd: data.currentPeriodEnd
+          })
+        }
+      } catch (error) {
+        // Use defaults on error
+        setSubscriptionData({ plan: 'starter', currentPeriodEnd: null })
+      }
+    }
+
     if (user) {
       loadApiData()
+      loadSubscriptionData()
     }
   }, [user])
 
-  // Merge real API data with mock data structure
+  // Calculate usage from real API data
   const userData = useMemo(() => {
     // Calculate real usage from API data if available
     const realUsage = apiData.monthlyUsage?.current_month_usage || []
     const validTasks = realUsage.filter((task: any) => task.task_status !== 'FAILED')
     const currentUsage = validTasks.length
-    
-    return {
-      usage: { 
-        current: currentUsage, // Always use real data (removed loading condition for testing)
-        total: 50 
-      },
-      recentActivity: [
-        { task: "Financial analysis for Q4 board deck", time: "2 hours ago", status: "Completed" },
-        { task: "Competitive research on AI tools", time: "Yesterday", status: "Completed" },
-        { task: "Content creation for investor update", time: "3 days ago", status: "Completed" },
-      ],
-      history: [
-        {
-          id: "ZX-1042",
-          subject: "Board update: Q4 performance and 2025 priorities",
-          category: "Slides",
-          sentAt: Date.now() - 2 * 60 * 60 * 1000,
-          durationMin: 28,
-          attachments: 2,
-          deliverables: ["Presentation.pptx", "Executive_Summary.pdf"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 3.5,
-        },
-        {
-          id: "ZX-1041",
-          subject: "CAC by cohort with YoY trendlines",
-          category: "Modeling",
-          sentAt: Date.now() - 1 * 24 * 60 * 60 * 1000,
-          durationMin: 41,
-          attachments: 1,
-          deliverables: ["CAC_Analysis.xlsx"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 2.8,
-        },
-        {
-          id: "ZX-1040",
-          subject: "Synthesize 100+ interview transcripts: key themes",
-          category: "Research",
-          sentAt: Date.now() - 2 * 24 * 60 * 60 * 1000,
-          durationMin: 57,
-          attachments: 1,
-          deliverables: ["Research_Report.pdf", "Themes.csv"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 4.2,
-        },
-        {
-          id: "ZX-1039",
-          subject: "Build LBO sensitivity table",
-          category: "Modeling",
-          sentAt: Date.now() - 4 * 24 * 60 * 60 * 1000,
-          durationMin: 36,
-          attachments: 2,
-          deliverables: ["LBO_Sensitivity.xlsx"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 2.2,
-        },
-        {
-          id: "ZX-1038",
-          subject: "Marketing campaign: performance summary + next actions",
-          category: "Slides",
-          sentAt: Date.now() - 5 * 24 * 60 * 60 * 1000,
-          durationMin: 22,
-          attachments: 1,
-          deliverables: ["Campaign_Summary.pptx"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 1.8,
-        },
-        {
-          id: "ZX-1037",
-          subject: "Quarterly metrics deck refresh",
-          category: "Slides",
-          sentAt: Date.now() - 7 * 24 * 60 * 60 * 1000,
-          durationMin: 33,
-          attachments: 3,
-          deliverables: ["Q_Metrics_Deck.pptx"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 2.6,
-        },
-        {
-          id: "ZX-1036",
-          subject: "Benchmark competitors: pricing & packaging",
-          category: "Research",
-          sentAt: Date.now() - 9 * 24 * 60 * 60 * 1000,
-          durationMin: 45,
-          attachments: 1,
-          deliverables: ["Pricing_Benchmark.xlsx", "Summary.pdf"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 3.1,
-        },
-        {
-          id: "ZX-1035",
-          subject: "Clean revenue dump and build cohort chart",
-          category: "Analysis",
-          sentAt: Date.now() - 11 * 24 * 60 * 60 * 1000,
-          durationMin: 31,
-          attachments: 1,
-          deliverables: ["Revenue_Cohorts.xlsx"],
-          status: "Completed",
-          onTime: true,
-          hoursSaved: 2.4,
-        },
-      ],
-    }
-  }, [apiData])
 
-  const historyThisMonth = useMemo(() => {
-    const start = new Date()
-    start.setDate(1)
-    return userData.history.filter((h) => h.sentAt >= start.getTime())
-  }, [userData.history])
+    // Determine plan limits based on subscription
+    const planName = subscriptionData?.plan || "starter"
+    const planLimits: Record<string, number> = {
+      starter: 20,
+      professional: 80,
+      enterprise: 999,
+    }
+    const total = planLimits[planName] || 20
+
+    return {
+      usage: {
+        current: currentUsage,
+        total
+      },
+    }
+  }, [apiData, subscriptionData])
 
   const analytics = useMemo(() => {
     // Use real API data if available, otherwise fall back to zeros
     const realTasks = apiData.monthlyUsage?.current_month_usage || []
     const validRealTasks = realTasks.filter((task: any) => task.task_status !== 'FAILED')
-    
+
     let totals
     if (validRealTasks.length > 0) {
       // Calculate metrics from real API data
       const completed = validRealTasks.filter((task: any) => task.task_status === 'COMPLETED')
       const completionRate = Math.round((completed.length / validRealTasks.length) * 100)
-      
+
       // Calculate real average turnaround in minutes
-      let avgTurnMin = 37 // fallback
+      let avgTurnMin = 0
       if (completed.length > 0) {
         const turnaroundTimes = completed
-          .filter((task: any) => task.task_completed_at !== 'NaT')
+          .filter((task: any) => task.task_completed_at && task.task_completed_at !== 'NaT')
           .map((task: any) => {
             const created = new Date(task.task_created_at)
             const completedTime = new Date(task.task_completed_at)
             const diffMinutes = (completedTime.getTime() - created.getTime()) / (1000 * 60)
             return diffMinutes
           })
-        
+
         if (turnaroundTimes.length > 0) {
           const totalMinutes = turnaroundTimes.reduce((sum: number, time: number) => sum + time, 0)
           avgTurnMin = Math.round(totalMinutes / turnaroundTimes.length)
         }
       }
 
-      // Real data with some mock constants for missing pieces
+      // Real data
       const emails = validRealTasks.length
       const deliverables = emails // 1:1 ratio - each email produces one deliverable
       const hoursSaved = Math.round(emails * 2.9) // Estimate based on typical hours saved per email
-      
+
       totals = {
         emails,
         deliverables,
         avgTurnMin,
         completionRate,
-        onTimeRate: Math.round(Math.random() * 20 + 85), // Mock: 85-100%
         hoursSaved,
       }
     } else {
@@ -238,7 +162,6 @@ export default function DashboardPage() {
         deliverables: 0,
         avgTurnMin: 0,
         completionRate: 0,
-        onTimeRate: 0,
         hoursSaved: 0,
       }
     }
@@ -249,18 +172,18 @@ export default function DashboardPage() {
       d.setDate(d.getDate() - (29 - i))
       const dateStr = d.toISOString().split('T')[0] // Format: YYYY-MM-DD
       const key = d.toLocaleDateString(undefined, { month: "short", day: "numeric" })
-      
-      // Count real tasks for this day (include all tasks, not just valid ones for daily activity)
+
+      // Count real tasks for this day
       const count = realTasks.filter((task: any) => {
         const taskDate = task.task_created_at?.split('T')[0]
         return taskDate === dateStr
       }).length
-      
+
       return { day: key, emails: count }
     })
 
     return { totals, days }
-  }, [historyThisMonth, userData.history, apiData])
+  }, [apiData])
   
   // Show loading state if auth is still loading
   if (loading) {
@@ -289,7 +212,7 @@ export default function DashboardPage() {
     )
   }
 
-  const planName = user.subscription?.plan || "starter"
+  const planName = subscriptionData?.plan || "starter"
   const planPrice = planName === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) :
                    planName === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) :
                    formatPrice(PRICING_CONFIG.starter.monthly)
@@ -457,11 +380,10 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-black">Next invoice</span>
                       <span className="text-sm text-black">
-                        {(() => {
-                          const raw = user?.subscription?.currentPeriodEnd
-                          const date = raw ? new Date(raw) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-                          return date.toLocaleDateString()
-                        })()}
+                        {subscriptionData?.currentPeriodEnd
+                          ? new Date(subscriptionData.currentPeriodEnd).toLocaleDateString()
+                          : "—"
+                        }
                       </span>
                     </div>
                     <div className="pt-2 flex justify-end">

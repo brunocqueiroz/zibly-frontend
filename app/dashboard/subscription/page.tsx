@@ -12,11 +12,9 @@ import { cancelSubscription, reactivateSubscription } from "@/app/actions/subscr
 import DashboardNav from "@/components/dashboard-nav"
 import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/components/auth-provider"
-import { PRICING_CONFIG, formatPrice, MAX_SEATS } from "@/lib/pricing-config"
+import { MAX_SEATS } from "@/lib/pricing-config"
 import PricingGrid from "@/components/pricing-grid"
 import { PRICING_PLANS } from "@/lib/pricing-config"
-import { changePlan } from "@/app/actions/subscription"
-import { setSeatsAction } from "@/app/actions/team"
 
 interface Subscription {
   plan: string
@@ -54,7 +52,7 @@ export default function SubscriptionPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [isDataLoading, setIsDataLoading] = useState(true)
   const [subscription, setSubscription] = useState<Subscription>({
-    plan: "free",
+    plan: "starter",
     status: "active",
     cancelAtPeriodEnd: false,
     currentPeriodEnd: null,
@@ -311,18 +309,45 @@ export default function SubscriptionPage() {
                       onSwitchPlan={async (planId, seats, coupon) => {
                         setIsLoading(true)
                         try {
-                          const fd = new FormData()
-                          fd.append("plan", planId)
-                          fd.append("billingCycle", "monthly")
-                          const result = await changePlan(fd)
-                          if ((result as any)?.error) {
-                            throw new Error((result as any).error)
+                          // For enterprise, redirect to contact page
+                          if (planId === "enterprise") {
+                            window.location.href = "/contact"
+                            return
                           }
-                          const seatsFd = new FormData()
-                          seatsFd.append("seats", String(Math.min(MAX_SEATS, Math.max(1, seats))))
-                          await setSeatsAction(seatsFd)
-                          setSubscription((prev) => ({ ...prev, plan: planId }))
-                        } finally {
+
+                          // Create Stripe checkout session via API
+                          const response = await fetch("/api/stripe/checkout", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                              planId,
+                              billingCycle: "monthly",
+                              seats: Math.min(MAX_SEATS, Math.max(1, seats)),
+                              couponCode: coupon,
+                              customerEmail: user?.email,
+                              successUrl: `${window.location.origin}/dashboard/subscription?success=true`,
+                              cancelUrl: `${window.location.origin}/dashboard/subscription?canceled=true`,
+                            }),
+                          })
+
+                          const result = await response.json()
+
+                          if (result.error) {
+                            throw new Error(result.error)
+                          }
+
+                          if (result.url) {
+                            // Redirect to Stripe Checkout
+                            window.location.href = result.url
+                          } else {
+                            throw new Error("No checkout URL returned")
+                          }
+                        } catch (error: any) {
+                          toast({
+                            variant: "destructive",
+                            title: "Error",
+                            description: error.message || "Failed to start checkout",
+                          })
                           setIsLoading(false)
                         }
                       }}
