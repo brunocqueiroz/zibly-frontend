@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { STRIPE_COUPONS } from '@/lib/pricing-config';
+import { getStripeSecretKey } from '@/lib/secrets';
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
-});
+// Lazy-initialized Stripe client
+let stripeClient: Stripe | null = null;
+
+async function getStripe(): Promise<Stripe> {
+  if (!stripeClient) {
+    const secretKey = await getStripeSecretKey();
+    stripeClient = new Stripe(secretKey, {
+      apiVersion: '2023-10-16',
+    });
+  }
+  return stripeClient;
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -23,6 +32,8 @@ export async function GET(request: NextRequest) {
     const stripeCouponId = STRIPE_COUPONS[code.toUpperCase() as keyof typeof STRIPE_COUPONS];
 
     let coupon: Stripe.Coupon | null = null;
+
+    const stripe = await getStripe();
 
     if (stripeCouponId) {
       // Try to retrieve the coupon from Stripe

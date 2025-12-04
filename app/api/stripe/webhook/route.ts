@@ -1,12 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { getStripeSecretKey, getStripeWebhookSecret } from '@/lib/secrets';
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
-});
+// Lazy-initialized Stripe client
+let stripeClient: Stripe | null = null;
+let webhookSecretCached: string | null = null;
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || '';
+async function getStripe(): Promise<Stripe> {
+  if (!stripeClient) {
+    const secretKey = await getStripeSecretKey();
+    stripeClient = new Stripe(secretKey, {
+      apiVersion: '2023-10-16',
+    });
+  }
+  return stripeClient;
+}
+
+async function getWebhookSecret(): Promise<string> {
+  if (!webhookSecretCached) {
+    webhookSecretCached = await getStripeWebhookSecret();
+  }
+  return webhookSecretCached;
+}
 
 // Backend API URL for syncing subscription data
 const BACKEND_API_URL = process.env.BACKEND_API_URL || 'https://1ce20ayeb1.execute-api.us-east-1.amazonaws.com/zibly';
@@ -26,6 +41,8 @@ export async function POST(request: NextRequest) {
     // Verify webhook signature
     let event: Stripe.Event;
     try {
+      const stripe = await getStripe();
+      const webhookSecret = await getWebhookSecret();
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
       console.error('Webhook signature verification failed:', err);
@@ -99,6 +116,7 @@ async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
   }
 
   // Get subscription details
+  const stripe = await getStripe();
   const subscription = await stripe.subscriptions.retrieve(subscriptionId);
   const priceId = subscription.items.data[0]?.price.id;
 
@@ -123,6 +141,7 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
   console.log('Subscription updated:', subscription.id);
 
   // Get customer email
+  const stripe = await getStripe();
   const customer = await stripe.customers.retrieve(subscription.customer as string);
   if (customer.deleted) return;
 
@@ -149,6 +168,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   console.log('Subscription deleted:', subscription.id);
 
   // Get customer email
+  const stripe = await getStripe();
   const customer = await stripe.customers.retrieve(subscription.customer as string);
   if (customer.deleted) return;
 
@@ -181,6 +201,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
   console.log('Payment failed for invoice:', invoice.id);
 
   // Get customer email for notification
+  const stripe = await getStripe();
   const customer = await stripe.customers.retrieve(invoice.customer as string);
   if (customer.deleted) return;
 

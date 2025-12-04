@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { cookies } from 'next/headers';
+import { getStripeSecretKey } from '@/lib/secrets';
 
-// Initialize Stripe with the secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
-});
+// Lazy-initialized Stripe client
+let stripeClient: Stripe | null = null;
+
+async function getStripe(): Promise<Stripe> {
+  if (!stripeClient) {
+    const secretKey = await getStripeSecretKey();
+    stripeClient = new Stripe(secretKey, {
+      apiVersion: '2023-10-16',
+    });
+  }
+  return stripeClient;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,6 +51,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find or create Stripe customer by email
+    const stripe = await getStripe();
     const customers = await stripe.customers.list({
       email: userEmail,
       limit: 1,

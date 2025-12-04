@@ -4,11 +4,20 @@ import { getSessionFromCookies } from "@/lib/session"
 import { getUser, updateUser } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import Stripe from "stripe"
+import { getStripeSecretKey } from "@/lib/secrets"
 
-// Initialize Stripe on server side
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
-})
+// Lazy-initialized Stripe client
+let stripeClient: Stripe | null = null;
+
+async function getStripe(): Promise<Stripe> {
+  if (!stripeClient) {
+    const secretKey = await getStripeSecretKey();
+    stripeClient = new Stripe(secretKey, {
+      apiVersion: '2023-10-16',
+    });
+  }
+  return stripeClient;
+}
 
 /**
  * Create a Stripe Checkout session for upgrading/changing plans
@@ -67,6 +76,7 @@ export async function createCheckoutSession(formData: FormData) {
       }
     }
 
+    const stripe = await getStripe()
     const session = await stripe.checkout.sessions.create(sessionParams)
 
     return {
@@ -90,6 +100,8 @@ export async function createPortalSession() {
   }
 
   try {
+    const stripe = await getStripe()
+
     // Find Stripe customer by email
     const customers = await stripe.customers.list({
       email: user.email,
@@ -156,6 +168,8 @@ export async function cancelSubscription() {
   }
 
   try {
+    const stripe = await getStripe()
+
     // Find user's Stripe customer
     const customers = await stripe.customers.list({
       email: user.email,
@@ -213,6 +227,8 @@ export async function reactivateSubscription() {
   }
 
   try {
+    const stripe = await getStripe()
+
     // Find user's Stripe customer
     const customers = await stripe.customers.list({
       email: user.email,
@@ -275,6 +291,8 @@ export async function getSubscriptionStatus() {
   }
 
   try {
+    const stripe = await getStripe()
+
     const customers = await stripe.customers.list({
       email: user.email,
       limit: 1,
