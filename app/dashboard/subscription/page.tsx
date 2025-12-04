@@ -208,7 +208,7 @@ export default function SubscriptionPage() {
       const res = await fetch("/api/stripe/portal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ returnUrl: window.location.href }),
+        body: JSON.stringify({ returnUrl: window.location.href, email: user?.email }),
       })
 
       if (res.ok) {
@@ -306,6 +306,7 @@ export default function SubscriptionPage() {
                     <PricingGrid
                       plans={PRICING_PLANS as any}
                       currentPlanId={subscription.plan}
+                      customerEmail={user?.email}
                       onSwitchPlan={async (planId, seats, coupon) => {
                         setIsLoading(true)
                         try {

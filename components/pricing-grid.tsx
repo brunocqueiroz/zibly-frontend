@@ -2,9 +2,10 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { CheckCircle, Minus, Plus } from "lucide-react"
+import { CheckCircle, Minus, Plus, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { MAX_SEATS, seatAdjustedTotal, formatCurrency } from "@/lib/pricing-config"
@@ -33,15 +34,19 @@ export default function PricingGrid({
   plans,
   currentPlanId,
   onSwitchPlan,
+  customerEmail,
 }: {
   plans: Plan[]
   currentPlanId?: string
   onSwitchPlan?: (planId: string, seats: number, coupon: string) => void | Promise<void>
+  customerEmail?: string
 }) {
   const [seats, setSeats] = useState<number>(1)
   const [coupon, setCoupon] = useState("")
+  const [isCheckingOut, setIsCheckingOut] = useState<string | null>(null)
   const discount = COUPONS[coupon.trim().toUpperCase()] ?? 0
   const { toast } = useToast()
+  const router = useRouter()
 
   const priceForPlan = (plan: Plan) => {
     if (plan.priceMonthly == null) return "Contact Sales"
@@ -66,6 +71,51 @@ export default function PricingGrid({
       toast({ title: "Plan updated", description: `Switched to ${planId} plan` })
     } catch (e: any) {
       toast({ variant: "destructive", title: "Update failed", description: e?.message || "Could not switch plan" })
+    }
+  }
+
+  // Handle checkout for public pricing page (no currentPlanId)
+  const handleCheckout = async (planId: string) => {
+    if (planId === "enterprise") {
+      router.push("/contact")
+      return
+    }
+
+    setIsCheckingOut(planId)
+
+    try {
+      const response = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          planId,
+          billingCycle: "monthly",
+          seats: Math.min(MAX_SEATS, Math.max(1, seats)),
+          couponCode: coupon,
+          customerEmail,
+          successUrl: `${window.location.origin}/dashboard/subscription?success=true`,
+          cancelUrl: `${window.location.origin}/pricing?canceled=true`,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.error) {
+        throw new Error(result.error)
+      }
+
+      if (result.url) {
+        window.location.href = result.url
+      } else {
+        throw new Error("No checkout URL returned")
+      }
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Checkout failed",
+        description: error.message || "Could not start checkout"
+      })
+      setIsCheckingOut(null)
     }
   }
 
@@ -147,6 +197,7 @@ export default function PricingGrid({
             </CardContent>
             <CardFooter>
               {currentPlanId ? (
+                // Dashboard subscription page - switching plans
                 plan.priceMonthly === null ? (
                   <Button asChild className="w-full bg-white text-black border-2 border-black hover:bg-black/5">
                     <Link href="/contact">Contact Sales</Link>
@@ -159,13 +210,27 @@ export default function PricingGrid({
                   </Button>
                 )
               ) : (
-                <Button asChild className="w-full bg-white text-black border-2 border-black hover:bg-black/5">
-                  {plan.priceMonthly === null ? (
+                // Public pricing page - go to Stripe Checkout
+                plan.priceMonthly === null ? (
+                  <Button asChild className="w-full bg-white text-black border-2 border-black hover:bg-black/5">
                     <Link href="/contact">Contact Sales</Link>
-                  ) : (
-                    <Link href={`/signup?plan=${plan.id}&seats=${seats}&ref=${encodeURIComponent(coupon)}`}>Get Started</Link>
-                  )}
-                </Button>
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-full bg-white text-black border-2 border-black hover:bg-black/5"
+                    onClick={() => handleCheckout(plan.id)}
+                    disabled={isCheckingOut === plan.id}
+                  >
+                    {isCheckingOut === plan.id ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      "Get Started"
+                    )}
+                  </Button>
+                )
               )}
             </CardFooter>
           </Card>

@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/components/ui/use-toast"
-import { getTeam, inviteMember, removeMemberAction, setSeatsAction, updateMemberRoleAction } from "@/app/actions/team"
 import { MAX_SEATS } from "@/lib/pricing-config"
 
 type Member = { name: string; email: string; role: string; status: string }
@@ -35,33 +34,22 @@ export default function TeamPage() {
     setError(null)
 
     try {
-      const result = await getTeam()
-
-      if ("error" in result) {
-        // User doesn't have a company set up - show them as a solo user
-        if (result.error === "No company on account") {
-          // Create a personal "org" with just themselves
-          const personalOrg: Org = {
-            name: user.company || "Personal Account",
-            seats: 1,
-            members: [
-              {
-                name: user.name || `${user.first_name || ""} ${user.last_name || ""}`.trim() || user.email,
-                email: user.email,
-                role: "admin",
-                status: "active"
-              }
-            ]
+      // For now, show the logged-in user as the team
+      // Team management requires company setup
+      const personalOrg: Org = {
+        name: user.company || "Personal Account",
+        seats: 1,
+        members: [
+          {
+            name: user.name || `${user.first_name || ""} ${user.last_name || ""}`.trim() || user.email,
+            email: user.email,
+            role: "admin",
+            status: "active"
           }
-          setOrg(personalOrg)
-          setSeatsInput(1)
-        } else {
-          setError(result.error)
-        }
-      } else if (result.org) {
-        setOrg(result.org)
-        setSeatsInput(result.org.seats)
+        ]
       }
+      setOrg(personalOrg)
+      setSeatsInput(1)
     } catch (e: any) {
       setError(e?.message || "Failed to load team data")
     } finally {
@@ -76,26 +64,11 @@ export default function TeamPage() {
   }, [user, authLoading])
 
   const handleInvite = async () => {
-    if (!user?.company) {
-      toast({
-        variant: "destructive",
-        title: "Team feature unavailable",
-        description: "Please set up your company in Settings to invite team members."
-      })
-      return
-    }
-
-    const fd = new FormData()
-    fd.append("email", inviteEmail)
-    fd.append("role", inviteRole)
-    const res = await inviteMember(fd)
-    if ("error" in res) {
-      toast({ variant: "destructive", title: "Error", description: res.error })
-    } else {
-      toast({ title: "Invite sent", description: `${inviteEmail} has been invited.` })
-      setInviteEmail("")
-      refresh()
-    }
+    // Team invites require enterprise setup - show upgrade prompt
+    toast({
+      title: "Team feature",
+      description: "Team invites are available on Professional and Enterprise plans. Please upgrade or contact support."
+    })
   }
 
   const handleRemove = async (email: string) => {
@@ -107,50 +80,25 @@ export default function TeamPage() {
       })
       return
     }
-
-    const fd = new FormData()
-    fd.append("email", email)
-    const res = await removeMemberAction(fd)
-    if ("error" in res) {
-      toast({ variant: "destructive", title: "Error", description: res.error })
-    } else {
-      toast({ title: "Removed", description: `${email} removed from team.` })
-      refresh()
-    }
+    toast({
+      title: "Team feature",
+      description: "Team management is available on Professional and Enterprise plans."
+    })
   }
 
   const handleRoleChange = async (email: string, role: string) => {
-    const fd = new FormData()
-    fd.append("email", email)
-    fd.append("role", role)
-    const res = await updateMemberRoleAction(fd)
-    if ("error" in res) {
-      toast({ variant: "destructive", title: "Error", description: res.error })
-    } else {
-      toast({ title: "Role updated" })
-      refresh()
-    }
+    toast({
+      title: "Team feature",
+      description: "Role management is available on Professional and Enterprise plans."
+    })
   }
 
   const handleSeatsSave = async () => {
-    if (!user?.company) {
-      toast({
-        variant: "destructive",
-        title: "Team feature unavailable",
-        description: "Please set up your company in Settings first."
-      })
-      return
-    }
-
-    const fd = new FormData()
-    fd.append("seats", String(seatsInput))
-    const res = await setSeatsAction(fd)
-    if ("error" in res) {
-      toast({ variant: "destructive", title: "Error", description: res.error })
-    } else {
-      toast({ title: "Seats updated" })
-      refresh()
-    }
+    // Redirect to subscription page to manage seats
+    toast({
+      title: "Manage seats",
+      description: "Please visit the Subscription page to adjust your seat count."
+    })
   }
 
   // Show loading while auth is checking

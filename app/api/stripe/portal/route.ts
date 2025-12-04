@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { cookies } from 'next/headers';
 import { getStripeSecretKey } from '@/lib/secrets';
 
 // Lazy-initialized Stripe client
@@ -19,33 +18,11 @@ async function getStripe(): Promise<Stripe> {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { returnUrl } = body;
+    const { returnUrl, email } = body;
 
-    // Get user session to find their Stripe customer ID
-    // In production, you'd get this from your auth system
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get('zibly-session');
-
-    if (!sessionCookie) {
+    if (!email) {
       return NextResponse.json(
-        { error: 'Not authenticated' },
-        { status: 401 }
-      );
-    }
-
-    // Parse session to get user info
-    let userEmail: string | null = null;
-    try {
-      const sessionData = JSON.parse(sessionCookie.value);
-      userEmail = sessionData.email;
-    } catch {
-      // Try to decode if it's a JWT or other format
-      userEmail = null;
-    }
-
-    if (!userEmail) {
-      return NextResponse.json(
-        { error: 'User email not found in session' },
+        { error: 'Email is required' },
         { status: 400 }
       );
     }
@@ -53,7 +30,7 @@ export async function POST(request: NextRequest) {
     // Find or create Stripe customer by email
     const stripe = await getStripe();
     const customers = await stripe.customers.list({
-      email: userEmail,
+      email: email,
       limit: 1,
     });
 
@@ -64,7 +41,7 @@ export async function POST(request: NextRequest) {
     } else {
       // Create a new customer if none exists
       const customer = await stripe.customers.create({
-        email: userEmail,
+        email: email,
       });
       customerId = customer.id;
     }
