@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { getStripePriceId, STRIPE_COUPONS } from '@/lib/pricing-config';
-import { getStripeSecretKey } from '@/lib/secrets';
+import { STRIPE_COUPONS } from '@/lib/pricing-config';
+import { getStripeSecretKey, getStripePriceId } from '@/lib/secrets';
 
 // Lazy-initialized Stripe client
 let stripeClient: Stripe | null = null;
@@ -39,23 +39,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get the Stripe Price ID
-    const priceId = getStripePriceId(planId, billingCycle);
+    // Get the Stripe Price ID from secrets or env vars
+    const priceId = await getStripePriceId(planId as "starter" | "professional", billingCycle as "monthly" | "annual");
     console.log('Price ID for plan:', { planId, billingCycle, priceId });
 
     if (!priceId) {
-      return NextResponse.json(
-        { error: 'Price not found for selected plan' },
-        { status: 400 }
-      );
-    }
-
-    // Check if price ID is a placeholder (not configured)
-    if (priceId.startsWith('price_') && !priceId.startsWith('price_1')) {
-      console.error('Stripe Price ID not configured:', priceId);
+      console.error('Stripe Price ID not configured for:', planId, billingCycle);
       return NextResponse.json(
         {
-          error: `Stripe not configured. Please set NEXT_PUBLIC_STRIPE_PRICE_${planId.toUpperCase()}_${billingCycle.toUpperCase()} environment variable with your Stripe Price ID.`
+          error: `Stripe Price ID not configured. Run setup_stripe_secrets.sh to add STRIPE_PRICE_${planId.toUpperCase()}_${billingCycle.toUpperCase()} to AWS Secrets Manager.`
         },
         { status: 500 }
       );

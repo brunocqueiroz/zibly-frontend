@@ -73,6 +73,10 @@ interface StripeSecrets {
   STRIPE_SECRET_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
   STRIPE_PUBLISHABLE_KEY: string;
+  STRIPE_PRICE_STARTER_MONTHLY?: string;
+  STRIPE_PRICE_PROFESSIONAL_MONTHLY?: string;
+  STRIPE_PRICE_STARTER_ANNUAL?: string;
+  STRIPE_PRICE_PROFESSIONAL_ANNUAL?: string;
 }
 
 let stripeSecretsPromise: Promise<StripeSecrets | null> | null = null;
@@ -144,4 +148,31 @@ export async function getStripePublishableKey(): Promise<string> {
   }
 
   throw new Error("STRIPE_PUBLISHABLE_KEY not configured");
+}
+
+/**
+ * Get Stripe Price ID for a plan
+ */
+export async function getStripePriceId(
+  planId: "starter" | "professional",
+  billingCycle: "monthly" | "annual"
+): Promise<string | null> {
+  const key = `STRIPE_PRICE_${planId.toUpperCase()}_${billingCycle.toUpperCase()}`;
+
+  // First try environment variable
+  const envKey = `NEXT_PUBLIC_${key}`;
+  if (process.env[envKey]) {
+    return process.env[envKey] as string;
+  }
+
+  // Then try Secrets Manager
+  const secrets = await getStripeSecrets();
+  if (secrets) {
+    const priceId = secrets[key as keyof StripeSecrets];
+    if (priceId) {
+      return priceId;
+    }
+  }
+
+  return null;
 }
