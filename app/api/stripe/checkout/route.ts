@@ -29,6 +29,8 @@ export async function POST(request: NextRequest) {
       cancelUrl,
     } = body;
 
+    console.log('Checkout request:', { planId, billingCycle, seats, customerEmail });
+
     // Validate plan
     if (!planId || !['starter', 'professional'].includes(planId)) {
       return NextResponse.json(
@@ -39,10 +41,23 @@ export async function POST(request: NextRequest) {
 
     // Get the Stripe Price ID
     const priceId = getStripePriceId(planId, billingCycle);
+    console.log('Price ID for plan:', { planId, billingCycle, priceId });
+
     if (!priceId) {
       return NextResponse.json(
         { error: 'Price not found for selected plan' },
         { status: 400 }
+      );
+    }
+
+    // Check if price ID is a placeholder (not configured)
+    if (priceId.startsWith('price_') && !priceId.startsWith('price_1')) {
+      console.error('Stripe Price ID not configured:', priceId);
+      return NextResponse.json(
+        {
+          error: `Stripe not configured. Please set NEXT_PUBLIC_STRIPE_PRICE_${planId.toUpperCase()}_${billingCycle.toUpperCase()} environment variable with your Stripe Price ID.`
+        },
+        { status: 500 }
       );
     }
 
@@ -85,7 +100,9 @@ export async function POST(request: NextRequest) {
 
     // Create the checkout session
     const stripe = await getStripe();
+    console.log('Creating Stripe checkout session...');
     const session = await stripe.checkout.sessions.create(sessionParams);
+    console.log('Checkout session created:', session.id, session.url);
 
     return NextResponse.json({
       sessionId: session.id,
@@ -93,8 +110,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Stripe checkout error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to create checkout session';
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to create checkout session' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

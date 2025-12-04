@@ -211,21 +211,22 @@ export default function SubscriptionPage() {
         body: JSON.stringify({ returnUrl: window.location.href, email: user?.email }),
       })
 
-      if (res.ok) {
-        const { url } = await res.json()
-        window.location.href = url
+      const data = await res.json()
+
+      if (res.ok && data.url) {
+        window.location.href = data.url
       } else {
         toast({
           variant: "destructive",
           title: "Error",
-          description: "Failed to open billing portal",
+          description: data.error || "Failed to open billing portal",
         })
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to open billing portal",
+        description: error.message || "Failed to open billing portal",
       })
     }
   }
