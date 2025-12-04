@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { MAX_SEATS, seatAdjustedTotal, formatCurrency } from "@/lib/pricing-config"
 import { config } from "@/lib/config"
+import { useAuth } from "@/components/auth-provider"
 
 // Backend API URL for Stripe operations
 const STRIPE_API_URL = config.api.baseUrl
@@ -51,6 +52,7 @@ export default function PricingGrid({
   const discount = COUPONS[coupon.trim().toUpperCase()] ?? 0
   const { toast } = useToast()
   const router = useRouter()
+  const { user } = useAuth()
 
   const priceForPlan = (plan: Plan) => {
     if (plan.priceMonthly == null) return "Contact Sales"
@@ -85,6 +87,17 @@ export default function PricingGrid({
       return
     }
 
+    // If user is not logged in, redirect to signup with plan info
+    if (!user) {
+      const params = new URLSearchParams({
+        plan: planId,
+        seats: seats.toString(),
+        ...(coupon && { coupon }),
+      })
+      router.push(`/signup?${params.toString()}`)
+      return
+    }
+
     setIsCheckingOut(planId)
 
     try {
@@ -96,7 +109,7 @@ export default function PricingGrid({
           billingCycle: "monthly",
           seats: Math.min(MAX_SEATS, Math.max(1, seats)),
           couponCode: coupon,
-          customerEmail,
+          customerEmail: customerEmail || user.email,
           successUrl: `${window.location.origin}/dashboard/subscription?success=true`,
           cancelUrl: `${window.location.origin}/pricing?canceled=true`,
         }),

@@ -13,16 +13,24 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { registerUser } from "@/app/actions/auth"
-import { PRICING_PLANS, formatPrice } from "@/lib/pricing-config"
+import { PRICING_PLANS, formatPrice, MAX_SEATS } from "@/lib/pricing-config"
 import { GoogleSignInButton } from "@/components/google-signin-button"
 import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
+import { config } from "@/lib/config"
+
+const STRIPE_API_URL = config.api.baseUrl
 
 export default function SignupPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { loginWithGoogle, user, loading: authLoading } = useAuth()
-  const initialPlan = searchParams.get("plan") || "starter"
+
+  // Get plan info from URL (passed from pricing page)
+  const initialPlan = searchParams.get("plan") || ""
+  const initialSeats = parseInt(searchParams.get("seats") || "1", 10)
+  const initialCoupon = searchParams.get("coupon") || ""
+
   const [selectedPlan, setSelectedPlan] = useState(initialPlan)
   const [isLoading, setIsLoading] = useState(false)
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
@@ -76,12 +84,45 @@ export default function SignupPage() {
     }
   }
 
-  // Redirect to dashboard if user is logged in
+  // After login, redirect to Stripe checkout if plan was selected, otherwise dashboard
   useEffect(() => {
-    if (!authLoading && user) {
-      router.push("/dashboard")
+    const redirectAfterAuth = async () => {
+      if (!authLoading && user) {
+        // If a paid plan was selected from pricing page, go to Stripe checkout
+        if (initialPlan && initialPlan !== "free" && initialPlan !== "enterprise") {
+          try {
+            const response = await fetch(`${STRIPE_API_URL}/stripe/checkout`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                planId: initialPlan,
+                billingCycle: "monthly",
+                seats: Math.min(MAX_SEATS, Math.max(1, initialSeats)),
+                couponCode: initialCoupon,
+                customerEmail: user.email,
+                successUrl: `${window.location.origin}/dashboard/subscription?success=true`,
+                cancelUrl: `${window.location.origin}/pricing?canceled=true`,
+              }),
+            })
+
+            const result = await response.json()
+
+            if (result.url) {
+              window.location.href = result.url
+              return
+            }
+          } catch (error) {
+            console.error("Checkout redirect error:", error)
+          }
+        }
+
+        // Default: go to dashboard
+        router.push("/dashboard")
+      }
     }
-  }, [user, authLoading, router])
+
+    redirectAfterAuth()
+  }, [user, authLoading, router, initialPlan, initialSeats, initialCoupon])
 
   return (
     <div className="min-h-screen w-full bg-gray-50">
