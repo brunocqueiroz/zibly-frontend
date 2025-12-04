@@ -52,7 +52,7 @@ export default function SubscriptionPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [isDataLoading, setIsDataLoading] = useState(true)
   const [subscription, setSubscription] = useState<Subscription>({
-    plan: "starter",
+    plan: "free",
     status: "active",
     cancelAtPeriodEnd: false,
     currentPeriodEnd: null,

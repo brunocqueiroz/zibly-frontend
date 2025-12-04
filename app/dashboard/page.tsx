@@ -98,13 +98,14 @@ export default function DashboardPage() {
     const currentUsage = validTasks.length
 
     // Determine plan limits based on subscription
-    const planName = subscriptionData?.plan || "starter"
+    const planName = subscriptionData?.plan || "free"
     const planLimits: Record<string, number> = {
-      starter: 20,
-      professional: 80,
+      free: 3,        // Free tier: 3 emails
+      starter: 20,    // $59/month
+      professional: 80, // $199/month
       enterprise: 999,
     }
-    const total = planLimits[planName] || 20
+    const total = planLimits[planName] || 3
 
     return {
       usage: {
@@ -212,10 +213,11 @@ export default function DashboardPage() {
     )
   }
 
-  const planName = subscriptionData?.plan || "starter"
+  const planName = subscriptionData?.plan || "free"
   const planPrice = planName === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) :
                    planName === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) :
-                   formatPrice(PRICING_CONFIG.starter.monthly)
+                   planName === "starter" ? formatPrice(PRICING_CONFIG.starter.monthly) :
+                   "Free"
 
   return (
     <div className="p-6 lg:p-8">
@@ -252,9 +254,11 @@ export default function DashboardPage() {
                   <CardDescription className="text-primary capitalize">{planName} Plan</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <div className="text-2xl font-bold text-black">{planPrice}/month</div>
+                  <div className="text-2xl font-bold text-black">
+                    {planName === "free" ? "Free" : `${planPrice}/month`}
+                  </div>
                   <Button asChild variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
-                    <Link href="/dashboard/subscription">Manage Subscription</Link>
+                    <Link href="/dashboard/subscription">{planName === "free" ? "Upgrade" : "Manage Subscription"}</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -375,20 +379,24 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-black">Price</span>
-                      <span className="text-sm text-black">{planPrice}/month</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-black">Next invoice</span>
                       <span className="text-sm text-black">
-                        {subscriptionData?.currentPeriodEnd
-                          ? new Date(subscriptionData.currentPeriodEnd).toLocaleDateString()
-                          : "—"
-                        }
+                        {planName === "free" ? "Free" : `${planPrice}/month`}
                       </span>
                     </div>
+                    {planName !== "free" && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-black">Next invoice</span>
+                        <span className="text-sm text-black">
+                          {subscriptionData?.currentPeriodEnd
+                            ? new Date(subscriptionData.currentPeriodEnd).toLocaleDateString()
+                            : "—"
+                          }
+                        </span>
+                      </div>
+                    )}
                     <div className="pt-2 flex justify-end">
                       <Button asChild variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
-                        <Link href="/dashboard/subscription">Manage Subscription</Link>
+                        <Link href="/dashboard/subscription">{planName === "free" ? "Upgrade" : "Manage Subscription"}</Link>
                       </Button>
                     </div>
                   </CardContent>
