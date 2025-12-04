@@ -17,6 +17,8 @@ export interface PricingPlan {
   processingSpeed: string;
   support: string;
   popular?: boolean;
+  stripePriceIdMonthly?: string;
+  stripePriceIdAnnual?: string;
 }
 
 export const PRICING_CONFIG = {
@@ -33,14 +35,42 @@ export const PRICING_CONFIG = {
     monthly: null, // Contact sales
     annual: null,
   },
-  
+
   // Currency formatting
   currency: 'USD',
   currencySymbol: '$',
-  
+
   // Free trial
   freeTasksCount: 1,
 };
+
+// Stripe Price IDs - these should match your Stripe Dashboard products
+// Set these via environment variables in production
+export const STRIPE_PRICE_IDS = {
+  starter: {
+    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_STARTER_MONTHLY || 'price_starter_monthly',
+    annual: process.env.NEXT_PUBLIC_STRIPE_PRICE_STARTER_ANNUAL || 'price_starter_annual',
+  },
+  professional: {
+    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_PROFESSIONAL_MONTHLY || 'price_professional_monthly',
+    annual: process.env.NEXT_PUBLIC_STRIPE_PRICE_PROFESSIONAL_ANNUAL || 'price_professional_annual',
+  },
+};
+
+// Stripe coupon codes for referrals
+export const STRIPE_COUPONS = {
+  FRIEND20: '20_percent_off',      // 20% off first month
+  REFERRAL20: 'referral_20_off',   // 20% off for referral
+  WELCOME10: '10_percent_off',     // 10% off first month
+  BETA50: '50_percent_off',        // 50% off for beta users
+};
+
+// Get Stripe Price ID for a plan
+export function getStripePriceId(planId: string, billingCycle: 'monthly' | 'annual'): string | null {
+  const plan = STRIPE_PRICE_IDS[planId as keyof typeof STRIPE_PRICE_IDS];
+  if (!plan) return null;
+  return plan[billingCycle];
+}
 
 // Seat-based pricing configuration
 export const MAX_SEATS = 10

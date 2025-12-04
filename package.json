@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^2.4.0",
+    "stripe": "^14.14.0",
     "@aws-sdk/client-s3": "^3.828.0",
     "@aws-sdk/credential-providers": "^3.828.0",
     "@aws-sdk/s3-request-presigner": "^3.828.0",
