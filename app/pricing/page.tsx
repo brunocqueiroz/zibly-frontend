@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from 'react'
 import { PRICING_PLANS } from '@/lib/pricing-config'
 import PricingGrid from '@/components/pricing-grid'
 import SlideUp from "@/components/animations/SlideUp"
@@ -34,7 +35,9 @@ export default function PricingPage() {
       <div className="container max-w-6xl px-4 py-16 md:px-6 md:py-24">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
         <FadeIn delay={0.2}>
-          <PricingGrid plans={plansData as any} />
+          <Suspense fallback={<div className="text-center py-8">Loading pricing...</div>}>
+            <PricingGrid plans={plansData as any} />
+          </Suspense>
         </FadeIn>
       </div>
     </div>

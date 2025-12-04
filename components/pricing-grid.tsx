@@ -1,14 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, Minus, Plus, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
-import { MAX_SEATS, seatAdjustedTotal, formatCurrency } from "@/lib/pricing-config"
+import { MAX_SEATS, seatAdjustedTotal, formatCurrency, getAnnualDiscount } from "@/lib/pricing-config"
 import { config } from "@/lib/config"
 import { useAuth } from "@/components/auth-provider"
 
@@ -43,23 +43,41 @@ export default function PricingGrid({
 }: {
   plans: Plan[]
   currentPlanId?: string
-  onSwitchPlan?: (planId: string, seats: number, coupon: string) => void | Promise<void>
+  onSwitchPlan?: (planId: string, seats: number, coupon: string, billingCycle: string) => void | Promise<void>
   customerEmail?: string
 }) {
+  const searchParams = useSearchParams()
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly")
   const [seats, setSeats] = useState<number>(1)
   const [coupon, setCoupon] = useState("")
+  const [referralCode, setReferralCode] = useState("")
   const [isCheckingOut, setIsCheckingOut] = useState<string | null>(null)
   const discount = COUPONS[coupon.trim().toUpperCase()] ?? 0
   const { toast } = useToast()
   const router = useRouter()
   const { user } = useAuth()
 
+  // Check for referral code in URL
+  useEffect(() => {
+    const ref = searchParams.get("ref")
+    if (ref) {
+      setReferralCode(ref.toUpperCase())
+      toast({ title: "Referral code applied", description: `Code: ${ref.toUpperCase()}` })
+    }
+  }, [searchParams, toast])
+
   const priceForPlan = (plan: Plan) => {
     if (plan.priceMonthly == null) return "Contact Sales"
     const capped = Math.min(MAX_SEATS, Math.max(1, seats))
-    const totalPreCoupon = seatAdjustedTotal(plan.priceMonthly, capped)
+    const basePrice = billingCycle === "annual" ? (plan.priceAnnual ?? plan.priceMonthly * 12) : plan.priceMonthly
+    const totalPreCoupon = seatAdjustedTotal(basePrice, capped)
     const total = totalPreCoupon * (1 - discount)
     return formatCurrency(total)
+  }
+
+  const annualSavingsForPlan = (plan: Plan) => {
+    if (plan.priceMonthly == null || plan.priceAnnual == null) return 0
+    return getAnnualDiscount(plan.priceMonthly, plan.priceAnnual)
   }
 
   const applyCoupon = () => {
@@ -67,13 +85,20 @@ export default function PricingGrid({
     if (COUPONS[code]) {
       toast({ title: "Discount applied", description: `${Math.round(COUPONS[code] * 100)}% off` })
     } else if (code) {
-      toast({ variant: "destructive", title: "Invalid code", description: "Please check your referral or coupon code" })
+      // Check if it might be a referral code (ZIB-XXXXXX format)
+      if (code.startsWith("ZIB-")) {
+        setReferralCode(code)
+        setCoupon("")
+        toast({ title: "Referral code recognized", description: `Code: ${code}` })
+      } else {
+        toast({ variant: "destructive", title: "Invalid code", description: "Please check your referral or coupon code" })
+      }
     }
   }
 
   const handleSwitch = async (planId: string) => {
     try {
-      await onSwitchPlan?.(planId, seats, coupon)
+      await onSwitchPlan?.(planId, seats, coupon, billingCycle)
       toast({ title: "Plan updated", description: `Switched to ${planId} plan` })
     } catch (e: any) {
       toast({ variant: "destructive", title: "Update failed", description: e?.message || "Could not switch plan" })
@@ -92,7 +117,9 @@ export default function PricingGrid({
       const params = new URLSearchParams({
         plan: planId,
         seats: seats.toString(),
+        billing: billingCycle,
         ...(coupon && { coupon }),
+        ...(referralCode && { ref: referralCode }),
       })
       router.push(`/signup?${params.toString()}`)
       return
@@ -106,9 +133,10 @@ export default function PricingGrid({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           planId,
-          billingCycle: "monthly",
+          billingCycle,
           seats: Math.min(MAX_SEATS, Math.max(1, seats)),
-          couponCode: coupon,
+          couponCode: coupon || undefined,
+          referralCode: referralCode || undefined,
           customerEmail: customerEmail || user.email,
           successUrl: `${window.location.origin}/dashboard/subscription?success=true`,
           cancelUrl: `${window.location.origin}/pricing?canceled=true`,
@@ -138,6 +166,58 @@ export default function PricingGrid({
 
   return (
     <div>
+      {/* Billing Cycle Toggle */}
+      <div className="flex justify-center mb-6">
+        <div className="inline-flex items-center rounded-lg border border-black p-1 bg-white">
+          <button
+            type="button"
+            onClick={() => setBillingCycle("monthly")}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+              billingCycle === "monthly"
+                ? "bg-black text-white"
+                : "text-black hover:bg-black/5"
+            }`}
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            onClick={() => setBillingCycle("annual")}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
+              billingCycle === "annual"
+                ? "bg-black text-white"
+                : "text-black hover:bg-black/5"
+            }`}
+          >
+            Annual
+            <span className={`text-xs px-1.5 py-0.5 rounded ${
+              billingCycle === "annual"
+                ? "bg-green-500 text-white"
+                : "bg-green-100 text-green-700"
+            }`}>
+              Save ~17%
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Referral code indicator */}
+      {referralCode && (
+        <div className="flex justify-center mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-100 text-green-700 text-sm">
+            <CheckCircle className="h-4 w-4" />
+            Referral code: {referralCode}
+            <button
+              type="button"
+              onClick={() => setReferralCode("")}
+              className="ml-1 text-green-800 hover:text-green-900"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center justify-center gap-2">
         <div className="inline-flex items-center rounded-lg border border-black p-1">
           <span className="px-2 text-xs text-black hidden sm:inline">Seats</span>
@@ -153,7 +233,7 @@ export default function PricingGrid({
           <span className="px-2 text-xs text-black hidden sm:inline">Referral/Coupon</span>
           <Input
             id="coupon"
-            placeholder="FRIEND20"
+            placeholder="ZIB-ABC123"
             value={coupon}
             onChange={(e) => setCoupon(e.target.value)}
             className="h-8 border-none focus-visible:ring-0 focus:ring-0 w-36 text-black bg-white"
@@ -179,7 +259,11 @@ export default function PricingGrid({
                   <span>Contact Sales</span>
                 ) : (
                   <>
-                    {priceForPlan(plan)}<span className="text-sm">/month</span>
+                    {priceForPlan(plan)}
+                    <span className="text-sm">/{billingCycle === "annual" ? "year" : "month"}</span>
+                    {billingCycle === "annual" && annualSavingsForPlan(plan) > 0 && (
+                      <span className="ml-2 text-xs text-green-600">Save {annualSavingsForPlan(plan)}%</span>
+                    )}
                   </>
                 )}
               </div>

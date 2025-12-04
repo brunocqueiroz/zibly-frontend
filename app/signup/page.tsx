@@ -30,6 +30,8 @@ export default function SignupPage() {
   const initialPlan = searchParams.get("plan") || ""
   const initialSeats = parseInt(searchParams.get("seats") || "1", 10)
   const initialCoupon = searchParams.get("coupon") || ""
+  const initialBilling = searchParams.get("billing") || "monthly"
+  const initialReferral = searchParams.get("ref") || ""
 
   const [selectedPlan, setSelectedPlan] = useState(initialPlan)
   const [isLoading, setIsLoading] = useState(false)
@@ -96,9 +98,10 @@ export default function SignupPage() {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 planId: initialPlan,
-                billingCycle: "monthly",
+                billingCycle: initialBilling,
                 seats: Math.min(MAX_SEATS, Math.max(1, initialSeats)),
-                couponCode: initialCoupon,
+                couponCode: initialCoupon || undefined,
+                referralCode: initialReferral || undefined,
                 customerEmail: user.email,
                 successUrl: `${window.location.origin}/dashboard/subscription?success=true`,
                 cancelUrl: `${window.location.origin}/pricing?canceled=true`,
@@ -122,7 +125,7 @@ export default function SignupPage() {
     }
 
     redirectAfterAuth()
-  }, [user, authLoading, router, initialPlan, initialSeats, initialCoupon])
+  }, [user, authLoading, router, initialPlan, initialSeats, initialCoupon, initialBilling, initialReferral])
 
   return (
     <div className="min-h-screen w-full bg-gray-50">
