@@ -15,6 +15,10 @@ import { useAuth } from "@/components/auth-provider"
 import { MAX_SEATS } from "@/lib/pricing-config"
 import PricingGrid from "@/components/pricing-grid"
 import { PRICING_PLANS } from "@/lib/pricing-config"
+import { config } from "@/lib/config"
+
+// Backend API URL for Stripe operations
+const STRIPE_API_URL = config.api.baseUrl
 
 interface Subscription {
   plan: string
@@ -77,11 +81,11 @@ export default function SubscriptionPage() {
     setIsDataLoading(true)
 
     try {
-      // Fetch all data in parallel
+      // Fetch all data in parallel from backend API
       const [subRes, invRes, pmRes] = await Promise.all([
-        fetch(`/api/stripe/subscription?email=${encodeURIComponent(user.email)}`),
-        fetch(`/api/stripe/invoices?email=${encodeURIComponent(user.email)}&limit=10`),
-        fetch(`/api/stripe/payment-methods?email=${encodeURIComponent(user.email)}`),
+        fetch(`${STRIPE_API_URL}/stripe/subscription?email=${encodeURIComponent(user.email)}`),
+        fetch(`${STRIPE_API_URL}/stripe/invoices?email=${encodeURIComponent(user.email)}&limit=10`),
+        fetch(`${STRIPE_API_URL}/stripe/payment-methods?email=${encodeURIComponent(user.email)}`),
       ])
 
       if (subRes.ok) {
@@ -175,7 +179,7 @@ export default function SubscriptionPage() {
     setIsDeletingPayment(paymentMethodId)
 
     try {
-      const res = await fetch(`/api/stripe/payment-methods?id=${paymentMethodId}`, {
+      const res = await fetch(`${STRIPE_API_URL}/stripe/payment-methods?id=${paymentMethodId}`, {
         method: "DELETE",
       })
 
@@ -205,7 +209,7 @@ export default function SubscriptionPage() {
 
   const handleManagePayments = async () => {
     try {
-      const res = await fetch("/api/stripe/portal", {
+      const res = await fetch(`${STRIPE_API_URL}/stripe/portal`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ returnUrl: window.location.href, email: user?.email }),
@@ -317,8 +321,8 @@ export default function SubscriptionPage() {
                             return
                           }
 
-                          // Create Stripe checkout session via API
-                          const response = await fetch("/api/stripe/checkout", {
+                          // Create Stripe checkout session via backend API
+                          const response = await fetch(`${STRIPE_API_URL}/stripe/checkout`, {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({

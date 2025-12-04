@@ -9,6 +9,10 @@ import { CheckCircle, Minus, Plus, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { MAX_SEATS, seatAdjustedTotal, formatCurrency } from "@/lib/pricing-config"
+import { config } from "@/lib/config"
+
+// Backend API URL for Stripe operations
+const STRIPE_API_URL = config.api.baseUrl
 
 type Plan = {
   id: string
@@ -84,7 +88,7 @@ export default function PricingGrid({
     setIsCheckingOut(planId)
 
     try {
-      const response = await fetch("/api/stripe/checkout", {
+      const response = await fetch(`${STRIPE_API_URL}/stripe/checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
