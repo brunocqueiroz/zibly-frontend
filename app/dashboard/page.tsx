@@ -66,9 +66,14 @@ export default function DashboardPage() {
 
       const usageApiBase =
         process.env.NEXT_PUBLIC_USAGE_API_BASE_URL ||
-        "https://hw3c7h12df.execute-api.us-east-1.amazonaws.com"
+        "https://2yv09wps77.execute-api.us-east-1.amazonaws.com/prod"
 
-      const endpoints = [`${usageApiBase}/usage-get`, `${usageApiBase}/verify`]
+      // Try both root and /zibly stage paths for compatibility
+      const endpointVariants = ["", "/zibly"]
+      const routes = ["usage-get", "verify"]
+      const endpoints = endpointVariants.flatMap((prefix) =>
+        routes.map((route) => `${usageApiBase}${prefix}/${route}`)
+      )
 
       try {
         let usageData: { current: number; total: number } | null = null
@@ -85,9 +90,11 @@ export default function DashboardPage() {
               const data = await response.json()
               usageData = normalizeUsage(data)
               break
+            } else {
+              console.warn(`Usage endpoint returned ${response.status}: ${endpoint}`)
             }
-          } catch {
-            // Try next endpoint
+          } catch (err) {
+            console.warn(`Usage endpoint error for ${endpoint}`, err)
             continue
           }
         }
