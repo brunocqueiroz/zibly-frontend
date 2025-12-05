@@ -5,18 +5,15 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import DashboardNav from "@/components/dashboard-nav"
 import { useAuth } from "@/components/auth-provider"
 import { PRICING_CONFIG, formatPrice } from "@/lib/pricing-config"
-import { getApiClient } from "@/lib/api-client"
 
 export default function DashboardPage() {
   const { user, loading } = useAuth()
   
   // State for real API data
   const [apiData, setApiData] = useState({
-    usage: null as any,
-    monthlyUsage: null as any,
+    usage: null as { current: number; total: number } | null,
     loading: true
   })
 
@@ -29,29 +26,76 @@ export default function DashboardPage() {
   // Load real data from API
   useEffect(() => {
     const loadApiData = async () => {
-      if (!user?.id) return
+      if (!user?.email) return
+
+      const normalizeUsage = (data: any) => {
+        const current =
+          data?.current ??
+          data?.usage ??
+          data?.usage_count ??
+          data?.count ??
+          data?.current_usage ??
+          0
+
+        const usesLeft =
+          data?.uses_left ??
+          data?.remaining ??
+          data?.usesRemaining ??
+          data?.usage_remaining ??
+          null
+
+        let total =
+          data?.total ??
+          data?.total_usage ??
+          data?.limit ??
+          data?.usage_limit ??
+          data?.max_usage ??
+          data?.allowed ??
+          data?.total_allowed ??
+          0
+
+        if (!total && usesLeft !== null && usesLeft !== undefined) {
+          total = current + usesLeft
+        }
+
+        // Ensure we always have a non-zero total to avoid divide-by-zero
+        total = Math.max(total || current, 1)
+
+        return { current, total }
+      }
+
+      const usageApiBase =
+        process.env.NEXT_PUBLIC_USAGE_API_BASE_URL ||
+        "https://hw3c7h12df.execute-api.us-east-1.amazonaws.com"
+
+      const endpoints = [`${usageApiBase}/usage-get`, `${usageApiBase}/verify`]
 
       try {
-        const apiClient = getApiClient()
+        let usageData: { current: number; total: number } | null = null
 
-        // Fetch user usage data
-        const [userUsage, monthlyUsage] = await Promise.all([
-          apiClient.getUserUsage(user.id as number),
-          apiClient.getUserMonthlyUsage(user.id as number)
-        ])
+        for (const endpoint of endpoints) {
+          try {
+            const response = await fetch(endpoint, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ route: "usage-get", email: user.email }),
+            })
 
-        setApiData({
-          usage: userUsage,
-          monthlyUsage: monthlyUsage,
-          loading: false
-        })
+            if (response.ok) {
+              const data = await response.json()
+              usageData = normalizeUsage(data)
+              break
+            }
+          } catch {
+            // Try next endpoint
+            continue
+          }
+        }
+
+        setApiData({ usage: usageData, loading: false })
       } catch (error) {
         // Gracefully handle missing user data - dashboard will show fallback values
-        setApiData({
-          usage: null,
-          monthlyUsage: { current_month_usage: [], count: 0 }, // Empty but valid structure
-          loading: false
-        })
+        setApiData({ usage: null, loading: false })
       }
     }
 
@@ -82,11 +126,6 @@ export default function DashboardPage() {
 
   // Calculate usage from real API data
   const userData = useMemo(() => {
-    // Calculate real usage from API data if available
-    const realUsage = apiData.monthlyUsage?.current_month_usage || []
-    const validTasks = realUsage.filter((task: any) => task.task_status !== 'FAILED')
-    const currentUsage = validTasks.length
-
     // Determine plan limits based on subscription
     const planName = subscriptionData?.plan || "free"
     const planLimits: Record<string, number> = {
@@ -95,7 +134,10 @@ export default function DashboardPage() {
       professional: 80, // $199/month
       enterprise: 999,
     }
-    const total = planLimits[planName] || 3
+    const fallbackTotal = planLimits[planName] || 3
+
+    const currentUsage = apiData.usage?.current ?? 0
+    const total = apiData.usage?.total || fallbackTotal || 1
 
     return {
       usage: {
