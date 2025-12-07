@@ -82,8 +82,9 @@ export default function DashboardPage() {
       )
 
       // Build endpoint list across base candidates and stage prefixes
-      const stagePrefixes = ["", "/zibly", "/prod", "/prod/zibly"]
-      const routes = ["usage-get", "verify"]
+      // Only the /verify route is required; the body carries route: "usage-get"
+      const stagePrefixes = ["", "/prod", "/zibly", "/prod/zibly"]
+      const routes = ["verify"]
       const endpoints = baseCandidates.flatMap((base) =>
         stagePrefixes.flatMap((prefix) =>
           routes.map((route) => `${base.replace(/\\/$/, "")}${prefix}/${route}`)
