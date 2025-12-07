@@ -10,6 +10,13 @@ import { PRICING_CONFIG, formatPrice } from "@/lib/pricing-config"
 
 export default function DashboardPage() {
   const { user, loading } = useAuth()
+
+  const normalizePlan = (plan: string | null | undefined) => {
+    const p = (plan || "free").toLowerCase()
+    if (p === "monthly") return "starter"
+    if (p === "pro") return "professional"
+    return p
+  }
   
   // State for real API data
   const [apiData, setApiData] = useState({
@@ -87,7 +94,7 @@ export default function DashboardPage() {
       const routes = ["verify"]
       const endpoints = baseCandidates.flatMap((base) =>
         stagePrefixes.flatMap((prefix) =>
-          routes.map((route) => `${base.replace(/\\/$/, "")}${prefix}/${route}`)
+          routes.map((route) => `${base.replace(/\/$/, "")}${prefix}/${route}`)
         )
       )
 
@@ -133,13 +140,16 @@ export default function DashboardPage() {
         if (response.ok) {
           const data = await response.json()
           setSubscriptionData({
-            plan: data.plan || 'starter',
+            plan: data.plan || 'free',
             currentPeriodEnd: data.currentPeriodEnd
           })
+        } else {
+          // Non-OK response: fall back to free
+          setSubscriptionData({ plan: 'free', currentPeriodEnd: null })
         }
       } catch (error) {
         // Use defaults on error
-        setSubscriptionData({ plan: 'starter', currentPeriodEnd: null })
+        setSubscriptionData({ plan: 'free', currentPeriodEnd: null })
       }
     }
 
@@ -152,7 +162,7 @@ export default function DashboardPage() {
   // Calculate usage from real API data
   const userData = useMemo(() => {
     // Determine plan limits based on subscription
-    const planName = apiData.subscriptionTier || subscriptionData?.plan || "free"
+    const planName = normalizePlan(apiData.subscriptionTier || subscriptionData?.plan || "free")
     const planLimits: Record<string, number> = {
       free: 3,        // Free tier: 3 emails
       starter: 20,    // $59/month
@@ -162,7 +172,7 @@ export default function DashboardPage() {
     const fallbackTotal = planLimits[planName] || 3
 
     const currentUsage = apiData.usage?.current ?? 0
-    const total = apiData.usage?.total || fallbackTotal || 1
+    const total = apiData.usage?.total ?? fallbackTotal ?? 1
 
     return {
       usage: {
@@ -199,15 +209,11 @@ export default function DashboardPage() {
     )
   }
 
-  const planNameRaw = apiData.subscriptionTier || subscriptionData?.plan || "free"
-  const normalizedPlan =
-    planNameRaw === "monthly" ? "starter" :
-    planNameRaw === "pro" ? "professional" :
-    planNameRaw
+  const planName = normalizePlan(apiData.subscriptionTier || subscriptionData?.plan || "free")
 
-  const planPrice = normalizedPlan === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) :
-                   normalizedPlan === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) :
-                   normalizedPlan === "starter" ? formatPrice(PRICING_CONFIG.starter.monthly) :
+  const planPrice = planName === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) :
+                   planName === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) :
+                   planName === "starter" ? formatPrice(PRICING_CONFIG.starter.monthly) :
                    "Free"
 
   return (
@@ -246,7 +252,11 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="text-2xl font-bold text-black">
-                    {planName === "free" ? "Free" : `${planPrice}/month`}
+                    {planName === "free"
+                      ? "Free"
+                      : planName === "enterprise"
+                        ? planPrice
+                        : `${planPrice}/month`}
                   </div>
                   <Button asChild variant="outline" size="sm" className="border-2 border-black text-black hover:bg-black hover:text-white">
                     <Link href="/dashboard/subscription">{planName === "free" ? "Upgrade" : "Manage Subscription"}</Link>
@@ -273,7 +283,11 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-black">Price</span>
                       <span className="text-sm text-black">
-                        {planName === "free" ? "Free" : `${planPrice}/month`}
+                        {planName === "free"
+                          ? "Free"
+                          : planName === "enterprise"
+                            ? planPrice
+                            : `${planPrice}/month`}
                       </span>
                     </div>
                     {planName !== "free" && (
