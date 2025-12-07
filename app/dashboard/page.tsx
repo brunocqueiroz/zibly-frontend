@@ -14,6 +14,7 @@ export default function DashboardPage() {
   // State for real API data
   const [apiData, setApiData] = useState({
     usage: null as { current: number; total: number } | null,
+    subscriptionTier: null as string | null,
     loading: true
   })
 
@@ -29,7 +30,9 @@ export default function DashboardPage() {
       if (!user?.email) return
 
       const normalizeUsage = (data: any) => {
+        // Prefer total_usage_count from the lambda response (represents total emails sent)
         const current =
+          data?.total_usage_count ??
           data?.current ??
           data?.usage ??
           data?.usage_count ??
@@ -64,19 +67,32 @@ export default function DashboardPage() {
         return { current, total }
       }
 
-      const usageApiBase =
-        process.env.NEXT_PUBLIC_USAGE_API_BASE_URL ||
-        "https://2yv09wps77.execute-api.us-east-1.amazonaws.com/prod"
+      const baseCandidates = Array.from(
+        new Set(
+          [
+            process.env.NEXT_PUBLIC_USAGE_API_BASE_URL,
+            // Provided prod URL from subscription_check.html
+            "https://2yv09wps77.execute-api.us-east-1.amazonaws.com/prod",
+            // Same gateway without stage (in case routes are at root)
+            "https://2yv09wps77.execute-api.us-east-1.amazonaws.com",
+            // Prior gateway mentioned
+            "https://hw3c7h12df.execute-api.us-east-1.amazonaws.com",
+          ].filter(Boolean) as string[]
+        )
+      )
 
-      // Try both root and /zibly stage paths for compatibility
-      const endpointVariants = ["", "/zibly"]
+      // Build endpoint list across base candidates and stage prefixes
+      const stagePrefixes = ["", "/zibly", "/prod", "/prod/zibly"]
       const routes = ["usage-get", "verify"]
-      const endpoints = endpointVariants.flatMap((prefix) =>
-        routes.map((route) => `${usageApiBase}${prefix}/${route}`)
+      const endpoints = baseCandidates.flatMap((base) =>
+        stagePrefixes.flatMap((prefix) =>
+          routes.map((route) => `${base.replace(/\\/$/, "")}${prefix}/${route}`)
+        )
       )
 
       try {
         let usageData: { current: number; total: number } | null = null
+        let subscriptionTier: string | null = null
 
         for (const endpoint of endpoints) {
           try {
@@ -89,6 +105,7 @@ export default function DashboardPage() {
             if (response.ok) {
               const data = await response.json()
               usageData = normalizeUsage(data)
+              subscriptionTier = data?.subscription_tier || null
               break
             } else {
               console.warn(`Usage endpoint returned ${response.status}: ${endpoint}`)
@@ -99,10 +116,10 @@ export default function DashboardPage() {
           }
         }
 
-        setApiData({ usage: usageData, loading: false })
+        setApiData({ usage: usageData, subscriptionTier, loading: false })
       } catch (error) {
         // Gracefully handle missing user data - dashboard will show fallback values
-        setApiData({ usage: null, loading: false })
+        setApiData({ usage: null, subscriptionTier: null, loading: false })
       }
     }
 
@@ -134,7 +151,7 @@ export default function DashboardPage() {
   // Calculate usage from real API data
   const userData = useMemo(() => {
     // Determine plan limits based on subscription
-    const planName = subscriptionData?.plan || "free"
+    const planName = apiData.subscriptionTier || subscriptionData?.plan || "free"
     const planLimits: Record<string, number> = {
       free: 3,        // Free tier: 3 emails
       starter: 20,    // $59/month
@@ -181,10 +198,15 @@ export default function DashboardPage() {
     )
   }
 
-  const planName = subscriptionData?.plan || "free"
-  const planPrice = planName === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) :
-                   planName === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) :
-                   planName === "starter" ? formatPrice(PRICING_CONFIG.starter.monthly) :
+  const planNameRaw = apiData.subscriptionTier || subscriptionData?.plan || "free"
+  const normalizedPlan =
+    planNameRaw === "monthly" ? "starter" :
+    planNameRaw === "pro" ? "professional" :
+    planNameRaw
+
+  const planPrice = normalizedPlan === "professional" ? formatPrice(PRICING_CONFIG.professional.monthly) :
+                   normalizedPlan === "enterprise" ? formatPrice(PRICING_CONFIG.enterprise.monthly) :
+                   normalizedPlan === "starter" ? formatPrice(PRICING_CONFIG.starter.monthly) :
                    "Free"
 
   return (
