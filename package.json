@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.828.0",
+    "bcrypt": "^5.1.1",
     "@aws-sdk/client-secrets-manager": "^3.943.0",
     "@aws-sdk/credential-providers": "^3.828.0",
     "@aws-sdk/s3-request-presigner": "^3.828.0",
@@ -71,6 +72,7 @@
     "zod": "latest"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

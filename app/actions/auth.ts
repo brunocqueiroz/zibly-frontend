@@ -2,18 +2,9 @@
 
 import { z } from "zod"
 import { redirect } from "next/navigation"
-import { getApiClient, ApiError } from "@/lib/api-client"
+import { upsertSubscriber } from "@/app/actions/subscriber"
 import { addUser } from "@/lib/auth"
 import config from "@/lib/config"
-
-// Simple hash function for demo purposes (not for production)
-async function simpleHash(password: string): Promise<string> {
-  const encoder = new TextEncoder()
-  const data = encoder.encode(password)
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("")
-}
 
 const userSchema = z.object({
   first_name: z.string().min(1, "First name is required"),
@@ -60,32 +51,32 @@ export async function registerUser(formData: FormData) {
         },
       })
     } else {
-      // Use FastAPI backend
-      const apiClient = getApiClient()
-      const user = await apiClient.createUser({
+      // Use subscriber API Gateway /upsert route
+      // Password is hashed with bcrypt in upsertSubscriber before sending
+      const result = await upsertSubscriber({
         email,
-        first_name,
-        last_name,
+        firstName: first_name,
+        lastName: last_name,
         password,
-        auth_provider: "nextauth",
-        metadata: {
-          registrationSource: "web",
-          defaultPlan: plan,
-        },
+        tier: plan,
       })
-    }
-  } catch (error: any) {
-    if (error instanceof ApiError) {
-      if (error.status === 409) {
+
+      if (!result.success) {
+        // Check for duplicate email error
+        const errorLower = result.error?.toLowerCase()
+        if (errorLower?.includes("already exists") || 
+            errorLower?.includes("duplicate") ||
+            errorLower?.includes("conflict")) {
+          return {
+            error: "An account with this email already exists.",
+          }
+        }
         return {
-          error: "An account with this email already exists.",
+          error: result.error || "Failed to create account.",
         }
       }
-      return {
-        error: error.message || "Failed to create account.",
-      }
     }
-    
+  } catch (error: any) {
     if (error.message === "User already exists") {
       return {
         error: "An account with this email already exists.",
@@ -106,33 +97,30 @@ export async function createDemoUser() {
     return { error: "Demo user creation only available in development" }
   }
 
-  const demoUserData = {
-    first_name: "Demo",
-    last_name: "User", 
-    email: "demo@zibly.ai",
-    password: "password123",
-  }
-
   try {
-    const apiClient = getApiClient()
-    
-    // Try to create the demo user
-    await apiClient.createUser({
-      ...demoUserData,
-      auth_provider: "nextauth",
-      metadata: {
-        registrationSource: "demo",
-        isDemoAccount: true,
-      },
+    // Use subscriber API Gateway /upsert route
+    const result = await upsertSubscriber({
+      email: "demo@zibly.ai",
+      firstName: "Demo",
+      lastName: "User",
+      password: "password123",
+      tier: "free",
     })
+
+    if (!result.success) {
+      // User already exists is fine for demo purposes
+      const errorLower = result.error?.toLowerCase()
+      if (errorLower?.includes("already exists") ||
+          errorLower?.includes("duplicate") ||
+          errorLower?.includes("conflict")) {
+        return { success: true, message: "Demo user already exists" }
+      }
+      console.error("Failed to create demo user:", result.error)
+      return { error: "Failed to create demo user" }
+    }
     
     return { success: true, message: "Demo user created successfully" }
   } catch (error: any) {
-    if (error instanceof ApiError && error.status === 409) {
-      // User already exists, that's fine for demo purposes
-      return { success: true, message: "Demo user already exists" }
-    }
-    
     console.error("Failed to create demo user:", error)
     return { error: "Failed to create demo user" }
   }
