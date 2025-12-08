@@ -10,10 +10,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { registerUser } from "@/app/actions/auth"
-import { PRICING_PLANS, formatPrice, MAX_SEATS } from "@/lib/pricing-config"
+import { MAX_SEATS } from "@/lib/pricing-config"
 import { GoogleSignInButton } from "@/components/google-signin-button"
 import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
@@ -33,7 +32,6 @@ export default function SignupPage() {
   const initialBilling = searchParams.get("billing") || "monthly"
   const initialReferral = searchParams.get("ref") || ""
 
-  const [selectedPlan, setSelectedPlan] = useState(initialPlan)
   const [isLoading, setIsLoading] = useState(false)
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -46,8 +44,8 @@ export default function SignupPage() {
     setFormErrors({})
 
     const formData = new FormData(e.currentTarget)
-    // Add selected plan to form data
-    formData.append("plan", selectedPlan)
+    // Use plan from URL if coming from pricing page, otherwise default to free
+    formData.append("plan", initialPlan || "free")
 
     try {
       const result = await registerUser(formData)
@@ -86,18 +84,18 @@ export default function SignupPage() {
     }
   }
 
-  // After login, redirect to Stripe checkout if paid plan was selected, otherwise dashboard
+  // After login, redirect to Stripe checkout if paid plan was passed via URL, otherwise dashboard
   useEffect(() => {
     const redirectAfterAuth = async () => {
       if (!authLoading && user) {
-        // If a paid plan was selected, go to Stripe checkout
-        if (selectedPlan && selectedPlan !== "free" && selectedPlan !== "enterprise") {
+        // If a paid plan was passed from pricing page, go to Stripe checkout
+        if (initialPlan && initialPlan !== "free" && initialPlan !== "enterprise") {
           try {
             const response = await fetch(`${STRIPE_API_URL}/stripe/checkout`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                planId: selectedPlan,
+                planId: initialPlan,
                 billingCycle: initialBilling,
                 seats: Math.min(MAX_SEATS, Math.max(1, initialSeats)),
                 couponCode: initialCoupon || undefined,
@@ -125,7 +123,7 @@ export default function SignupPage() {
     }
 
     redirectAfterAuth()
-  }, [user, authLoading, router, selectedPlan, initialSeats, initialCoupon, initialBilling, initialReferral])
+  }, [user, authLoading, router, initialPlan, initialSeats, initialCoupon, initialBilling, initialReferral])
 
   return (
     <div className="min-h-screen w-full bg-gray-50">
@@ -146,7 +144,7 @@ export default function SignupPage() {
           <form onSubmit={handleSubmit}>
             <CardHeader>
               <CardTitle className="inter-heading-normal text-black">Sign Up</CardTitle>
-              <CardDescription className="inter-text text-black">Choose your plan and get started</CardDescription>
+              <CardDescription className="inter-text text-black">Enter your details to get started</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <GoogleSignInButton
@@ -189,27 +187,6 @@ export default function SignupPage() {
                 <Label htmlFor="password" className="inter-text-medium text-black">Password</Label>
                 <Input id="password" name="password" type="password" required />
                 {formErrors.password && <p className="text-xs text-red-500">{formErrors.password[0]}</p>}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="plan" className="inter-text-medium text-black">Select Plan</Label>
-                <Select name="plan" value={selectedPlan} onValueChange={setSelectedPlan}>
-                  <SelectTrigger className="border-2 border-black">
-                    <SelectValue placeholder="Select a plan" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {PRICING_PLANS.map((plan) => (
-                      <SelectItem key={plan.id} value={plan.id}>
-                        <div className="flex items-center justify-between w-full">
-                          <span className="font-medium">{plan.name}</span>
-                          <span className="text-sm text-muted-foreground ml-2">
-                            {plan.priceMonthly !== null ? formatPrice(plan.priceMonthly) : 'Contact Sales'}
-                          </span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {formErrors.plan && <p className="text-xs text-red-500">{formErrors.plan[0]}</p>}
               </div>
             </CardContent>
             <CardFooter>
