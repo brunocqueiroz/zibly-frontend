@@ -86,18 +86,18 @@ export default function SignupPage() {
     }
   }
 
-  // After login, redirect to Stripe checkout if plan was selected, otherwise dashboard
+  // After login, redirect to Stripe checkout if paid plan was selected, otherwise dashboard
   useEffect(() => {
     const redirectAfterAuth = async () => {
       if (!authLoading && user) {
-        // If a paid plan was selected from pricing page, go to Stripe checkout
-        if (initialPlan && initialPlan !== "free" && initialPlan !== "enterprise") {
+        // If a paid plan was selected, go to Stripe checkout
+        if (selectedPlan && selectedPlan !== "free" && selectedPlan !== "enterprise") {
           try {
             const response = await fetch(`${STRIPE_API_URL}/stripe/checkout`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                planId: initialPlan,
+                planId: selectedPlan,
                 billingCycle: initialBilling,
                 seats: Math.min(MAX_SEATS, Math.max(1, initialSeats)),
                 couponCode: initialCoupon || undefined,
@@ -125,7 +125,7 @@ export default function SignupPage() {
     }
 
     redirectAfterAuth()
-  }, [user, authLoading, router, initialPlan, initialSeats, initialCoupon, initialBilling, initialReferral])
+  }, [user, authLoading, router, selectedPlan, initialSeats, initialCoupon, initialBilling, initialReferral])
 
   return (
     <div className="min-h-screen w-full bg-gray-50">
@@ -202,7 +202,7 @@ export default function SignupPage() {
                         <div className="flex items-center justify-between w-full">
                           <span className="font-medium">{plan.name}</span>
                           <span className="text-sm text-muted-foreground ml-2">
-                            {plan.priceMonthly ? formatPrice(plan.priceMonthly) : 'Contact Sales'}
+                            {plan.priceMonthly !== null ? formatPrice(plan.priceMonthly) : 'Contact Sales'}
                           </span>
                         </div>
                       </SelectItem>

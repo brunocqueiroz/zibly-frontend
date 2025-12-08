@@ -178,7 +178,7 @@ export const PRICING_PLANS: PricingPlan[] = [
 // Helper functions
 export function formatPrice(price: number | null): string {
   if (price === null) return 'Contact Sales';
-  return `${PRICING_CONFIG.currencySymbol}${price}`;
+  return `${PRICING_CONFIG.currencySymbol}${price.toFixed(2)}`;
 }
 
 export function getAnnualDiscount(monthly: number, annual: number): number {
