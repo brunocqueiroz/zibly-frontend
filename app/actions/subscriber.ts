@@ -60,10 +60,11 @@ export async function authenticateSubscriber(
 
     if (!response.ok || !result.ok) {
       // Handle specific error cases
-      if (response.status === 401 || result.error?.toLowerCase().includes("invalid")) {
+      const errorLower = result.error?.toLowerCase()
+      if (response.status === 401 || errorLower?.includes("invalid")) {
         return { success: false, error: "Invalid email or password" }
       }
-      if (response.status === 404 || result.error?.toLowerCase().includes("not found")) {
+      if (response.status === 404 || errorLower?.includes("not found")) {
         return { success: false, error: "Invalid email or password" }
       }
       return {
