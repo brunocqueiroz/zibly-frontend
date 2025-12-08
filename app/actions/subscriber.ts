@@ -1,6 +1,6 @@
 "use server"
 
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 
 const SUBSCRIBER_API_URL = process.env.SUBSCRIBER_API_URL || "https://2yv09wps77.execute-api.us-east-1.amazonaws.com/prod"
 const BCRYPT_ROUNDS = 12
@@ -10,6 +10,88 @@ const BCRYPT_ROUNDS = 12
  */
 async function hashPassword(plainPassword: string): Promise<string> {
   return bcrypt.hash(plainPassword, BCRYPT_ROUNDS)
+}
+
+// ============================================================================
+// Authentication
+// ============================================================================
+
+export interface SubscriberUser {
+  id: number
+  email: string
+  first_name: string
+  last_name: string
+  subscription_tier?: string
+  professional_level?: number | null
+  is_active?: boolean
+  preferences?: Record<string, any>
+}
+
+interface AuthenticateResult {
+  success: boolean
+  error?: string
+  user?: SubscriberUser
+}
+
+/**
+ * Authenticate a subscriber with email and password
+ * Calls the Subscriber API's authenticate route which verifies bcrypt password
+ */
+export async function authenticateSubscriber(
+  email: string,
+  password: string
+): Promise<AuthenticateResult> {
+  if (!email || !password) {
+    return { success: false, error: "Email and password are required" }
+  }
+
+  try {
+    const response = await fetch(SUBSCRIBER_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        route: "authenticate",
+        email,
+        pwd: password, // Send plain password - Lambda will bcrypt.compare()
+      }),
+    })
+
+    const result = await response.json()
+
+    if (!response.ok || !result.ok) {
+      // Handle specific error cases
+      if (response.status === 401 || result.error?.toLowerCase().includes("invalid")) {
+        return { success: false, error: "Invalid email or password" }
+      }
+      if (response.status === 404 || result.error?.toLowerCase().includes("not found")) {
+        return { success: false, error: "Invalid email or password" }
+      }
+      return {
+        success: false,
+        error: result.error || "Authentication failed",
+      }
+    }
+
+    return {
+      success: true,
+      user: {
+        id: result.id,
+        email: result.email,
+        first_name: result.first_name,
+        last_name: result.last_name,
+        subscription_tier: result.subscription_tier,
+        professional_level: result.professional_level,
+        is_active: result.is_active ?? true,
+        preferences: result.preferences,
+      },
+    }
+  } catch (error) {
+    console.error("Error authenticating subscriber:", error)
+    return {
+      success: false,
+      error: "An unexpected error occurred during authentication",
+    }
+  }
 }
 
 interface SetPasswordParams {
