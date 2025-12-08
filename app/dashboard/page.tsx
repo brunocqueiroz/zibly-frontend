@@ -164,20 +164,20 @@ export default function DashboardPage() {
     // Determine plan limits based on subscription
     const planName = normalizePlan(apiData.subscriptionTier || subscriptionData?.plan || "free")
     const planLimits: Record<string, number> = {
-      free: 3,        // Free tier: 3 emails
-      starter: 20,    // $59/month
-      professional: 80, // $199/month
+      free: 3,
+      starter: 15,
+      professional: 100,
       enterprise: 999,
     }
-    const fallbackTotal = planLimits[planName] || 3
-
+    const planLimit = planLimits[planName] ?? planLimits.free
     const currentUsage = apiData.usage?.current ?? 0
-    const total = apiData.usage?.total ?? fallbackTotal ?? 1
+    const total = planLimit || 1
+    const cappedUsage = Math.min(currentUsage, total)
 
     return {
       usage: {
-        current: currentUsage,
-        total
+        current: cappedUsage,
+        total,
       },
     }
   }, [apiData, subscriptionData])
