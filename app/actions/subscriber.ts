@@ -2,7 +2,7 @@
 
 import bcrypt from "bcryptjs"
 
-const SUBSCRIBER_API_URL = process.env.SUBSCRIBER_API_URL || "https://2yv09wps77.execute-api.us-east-1.amazonaws.com/prod"
+const SUBSCRIBER_API_BASE = process.env.SUBSCRIBER_API_URL || "https://2yv09wps77.execute-api.us-east-1.amazonaws.com"
 const BCRYPT_ROUNDS = 12
 
 /**
@@ -46,7 +46,7 @@ export async function authenticateSubscriber(
   }
 
   try {
-    const response = await fetch(SUBSCRIBER_API_URL, {
+    const response = await fetch(`${SUBSCRIBER_API_BASE}/prod/authenticate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -146,7 +146,7 @@ export async function setUserPassword(params: SetPasswordParams): Promise<SetPas
       payload.last_name = lastName
     }
 
-    const response = await fetch(SUBSCRIBER_API_URL, {
+    const response = await fetch(`${SUBSCRIBER_API_BASE}/prod/upsert`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -244,7 +244,7 @@ export async function upsertSubscriber(params: UpsertSubscriberParams): Promise<
       payload.pwd = await hashPassword(password)
     }
 
-    const response = await fetch(SUBSCRIBER_API_URL, {
+    const response = await fetch(`${SUBSCRIBER_API_BASE}/prod/upsert`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
