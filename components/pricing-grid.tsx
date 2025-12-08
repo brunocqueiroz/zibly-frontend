@@ -112,6 +112,16 @@ export default function PricingGrid({
       return
     }
 
+    // Free plan: redirect to signup (if not logged in) or dashboard (if logged in)
+    if (planId === "free") {
+      if (!user) {
+        router.push("/signup?plan=free")
+      } else {
+        router.push("/dashboard")
+      }
+      return
+    }
+
     // If user is not logged in, redirect to signup with plan info
     if (!user) {
       const params = new URLSearchParams({

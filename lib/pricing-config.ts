@@ -23,9 +23,13 @@ export interface PricingPlan {
 
 export const PRICING_CONFIG = {
   // Core pricing values - change these to update prices site-wide
+  free: {
+    monthly: 0,
+    annual: 0,
+  },
   starter: {
     monthly: 59,
-    annual: 200, // ~17% discount
+    annual: 590, // ~17% discount
   },
   professional: {
     monthly: 199,
@@ -94,6 +98,21 @@ export function formatCurrency(amount: number): string {
 
 // Full plan details for pricing pages
 export const PRICING_PLANS: PricingPlan[] = [
+  {
+    id: 'free',
+    name: 'Free',
+    description: 'Get started and explore the platform at no cost',
+    priceMonthly: PRICING_CONFIG.free.monthly,
+    priceAnnual: PRICING_CONFIG.free.annual,
+    features: [
+      'Limited usage',
+      'Basic features',
+      'Community support',
+    ],
+    tasksPerMonth: 'Limited usage',
+    processingSpeed: 'Standard processing',
+    support: 'Community support',
+  },
   {
     id: 'starter',
     name: 'Starter',
