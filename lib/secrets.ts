@@ -7,7 +7,15 @@ const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 // Initialize Secrets Manager client
 const client = new SecretsManagerClient({
   region: process.env.AWS_REGION || "us-east-1",
-  // Credentials are automatically loaded from:
+  // Prefer Vercel-specific AWS env vars when provided, fall back to standard names
+  credentials:
+    process.env.AWS_VERCEL_ACCESS_KEY && process.env.AWS_VERCEL_SECRET_KEY
+      ? {
+          accessKeyId: process.env.AWS_VERCEL_ACCESS_KEY,
+          secretAccessKey: process.env.AWS_VERCEL_SECRET_KEY,
+        }
+      : undefined,
+  // Otherwise credentials are automatically loaded from:
   // - Environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
   // - IAM role (if running on AWS Lambda/ECS)
   // - AWS credentials file
