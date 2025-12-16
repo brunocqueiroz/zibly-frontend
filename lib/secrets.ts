@@ -99,15 +99,14 @@ export async function getStripeSecrets(): Promise<StripeSecrets | null> {
  * Get Stripe secret key (server-side only)
  */
 export async function getStripeSecretKey(): Promise<string> {
-  // First try environment variable (for local dev)
-  if (process.env.STRIPE_SECRET_KEY) {
-    return process.env.STRIPE_SECRET_KEY;
-  }
-
-  // Then try Secrets Manager
   const secrets = await getStripeSecrets();
   if (secrets?.STRIPE_SECRET_KEY) {
     return secrets.STRIPE_SECRET_KEY;
+  }
+
+  // Fallback to environment variable (useful for local dev)
+  if (process.env.STRIPE_SECRET_KEY) {
+    return process.env.STRIPE_SECRET_KEY;
   }
 
   throw new Error("STRIPE_SECRET_KEY not configured");
@@ -117,15 +116,14 @@ export async function getStripeSecretKey(): Promise<string> {
  * Get Stripe webhook secret (server-side only)
  */
 export async function getStripeWebhookSecret(): Promise<string> {
-  // First try environment variable
-  if (process.env.STRIPE_WEBHOOK_SECRET) {
-    return process.env.STRIPE_WEBHOOK_SECRET;
-  }
-
-  // Then try Secrets Manager
   const secrets = await getStripeSecrets();
   if (secrets?.STRIPE_WEBHOOK_SECRET) {
     return secrets.STRIPE_WEBHOOK_SECRET;
+  }
+
+  // Fallback to environment variable
+  if (process.env.STRIPE_WEBHOOK_SECRET) {
+    return process.env.STRIPE_WEBHOOK_SECRET;
   }
 
   throw new Error("STRIPE_WEBHOOK_SECRET not configured");
@@ -136,15 +134,14 @@ export async function getStripeWebhookSecret(): Promise<string> {
  * This key is designed to be public, but we can still load it from secrets manager
  */
 export async function getStripePublishableKey(): Promise<string> {
-  // First try environment variable
-  if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-    return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-  }
-
-  // Then try Secrets Manager
   const secrets = await getStripeSecrets();
   if (secrets?.STRIPE_PUBLISHABLE_KEY) {
     return secrets.STRIPE_PUBLISHABLE_KEY;
+  }
+
+  // Fallback to environment variable
+  if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   }
 
   throw new Error("STRIPE_PUBLISHABLE_KEY not configured");
@@ -159,19 +156,18 @@ export async function getStripePriceId(
 ): Promise<string | null> {
   const key = `STRIPE_PRICE_${planId.toUpperCase()}_${billingCycle.toUpperCase()}`;
 
-  // First try environment variable
-  const envKey = `NEXT_PUBLIC_${key}`;
-  if (process.env[envKey]) {
-    return process.env[envKey] as string;
-  }
-
-  // Then try Secrets Manager
   const secrets = await getStripeSecrets();
   if (secrets) {
     const priceId = secrets[key as keyof StripeSecrets];
     if (priceId) {
       return priceId;
     }
+  }
+
+  // Fallback to environment variable (local dev)
+  const envKey = `NEXT_PUBLIC_${key}`;
+  if (process.env[envKey]) {
+    return process.env[envKey] as string;
   }
 
   return null;

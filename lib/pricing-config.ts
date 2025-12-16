@@ -44,16 +44,16 @@ export const PRICING_CONFIG = {
   freeTasksCount: 1,
 };
 
-// Stripe Price IDs - these should match your Stripe Dashboard products
-// Set these via environment variables in production
+// Stripe Price IDs - resolved from AWS Secrets Manager at runtime
+// These placeholders are only used for static display/config context
 export const STRIPE_PRICE_IDS = {
   starter: {
-    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_STARTER_MONTHLY || 'price_starter_monthly',
-    annual: process.env.NEXT_PUBLIC_STRIPE_PRICE_STARTER_ANNUAL || 'price_starter_annual',
+    monthly: 'configured-in-aws-secrets',
+    annual: 'configured-in-aws-secrets',
   },
   professional: {
-    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_PROFESSIONAL_MONTHLY || 'price_professional_monthly',
-    annual: process.env.NEXT_PUBLIC_STRIPE_PRICE_PROFESSIONAL_ANNUAL || 'price_professional_annual',
+    monthly: 'configured-in-aws-secrets',
+    annual: 'configured-in-aws-secrets',
   },
 };
 

@@ -2,18 +2,45 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 
 // Client-side Stripe instance (singleton)
 let stripePromise: Promise<Stripe | null> | null = null;
+let publishableKeyPromise: Promise<string | null> | null = null;
+
+async function fetchPublishableKey(): Promise<string | null> {
+  if (!publishableKeyPromise) {
+    publishableKeyPromise = (async () => {
+      try {
+        const response = await fetch('/api/stripe/config');
+        if (!response.ok) {
+          console.error('Failed to fetch Stripe publishable key from secrets');
+          return null;
+        }
+        const data = (await response.json()) as { publishableKey?: string };
+        if (!data.publishableKey) {
+          console.error('Stripe publishable key missing in config response');
+          return null;
+        }
+        return data.publishableKey;
+      } catch (error) {
+        console.error('Error loading Stripe publishable key', error);
+        return null;
+      }
+    })();
+  }
+  return publishableKeyPromise;
+}
 
 /**
  * Get the Stripe client-side instance (for Stripe Elements, etc.)
  */
-export function getStripe(): Promise<Stripe | null> {
+export async function getStripe(): Promise<Stripe | null> {
   if (!stripePromise) {
-    const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-    if (!key) {
-      console.error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable');
-      return Promise.resolve(null);
-    }
-    stripePromise = loadStripe(key);
+    stripePromise = (async () => {
+      const key = await fetchPublishableKey();
+      if (!key) {
+        console.error('Missing Stripe publishable key from AWS Secrets Manager');
+        return null;
+      }
+      return loadStripe(key);
+    })();
   }
   return stripePromise;
 }

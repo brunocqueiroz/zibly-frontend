@@ -4,7 +4,7 @@ import { getSessionFromCookies } from "@/lib/session"
 import { getUser, updateUser } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import Stripe from "stripe"
-import { getStripeSecretKey } from "@/lib/secrets"
+import { getStripePriceId, getStripeSecretKey } from "@/lib/secrets"
 
 // Lazy-initialized Stripe client
 let stripeClient: Stripe | null = null;
@@ -38,9 +38,11 @@ export async function createCheckoutSession(formData: FormData) {
   }
 
   try {
-    // Get or create Stripe price ID from environment
-    const priceKey = `STRIPE_PRICE_${planId.toUpperCase()}_${billingCycle.toUpperCase()}`
-    const priceId = process.env[priceKey]
+    // Load Stripe price ID from AWS Secrets Manager (with env fallback for local dev)
+    const priceId = await getStripePriceId(
+      planId as "starter" | "professional",
+      billingCycle as "monthly" | "annual"
+    )
 
     if (!priceId) {
       return { error: `Price not configured for ${planId} ${billingCycle}` }
