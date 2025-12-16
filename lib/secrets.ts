@@ -75,7 +75,7 @@ export async function getJsonSecret<T = Record<string, string>>(
 // ============================================
 
 // Secret name in AWS Secrets Manager
-const STRIPE_SECRET_NAME = "zibly-stripe-sandbox";
+const STRIPE_SECRET_NAME = "zibly-stripe-keys";
 
 interface StripeSecrets {
   STRIPE_SECRET_KEY: string;
